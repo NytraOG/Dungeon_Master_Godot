@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cenj6i3wtstc6"]
+[gd_scene load_steps=12 format=3 uid="uid://cenj6i3wtstc6"]
 
 [ext_resource type="Texture2D" uid="uid://bixeudv83oelh" path="res://Knight_1/Run.png" id="1_ajb5d"]
+[ext_resource type="Script" path="res://hero.cs" id="1_htnon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0dyqj"]
 atlas = ExtResource("1_ajb5d")
@@ -62,6 +63,7 @@ animations = [{
 [sub_resource type="SphereShape3D" id="SphereShape3D_4geps"]
 
 [node name="Hero" type="CharacterBody3D"]
+script = ExtResource("1_htnon")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1

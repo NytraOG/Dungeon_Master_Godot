@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://byfl7xdp4gq5l"]
+[gd_scene load_steps=19 format=3 uid="uid://byfl7xdp4gq5l"]
 
 [ext_resource type="Script" path="res://Character.cs" id="1_3y71d"]
 [ext_resource type="Texture2D" uid="uid://nncqtxfwunt7" path="res://Knight_1/Attack 2.png" id="1_y2aro"]
 [ext_resource type="Texture2D" uid="uid://bixeudv83oelh" path="res://Knight_1/Run.png" id="2_3qceg"]
+[ext_resource type="Texture2D" uid="uid://cdn4ymc3gbdqk" path="res://Knight_1/Idle.png" id="4_7meo1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4qnr"]
 atlas = ExtResource("1_y2aro")
@@ -48,6 +49,10 @@ region = Rect2(355, 0, 71, 86)
 atlas = ExtResource("2_3qceg")
 region = Rect2(426, 0, 71, 86)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_888wc"]
+atlas = ExtResource("4_7meo1")
+region = Rect2(0, 0, 72, 86)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_vcq7y"]
 animations = [{
 "frames": [{
@@ -92,6 +97,14 @@ animations = [{
 "loop": true,
 "name": &"charge",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_888wc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8yba7"]
@@ -104,7 +117,7 @@ script = ExtResource("1_3y71d")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_vcq7y")
-animation = &"attack"
+animation = &"idle"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11333, 0)

@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://cenj6i3wtstc6"]
+
+[ext_resource type="Texture2D" uid="uid://bixeudv83oelh" path="res://Knight_1/Run.png" id="1_ajb5d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dyqj"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(0, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e80pd"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(71, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmqf8"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(142, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ukwc"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(213, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2h2h"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(284, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5k61"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(355, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au53y"]
+atlas = ExtResource("1_ajb5d")
+region = Rect2(426, 0, 71, 86)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n7iro"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dyqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e80pd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmqf8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ukwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2h2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5k61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_au53y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4geps"]
+
+[node name="Hero" type="CharacterBody3D"]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_n7iro")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_4geps")

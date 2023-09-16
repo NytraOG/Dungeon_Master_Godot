@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://flx67mfpg6es"]
+
+[ext_resource type="Script" path="res://Models/Skills/BaseTargetingSkill.cs" id="1_s76eh"]
+
+[node name="BaseTargetingSkill" type="Node3D"]
+script = ExtResource("1_s76eh")

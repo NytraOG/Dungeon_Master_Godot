@@ -1,6 +1,9 @@
 using System;
+using System.Linq;
 using System.Text;
 using DungeonMaster.Enums;
+using DungeonMaster.Models.Heroes;
+using DungeonMaster.Models.Heroes.Classes;
 using Godot;
 using Attribute = DungeonMaster.Enums.Attribute;
 using Environment = System.Environment;
@@ -9,13 +12,13 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseSkill : Node3D
 {
-    public          int           AcquisitionLevelHeroBasic      = 1;
-    public          int           AcquisitionLevelHeroDemanding  = 1;
-    public          int           AcquisitionLevelOutOfHeroClass = 1;
-    [Export] public SkillCategory Category;
-    [Export] public string        DescriptionBase;
-    // public List<HeroClass>  DifficultyBasicClasses;
-    // public List<HeroClass>  DifficultyDemandingClasses;
+    public          int              AcquisitionLevelHeroBasic      = 1;
+    public          int              AcquisitionLevelHeroDemanding  = 1;
+    public          int              AcquisitionLevelOutOfHeroClass = 1;
+    [Export] public SkillCategory    Category;
+    [Export] public string           DescriptionBase;
+    [Export] public BaseHeroclass[]  DifficultyBasicClasses;
+    [Export] public BaseHeroclass[]  DifficultyDemandingClasses;
     [Export] public string           DisplayName;
     [Export] public int              Level = 1;
     [Export] public int              ManacostFlat;
@@ -98,28 +101,28 @@ public abstract partial class BaseSkill : Node3D
         return (int)finalHitroll;
     }
 
-    // public int GetAcquisitionLevel(Hero hero)
-    // {
-    //     var difficulty = GetDifficultyByHero(hero);
-    //
-    //     return difficulty switch
-    //     {
-    //         SkillDifficulty.Basic => AcquisitionLevelHeroBasic,
-    //         SkillDifficulty.Demanding => AcquisitionLevelHeroDemanding,
-    //         SkillDifficulty.OutOfClass => AcquisitionLevelOutOfHeroClass,
-    //         _ => throw new ArgumentOutOfRangeException()
-    //     };
-    // }
-    //
-    // public SkillDifficulty GetDifficultyByHero(Hero hero)
-    // {
-    //     var heroclass = hero.heroClass;
-    //
-    //     if (DifficultyBasicClasses.Any(db => db.name == heroclass.name))
-    //         return SkillDifficulty.Basic;
-    //
-    //     return DifficultyDemandingClasses.Any(dd => dd.name == heroclass.name) ? SkillDifficulty.Demanding : SkillDifficulty.OutOfClass;
-    // }
+    public int GetAcquisitionLevel(Hero hero)
+    {
+        var difficulty = GetDifficultyByHero(hero);
+
+        return difficulty switch
+        {
+            SkillDifficulty.Basic => AcquisitionLevelHeroBasic,
+            SkillDifficulty.Demanding => AcquisitionLevelHeroDemanding,
+            SkillDifficulty.OutOfClass => AcquisitionLevelOutOfHeroClass,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+    public SkillDifficulty GetDifficultyByHero(Hero hero)
+    {
+        var heroclass = hero.Class;
+
+        if (DifficultyBasicClasses.Any(db => db.Name == heroclass.Name))
+            return SkillDifficulty.Basic;
+
+        return DifficultyDemandingClasses.Any(dd => dd.Name == heroclass.Name) ? SkillDifficulty.Demanding : SkillDifficulty.OutOfClass;
+    }
 
     protected float GetAttackmodifier(BaseSkill skill, BaseUnit actor) => skill.Category switch
     {
@@ -134,7 +137,7 @@ public abstract partial class BaseSkill : Node3D
     };
 
     public abstract string Activate(BaseUnit actor);
-    //
-    // public virtual string GetTooltip(BaseHero hero, string damage = "0-0") => $"<b>{DisplayName.ToUpper()}</b>{System.Environment.NewLine}" +
-    //                                                                           $"<i>{Category}, {Subcategory}, {Type}</i>{System.Environment.NewLine}{System.Environment.NewLine}";
+
+    public virtual string GetTooltip(Hero hero, string damage = "0-0") => $"<b>{DisplayName.ToUpper()}</b>{Environment.NewLine}" +
+                                                                          $"<i>{Category}, {Subcategory}, {Type}</i>{Environment.NewLine}{Environment.NewLine}";
 }

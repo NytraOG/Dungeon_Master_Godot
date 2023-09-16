@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://Models/Skills/BaseSkill.cs" id="1_wv8lu"]
 
-[node name="BaseSkill" type="Node3D"]
+[node name="BaseSkill" type="Node3D" node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_wv8lu")
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []

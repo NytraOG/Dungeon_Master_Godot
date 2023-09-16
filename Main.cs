@@ -28,7 +28,7 @@ public partial class Main : Node
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
     private bool combatActive;
-    //public  List<Creature>       enemies = new();
+    //public  List<Creature>       Enemies = new();
     private List<Hero>           heroes = new();
     public  Hero                 SelectedHero;
     public  BaseSkill            SelectedSkill;
@@ -36,11 +36,46 @@ public partial class Main : Node
     public  List<SkillSelection> SkillSelection       = new();
     public  List<BaseSkill>      SkillsOfSelectedHero = new();
 
+    public bool PlayerIsTargeting => SelectedHero is not null &&
+                                     SelectedSkill is BaseDamageSkill { TargetableFaction: Factions.Foe }
+                                             or BaseTargetingSkill { TargetableFaction: Factions.All or Factions.Friend };
 
-    public override void _Ready() { }
+    //public override void _Ready() => ConfigureAbilityButtons();
 
-    public override void _Process(double delta) { }
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed(Keys.Backspace))
+        {
+            //SelectedTargets.ForEach(t => t.GetComponent<SpriteRenderer>().material = defaultMaterial);
+            SelectedTargets.Clear();
+        }
 
+        MachEnemiesCombatReady();
+        // SetupCombatants();
+        // AbilityspritesAuffrischen();
+    }
+
+    private void MachEnemiesCombatReady()
+    {
+        if (combatActive)
+            return;
+
+        // var notCombatReadyEnemies = Enemies.Where(e => !e.IsDead &&
+        //                                                e.SelectedSkill is null);
+        //
+        // foreach (var enemy in notCombatReadyEnemies)
+        // {
+        //     enemy.PickSkill();
+        //     enemy.InitiativeBestimmen();
+        //
+        //     AbilitySelection.Add(new AbilitySelection
+        //     {
+        //         Skill   = enemy.SelectedSkill,
+        //         Actor   = enemy,
+        //         Targets = FindTargets(enemy)
+        //     });
+        // }
+    }
     private void _on_start_round_pressed() { }
 
     private void _on_undo_pressed() { }

@@ -153,6 +153,8 @@ public abstract partial class BaseUnit : CharacterBody3D
     [Export]
     public float FlatDamageModifier { get; set; }
 
+    public BaseSkill SelectedSkill { get; set; }
+
     public int Get(Attribute attribute) => attribute switch
     {
         Attribute.Strength => Strength,

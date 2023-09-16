@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsrt48loh3b7i"]
+
+[ext_resource type="Script" path="res://Models/Enemies/BaseMonstertype.cs" id="1_yrjph"]
+
+[node name="BaseMonstertype" type="Node3D"]
+script = ExtResource("1_yrjph")

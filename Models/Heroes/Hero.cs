@@ -50,7 +50,7 @@ public partial class Hero : BaseUnit
 
     public override (int, int) GetApproximateDamage(BaseSkill ability) => ability switch
     {
-        //BaseDamageSkill skill => skill.GetDamage(this, HitResult.None),
+        BaseDamageSkill skill => skill.GetDamage(this, HitResult.None),
         _ => (0, 0)
     };
 

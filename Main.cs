@@ -19,13 +19,13 @@ public partial class Main : Node
     public delegate void DebuffTickEventHandler(BaseUnit actor, int damage, int remainingDuration, Color combatlogEffectColor); //Debuff   Debuff
 
     [Signal]
-    public delegate void HitEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, HitResult hitResult, BaseUnit target, string skillresult);
+    public delegate void HitEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
     [Signal]
     public delegate void MiscEventHandler(string arg);
 
     [Signal]
-    public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, HitResult hitResult, BaseUnit target, string skillresult);
+    public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
     private bool combatActive;
     //public  List<Creature>       enemies = new();

@@ -12,10 +12,10 @@ namespace DungeonMaster.Models;
 
 public abstract partial class BaseUnit : CharacterBody3D
 {
-    // public Dictionary<SupportSkill, bool> ActiveSkills = new();
-    public List<Buff>      Buffs   = new();
-    public List<Debuff>    Debuffs = new();
-    public List<BaseSkill> Skills  = new();
+    public Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
+    public List<Buff>                         Buffs        = new();
+    public List<Debuff>                       Debuffs      = new();
+    public List<BaseSkill>                    Skills       = new();
 
     //Stats
     [Export]
@@ -149,6 +149,9 @@ public abstract partial class BaseUnit : CharacterBody3D
 
     [Export]
     public int AktionenAktuell { get; set; }
+
+    [Export]
+    public float FlatDamageModifier { get; set; }
 
     public int Get(Attribute attribute) => attribute switch
     {

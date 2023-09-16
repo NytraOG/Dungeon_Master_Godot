@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Heroes;
+using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
 using Godot;
 using Attribute = DungeonMaster.Enums.Attribute;
 using Environment = System.Environment;
@@ -9,8 +11,8 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseDamageSkill : BaseTargetingSkill
 {
-    //[Export] public List<Debuff> appliedDebuffs = new();
-    [ExportGroup("Hitroll")]    [Export]             public Attribute PrimaryAttributeH;
+    [Export]                                         public Debuff[]  AppliedDebuffs;
+    [ExportGroup("Hitroll")] [Export]                public Attribute PrimaryAttributeH;
     [Export]                                         public float     PrimaryScalingH = 2f;
     [Export]                                         public Attribute SecondaryAttributeH;
     [Export]                                         public float     SecondaryScalingH  = 1f;
@@ -46,7 +48,7 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
         var secondaryValue = SecondaryScalingD * actor.Get(SecondaryAttributeD);
         var levelValue     = Level * SkillLevelScalingD;
 
-        var maxhit = (primaryValue + secondaryValue + levelValue + AddedFlatDamage) * MultiplierD;
+        var maxhit = (primaryValue + secondaryValue + levelValue + AddedFlatDamage) * MultiplierD + actor.FlatDamageModifier;
 
         maxhit += hitresult switch
         {
@@ -64,27 +66,30 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
 
     protected void ApplyDebuffs(BaseUnit actor, BaseUnit target)
     {
-        // if (!AppliedDebuffs.Any())
-        //     return;
-        //
-        // foreach (var debuff in AppliedDebuffs)
-        // {
-        //     if (target.debuffs.Any(d => d.displayname == debuff.displayname) && !debuff.isStackable)
-        //         continue;
-        //
-        //     AddDebuff(actor, target, debuff);
-        // }
+        if (!AppliedDebuffs.Any())
+            return;
+
+        foreach (var debuff in AppliedDebuffs)
+        {
+            if (target.Debuffs.Any(d => d.Displayname == debuff.Displayname) && !debuff.IsStackable)
+                continue;
+
+            AddDebuff(actor, target, debuff);
+        }
     }
 
-    private void AddDebuff(BaseUnit actor, BaseUnit target) //, Debuff debuff
+    private void AddDebuff(BaseUnit actor, BaseUnit target, Debuff debuff)
     {
-        // var newInstance = debuff.ToNewInstance();
-        //
-        // newInstance.appliedBy   = this;
-        // newInstance.appliedFrom = actor;
-        // target.debuffs.Add(newInstance);
-        // newInstance.ApplyDamageModifier(target);
-        // newInstance.ApplyRatingModifier(target);
+        //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
+        var newInstance = new Debuff
+        {
+            AppliedBy   = this,
+            AppliedFrom = actor
+        };
+
+        target.Debuffs.Add(newInstance);
+        newInstance.ApplyDamageModifier(target);
+        newInstance.ApplyRatingModifier(target);
     }
 
     private string GetDamageText(string damage) => damage == "0-0" ? string.Empty : $"Damage:\t<b>{damage}</b>{Environment.NewLine}";

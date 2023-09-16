@@ -19,7 +19,6 @@ public class Debuff : Buff
     {
         Reverse();
         applicant.Debuffs.Remove(this);
-        //Destroy(this);
     }
 
     private void DealDamage(BaseUnit unit) => unit.CurrentHitpoints -= DamagePerTick;

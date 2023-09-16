@@ -26,6 +26,5 @@ public partial class Buff : BaseUnitModificator
 
     public virtual void Die(BaseUnit applicant) => applicant.Buffs.Remove(this);
 
-    //Destroy(this);
     public virtual void Reverse() { }
 }

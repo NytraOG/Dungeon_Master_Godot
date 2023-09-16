@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0378rxcb84rj"]
+
+[ext_resource type="Script" path="res://Models/Skills/BaseDefenseSkill.cs" id="1_wl71s"]
+
+[node name="BaseDefenseSkill" type="Node3D"]
+script = ExtResource("1_wl71s")

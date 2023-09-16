@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brnnk0q8fcdv8"
-path="res://.godot/imported/playerGrey_walk1.png-c4773fe7a7bf85d7ab732eb4458c2742.ctex"
+uid="uid://puugug434ojd"
+path="res://.godot/imported/Jump.png-96aa314841c8d9cb5a9c3e1d131c7ab5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/playerGrey_walk1.png"
-dest_files=["res://.godot/imported/playerGrey_walk1.png-c4773fe7a7bf85d7ab732eb4458c2742.ctex"]
+source_file="res://Graphics/Knight_1/Jump.png"
+dest_files=["res://.godot/imported/Jump.png-96aa314841c8d9cb5a9c3e1d131c7ab5.ctex"]
 
 [params]
 

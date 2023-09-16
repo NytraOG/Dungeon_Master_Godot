@@ -9,30 +9,33 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseSkill : Node3D
 {
-    public int           AcquisitionLevelHeroBasic      = 1;
-    public int           AcquisitionLevelHeroDemanding  = 1;
-    public int           AcquisitionLevelOutOfHeroClass = 1;
-    public SkillCategory Category;
-    public string        DescriptionBase;
+    public          int           AcquisitionLevelHeroBasic      = 1;
+    public          int           AcquisitionLevelHeroDemanding  = 1;
+    public          int           AcquisitionLevelOutOfHeroClass = 1;
+    [Export] public SkillCategory Category;
+    [Export] public string        DescriptionBase;
     // public List<HeroClass>  DifficultyBasicClasses;
     // public List<HeroClass>  DifficultyDemandingClasses;
-    public string           DisplayName;
-    public int              Level = 1;
-    public int              ManacostFlat;
-    public float            ManacostLevelScaling;
-    public float            MultiplierT = 1;
-    public Attribute        PrimaryAttributeT;
-    public float            PrimaryScalingT = 2f;
-    public Attribute        SecondaryAttributeT;
-    public float            SecondaryScalingT  = 1f;
-    public float            SkillLevelScalingT = 2f;
-    public SkillSubcategory Subcategory;
-    public SkillType        Type;
+    [Export] public string           DisplayName;
+    [Export] public int              Level = 1;
+    [Export] public int              ManacostFlat;
+    [Export] public float            ManacostLevelScaling;
+    [Export] public float            MultiplierT = 1;
+    [Export] public Attribute        PrimaryAttributeT;
+    [Export] public float            PrimaryScalingT = 2f;
+    [Export] public Attribute        SecondaryAttributeT;
+    [Export] public float            SecondaryScalingT  = 1f;
+    [Export] public float            SkillLevelScalingT = 2f;
+    [Export] public SkillSubcategory Subcategory;
+    [Export] public SkillType        Type;
     //public GameObject       Weapon;
-    public int XpBaseBasic      = 16;
-    public int XpBaseDemanding  = 45;
-    public int XpBaseOutOfClass = 62;
-    public int Manacost => (int)(ManacostFlat + Level * ManacostLevelScaling);
+    [Export] public int XpBaseBasic      = 16;
+    [Export] public int XpBaseDemanding  = 45;
+    [Export] public int XpBaseOutOfClass = 62;
+    public          int Manacost => (int)(ManacostFlat + Level * ManacostLevelScaling);
+
+    [Export]
+    public string Displayname { get; set; }
 
     protected string Description
     {

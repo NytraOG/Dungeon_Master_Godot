@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccgquljmb0w8d"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Hero.cs" id="1_x7eqe"]
+
+[node name="Hero" type="Node3D"]
+script = ExtResource("1_x7eqe")

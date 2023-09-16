@@ -3,4 +3,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Models\Heroes\Classes\" />
+    <Folder Include="Models\Heroes\Races\" />
+  </ItemGroup>
 </Project>

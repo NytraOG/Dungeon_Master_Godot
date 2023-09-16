@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg1tmdrslm648"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Classes/BaseHeroclass.cs" id="1_omqnm"]
+
+[node name="BaseHeroclass" type="Node3D"]
+script = ExtResource("1_omqnm")

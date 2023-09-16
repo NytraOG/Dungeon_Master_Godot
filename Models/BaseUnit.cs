@@ -16,62 +16,133 @@ public abstract partial class BaseUnit : CharacterBody3D
     public List<BaseSkill> Skills = new();
 
     //Stats
-    public int   Level                { get; protected set; }
-    public int   XpToSpendForLevelUp  => this.GetXpToSpendForLevelUp();
-    public int   Strength             { get; set; } = 1;
-    public int   Constitution         { get; set; } = 1;
-    public int   Dexterity            { get; set; } = 1;
-    public int   Wisdom               { get; set; } = 1;
-    public int   Quickness            { get; set; } = 1;
-    public int   Intuition            { get; set; } = 1;
-    public int   Logic                { get; set; } = 1;
-    public int   Willpower            { get; set; } = 1;
-    public int   Charisma             { get; set; } = 1;
-    public float BaseMeleeDefense     => 2 * Dexterity + Quickness;
-    public float BaseRangedDefense    => 2 * Quickness + Dexterity;
-    public float BaseMagicDefense     => 2 * Willpower + Wisdom;
-    public float BaseSocialDefense    => 2 * Logic + Charisma;
-    public float BaseInitiative       => 2 * Intuition + Quickness;
-    public float MaximumHitpoints     { get; set; }
-    public float CurrentHitpoints     { get; set; }
-    public float MaximumMana          { get; set; }
-    public float CurrentMana          { get; set; }
+    [Export]
+    public string Displayname { get; set; }
+
+    [Export]
+    public int Level { get; set; }
+
+    public int XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
+
+    [Export]
+    public int Strength { get; set; } = 1;
+
+    [Export]
+    public int Constitution { get; set; } = 1;
+
+    [Export]
+    public int Dexterity { get; set; } = 1;
+
+    [Export]
+    public int Wisdom { get; set; } = 1;
+
+    [Export]
+    public int Quickness { get; set; } = 1;
+
+    [Export]
+    public int Intuition { get; set; } = 1;
+
+    [Export]
+    public int Logic { get; set; } = 1;
+
+    [Export]
+    public int Willpower { get; set; } = 1;
+
+    [Export]
+    public int Charisma { get; set; } = 1;
+
+    public float BaseMeleeDefense  => 2 * Dexterity + Quickness;
+    public float BaseRangedDefense => 2 * Quickness + Dexterity;
+    public float BaseMagicDefense  => 2 * Willpower + Wisdom;
+    public float BaseSocialDefense => 2 * Logic + Charisma;
+    public float BaseInitiative    => 2 * Intuition + Quickness;
+
+    [Export]
+    public float MaximumHitpoints { get; set; }
+
+    [Export]
+    public float CurrentHitpoints { get; set; }
+
+    [Export]
+    public float MaximumMana { get; set; }
+
+    [Export]
+    public float CurrentMana { get; set; }
+
+    [Export]
     public float ManaregenerationRate { get; set; }
-    public int   Armour               { get; set; }
-    public bool  IsStunned            { get; set; }
-    public bool  IsDead               => CurrentHitpoints <= 0;
+
+    [Export]
+    public int Armour { get; set; }
+
+    public bool IsStunned { get; set; }
+    public bool IsDead    => CurrentHitpoints <= 0;
 
     //Magic
+    [Export]
     public float MagicAttackratingModifier { get; set; }
-    public float CurrentMagicDefense       { get; set; }
-    public float MagicDefensemodifier      { get; set; }
-    public float ModifiedMagicDefense      => FetchRollFor(SkillCategory.Magic, () => CurrentMagicDefense * MagicDefensemodifier);
+
+    [Export]
+    public float CurrentMagicDefense { get; set; }
+
+    [Export]
+    public float MagicDefensemodifier { get; set; }
+
+    public float ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => CurrentMagicDefense * MagicDefensemodifier);
 
     //Social
+    [Export]
     public float SocialAttackratingModifier { get; set; }
-    public float CurrentSocialDefense       { get; set; }
-    public float SocialDefensemodifier      { get; set; }
-    public float ModifiedSocialDefense      => FetchRollFor(SkillCategory.Social, () => CurrentSocialDefense * SocialDefensemodifier);
+
+    [Export]
+    public float CurrentSocialDefense { get; set; }
+
+    [Export]
+    public float SocialDefensemodifier { get; set; }
+
+    public float ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => CurrentSocialDefense * SocialDefensemodifier);
 
     //Melee
+    [Export]
     public float MeleeAttackratingModifier { get; set; }
-    public float CurrentMeleeDefense       { get; set; }
-    public float MeleeDefensmodifier       { get; set; }
-    public float ModifiedMeleeDefense      => FetchRollFor(SkillCategory.Melee, () => CurrentMeleeDefense * MeleeDefensmodifier);
+
+    [Export]
+    public float CurrentMeleeDefense { get; set; }
+
+    [Export]
+    public float MeleeDefensmodifier { get; set; }
+
+    public float ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => CurrentMeleeDefense * MeleeDefensmodifier);
 
     //Ranged
+    [Export]
     public float RangedAttackratingModifier { get; set; }
-    public float CurrentRangedDefense       { get; set; }
-    public float RangedDefensemodifier      { get; set; }
-    public float ModifiedRangedDefense      => FetchRollFor(SkillCategory.Ranged, () => CurrentRangedDefense * RangedDefensemodifier);
+
+    [Export]
+    public float CurrentRangedDefense { get; set; }
+
+    [Export]
+    public float RangedDefensemodifier { get; set; }
+
+    public float ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => CurrentRangedDefense * RangedDefensemodifier);
 
     //Initiative
-    public float CurrentInitiative   { get; set; }
+    [Export]
+    public float CurrentInitiative { get; set; }
+
+    [Export]
     public float InitiativeFlatAdded { get; set; }
-    public float InitiativeModifier  { get; set; }
-    public float ModifiedInitiative  => FetchRollFor(SkillCategory.Initiative, () => CurrentInitiative * InitiativeModifier) + InitiativeFlatAdded;
-    public int   AktionenGesamt      { get; set; }
-    public int   AktionenAktuell     { get; set; }
+
+    [Export]
+    public float InitiativeModifier { get; set; }
+
+    public float ModifiedInitiative => FetchRollFor(SkillCategory.Initiative, () => CurrentInitiative * InitiativeModifier) + InitiativeFlatAdded;
+
+    [Export]
+    public int AktionenGesamt { get; set; }
+
+    [Export]
+    public int AktionenAktuell { get; set; }
 
     public int Get(Attribute attribute) => attribute switch
     {

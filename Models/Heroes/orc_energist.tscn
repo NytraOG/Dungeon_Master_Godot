@@ -1,0 +1,153 @@
+[gd_scene load_steps=25 format=3 uid="uid://dwpft20cm5whx"]
+
+[ext_resource type="Script" path="res://Models/Heroes/OrcEnergist.cs" id="1_3t1v2"]
+[ext_resource type="Texture2D" uid="uid://bi8wciiq88qmw" path="res://Graphics/Orc_Berserk/Run.png" id="1_g76td"]
+[ext_resource type="Texture2D" uid="uid://bxquc1her8oip" path="res://Graphics/Orc_Berserk/Attack_1.png" id="1_gnahg"]
+[ext_resource type="PackedScene" uid="uid://brbk57c5unerm" path="res://Models/Heroes/Races/orc.tscn" id="1_mpk0v"]
+[ext_resource type="Texture2D" uid="uid://c7cqqba5kfmod" path="res://Graphics/Orc_Berserk/Idle.png" id="1_pbdjl"]
+[ext_resource type="PackedScene" uid="uid://c70xtwdch46y4" path="res://Models/Heroes/Classes/energist.tscn" id="2_65qr3"]
+[ext_resource type="PackedScene" uid="uid://ccgquljmb0w8d" path="res://Models/Heroes/hero.tscn" id="3_64ogh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hy7v5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eewbk"]
+atlas = ExtResource("1_gnahg")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n6x1"]
+atlas = ExtResource("1_gnahg")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k447j"]
+atlas = ExtResource("1_gnahg")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xet02"]
+atlas = ExtResource("1_gnahg")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqtnb"]
+atlas = ExtResource("1_g76td")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhyyl"]
+atlas = ExtResource("1_g76td")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iilvh"]
+atlas = ExtResource("1_g76td")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mv15x"]
+atlas = ExtResource("1_g76td")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm1a0"]
+atlas = ExtResource("1_g76td")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pmtw"]
+atlas = ExtResource("1_g76td")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rv7y"]
+atlas = ExtResource("1_pbdjl")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osljs"]
+atlas = ExtResource("1_pbdjl")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wb243"]
+atlas = ExtResource("1_pbdjl")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y64ag"]
+atlas = ExtResource("1_pbdjl")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wt1mf"]
+atlas = ExtResource("1_pbdjl")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n8ymr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eewbk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0n6x1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k447j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xet02")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqtnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhyyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iilvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mv15x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nm1a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pmtw")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rv7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osljs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wb243")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y64ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wt1mf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="OrcEnergist" type="CharacterBody3D"]
+script = ExtResource("1_3t1v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_hy7v5")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_n8ymr")
+animation = &"attack"
+
+[node name="Hero" parent="." node_paths=PackedStringArray("Class", "Race") instance=ExtResource("3_64ogh")]
+Class = NodePath("../Energist")
+Race = NodePath("../Orc")
+
+[node name="Orc" parent="." instance=ExtResource("1_mpk0v")]
+
+[node name="Energist" parent="." instance=ExtResource("2_65qr3")]

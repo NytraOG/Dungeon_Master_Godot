@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brbk57c5unerm"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Races/Orc.cs" id="1_etr44"]
+
+[node name="Orc" type="Node3D"]
+script = ExtResource("1_etr44")
+DisplayName = "Orc"
+Displayname = "Orc"

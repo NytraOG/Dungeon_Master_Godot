@@ -17,7 +17,7 @@ public abstract partial class BaseRace : Node3D
     [Export] public int             ModifierStrength;
     [Export] public int             ModifierWillpower;
     [Export] public int             ModifierWisdom;
-    public          List<BaseSkill> Skills;
+    public          List<BaseSkill> Skills = new();
 
     [Export]
     public string Displayname { get; set; }

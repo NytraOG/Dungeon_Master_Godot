@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dwpft20cm5whx"]
+[gd_scene load_steps=24 format=3 uid="uid://dwpft20cm5whx"]
 
 [ext_resource type="Script" path="res://Models/Heroes/OrcEnergist.cs" id="1_3t1v2"]
 [ext_resource type="Texture2D" uid="uid://bi8wciiq88qmw" path="res://Graphics/Orc_Berserk/Run.png" id="1_g76td"]
@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://brbk57c5unerm" path="res://Models/Heroes/Races/orc.tscn" id="1_mpk0v"]
 [ext_resource type="Texture2D" uid="uid://c7cqqba5kfmod" path="res://Graphics/Orc_Berserk/Idle.png" id="1_pbdjl"]
 [ext_resource type="PackedScene" uid="uid://c70xtwdch46y4" path="res://Models/Heroes/Classes/energist.tscn" id="2_65qr3"]
-[ext_resource type="PackedScene" uid="uid://ccgquljmb0w8d" path="res://Models/Heroes/hero.tscn" id="3_64ogh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hy7v5"]
+radius = 0.15466
+height = 0.653411
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eewbk"]
 atlas = ExtResource("1_gnahg")
@@ -130,23 +131,24 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 5.0
 }]
 
-[node name="OrcEnergist" type="CharacterBody3D"]
+[node name="OrcEnergist" type="CharacterBody3D" node_paths=PackedStringArray("Class", "Race")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_3t1v2")
+Class = NodePath("Energist")
+InventorySize = 20
+Race = NodePath("Orc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0905153, -0.171266, 0)
 shape = SubResource("CapsuleShape3D_hy7v5")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_n8ymr")
-animation = &"attack"
-
-[node name="Hero" parent="." node_paths=PackedStringArray("Class", "Race") instance=ExtResource("3_64ogh")]
-Class = NodePath("../Energist")
-Race = NodePath("../Orc")
+animation = &"idle"
 
 [node name="Orc" parent="." instance=ExtResource("1_mpk0v")]
 

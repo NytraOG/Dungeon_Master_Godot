@@ -2,7 +2,14 @@ using Godot;
 
 namespace DungeonMaster.Models.Heroes;
 
-public partial class OrcEnergist : CharacterBody3D
+public partial class OrcEnergist : Hero
 {
-    [Export] public Hero Hero;
+    public override void _Ready()
+    {
+        base._Ready();
+
+        var animationSprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
+        animationSprite.Animation = "idle";
+        animationSprite.Play();
+    }
 }

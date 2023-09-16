@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://byfl7xdp4gq5l"]
+[gd_scene load_steps=26 format=3 uid="uid://byfl7xdp4gq5l"]
 
 [ext_resource type="Script" path="res://Character.cs" id="1_3y71d"]
 [ext_resource type="Texture2D" uid="uid://nncqtxfwunt7" path="res://Graphics/Knight_1/Attack 2.png" id="2_6ebqa"]
 [ext_resource type="Texture2D" uid="uid://bixeudv83oelh" path="res://Graphics/Knight_1/Run.png" id="3_t6j5x"]
+[ext_resource type="Texture2D" uid="uid://puugug434ojd" path="res://Graphics/Knight_1/Jump.png" id="4_cf2a2"]
 [ext_resource type="Texture2D" uid="uid://cdn4ymc3gbdqk" path="res://Graphics/Knight_1/Idle.png" id="4_em4be"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4qnr"]
@@ -48,6 +49,30 @@ region = Rect2(355, 0, 71, 86)
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5ifu"]
 atlas = ExtResource("3_t6j5x")
 region = Rect2(426, 0, 71, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_augtg"]
+atlas = ExtResource("4_cf2a2")
+region = Rect2(0, 0, 80, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o44nl"]
+atlas = ExtResource("4_cf2a2")
+region = Rect2(80, 0, 80, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4bnj"]
+atlas = ExtResource("4_cf2a2")
+region = Rect2(160, 0, 80, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ror1o"]
+atlas = ExtResource("4_cf2a2")
+region = Rect2(240, 0, 80, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38ywi"]
+atlas = ExtResource("4_cf2a2")
+region = Rect2(320, 0, 80, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pvjx"]
+atlas = ExtResource("4_cf2a2")
+region = Rect2(400, 0, 80, 86)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_888wc"]
 atlas = ExtResource("4_em4be")
@@ -100,6 +125,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_augtg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o44nl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4bnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ror1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38ywi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pvjx")
+}],
+"loop": true,
+"name": &"fall_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_888wc")
 }],
 "loop": true,
@@ -112,12 +160,13 @@ radius = 0.160282
 height = 0.690071
 
 [node name="Character" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_3y71d")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_vcq7y")
-animation = &"attack"
+animation = &"fall_back"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11333, 0)

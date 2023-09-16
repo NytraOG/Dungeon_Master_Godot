@@ -16,7 +16,7 @@ public abstract partial class BaseHeroclass : Node3D
     [Export] public float           MeleeDefense;
     [Export] public float           RangedAttack;
     [Export] public float           RangedDefense;
-    public          List<BaseSkill> Skills;
+    public          List<BaseSkill> Skills = new();
     [Export] public float           SocialAttack;
     [Export] public float           SocialDefense;
 

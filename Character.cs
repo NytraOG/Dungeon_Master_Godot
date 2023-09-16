@@ -5,14 +5,14 @@ namespace DungeonMaster;
 
 public partial class Character : CharacterBody3D
 {
-    private AnimatedSprite3D animationSprite;
-    private Vector3          destination;
-    private Vector3          direction;
-    private AnimatedSprite3D fallbackAnimation;
-    private bool             hasAttacked;
-    private Vector3          start;
-    private bool             stopped;
-    private Vector3          targetVelocity = Vector3.Zero;
+    private          AnimatedSprite3D animationSprite;
+    [Export] private Vector3          destination;
+    private          Vector3          direction;
+    private          AnimatedSprite3D fallbackAnimation;
+    private          bool             hasAttacked;
+    private          Vector3          start;
+    private          bool             stopped;
+    private          Vector3          targetVelocity = Vector3.Zero;
 
     [Export]
     public int Speed { get; set; } = 14;

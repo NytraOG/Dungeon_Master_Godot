@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=6 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="PackedScene" uid="uid://byfl7xdp4gq5l" path="res://character.tscn" id="1_fphtc"]
+[ext_resource type="PackedScene" uid="uid://dwpft20cm5whx" path="res://Models/Heroes/orc_energist.tscn" id="2_tnr5d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
 size = Vector3(200, 2, 200)
@@ -12,6 +13,11 @@ size = Vector3(200, 2, 200)
 albedo_color = Color(0.27451, 0.658824, 0.156863, 1)
 
 [node name="Main" type="Node"]
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.835414, 0.549621, 0, -0.549621, 0.835414, -0.0305634, 2.37817, 1.76466)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -28,10 +34,13 @@ transform = Transform3D(1, 0, 0, 0, -0.0666918, 0.997774, 0, -0.997774, -0.06669
 shadow_enabled = true
 
 [node name="Character" parent="." instance=ExtResource("1_fphtc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.376366, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
 Speed = 2
 
-[node name="CameraPivot" type="Marker3D" parent="."]
+[node name="OrcEnergist" parent="." instance=ExtResource("2_tnr5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0.5)
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.835414, 0.549621, 0, -0.549621, 0.835414, -0.0305634, 2.37817, 1.76466)
+[node name="OrcEnergist2" parent="." node_paths=PackedStringArray("Class", "Race") instance=ExtResource("2_tnr5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -1)
+Class = NodePath("../OrcEnergist/Energist")
+Race = NodePath("../OrcEnergist/Orc")

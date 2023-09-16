@@ -200,7 +200,7 @@ public abstract partial class BaseUnit : CharacterBody3D
 
     protected string GibSkillresult(BaseSkill skill, BaseUnit target) => skill switch
     {
-        //WeaponSkill weaponSkill => weaponSkill.Activate(this, target),
+        BaseWeaponSkill weaponSkill => weaponSkill.Activate(this, target),
         _ => skill.Activate(this)
     };
 

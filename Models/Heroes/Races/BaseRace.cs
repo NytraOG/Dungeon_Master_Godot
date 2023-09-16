@@ -40,8 +40,8 @@ public abstract partial class BaseRace : Node3D
         if (unit.Skills.Any(a => a.Name == s.Name))
             return;
 
-        // if (s is SupportSkill supportSkill)
-        // 	supportSkill.PopulateBuffs(unit);
+        if (s is BaseSupportSkill supportSkill)
+        	supportSkill.PopulateBuffs(unit);
 
         unit.Skills.Add(s);
     });

@@ -57,6 +57,6 @@ public abstract partial class BaseUnitModificator : Node3D
 		creature.InitiativeFlatAdded += FlatInititiveModifier;
 		creature.AktionenGesamt      += ActionsModifier;
 		creature.AktionenAktuell     =  creature.AktionenGesamt;
-		//creature.FlatDamageModifier  += FlatDamageModifier;
+		creature.FlatDamageModifier  += FlatDamageModifier;
 	}
 }

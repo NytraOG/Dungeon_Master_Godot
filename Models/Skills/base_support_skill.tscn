@@ -1,6 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://qm84kl5djqed"]
 
-[ext_resource type="Script" path="res://BaseSupportSkill.cs" id="1_7mx07"]
+[ext_resource type="Script" path="res://Models/Skills/BaseSupportSkill.cs" id="1_vliti"]
 
-[node name="BaseSupportSkill" type="Node3D"]
-script = ExtResource("1_7mx07")
+[node name="BaseSupportSkill" type="Node3D" node_paths=PackedStringArray("AppliedBuffs", "AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_vliti")
+AppliedBuffs = []
+AppliedDebuffs = []
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []

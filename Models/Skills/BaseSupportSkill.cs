@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
@@ -10,11 +9,8 @@ namespace DungeonMaster.Models.Skills;
 
 public partial class BaseSupportSkill : BaseTargetingSkill
 {
-    [Export] public Buff[]   AppliedBuffs;
-    [Export] public Debuff[] AppliedDebuffs;
-    [Export] public bool     SelfcastOnly;
-    [Export] public int      ActionsModifier;
-    [Export] public float    FlatDamageModifier;
+    [Export] [ExportGroup("Melee, Ranged, Magic, Social, Explosion, Ambush, Sickness, ForceOfNature, Summon, Support, Initiative")]
+    public string[] AffectedCategories;
     [Export] [ExportGroup("Attackratingmodifier, additive")]
     public float MeleeAttackratingModifier;
     [Export] public float RangedAttackratingModifier;
@@ -22,12 +18,15 @@ public partial class BaseSupportSkill : BaseTargetingSkill
     [Export] public float SocialAttackratingModifier;
     [Export] [ExportGroup("Defensemodifier, additive")]
     public float MeleeDefensmodifier;
-    [Export] public float RangedDefensemodifier;
-    [Export] public float MagicDefensemodifier;
-    [Export] public float SocialDefensemodifier;
-    [Export] [ExportSubgroup("Melee, Ranged, Magic, Social, Explosion, Ambush, Sickness, ForceOfNature, Summon, Support, Initiative")]
-    public string[] AffectedCategories;
-    public override Factions TargetableFaction => Factions.All;
+    [Export]                       public float    RangedDefensemodifier;
+    [Export]                       public float    MagicDefensemodifier;
+    [Export]                       public float    SocialDefensemodifier;
+    [Export] [ExportGroup("Misc")] public Buff[]   AppliedBuffs;
+    [Export]                       public Debuff[] AppliedDebuffs;
+    [Export]                       public bool     SelfcastOnly;
+    [Export]                       public int      ActionsModifier;
+    [Export]                       public float    FlatDamageModifier;
+    public override                       Factions TargetableFaction => Factions.All;
 
     public override void _Ready()
     {

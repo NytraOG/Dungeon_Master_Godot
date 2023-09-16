@@ -13,7 +13,6 @@ public partial class Hero : BaseUnit
     [Export] public int           InventorySize;
     [Export] public BaseRace      Race;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         InitializeHero();

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxvorb20jg8hy"]
+
+[ext_resource type="Script" path="res://Models/Skills/BaseWeaponSkill.cs" id="1_emitr"]
+
+[node name="BaseWeaponSkill" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_emitr")
+AppliedDebuffs = []
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []

@@ -22,127 +22,127 @@ public partial class BaseSupportSkill : BaseTargetingSkill
     [Export] public float SocialAttackratingModifier;
     [Export] [ExportGroup("Defensemodifier, additive")]
     public float MeleeDefensmodifier;
-    [Export] public float           RangedDefensemodifier;
-    [Export] public float           MagicDefensemodifier;
-    [Export] public float           SocialDefensemodifier;
-    [Export] public SkillCategory[] AffectedCategories;
-    public override Factions        TargetableFaction => Factions.All;
+    [Export] public float RangedDefensemodifier;
+    [Export] public float MagicDefensemodifier;
+    [Export] public float SocialDefensemodifier;
+    [Export] [ExportSubgroup("Melee, Ranged, Magic, Social, Explosion, Ambush, Sickness, ForceOfNature, Summon, Support, Initiative")]
+    public string[] AffectedCategories;
+    public override Factions TargetableFaction => Factions.All;
 
-   public override void _Ready()
-   {
-       Category    = SkillCategory.Support;
-       Subcategory = SkillSubcategory.Special;
-   }
+    public override void _Ready()
+    {
+        Category    = SkillCategory.Support;
+        Subcategory = SkillSubcategory.Special;
+    }
 
-        public override string Activate(BaseUnit _, BaseUnit target)
+    public override string Activate(BaseUnit _, BaseUnit target)
+    {
+        if(AffectedCategories.Any())
+            target.FlatDamageModifier += FlatDamageModifier;
+
+        foreach (var skillCategory in AffectedCategories)
         {
-            foreach (var skillCategory in AffectedCategories)
+            if (skillCategory == SkillCategory.Melee.ToString())
             {
-                switch (skillCategory)
-                {
-                    case SkillCategory.Melee:
-                        target.MeleeAttackratingModifier += MeleeAttackratingModifier;
-                        target.FlatDamageModifier        += FlatDamageModifier;
-                        target.MeleeDefensmodifier       += MeleeDefensmodifier;
-                        target.CurrentMeleeDefense              += GetTacticalRoll(target);
-
-                        break;
-                    case SkillCategory.Ranged:
-                        target.RangedAttackratingModifier += RangedAttackratingModifier;
-                        target.FlatDamageModifier         += FlatDamageModifier;
-                        target.RangedDefensemodifier      += RangedDefensemodifier;
-                        target.CurrentRangedDefense       += GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Magic:
-                        target.MagicAttackratingModifier += MagicAttackratingModifier;
-                        target.FlatDamageModifier        += FlatDamageModifier;
-                        target.MagicDefensemodifier      += MagicDefensemodifier;
-                        target.CurrentMagicDefense       += GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Social:
-                        target.SocialAttackratingModifier += SocialAttackratingModifier;
-                        target.SocialDefensemodifier      += SocialDefensemodifier;
-                        target.CurrentSocialDefense       += GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Summon:     break;
-                    case SkillCategory.Initiative: break;
-                    default:                       throw new ArgumentOutOfRangeException();
-                }
+                target.MeleeAttackratingModifier += MeleeAttackratingModifier;
+                target.MeleeDefensmodifier       += MeleeDefensmodifier;
+                target.CurrentMeleeDefense       += GetTacticalRoll(target);
             }
-
-            PopulateBuffs(target);
-
-            if (!target.ActiveSkills.ContainsKey(this))
-                target.ActiveSkills.Add(this, false);
-
-            return $"Activated {Displayname}";
-        }
-
-        public void Reverse(BaseUnit target)
-        {
-            foreach (var skillCategory in AffectedCategories)
+            else if (skillCategory == SkillCategory.Ranged.ToString())
             {
-                switch (skillCategory)
-                {
-                    case SkillCategory.Melee:
-                        target.MeleeAttackratingModifier -= MeleeAttackratingModifier;
-                        target.FlatDamageModifier        -= FlatDamageModifier;
-                        target.MeleeDefensmodifier       -= MeleeDefensmodifier;
-                        target.CurrentMeleeDefense       -= GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Ranged:
-                        target.RangedAttackratingModifier -= RangedAttackratingModifier;
-                        target.FlatDamageModifier         -= FlatDamageModifier;
-                        target.RangedDefensemodifier      -= RangedDefensemodifier;
-                        target.CurrentRangedDefense       -= GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Magic:
-                        target.MagicAttackratingModifier -= MagicAttackratingModifier;
-                        target.FlatDamageModifier        -= FlatDamageModifier;
-                        target.MagicDefensemodifier      -= MagicDefensemodifier;
-                        target.CurrentMagicDefense       -= GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Social:
-                        target.SocialAttackratingModifier -= SocialAttackratingModifier;
-                        target.SocialDefensemodifier      -= SocialDefensemodifier;
-                        target.CurrentSocialDefense       -= GetTacticalRoll(target);
-                        break;
-                    case SkillCategory.Summon:     break;
-                    case SkillCategory.Initiative: break;
-                    default:                       throw new ArgumentOutOfRangeException();
-                }
+                target.RangedAttackratingModifier += RangedAttackratingModifier;
+                target.RangedDefensemodifier      += RangedDefensemodifier;
+                target.CurrentRangedDefense       += GetTacticalRoll(target);
             }
-        }
-
-        public void PopulateBuffs(BaseUnit actor)
-        {
-            if (AppliedBuffs.Any())
-                ApplyBuffs(actor, actor);
-        }
-
-        private void ApplyBuffs(BaseUnit actor, BaseUnit target)
-        {
-            foreach (var buff in AppliedBuffs)
+            else if (skillCategory == SkillCategory.Magic.ToString())
             {
-                if (target.Buffs.Any(b => b.Displayname == buff.Displayname))
-                    target.Buffs.First(b => b.Displayname == buff.Displayname).RemainingDuration += buff.Duration;
-                else
-                {
-                    //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
-                    var newBuffInstance = new Buff
-                    {
-                        AppliedBy   = this,
-                        AppliedFrom = actor
-                    };
-
-                    newBuffInstance.ApplyAttributeModifier(target);
-                    newBuffInstance.ApplyRatingModifier(target);
-                    newBuffInstance.ApplyDamageModifier(target);
-
-                    target.Buffs.Add(newBuffInstance);
-                }
+                target.MagicAttackratingModifier += MagicAttackratingModifier;
+                target.MagicDefensemodifier      += MagicDefensemodifier;
+                target.CurrentMagicDefense       += GetTacticalRoll(target);
             }
+            else if (skillCategory == SkillCategory.Social.ToString())
+            {
+                target.SocialAttackratingModifier += SocialAttackratingModifier;
+                target.SocialDefensemodifier      += SocialDefensemodifier;
+                target.CurrentSocialDefense       += GetTacticalRoll(target);
+            }
+            else
+                Console.WriteLine($"{skillCategory} not implemented in {nameof(BaseSupportSkill)}");
         }
 
-        public override string Activate(BaseUnit actor) => throw new NotImplementedException();
+        PopulateBuffs(target);
+
+        if (!target.ActiveSkills.ContainsKey(this))
+            target.ActiveSkills.Add(this, false);
+
+        return $"Activated {Displayname}";
+    }
+
+    public void Reverse(BaseUnit target)
+    {
+        if (AffectedCategories.Any())
+            target.FlatDamageModifier -= FlatDamageModifier;
+
+        foreach (var skillCategory in AffectedCategories)
+        {
+            if (skillCategory == SkillCategory.Melee.ToString())
+            {
+                target.MeleeAttackratingModifier -= MeleeAttackratingModifier;
+                target.MeleeDefensmodifier       -= MeleeDefensmodifier;
+                target.CurrentMeleeDefense       -= GetTacticalRoll(target);
+            }
+            else if (skillCategory == SkillCategory.Ranged.ToString())
+            {
+                target.RangedAttackratingModifier -= RangedAttackratingModifier;
+                target.RangedDefensemodifier      -= RangedDefensemodifier;
+                target.CurrentRangedDefense       -= GetTacticalRoll(target);
+            }
+            else if (skillCategory == SkillCategory.Magic.ToString())
+            {
+                target.MagicAttackratingModifier -= MagicAttackratingModifier;
+                target.MagicDefensemodifier      -= MagicDefensemodifier;
+                target.CurrentMagicDefense       -= GetTacticalRoll(target);
+            }
+            else if (skillCategory == SkillCategory.Social.ToString())
+            {
+                target.SocialAttackratingModifier -= SocialAttackratingModifier;
+                target.SocialDefensemodifier      -= SocialDefensemodifier;
+                target.CurrentSocialDefense       -= GetTacticalRoll(target);
+            }
+            else
+                Console.WriteLine($"{skillCategory} not implemented in {nameof(BaseSupportSkill)}");
+        }
+    }
+
+    public void PopulateBuffs(BaseUnit actor)
+    {
+        if (AppliedBuffs.Any())
+            ApplyBuffs(actor, actor);
+    }
+
+    private void ApplyBuffs(BaseUnit actor, BaseUnit target)
+    {
+        foreach (var buff in AppliedBuffs)
+        {
+            if (target.Buffs.Any(b => b.Displayname == buff.Displayname))
+                target.Buffs.First(b => b.Displayname == buff.Displayname).RemainingDuration += buff.Duration;
+            else
+            {
+                //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
+                var newBuffInstance = new Buff
+                {
+                    AppliedBy   = this,
+                    AppliedFrom = actor
+                };
+
+                newBuffInstance.ApplyAttributeModifier(target);
+                newBuffInstance.ApplyRatingModifier(target);
+                newBuffInstance.ApplyDamageModifier(target);
+
+                target.Buffs.Add(newBuffInstance);
+            }
+        }
+    }
+
+    public override string Activate(BaseUnit actor) => throw new NotImplementedException();
 }

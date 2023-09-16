@@ -3,7 +3,7 @@ using Godot;
 
 namespace DungeonMaster.Models.Skills.Statuseffects.Debuffs;
 
-public class Debuff : Buff
+public partial class Debuff : Buff
 {
     [Export] public int DamagePerTick;
 

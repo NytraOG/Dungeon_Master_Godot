@@ -10,34 +10,32 @@ namespace DungeonMaster;
 public partial class Main : Node
 {
     [Signal]
-    public delegate void BuffAppliedEventHandler(BaseUnit actor, BaseSkill skill, List<BaseUnit> targets, string skillresult);
+    public delegate void BuffAppliedEventHandler(BaseUnit actor, BaseSkill skill, BaseUnit[] targets, string skillresult);
 
     [Signal]
-    public delegate void BuffTickEventHandler(BuffResolutionArgs args);
+    public delegate void BuffTickEventHandler(BaseUnit applicant, string effect, int remainingDuration, Color combatlogEffectColor); //Buff     Buff
 
     [Signal]
-    public delegate void DebuffTickEventHandler(DebuffResolutionArgs args);
+    public delegate void DebuffTickEventHandler(BaseUnit actor, int damage, int remainingDuration, Color combatlogEffectColor); //Debuff   Debuff
 
     [Signal]
-    public delegate void HitEventHandler(CombatskillResolutionArgs args);
+    public delegate void HitEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, HitResult hitResult, BaseUnit target, string skillresult);
 
     [Signal]
     public delegate void MiscEventHandler(string arg);
 
     [Signal]
-    public delegate void MissEventHandler(CombatskillResolutionArgs args);
+    public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, HitResult hitResult, BaseUnit target, string skillresult);
 
-    private bool                 combatActive;
+    private bool combatActive;
     //public  List<Creature>       enemies = new();
-    private List<Hero>           heroes  = new();
-    public  Hero                 selectedHero;
-    public  BaseSkill            selectedSkill;
-    public  List<BaseUnit>       selectedTargets      = new();
+    private List<Hero>           heroes = new();
+    public  Hero                 SelectedHero;
+    public  BaseSkill            SelectedSkill;
+    public  List<BaseUnit>       SelectedTargets      = new();
     public  List<SkillSelection> SkillSelection       = new();
-    public  List<BaseSkill>      skillsOfSelectedHero = new();
+    public  List<BaseSkill>      SkillsOfSelectedHero = new();
 
-    // [Signal]
-    // public delegate void HealthDepletedEventHandler();
 
     public override void _Ready() { }
 
@@ -53,32 +51,4 @@ public struct SkillSelection
     public BaseSkill      Skill   { get; set; }
     public List<BaseUnit> Targets { get; set; }
     public BaseUnit       Actor   { get; set; }
-}
-
-public struct CombatskillResolutionArgs
-{
-    public BaseUnit  Actor       { get; set; }
-    public BaseSkill Skill       { get; set; }
-    public int       Hitroll     { get; set; }
-    public HitResult HitResult   { get; set; }
-    public BaseUnit  Target      { get; set; }
-    public string    Skillresult { get; set; }
-}
-
-public struct BuffResolutionArgs
-{
-    //public Buff     Buff                 { get; set; }
-    public BaseUnit Applicant            { get; set; }
-    public string   Effect               { get; set; }
-    public int      RemainingDuration    { get; set; }
-    public Color    CombatlogEffectColor { get; set; }
-}
-
-public struct DebuffResolutionArgs
-{
-    //public Debuff   Debuff               { get; set; }
-    public BaseUnit Actor                { get; set; }
-    public int      Damage               { get; set; }
-    public int      RemainingDuration    { get; set; }
-    public Color    CombatlogEffectColor { get; set; }
 }

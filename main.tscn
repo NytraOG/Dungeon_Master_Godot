@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=10 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="PackedScene" uid="uid://byfl7xdp4gq5l" path="res://character.tscn" id="1_fphtc"]
+[ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="PackedScene" uid="uid://dwpft20cm5whx" path="res://Models/Heroes/orc_energist.tscn" id="2_tnr5d"]
+[ext_resource type="Script" path="res://UI/Menues/Buttons/StartRound.cs" id="4_e1hhg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
 size = Vector3(200, 2, 200)
@@ -10,9 +12,21 @@ size = Vector3(200, 2, 200)
 size = Vector3(200, 2, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0nfhn"]
-albedo_color = Color(0.27451, 0.658824, 0.156863, 1)
+albedo_color = Color(0.0431373, 0.129412, 0.0235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upkbt"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.490196, 0.137255, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52pw0"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_fr21n")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 
@@ -30,7 +44,7 @@ mesh = SubResource("BoxMesh_1ydpk")
 surface_material_override/0 = SubResource("StandardMaterial3D_0nfhn")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0666918, 0.997774, 0, -0.997774, -0.0666918, 0, 68.4277, 0)
+transform = Transform3D(0.872383, 0.379096, 0.308602, -0.143344, -0.405167, 0.902935, 0.467334, -0.831941, -0.29912, 0, 68.4277, 0)
 shadow_enabled = true
 
 [node name="Character" parent="." instance=ExtResource("1_fphtc")]
@@ -44,3 +58,59 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -1)
 Class = NodePath("../OrcEnergist/Energist")
 Race = NodePath("../OrcEnergist/Orc")
+
+[node name="ActionsPanel" type="Panel" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 894.0
+offset_top = -75.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="Actions" type="HBoxContainer" parent="ActionsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -30.5
+offset_right = 122.0
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Undo" type="Button" parent="ActionsPanel/Actions"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_upkbt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_52pw0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_52pw0")
+text = "Undo"
+
+[node name="StartRound" type="Button" parent="ActionsPanel/Actions"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_upkbt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_52pw0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_52pw0")
+text = "Start Round"
+script = ExtResource("4_e1hhg")
+
+[connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="ActionsPanel/Actions/StartRound" to="." method="_on_start_round_pressed"]

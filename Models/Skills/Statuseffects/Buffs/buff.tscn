@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bel7xpc6kv28q"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Buffs/Buff.cs" id="1_d7yme"]
+
+[node name="Buff" type="Node3D"]
+script = ExtResource("1_d7yme")

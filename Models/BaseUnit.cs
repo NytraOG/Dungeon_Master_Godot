@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Skills;
+using DungeonMaster.Models.Skills.Statuseffects.Buffs;
+using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
 using Godot;
 using Attribute = DungeonMaster.Enums.Attribute;
 
@@ -11,9 +13,9 @@ namespace DungeonMaster.Models;
 public abstract partial class BaseUnit : CharacterBody3D
 {
     // public Dictionary<SupportSkill, bool> ActiveSkills = new();
-    // public List<Buff>                     Buffs        = new();
-    // public List<Debuff>                   Debuffs      = new();
-    public List<BaseSkill> Skills = new();
+    public List<Buff>      Buffs   = new();
+    public List<Debuff>    Debuffs = new();
+    public List<BaseSkill> Skills  = new();
 
     //Stats
     [Export]
@@ -51,12 +53,6 @@ public abstract partial class BaseUnit : CharacterBody3D
     [Export]
     public int Charisma { get; set; } = 1;
 
-    public float BaseMeleeDefense  => 2 * Dexterity + Quickness;
-    public float BaseRangedDefense => 2 * Quickness + Dexterity;
-    public float BaseMagicDefense  => 2 * Willpower + Wisdom;
-    public float BaseSocialDefense => 2 * Logic + Charisma;
-    public float BaseInitiative    => 2 * Intuition + Quickness;
-
     [Export]
     public float MaximumHitpoints { get; set; }
 
@@ -79,6 +75,8 @@ public abstract partial class BaseUnit : CharacterBody3D
     public bool IsDead    => CurrentHitpoints <= 0;
 
     //Magic
+    public float BaseMagicDefense => 2 * Willpower + Wisdom;
+
     [Export]
     public float MagicAttackratingModifier { get; set; }
 
@@ -91,6 +89,8 @@ public abstract partial class BaseUnit : CharacterBody3D
     public float ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => CurrentMagicDefense * MagicDefensemodifier);
 
     //Social
+    public float BaseSocialDefense => 2 * Logic + Charisma;
+
     [Export]
     public float SocialAttackratingModifier { get; set; }
 
@@ -103,6 +103,8 @@ public abstract partial class BaseUnit : CharacterBody3D
     public float ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => CurrentSocialDefense * SocialDefensemodifier);
 
     //Melee
+    public float BaseMeleeDefense => 2 * Dexterity + Quickness;
+
     [Export]
     public float MeleeAttackratingModifier { get; set; }
 
@@ -115,6 +117,8 @@ public abstract partial class BaseUnit : CharacterBody3D
     public float ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => CurrentMeleeDefense * MeleeDefensmodifier);
 
     //Ranged
+    public float BaseRangedDefense => 2 * Quickness + Dexterity;
+
     [Export]
     public float RangedAttackratingModifier { get; set; }
 
@@ -127,6 +131,8 @@ public abstract partial class BaseUnit : CharacterBody3D
     public float ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => CurrentRangedDefense * RangedDefensemodifier);
 
     //Initiative
+    public float BaseInitiative => 2 * Intuition + Quickness;
+
     [Export]
     public float CurrentInitiative { get; set; }
 

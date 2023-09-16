@@ -6,5 +6,7 @@
   <ItemGroup>
     <Folder Include="Models\Heroes\Classes\" />
     <Folder Include="Models\Heroes\Races\" />
+    <Folder Include="Models\Skills\Statuseffects\Buffs\" />
+    <Folder Include="Models\Skills\Statuseffects\Debuffs\" />
   </ItemGroup>
 </Project>

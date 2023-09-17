@@ -47,3 +47,5 @@ flip_h = true
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_250vi")
 animation = &"idle"
+
+[connection signal="input_event" from="CharacterBody3D" to="." method="_on_creature_input_event"]

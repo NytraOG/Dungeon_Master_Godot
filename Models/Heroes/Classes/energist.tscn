@@ -2,6 +2,15 @@
 
 [ext_resource type="Script" path="res://Models/Heroes/Classes/Energist.cs" id="1_tjeh4"]
 
-[node name="Energist" type="Node3D"]
+[node name="Energist" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
 script = ExtResource("1_tjeh4")
+ProvidedSkills = []
+MeleeAttack = 0.05
+RangedAttack = 0.05
+MagicAttack = 0.05
+SocialAttack = 0.05
+MeleeDefense = 0.1
+SocialDefense = -0.15
+Health = 0.2
+Mana = -0.1
 Displayname = "Energist"

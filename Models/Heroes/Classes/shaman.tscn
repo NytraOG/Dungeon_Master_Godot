@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce3ngx6cqlqmt"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Classes/Shaman.cs" id="1_m26yg"]
+
+[node name="Shaman" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+script = ExtResource("1_m26yg")
+ProvidedSkills = []
+MeleeAttack = 0.05
+RangedAttack = -0.1
+SocialAttack = 0.15
+MeleeDefense = 0.05
+RangedDefense = -0.1
+MagicDefense = 0.1
+SocialDefense = 0.15
+Mana = 0.1
+Displayname = "Shaman"

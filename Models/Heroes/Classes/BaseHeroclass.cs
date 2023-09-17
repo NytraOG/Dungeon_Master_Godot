@@ -6,18 +6,18 @@ namespace DungeonMaster.Models.Heroes.Classes;
 
 public abstract partial class BaseHeroclass : Node3D
 {
-    [Export] public float       Explosion;
-    [Export] public float       Health;
-    [Export] public float       MagicAttack;
-    [Export] public float       MagicDefense;
-    [Export] public float       Mana;
-    [Export] public float       MeleeAttack;
-    [Export] public float       MeleeDefense;
-    [Export] public float       RangedAttack;
-    [Export] public float       RangedDefense;
-    [Export] public BaseSkill[] ProvidedSkills;
-    [Export] public float       SocialAttack;
-    [Export] public float       SocialDefense;
+    [Export]                          public BaseSkill[] ProvidedSkills;
+    [Export] [ExportGroup("Attack")]  public float       MeleeAttack;
+    [Export]                          public float       RangedAttack;
+    [Export]                          public float       MagicAttack;
+    [Export]                          public float       SocialAttack;
+    [Export] [ExportGroup("Defense")] public float       MeleeDefense;
+    [Export]                          public float       RangedDefense;
+    [Export]                          public float       MagicDefense;
+    [Export]                          public float       SocialDefense;
+    [Export] [ExportGroup("Misc")]    public float       Explosion;
+    [Export]                          public float       Health;
+    [Export]                          public float       Mana;
 
     [Export]
     public string Displayname { get; set; }

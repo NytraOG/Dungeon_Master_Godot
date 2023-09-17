@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjxfjxhjaxqpl"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Classes/Mage.cs" id="1_dvk7p"]
+[ext_resource type="PackedScene" uid="uid://cewq8hewtdvij" path="res://Models/Skills/Magic/firebeam.tscn" id="2_me5ng"]
+[ext_resource type="PackedScene" uid="uid://c6whwbspaokgj" path="res://Models/Skills/Magic/chain_lightning.tscn" id="3_63klc"]
+
+[node name="Mage" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+script = ExtResource("1_dvk7p")
+ProvidedSkills = [NodePath("Firebeam"), NodePath("ChainLightning")]
+MeleeAttack = 0.05
+RangedAttack = 0.15
+MagicAttack = 0.15
+SocialAttack = 0.15
+MeleeDefense = -0.1
+SocialDefense = -0.05
+Health = -0.2
+Mana = 0.4
+Displayname = "Mage"
+
+[node name="Firebeam" parent="." instance=ExtResource("2_me5ng")]
+
+[node name="ChainLightning" parent="." instance=ExtResource("3_63klc")]

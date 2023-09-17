@@ -178,12 +178,6 @@ public abstract partial class BaseUnit : Node3D
         return !matchingDefenseSkills.Any() ? returnDefaultModifiedDefense() : float.Parse(matchingDefenseSkills.First().Activate(this));
     }
 
-    // private void ShowUnitTooltip()
-    // {
-    //     unitTooltip.SetActive(true);
-    //     unitTooltip.GetComponent<UnitTooltip>().unit = this;
-    // }
-
     protected void SetInitialHitpointsAndMana()
     {
         MaximumMana      = 2 * Wisdom + Logic;
@@ -191,14 +185,6 @@ public abstract partial class BaseUnit : Node3D
         MaximumHitpoints = 3 * Constitution + 2 * Strength;
         CurrentHitpoints = MaximumHitpoints;
     }
-
-    // public void HideHealthbar()
-    // {
-    //     unitTooltip.SetActive(false);
-    //     unitTooltip.GetComponent<UnitTooltip>().unit = null;
-    //
-    //     Debug.Log($"Pointer entered {name}");
-    // }
 
     protected string GibSkillresult(BaseSkill skill, BaseUnit target) => skill switch
     {

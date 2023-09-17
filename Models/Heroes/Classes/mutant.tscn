@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3wt28smwlva3"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Classes/Mutant.cs" id="1_2uibq"]
+
+[node name="Mutant" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+script = ExtResource("1_2uibq")
+ProvidedSkills = []
+MeleeAttack = 0.2
+MagicAttack = -0.1
+MagicDefense = -0.1
+SocialDefense = -0.15
+Health = 0.1
+Mana = -0.2
+Displayname = "Mutant"

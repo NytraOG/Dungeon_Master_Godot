@@ -36,7 +36,8 @@ public partial class Main : Node
     private bool                 allesDa;
     private bool                 combatActive;
     public  List<BaseCreature>   Enemies = new();
-    private Hero[]               Heroes;
+    public  Hero[]               Heroes;
+    public  BaseCreature         SelectedEnemy;
     public  Hero                 SelectedHero;
     public  BaseSkill            SelectedSkill;
     public  List<BaseUnit>       SelectedTargets      = new();
@@ -375,6 +376,25 @@ public partial class Main : Node
         var wolf = Enemies[0];
         wolf.PickSkill();
         wolf.SelectedSkill.Activate(wolf);
+    }
+
+    private void _on_creature_creature_clicked(BaseCreature creature)
+    {
+        SelectedEnemy = creature;
+
+        if (SelectedSkill is not BaseTargetingSkill tSkill)
+            return;
+
+        var maxTargets        = tSkill.GetTargets(SelectedHero);
+        var maxTargetsReached = SelectedTargets.Count == maxTargets;
+
+        if (maxTargetsReached)
+        {
+            Console.WriteLine($"Target maximum {maxTargets} reached for {tSkill.Displayname}");
+            return;
+        }
+
+        SelectedTargets.Add(creature);
     }
 
     private void _on_orc_energist_hero_clicked(Hero hero)

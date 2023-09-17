@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=11 format=3 uid="uid://eb2mwwfxrd78"]
 
-[ext_resource type="PackedScene" uid="uid://byfl7xdp4gq5l" path="res://character.tscn" id="1_fphtc"]
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="PackedScene" uid="uid://dwpft20cm5whx" path="res://Models/Heroes/orc_energist.tscn" id="2_tnr5d"]
 [ext_resource type="FontFile" uid="uid://bj3640b5wy2xq" path="res://Graphics/fonts/upheavtt.ttf" id="4_3d50e"]
@@ -49,9 +48,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_0nfhn")
 transform = Transform3D(0.872383, 0.379096, 0.308602, -0.143344, -0.405167, 0.902935, 0.467334, -0.831941, -0.29912, 0, 68.4277, 0)
 shadow_enabled = true
 
-[node name="Character" parent="." instance=ExtResource("1_fphtc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
-Speed = 2
+[node name="WolfAlpha" parent="." instance=ExtResource("6_fkdgy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -0.5)
 
 [node name="OrcEnergist" parent="." instance=ExtResource("2_tnr5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0.5)
@@ -114,11 +112,12 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_52pw0")
 text = "Start Round"
 script = ExtResource("4_e1hhg")
 
-[node name="WolfAlpha" parent="." instance=ExtResource("6_fkdgy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
 
+[connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="HeroClicked" from="OrcEnergist" to="." method="_on_orc_energist_hero_clicked"]
 [connection signal="HeroClicked" from="OrcEnergist2" to="." method="_on_orc_energist_hero_clicked"]
 [connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/StartRound" to="." method="_on_start_round_pressed"]
-[connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]

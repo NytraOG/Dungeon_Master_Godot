@@ -1,0 +1,26 @@
+
+RPG & MMO User Interface 2 (Jan 14 2017)
+
+--------------------------------
+
+           HOW TO  
+
+--------------------------------
+
+
+________________________________
+
+Resizing / Scaling
+________________________________
+
+To scale up the design go to Image > Image Size, change to % (Percent) instead of Pixel or Inch, and Scale it as you wish.  
+* Keep in mind the details are paint on 400% image size, dont go above this. It will cause loss of quality.
+
+
+________________________________
+
+LOGO
+________________________________
+
+To edit the logo text, just open the .psd file and then navigate the group named "LOGO" and inside it edit all the text
+layers with your text. If there are more than one text layers replace the text with your one in all of them.

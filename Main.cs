@@ -364,12 +364,9 @@ public partial class Main : Node
 
     private void _on_undo_pressed() { }
 
-    private async Task WaitFor(int milliseconds) => await ToSignal(GetTree().CreateTimer((double)milliseconds / 1000), "timeout");
+    private void _on_orc_energist_hero_clicked(Hero hero) { }
 
-    private void _on_orc_energist_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex, string argument1)
-    {
-        if (@event is InputEventMouseButton { Pressed: true } button) { }
-    }
+    private async Task WaitFor(int milliseconds) => await ToSignal(GetTree().CreateTimer((double)milliseconds / 1000), "timeout");
 }
 
 public struct SkillSelection

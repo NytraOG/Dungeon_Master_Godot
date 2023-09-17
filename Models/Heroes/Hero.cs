@@ -8,6 +8,7 @@ namespace DungeonMaster.Models.Heroes;
 
 public partial class Hero : BaseUnit
 {
+
     [Export] public BaseHeroclass Class;
     [Export] public BaseSkill     InherentSkill;
     [Export] public int           InventorySize;
@@ -54,6 +55,7 @@ public partial class Hero : BaseUnit
     };
 
     public override string UseAbility(BaseSkill skill, HitResult hitResult, BaseUnit target = null) => GibSkillresult(skill, target);
+
 
     // private void ChangeSelectedHero(BattleController controller)
     // {

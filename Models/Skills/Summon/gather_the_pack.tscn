@@ -3,14 +3,12 @@
 [ext_resource type="Script" path="res://Models/Skills/Summon/GatherThePack.cs" id="1_4am87"]
 [ext_resource type="PackedScene" uid="uid://kv2s7ldy7v3e" path="res://Models/Enemies/wolf_pup.tscn" id="2_utcwi"]
 
-[node name="GatherThePack" type="Node3D" node_paths=PackedStringArray("UnitsToSpawn", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+[node name="GatherThePack" type="Node3D" node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_4am87")
-UnitsToSpawn = [NodePath("WolfPup")]
+UnitsToSpawn = Array[PackedScene]([ExtResource("2_utcwi"), ExtResource("2_utcwi")])
 Category = 8
 Subcategory = 2
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
 ManacostFlat = 5
 Displayname = "Gather the Pack"
-
-[node name="WolfPup" parent="." instance=ExtResource("2_utcwi")]

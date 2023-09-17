@@ -1,9 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://kv2s7ldy7v3e"]
+[gd_scene load_steps=8 format=3 uid="uid://kv2s7ldy7v3e"]
 
 [ext_resource type="Script" path="res://Models/Enemies/WolfPup.cs" id="1_0ebop"]
 [ext_resource type="PackedScene" uid="uid://52cwpwctrwwf" path="res://Models/Enemies/MonsterTypes/wolf.tscn" id="2_86f42"]
 [ext_resource type="PackedScene" uid="uid://cjns0t46biiiw" path="res://Models/Enemies/Keywords/pup.tscn" id="3_up2jg"]
 [ext_resource type="PackedScene" uid="uid://bbo0dc38hpn04" path="res://Models/Enemies/Keywords/precise.tscn" id="4_pbc8d"]
+[ext_resource type="Texture2D" uid="uid://hgqfsoltq7t3" path="res://Graphics/art/WolfPup.png" id="5_xpjdq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ccr4q"]
+radius = 0.314505
+height = 0.62901
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lu1lv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_xpjdq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="WolfPup" type="Node3D" node_paths=PackedStringArray("Keywords", "Monstertype")]
 script = ExtResource("1_0ebop")
@@ -18,3 +34,16 @@ Level = 1
 [node name="Pup" parent="." instance=ExtResource("3_up2jg")]
 
 [node name="Precise" parent="." instance=ExtResource("4_pbc8d")]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.227857, 0)
+shape = SubResource("CapsuleShape3D_ccr4q")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+flip_h = true
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_lu1lv")
+animation = &"idle"

@@ -33,15 +33,15 @@ public partial class Main : Node
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    private readonly List<Hero>           Heroes = new();
-    private          bool                 allesDa;
-    private          bool                 combatActive;
-    public           List<BaseCreature>   Enemies = new();
-    public           Hero                 SelectedHero;
-    public           BaseSkill            SelectedSkill;
-    public           List<BaseUnit>       SelectedTargets      = new();
-    public           List<SkillSelection> SkillSelection       = new();
-    public           List<BaseSkill>      SkillsOfSelectedHero = new();
+    private bool                 allesDa;
+    private bool                 combatActive;
+    public  List<BaseCreature>   Enemies = new();
+    private Hero[]               Heroes;
+    public  Hero                 SelectedHero;
+    public  BaseSkill            SelectedSkill;
+    public  List<BaseUnit>       SelectedTargets      = new();
+    public  List<SkillSelection> SkillSelection       = new();
+    public  List<BaseSkill>      SkillsOfSelectedHero = new();
 
     public bool PlayerIsTargeting => SelectedHero is not null &&
                                      SelectedSkill is BaseDamageSkill { TargetableFaction: Factions.Foe }
@@ -354,15 +354,28 @@ public partial class Main : Node
         if (allesDa)
             return;
 
-        //Enemies = Seed Enemies hier!
-        //Heroes  = Seed Heroes hier!
+        var wolf = GetNode<BaseCreature>("WolfAlpha");
+        Enemies = new List<BaseCreature> { wolf };
+
+        var heroes = GetChildren()
+                    .Where(c => c is Hero)
+                    .Select(c => c)
+                    .Cast<Hero>()
+                    .ToArray();
+
+        Heroes = heroes;
 
         allesDa = true;
     }
 
     private void PopulateSkillButtons() { }
 
-    private void _on_undo_pressed() { }
+    private void _on_undo_pressed()
+    {
+        var wolf = Enemies[0];
+        wolf.PickSkill();
+        wolf.SelectedSkill.Activate(wolf);
+    }
 
     private void _on_orc_energist_hero_clicked(Hero hero)
     {

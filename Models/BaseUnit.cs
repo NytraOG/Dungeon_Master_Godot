@@ -212,5 +212,7 @@ public abstract partial class BaseUnit : Node3D
 
     public virtual void InitiativeBestimmen(double modifier = 1) => CurrentInitiative = (float)modifier * InitiativeModifier * (InitiativeFlatAdded + BaseInitiative.InfuseRandomness());
 
+    public virtual void SetPosition(Vector3 spawnPosition, Vector3 positionToLookAt) { }
+
     public virtual void Initialize() => CurrentHitpoints = MaximumHitpoints;
 }

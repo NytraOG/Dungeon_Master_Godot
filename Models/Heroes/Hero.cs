@@ -55,19 +55,4 @@ public partial class Hero : BaseUnit
     };
 
     public override string UseAbility(BaseSkill skill, HitResult hitResult, BaseUnit target = null) => GibSkillresult(skill, target);
-
-
-    // private void ChangeSelectedHero(BattleController controller)
-    // {
-    //     controller.selectedHero             = this;
-    //     controller.skillsOfSelectedHero     = skills;
-    //     controller.abilityanzeigeIstAktuell = false;
-    //     controller.selectedTargets.ForEach(t => t.GetComponent<SpriteRenderer>().material = controller.defaultMaterial);
-    //     controller.selectedTargets.Clear();
-    //
-    //     var inventoryDisplay = inventoryPanel.GetComponent<StaticInventoryDisplay>();
-    //     inventoryDisplay.ChangeHero(this);
-    //
-    //     statusPanel.GetComponent<StatusPanel>().ChangeHero(this);
-    // }
 }

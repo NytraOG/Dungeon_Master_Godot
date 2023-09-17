@@ -360,6 +360,20 @@ public partial class Main : Node
         allesDa = true;
     }
 
+    // private void ChangeSelectedHero(BattleController controller)
+    // {
+    //     controller.selectedHero             = this;
+    //     controller.skillsOfSelectedHero     = skills;
+    //     controller.abilityanzeigeIstAktuell = false;
+    //     controller.selectedTargets.ForEach(t => t.GetComponent<SpriteRenderer>().material = controller.defaultMaterial);
+    //     controller.selectedTargets.Clear();
+    //
+    //     var inventoryDisplay = inventoryPanel.GetComponent<StaticInventoryDisplay>();
+    //     inventoryDisplay.ChangeHero(this);
+    //
+    //     statusPanel.GetComponent<StatusPanel>().ChangeHero(this);
+    // }
+
     private void PopulateSkillButtons() { }
 
     private void _on_undo_pressed() { }

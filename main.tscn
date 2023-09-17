@@ -114,5 +114,6 @@ text = "Start Round"
 script = ExtResource("4_e1hhg")
 
 [connection signal="HeroClicked" from="OrcEnergist" to="." method="_on_orc_energist_hero_clicked"]
+[connection signal="HeroClicked" from="OrcEnergist2" to="." method="_on_orc_energist_hero_clicked"]
 [connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/StartRound" to="." method="_on_start_round_pressed"]

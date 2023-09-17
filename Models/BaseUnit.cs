@@ -10,7 +10,7 @@ using Attribute = DungeonMaster.Enums.Attribute;
 
 namespace DungeonMaster.Models;
 
-public abstract partial class BaseUnit : CharacterBody3D
+public abstract partial class BaseUnit : Node3D
 {
     public Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
     public List<Buff>                         Buffs        = new();

@@ -8,10 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://c70xtwdch46y4" path="res://Models/Heroes/Classes/energist.tscn" id="2_65qr3"]
 [ext_resource type="PackedScene" uid="uid://c6o3nm7j5m757" path="res://Models/Skills/Melee/knives.tscn" id="7_uoa5s"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hy7v5"]
-radius = 0.15466
-height = 0.653411
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_eewbk"]
 atlas = ExtResource("1_gnahg")
 region = Rect2(0, 0, 96, 96)
@@ -135,16 +131,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="OrcEnergist" type="CharacterBody3D" node_paths=PackedStringArray("Class", "InherentSkill", "Race")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hy7v5"]
+radius = 0.15466
+height = 0.653411
+
+[node name="OrcEnergist" type="Node3D" node_paths=PackedStringArray("Class", "InherentSkill", "Race")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_3t1v2")
 Class = NodePath("Energist")
 InherentSkill = NodePath("Knives")
 Race = NodePath("Orc")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0905153, -0.171266, 0)
-shape = SubResource("CapsuleShape3D_hy7v5")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
@@ -159,4 +155,8 @@ ProvidedSkills = []
 
 [node name="Knives" parent="." instance=ExtResource("7_uoa5s")]
 
-[connection signal="input_event" from="." to="." method="_on_hero_input_event"]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0905153, -0.171266, 0)
+shape = SubResource("CapsuleShape3D_hy7v5")

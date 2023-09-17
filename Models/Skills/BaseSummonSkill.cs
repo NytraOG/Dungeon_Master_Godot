@@ -9,11 +9,11 @@ namespace DungeonMaster.Models.Skills;
 
 public partial class BaseSummonSkill : BaseSkill
 {
-    [Export] public object[] UnitsToSpawn;
+    [Export] public BaseUnit[] UnitsToSpawn;
 
     public override void _Ready()
     {
-        Console.WriteLine("Units to spawn: " + string.Join(", ", UnitsToSpawn.Select(u => ((BaseUnit)u).Displayname)));
+        Console.WriteLine("Units to spawn: " + string.Join(", ", UnitsToSpawn.Select(u => u.Displayname)));
         Category    = SkillCategory.Summon;
         Subcategory = SkillSubcategory.Special;
     }

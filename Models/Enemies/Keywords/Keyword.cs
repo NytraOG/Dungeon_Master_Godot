@@ -16,7 +16,7 @@ public abstract partial class Keyword : BaseUnitModificator
             if (creature.Skills.Any(s => s.Displayname == skill.Displayname))
                 continue;
 
-            if (skill is BaseSupportSkill supportSkill)
+            if (skill is BaseSupportSkill supportSkill) //??
                 supportSkill.PopulateBuffs(creature);
 
             creature.Skills.Add(skill);

@@ -9,24 +9,24 @@ namespace DungeonMaster.Models.Skills;
 
 public partial class BaseSupportSkill : BaseTargetingSkill
 {
+    [Export] public int ActionsModifier;
     [Export] [ExportGroup("Melee, Ranged, Magic, Social, Explosion, Ambush, Sickness, ForceOfNature, Summon, Support, Initiative")]
     public string[] AffectedCategories;
-    [Export] [ExportGroup("Attackratingmodifier, additive")]
-    public float MeleeAttackratingModifier;
-    [Export] public float RangedAttackratingModifier;
-    [Export] public float MagicAttackratingModifier;
-    [Export] public float SocialAttackratingModifier;
-    [Export] [ExportGroup("Defensemodifier, additive")]
-    public float MeleeDefensmodifier;
-    [Export]                       public float    RangedDefensemodifier;
-    [Export]                       public float    MagicDefensemodifier;
-    [Export]                       public float    SocialDefensemodifier;
     [Export] [ExportGroup("Misc")] public Buff[]   AppliedBuffs;
     [Export]                       public Debuff[] AppliedDebuffs;
-    [Export]                       public bool     SelfcastOnly;
-    [Export]                       public int      ActionsModifier;
     [Export]                       public float    FlatDamageModifier;
-    public override                       Factions TargetableFaction => Factions.All;
+    [Export]                       public float    MagicAttackratingModifier;
+    [Export]                       public float    MagicDefensemodifier;
+    [Export] [ExportGroup("Attackratingmodifier, additive")]
+    public float MeleeAttackratingModifier;
+    [Export] [ExportGroup("Defensemodifier, additive")]
+    public float MeleeDefensmodifier;
+    [Export] public float    RangedAttackratingModifier;
+    [Export] public float    RangedDefensemodifier;
+    [Export] public bool     SelfcastOnly;
+    [Export] public float    SocialAttackratingModifier;
+    [Export] public float    SocialDefensemodifier;
+    public override Factions TargetableFaction => Factions.All;
 
     public override void _Ready()
     {
@@ -36,7 +36,7 @@ public partial class BaseSupportSkill : BaseTargetingSkill
 
     public override string Activate(BaseUnit _, BaseUnit target)
     {
-        if(AffectedCategories.Any())
+        if (AffectedCategories.Any())
             target.FlatDamageModifier += FlatDamageModifier;
 
         foreach (var skillCategory in AffectedCategories)
@@ -127,18 +127,17 @@ public partial class BaseSupportSkill : BaseTargetingSkill
                 target.Buffs.First(b => b.Displayname == buff.Displayname).RemainingDuration += buff.Duration;
             else
             {
-                //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
-                var newBuffInstance = new Buff
-                {
-                    AppliedBy   = this,
-                    AppliedFrom = actor
-                };
+                var newBuffInstance = buff.ToNewInstance();
+                newBuffInstance.AppliedBy   = this;
+                newBuffInstance.AppliedFrom = actor;
 
                 newBuffInstance.ApplyAttributeModifier(target);
                 newBuffInstance.ApplyRatingModifier(target);
                 newBuffInstance.ApplyDamageModifier(target);
 
                 target.Buffs.Add(newBuffInstance);
+
+                target.AddChild(newBuffInstance);
             }
         }
     }

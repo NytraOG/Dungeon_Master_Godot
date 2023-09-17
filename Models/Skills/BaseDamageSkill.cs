@@ -83,9 +83,9 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
     private void AddDebuff(BaseUnit actor, BaseUnit target, Debuff debuff)
     {
         //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
-        var targetScene = ResourceLoader.Load<PackedScene>(debuff.SceneFilePath);
 
-        var newInstance = debuff.ToNewInstance(targetScene);
+
+        var newInstance = debuff.ToNewInstance();
         newInstance.AppliedBy   = this;
         newInstance.AppliedFrom = actor;
 

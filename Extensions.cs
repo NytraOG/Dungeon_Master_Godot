@@ -146,10 +146,11 @@ public static class Extensions
         return goldTotal;
     }
 
-    public static T ToNewInstance<T>(this T from, PackedScene targetModificatorScene)
+    public static T ToNewInstance<T>(this T from)
             where T : BaseUnitModificator
     {
-        var newInstance = targetModificatorScene.Instantiate<T>();
+        var targetScene = ResourceLoader.Load<PackedScene>(from.SceneFilePath);
+        var newInstance = targetScene.Instantiate<T>();
 
         newInstance.Displayname = from.Displayname;
 

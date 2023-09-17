@@ -114,6 +114,9 @@ public partial class Main : Node
                 await ResolveBuffs(selection);
 
                 ResolveSupportSkills(selection);
+
+                if (selection.Actor is BaseCreature creature)
+                    creature.SelectedSkill = null;
             }
 
             SkillSelection.Clear();

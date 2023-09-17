@@ -14,6 +14,8 @@ public abstract partial class BaseCreature : BaseUnit
     [Signal]
     public delegate void CreatureClickedEventHandler(BaseCreature creature);
 
+    public delegate void SomeSignalWithIntArgument();
+
     public          List<Positions> FavouritePositions = new() { Positions.None };
     private         bool            isInitialized;
     [Export] public Keyword[]       Keywords;
@@ -55,10 +57,25 @@ public abstract partial class BaseCreature : BaseUnit
         ApplyKeywords();
         SetInitialHitpointsAndMana();
 
+        OnSomeSignal += UpdateSelectedEnemy;
+
+        // var mainNode = GetTree().CurrentScene;
+        // var kek      = mainNode.GetNode(mainNode.GetPath());
+        // var callable = new Callable(this, nameof(UpdateSelectedEnemy));
+        //
+        // kek.Connect(SignalName.CreatureClicked, callable);
         // var spriterenderer = GetComponent<SpriteRenderer>();
         // spriterenderer.sprite ??= monstertype.sprite;
 
         //unitTooltip = GameObject.Find("UiCanvas").transform.Find("UnitTooltip").gameObject;
+    }
+
+    public event SomeSignalWithIntArgument OnSomeSignal;
+
+    public void UpdateSelectedEnemy()
+    {
+        var mainNode = (Main)GetTree().CurrentScene;
+        mainNode.SelectedEnemy = this;
     }
 
     public override (int, int) GetApproximateDamage(BaseSkill ability) => ability switch
@@ -123,7 +140,8 @@ public abstract partial class BaseCreature : BaseUnit
     private void _on_creature_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
     {
         if (@event is InputEventMouseButton { Pressed: true })
-            OnClicked();
+            OnSomeSignal?.Invoke();
+        //OnClicked();
     }
 
     protected abstract void OnClicked();

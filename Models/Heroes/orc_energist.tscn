@@ -134,12 +134,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="OrcEnergist" type="CharacterBody3D" node_paths=PackedStringArray("Class", "Race")]
+[node name="OrcEnergist" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_3t1v2")
-Class = NodePath("Energist")
-InventorySize = 20
-Race = NodePath("Orc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0905153, -0.171266, 0)

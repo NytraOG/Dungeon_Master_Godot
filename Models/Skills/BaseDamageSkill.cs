@@ -11,24 +11,26 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseDamageSkill : BaseTargetingSkill
 {
-    [Export]                                         public Debuff[]  AppliedDebuffs;
-    [ExportGroup("Hitroll")] [Export]                public Attribute PrimaryAttributeH;
-    [Export]                                         public float     PrimaryScalingH = 2f;
-    [Export]                                         public Attribute SecondaryAttributeH;
-    [Export]                                         public float     SecondaryScalingH  = 1f;
-    [Export]                                         public float     SkillLevelScalingH = 2f;
-    [Export]                                         public float     MultiplierH        = 1;
-    [ExportGroup("Effect and Damageroll")] [Export]  public Attribute PrimaryAttributeD;
-    [Export]                                         public float     PrimaryScalingD = 0.5f;
-    [Export]                                         public Attribute SecondaryAttributeD;
-    [Export]                                         public float     SecondaryScalingD  = 0.34f;
-    [Export]                                         public float     SkillLevelScalingD = 0.5f;
-    [Export]                                         public float     MultiplierD        = 1;
-    [ExportGroup("On Hit added Damage")]    [Export] public int       Normal;
-    [Export]                                         public int       Good;
-    [Export]                                         public int       Critical;
-    [Export(PropertyHint.Range, "0,1")]              public float     DamageRange = 1;
-    [Export]                                         public int       AddedFlatDamage;
+    [Export]                            public int      AddedFlatDamage;
+    [Export]                            public Debuff[] AppliedDebuffs;
+    [Export]                            public int      Critical;
+    [Export(PropertyHint.Range, "0,1")] public float    DamageRange = 1;
+    [Export]                            public int      Good;
+    [Export]                            public float    MultiplierD = 1;
+    [Export]                            public float    MultiplierH = 1;
+    [ExportGroup("On Hit added Damage")] [Export]
+    public int Normal;
+    [ExportGroup("Effect and Damageroll")] [Export]
+    public Attribute PrimaryAttributeD;
+    [ExportGroup("Hitroll")] [Export] public Attribute PrimaryAttributeH;
+    [Export]                          public float     PrimaryScalingD = 0.5f;
+    [Export]                          public float     PrimaryScalingH = 2f;
+    [Export]                          public Attribute SecondaryAttributeD;
+    [Export]                          public Attribute SecondaryAttributeH;
+    [Export]                          public float     SecondaryScalingD  = 0.34f;
+    [Export]                          public float     SecondaryScalingH  = 1f;
+    [Export]                          public float     SkillLevelScalingD = 0.5f;
+    [Export]                          public float     SkillLevelScalingH = 2f;
 
     public int GetHitroll(BaseUnit actor)
     {
@@ -81,15 +83,17 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
     private void AddDebuff(BaseUnit actor, BaseUnit target, Debuff debuff)
     {
         //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
-        var newInstance = new Debuff
-        {
-            AppliedBy   = this,
-            AppliedFrom = actor
-        };
+        var targetScene = ResourceLoader.Load<PackedScene>(debuff.SceneFilePath);
+
+        var newInstance = debuff.ToNewInstance(targetScene);
+        newInstance.AppliedBy   = this;
+        newInstance.AppliedFrom = actor;
 
         target.Debuffs.Add(newInstance);
         newInstance.ApplyDamageModifier(target);
         newInstance.ApplyRatingModifier(target);
+
+        target.AddChild(newInstance);
     }
 
     private string GetDamageText(string damage) => damage == "0-0" ? string.Empty : $"Damage:\t<b>{damage}</b>{Environment.NewLine}";

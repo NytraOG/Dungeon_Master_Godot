@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DungeonMaster.Models;
+using DungeonMaster.Models.Skills.Statuseffects;
+using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
 using Godot;
 
 namespace DungeonMaster;
@@ -144,47 +146,45 @@ public static class Extensions
         return goldTotal;
     }
 
-    // public static T ToNewInstance<T>(this T from)
-    //         where T : BaseUnitModifikator
-    // {
-    //     var newInstance = ScriptableObject.CreateInstance<T>();
-    //
-    //     newInstance.displayname = from.displayname;
-    //     newInstance.name        = from.name;
-    //
-    //     newInstance.actionsModifier    = from.actionsModifier;
-    //     newInstance.flatDamageModifier = from.flatDamageModifier;
-    //
-    //     newInstance.charismaMultiplier     = from.charismaMultiplier;
-    //     newInstance.constitutionMultiplier = from.constitutionMultiplier;
-    //     newInstance.dexterityMultiplier    = from.dexterityMultiplier;
-    //     newInstance.intuitionMultiplier    = from.intuitionMultiplier;
-    //     newInstance.logicMultiplier        = from.logicMultiplier;
-    //     newInstance.willpowerMultiplier    = from.willpowerMultiplier;
-    //     newInstance.wisdomMultiplier       = from.wisdomMultiplier;
-    //     newInstance.charismaMultiplier     = from.charismaMultiplier;
-    //
-    //     newInstance.meleeAttackratingModifier  = from.meleeAttackratingModifier;
-    //     newInstance.rangedAttackratingModifier = from.rangedAttackratingModifier;
-    //     newInstance.magicAttackratingModifier  = from.magicAttackratingModifier;
-    //     newInstance.socialAttackratingModifier = from.socialAttackratingModifier;
-    //
-    //     newInstance.meleeDefensmodifier   = from.meleeDefensmodifier;
-    //     newInstance.rangedDefensemodifier = from.rangedDefensemodifier;
-    //     newInstance.magicDefensemodifier  = from.magicDefensemodifier;
-    //     newInstance.socialDefensemodifier = from.socialDefensemodifier;
-    //
-    //     if (from is Debuff debuff && newInstance is Debuff newInstanceDebuff)
-    //     {
-    //         newInstanceDebuff.damagePerTick        = debuff.damagePerTick;
-    //         newInstanceDebuff.duration             = debuff.duration;
-    //         newInstanceDebuff.remainingDuration    = debuff.remainingDuration;
-    //         newInstanceDebuff.isStackable          = debuff.isStackable;
-    //         newInstanceDebuff.combatlogEffectColor = debuff.combatlogEffectColor;
-    //     }
-    //
-    //     return newInstance;
-    // }
+    public static T ToNewInstance<T>(this T from, PackedScene targetModificatorScene)
+            where T : BaseUnitModificator
+    {
+        var newInstance = targetModificatorScene.Instantiate<T>();
+
+        newInstance.Displayname = from.Displayname;
+
+        newInstance.ActionsModifier    = from.ActionsModifier;
+        newInstance.FlatDamageModifier = from.FlatDamageModifier;
+
+        newInstance.ConstitutionMultiplier = from.ConstitutionMultiplier;
+        newInstance.DexterityMultiplier    = from.DexterityMultiplier;
+        newInstance.IntuitionMultiplier    = from.IntuitionMultiplier;
+        newInstance.LogicMultiplier        = from.LogicMultiplier;
+        newInstance.WillpowerMultiplier    = from.WillpowerMultiplier;
+        newInstance.WisdomMultiplier       = from.WisdomMultiplier;
+        newInstance.CharismaMultiplier     = from.CharismaMultiplier;
+
+        newInstance.MeleeAttackratingModifier  = from.MeleeAttackratingModifier;
+        newInstance.RangedAttackratingModifier = from.RangedAttackratingModifier;
+        newInstance.MagicAttackratingModifier  = from.MagicAttackratingModifier;
+        newInstance.SocialAttackratingModifier = from.SocialAttackratingModifier;
+
+        newInstance.MeleeDefensmodifier   = from.MeleeDefensmodifier;
+        newInstance.RangedDefensemodifier = from.RangedDefensemodifier;
+        newInstance.MagicDefensemodifier  = from.MagicDefensemodifier;
+        newInstance.SocialDefensemodifier = from.SocialDefensemodifier;
+
+        if (from is Debuff debuff && newInstance is Debuff newInstanceDebuff)
+        {
+            newInstanceDebuff.DamagePerTick        = debuff.DamagePerTick;
+            newInstanceDebuff.Duration             = debuff.Duration;
+            newInstanceDebuff.RemainingDuration    = debuff.RemainingDuration;
+            newInstanceDebuff.IsStackable          = debuff.IsStackable;
+            newInstanceDebuff.CombatlogEffectColor = debuff.CombatlogEffectColor;
+        }
+
+        return newInstance;
+    }
 
     public static float ApplyOperation(this float attributeValue, string op, float modifier) => op switch
     {

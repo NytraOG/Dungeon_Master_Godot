@@ -33,7 +33,7 @@ public partial class Main : Node
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    private bool                 allesDa;
+    public  bool                 AllesDa;
     private bool                 combatActive;
     public  BaseCreature[]       Enemies = Array.Empty<BaseCreature>();
     public  Hero[]               Heroes  = Array.Empty<Hero>();
@@ -301,16 +301,11 @@ public partial class Main : Node
 
     private void MachEnemiesCombatReady()
     {
-        var enemys = this.GetAllChildren<BaseCreature>();
-
-        var enemyAmount = enemys.Length;
-
-        if (combatActive || !Enemies.Any() || Enemies.Length == enemyAmount)
+        if (combatActive || !Enemies.Any())
             return;
 
         var notCombatReadyEnemies = Enemies.Where(e => !e.IsDead &&
-                                                       e.SelectedSkill is null &&
-                                                       enemys.All(ea => ea.Displayname != e.Displayname));
+                                                       e.SelectedSkill is null);
 
         foreach (var enemy in notCombatReadyEnemies)
         {
@@ -357,26 +352,13 @@ public partial class Main : Node
 
     private void SetupCombatants()
     {
-        if (allesDa)
+        if (AllesDa)
             return;
 
-        var enemies = GetChildren()
-                     .Where(c => c is BaseCreature)
-                     .Select(c => c)
-                     .Cast<BaseCreature>()
-                     .ToArray();
+        Enemies = this.GetAllChildren<BaseCreature>();
+        Heroes  = this.GetAllChildren<Hero>();
 
-        Enemies = enemies;
-
-        var heroes = GetChildren()
-                    .Where(c => c is Hero)
-                    .Select(c => c)
-                    .Cast<Hero>()
-                    .ToArray();
-
-        Heroes = heroes;
-
-        allesDa = true;
+        AllesDa = true;
     }
 
     private void PopulateSkillButtons() { }

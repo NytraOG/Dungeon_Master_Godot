@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccgquljmb0w8d"]
+[gd_scene load_steps=3 format=3 uid="uid://ccgquljmb0w8d"]
 
 [ext_resource type="Script" path="res://Models/Heroes/Hero.cs" id="1_x7eqe"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4pq3i"]
+radius = 0.223838
+height = 0.84754
+
 [node name="Hero" type="Node3D"]
 script = ExtResource("1_x7eqe")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.307604, 0)
+shape = SubResource("CapsuleShape3D_4pq3i")

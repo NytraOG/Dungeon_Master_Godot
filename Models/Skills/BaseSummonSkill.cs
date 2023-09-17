@@ -6,7 +6,7 @@ namespace DungeonMaster.Models.Skills;
 
 public partial class BaseSummonSkill : BaseSkill
 {
-    [Export] public BaseUnit[] SpawnsPerCast;
+    [Export] public BaseUnit[] UnitsToSpawn;
 
     public override void _Ready()
     {
@@ -16,7 +16,7 @@ public partial class BaseSummonSkill : BaseSkill
 
     public override string Activate(BaseUnit actor)
     {
-        foreach (var unit in SpawnsPerCast)
+        foreach (var unit in UnitsToSpawn)
         {
             // var creatureScript = creature.GetComponent<Creature>();
             // var service        = FindObjectOfType<SpawnController>();

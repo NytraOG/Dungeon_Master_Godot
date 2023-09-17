@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbo0dc38hpn04"]
+
+[ext_resource type="Script" path="res://Models/Enemies/Keywords/Precise.cs" id="1_m40ce"]
+
+[node name="Precise" type="Node3D" node_paths=PackedStringArray("Skills")]
+script = ExtResource("1_m40ce")
+Skills = []
+Displayname = "Precise"
+MeleeAttackratingModifier = 0.75
+RangedAttackratingModifier = 0.75

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://mvrv2ywku1r8"]
+
+[ext_resource type="Script" path="res://Models/Enemies/Keywords/Alpha.cs" id="1_65y35"]
+[ext_resource type="PackedScene" uid="uid://b41rogpbxiemu" path="res://Models/Skills/Melee/bite.tscn" id="2_tgxjo"]
+[ext_resource type="PackedScene" uid="uid://chjggs36wivj6" path="res://Models/Skills/Summon/gather_the_pack.tscn" id="3_kabja"]
+[ext_resource type="PackedScene" uid="uid://dly46owacijwj" path="res://Models/Skills/Support/master_of_the_pack.tscn" id="4_l241u"]
+
+[node name="Alpha" type="Node3D" node_paths=PackedStringArray("Skills")]
+script = ExtResource("1_65y35")
+Skills = [NodePath("Bite"), NodePath("GatherThePack"), NodePath("MasterOfThePack")]
+Displayname = "Alpha"
+StrengthMultiplier = 2.0
+ConstitutionMultiplier = 5.0
+DexterityMultiplier = 1.5
+IntuitionMultiplier = 1.5
+LogicMultiplier = 3.0
+WisdomMultiplier = 3.0
+WillpowerMultiplier = 4.0
+CharismaMultiplier = 4.0
+FlatDamageModifier = 2.0
+
+[node name="Bite" parent="." instance=ExtResource("2_tgxjo")]
+
+[node name="GatherThePack" parent="." instance=ExtResource("3_kabja")]
+
+[node name="MasterOfThePack" parent="." instance=ExtResource("4_l241u")]

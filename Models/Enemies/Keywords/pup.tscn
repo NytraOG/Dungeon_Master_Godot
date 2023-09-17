@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjns0t46biiiw"]
+
+[ext_resource type="Script" path="res://Models/Enemies/Keywords/Pup.cs" id="1_u36am"]
+[ext_resource type="PackedScene" uid="uid://b41rogpbxiemu" path="res://Models/Skills/Melee/bite.tscn" id="2_c3vp0"]
+
+[node name="Pup" type="Node3D" node_paths=PackedStringArray("Skills")]
+script = ExtResource("1_u36am")
+Skills = [NodePath("Bite")]
+MeleeAttackratingModifier = -0.5
+RangedAttackratingModifier = -0.5
+MagicAttackratingModifier = -0.5
+SocialAttackratingModifier = -0.5
+MeleeDefensmodifier = -0.5
+RangedDefensemodifier = -0.5
+MagicDefensemodifier = -0.5
+SocialDefensemodifier = -0.5
+
+[node name="Bite" parent="." instance=ExtResource("2_c3vp0")]

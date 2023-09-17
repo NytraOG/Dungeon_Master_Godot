@@ -1,12 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://brbk57c5unerm"]
+[gd_scene load_steps=4 format=3 uid="uid://brbk57c5unerm"]
 
 [ext_resource type="Script" path="res://Models/Heroes/Races/Orc.cs" id="1_etr44"]
+[ext_resource type="PackedScene" uid="uid://dylmajc3k42vv" path="res://Models/Skills/Social/roar.tscn" id="2_46vso"]
+[ext_resource type="PackedScene" uid="uid://byhjwqm5wvif" path="res://Models/Skills/Support/magic_deflect.tscn" id="3_u5mn0"]
 
 [node name="Orc" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
 script = ExtResource("1_etr44")
-DisplayName = "Orc"
 ModifierLogic = -2
 ModifierStrength = 2
 ModifierWisdom = -1
-ProvidedSkills = []
+ProvidedSkills = [NodePath("Roar"), NodePath("MagicDeflect")]
 Displayname = "Orc"
+
+[node name="Roar" parent="." instance=ExtResource("2_46vso")]
+
+[node name="MagicDeflect" parent="." instance=ExtResource("3_u5mn0")]

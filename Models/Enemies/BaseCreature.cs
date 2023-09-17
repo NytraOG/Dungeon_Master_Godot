@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonMaster.Enums;
+using DungeonMaster.Models.Enemies.Keywords;
+using DungeonMaster.Models.Enemies.MonsterTypes;
 using DungeonMaster.Models.Skills;
 using Godot;
 
@@ -10,11 +12,21 @@ namespace DungeonMaster.Models.Enemies;
 public abstract partial class BaseCreature : BaseUnit
 {
     public          List<Positions> FavouritePositions = new() { Positions.None };
+    private         bool            isInitialized;
     [Export] public Keyword[]       Keywords;
     [Export] public float           LevelModifier;
     [Export] public BaseMonstertype Monstertype;
 
-    public override void _Ready()
+    public override void _Process(double delta)
+    {
+        if (isInitialized)
+            return;
+
+        Initialize();
+        isInitialized = true;
+    }
+
+    public override void Initialize()
     {
         Displayname = $"{Monstertype.Displayname} {Keywords[0]?.Displayname}";
         Name        = Displayname;
@@ -35,7 +47,7 @@ public abstract partial class BaseCreature : BaseUnit
 
         SetAttributeByLevel();
 
-        base._Ready();
+        base.Initialize();
 
         ApplyKeywords();
         SetInitialHitpointsAndMana();
@@ -104,6 +116,4 @@ public abstract partial class BaseCreature : BaseUnit
         Willpower    += (int)(Monstertype.Willpower * modifier);
         Charisma     += (int)(Monstertype.Charisma * modifier);
     }
-
-    public override void _Process(double delta) { }
 }

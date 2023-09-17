@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1cgq6b2i8mb6"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Races/Dwarf.cs" id="1_tjr7i"]
+
+[node name="Dwarf" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+script = ExtResource("1_tjr7i")
+ModifierCharisma = -1
+ModifierDexterity = 2
+ModifierIntuition = 1
+ModifierStrength = -2
+ProvidedSkills = []
+Displayname = "Dwarf"

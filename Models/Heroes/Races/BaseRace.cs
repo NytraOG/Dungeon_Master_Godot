@@ -6,7 +6,6 @@ namespace DungeonMaster.Models.Heroes.Races;
 
 public abstract partial class BaseRace : Node3D
 {
-    [Export] public string      DisplayName;
     [Export] public int         ModifierCharisma;
     [Export] public int         ModifierConstitution;
     [Export] public int         ModifierDexterity;

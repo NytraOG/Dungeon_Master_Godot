@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dysu5ija2nfyp"]
+
+[ext_resource type="Script" path="res://Models/Enemies/Keywords/Savage.cs" id="1_hhs8g"]
+
+[node name="Savage" type="Node3D" node_paths=PackedStringArray("Skills")]
+script = ExtResource("1_hhs8g")
+Skills = []
+Displayname = "Savage"
+StrengthMultiplier = 1.5
+QuicknessMultiplier = 2.0
+FlatDamageModifier = 2.0
+MeleeAttackratingModifier = 0.1

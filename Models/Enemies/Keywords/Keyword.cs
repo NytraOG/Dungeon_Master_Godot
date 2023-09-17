@@ -3,7 +3,7 @@ using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects;
 using Godot;
 
-namespace DungeonMaster.Models.Enemies;
+namespace DungeonMaster.Models.Enemies.Keywords;
 
 public abstract partial class Keyword : BaseUnitModificator
 {

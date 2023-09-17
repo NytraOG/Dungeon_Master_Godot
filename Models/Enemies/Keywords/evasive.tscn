@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://rww43rl6cqmf"]
+
+[ext_resource type="Script" path="res://Models/Enemies/Keywords/Evasive.cs" id="1_piidg"]
+
+[node name="Evasive" type="Node3D" node_paths=PackedStringArray("Skills")]
+script = ExtResource("1_piidg")
+Skills = []
+MeleeDefensmodifier = 0.75

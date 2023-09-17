@@ -1,15 +1,19 @@
+using System;
+using System.Linq;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Heroes;
 using Godot;
+using Environment = System.Environment;
 
 namespace DungeonMaster.Models.Skills;
 
 public partial class BaseSummonSkill : BaseSkill
 {
-    [Export] public BaseUnit[] UnitsToSpawn;
+    [Export] public object[] UnitsToSpawn;
 
     public override void _Ready()
     {
+        Console.WriteLine("Units to spawn: " + string.Join(", ", UnitsToSpawn.Select(u => ((BaseUnit)u).Displayname)));
         Category    = SkillCategory.Summon;
         Subcategory = SkillSubcategory.Special;
     }
@@ -41,6 +45,6 @@ public partial class BaseSummonSkill : BaseSkill
     }
 
     public override string GetTooltip(Hero hero, string damage = "0-0") => base.GetTooltip(hero, damage) +
-                                                                           System.Environment.NewLine + System.Environment.NewLine +
+                                                                           Environment.NewLine + Environment.NewLine +
                                                                            Description;
 }

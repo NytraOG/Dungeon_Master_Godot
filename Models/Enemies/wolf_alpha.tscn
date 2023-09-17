@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://xwjet8625grl"]
+
+[ext_resource type="Script" path="res://Models/Enemies/WolfAlpha.cs" id="1_7ej0k"]
+[ext_resource type="PackedScene" uid="uid://52cwpwctrwwf" path="res://Models/Enemies/MonsterTypes/wolf.tscn" id="2_pdxce"]
+[ext_resource type="PackedScene" uid="uid://mvrv2ywku1r8" path="res://Models/Enemies/Keywords/alpha.tscn" id="3_53erl"]
+[ext_resource type="PackedScene" uid="uid://rww43rl6cqmf" path="res://Models/Enemies/Keywords/evasive.tscn" id="4_6rbae"]
+
+[node name="WolfAlpha" type="Node3D" node_paths=PackedStringArray("Keywords", "Monstertype")]
+script = ExtResource("1_7ej0k")
+Keywords = [NodePath("Alpha"), NodePath("Evasive")]
+LevelModifier = 1.4
+Monstertype = NodePath("Wolf")
+Displayname = "Wolf, Alpha"
+Level = 1
+
+[node name="Wolf" parent="." instance=ExtResource("2_pdxce")]
+
+[node name="Alpha" parent="." instance=ExtResource("3_53erl")]
+
+[node name="Evasive" parent="." instance=ExtResource("4_6rbae")]

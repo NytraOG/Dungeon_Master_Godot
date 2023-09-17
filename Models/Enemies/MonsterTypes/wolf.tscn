@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://52cwpwctrwwf"]
+
+[ext_resource type="Script" path="res://Models/Enemies/MonsterTypes/Wolf.cs" id="1_yv47j"]
+
+[node name="Wolf" type="Node3D"]
+script = ExtResource("1_yv47j")
+Displayname = "Wolf"
+Dexterity = 3
+Quickness = 5
+Charisma = 2

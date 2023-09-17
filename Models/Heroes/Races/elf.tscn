@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://beisamp68kgjw"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Races/Elf.cs" id="1_gha56"]
+
+[node name="Elf" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+script = ExtResource("1_gha56")
+ModifierCharisma = 2
+ModifierQuickness = 2
+ModifierWillpower = -2
+ModifierWisdom = -2
+ProvidedSkills = []
+Displayname = "Elf"

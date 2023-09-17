@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://btux0jidhdy1j"]
+
+[ext_resource type="Script" path="res://Models/Heroes/Races/Kobold.cs" id="1_s440k"]
+
+[node name="Kobold" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+script = ExtResource("1_s440k")
+ModifierQuickness = 1
+ModifierStrength = -1
+ModifierWillpower = -1
+ProvidedSkills = []
+Displayname = "Kobold"

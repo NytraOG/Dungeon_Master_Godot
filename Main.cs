@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DungeonMaster.Enums;
 using DungeonMaster.Models;
 using DungeonMaster.Models.Enemies;
@@ -32,10 +33,10 @@ public partial class Main : Node
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
+    private readonly List<Hero>           Heroes = new();
     private          bool                 allesDa;
     private          bool                 combatActive;
     public           List<BaseCreature>   Enemies = new();
-    private readonly List<Hero>           Heroes  = new();
     public           Hero                 SelectedHero;
     public           BaseSkill            SelectedSkill;
     public           List<BaseUnit>       SelectedTargets      = new();
@@ -46,7 +47,7 @@ public partial class Main : Node
                                      SelectedSkill is BaseDamageSkill { TargetableFaction: Factions.Foe }
                                              or BaseTargetingSkill { TargetableFaction: Factions.All or Factions.Friend };
 
-    private void _on_start_round_pressed() => HandleBattleround();
+    private async void _on_start_round_pressed() => await HandleBattleround();
 
     public override void _Ready() => PopulateSkillButtons();
 
@@ -62,14 +63,12 @@ public partial class Main : Node
         SetupCombatants();
     }
 
-    private void HandleBattleround()
+    private async Task HandleBattleround()
     {
         combatActive = true;
 
         if (!SkillSelection.Any())
-        {
-            //ShowToast("No Abilities have been selected", 1);
-        }
+            Console.WriteLine("No Skills have been selected");
         else
         {
             SkillSelection = SkillSelection.OrderByDescending(a => a.Actor.ModifiedInitiative)
@@ -79,7 +78,8 @@ public partial class Main : Node
             {
                 if (selection.Actor.IsDead)
                 {
-                    //yield return new WaitForSeconds(0.5f);
+                    await WaitFor(500);
+
                     continue;
                 }
 
@@ -94,7 +94,7 @@ public partial class Main : Node
                     if (selection.Actor is BaseCreature baseCreature)
                         baseCreature.SelectedSkill = null;
 
-                    //yield return new WaitForSeconds(1f);
+                    await WaitFor(1000);
                 }
                 else if (selection.Targets.Any() && selection.Targets.All(t => t.IsDead) && selection.Actor is BaseCreature baseCreature)
                 {
@@ -106,115 +106,13 @@ public partial class Main : Node
                 {
                     ProcessSkillactivation(selection);
 
-                    //yield return new WaitForSeconds(1f);
+                    await WaitFor(1000);
                 }
 
-                #region Resolve Debuffs
+                await ResolveDebuffs(selection);
+                await ResolveBuffs(selection);
 
-                var debuffsToKill           = new List<Debuff>();
-                var stackableDebuffs        = selection.Actor.Debuffs.Where(d => d.IsStackable).ToList();
-                var groupedStackableDebuffs = stackableDebuffs.GroupBy(d => d.Displayname);
-                var unstackableDebuffs      = selection.Actor.Debuffs.Except(stackableDebuffs);
-
-                foreach (var debuffs in groupedStackableDebuffs)
-                {
-                    var cumulatedDamage = ResolveEffect(debuffs, debuffsToKill, selection, out var remainingDuration);
-
-                    EmitSignal(SignalName.DebuffTick, selection.Actor, cumulatedDamage, remainingDuration, debuffs.First().CombatlogEffectColor, debuffs.First());
-
-                    if (cumulatedDamage <= 0)
-                        continue;
-
-                    //ProcessFloatingCombatText(cumulatedDamage.ToString(), HitResult.None, selection.Actor);
-
-                    //yield return new WaitForSeconds(1f);
-                }
-
-                foreach (var debuff in unstackableDebuffs)
-                {
-                    debuff.ResolveTick(selection.Actor);
-
-                    if (debuff.DurationEnded)
-                        debuffsToKill.Add(debuff);
-
-                    EmitSignal(SignalName.DebuffTick, selection.Actor, debuff.DamagePerTick, debuff.RemainingDuration, debuff.CombatlogEffectColor, debuff);
-
-                    if (debuff.DamagePerTick <= 0)
-                        continue;
-
-                    //ProcessFloatingCombatText(debuff.damagePerTick.ToString(), HitResult.None, selection.Actor);
-
-                    //yield return new WaitForSeconds(1f);
-                }
-
-                foreach (var debuff in debuffsToKill)
-                    debuff.Die(selection.Actor);
-
-                #endregion
-
-                #region Resolve Buffs
-
-                var buffsToKill           = new List<Buff>();
-                var stackableBuffs        = selection.Actor.Buffs.Where(b => b.IsStackable).ToList();
-                var groupedStackableBuffs = stackableBuffs.GroupBy(b => b.Displayname);
-                var unstackableBuffs      = selection.Actor.Buffs.Except(stackableBuffs);
-
-                foreach (var buffs in groupedStackableBuffs)
-                {
-                    buffs.ToList()
-                         .ForEach(b =>
-                          {
-                              b.ResolveTick(selection.Actor);
-
-                              if (b.DurationEnded)
-                                  buffsToKill.Add(b);
-                          });
-
-                    EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buffs.Max(b => b.RemainingDuration), buffs.First().CombatlogEffectColor, buffs.First());
-
-                    //ProcessFloatingCombatText($"{buffs.Key} TICK", HitResult.None, selection.Actor);
-                }
-
-                foreach (var buff in unstackableBuffs)
-                {
-                    buff.ResolveTick(selection.Actor);
-
-                    if (buff.DurationEnded)
-                        buffsToKill.Add(buff);
-
-                    EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buff.RemainingDuration, buff.CombatlogEffectColor, buff);
-
-                    // if (buff.RemainingDuration >= 0)
-                    //     ProcessFloatingCombatText($"{buff.name} TICK", HitResult.None, selection.Actor);
-                }
-
-                foreach (var buff in buffsToKill)
-                    buff.Die(selection.Actor);
-
-                #endregion
-
-                // if (selection.Actor.Buffs.Any() || buffsToKill.Any())
-                //     yield return new WaitForSeconds(1f);
-
-                var skillsToRemove = new List<BaseSupportSkill>();
-                var skillsToCheck  = new List<BaseSupportSkill>();
-
-                foreach (var skill in selection.Actor.ActiveSkills)
-                {
-                    if (skill.Value)
-                    {
-                        skill.Key.Reverse(selection.Actor);
-                        skillsToRemove.Add(skill.Key);
-                    }
-                    else
-                        skillsToCheck.Add(skill.Key);
-                }
-
-                foreach (var skill in skillsToCheck)
-                    selection.Actor.ActiveSkills[skill] = true;
-
-                foreach (var skill in skillsToRemove)
-                    selection.Actor.ActiveSkills.Remove(skill);
+                ResolveSupportSkills(selection);
             }
 
             SkillSelection.Clear();
@@ -225,6 +123,114 @@ public partial class Main : Node
         combatActive = false;
 
         EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
+    }
+
+    private static void ResolveSupportSkills(SkillSelection selection)
+    {
+        var skillsToRemove = new List<BaseSupportSkill>();
+        var skillsToCheck  = new List<BaseSupportSkill>();
+
+        foreach (var skill in selection.Actor.ActiveSkills)
+        {
+            if (skill.Value)
+            {
+                skill.Key.Reverse(selection.Actor);
+                skillsToRemove.Add(skill.Key);
+            }
+            else
+                skillsToCheck.Add(skill.Key);
+        }
+
+        foreach (var skill in skillsToCheck)
+            selection.Actor.ActiveSkills[skill] = true;
+
+        foreach (var skill in skillsToRemove)
+            selection.Actor.ActiveSkills.Remove(skill);
+    }
+
+    private async Task ResolveBuffs(SkillSelection selection)
+    {
+        var buffsToKill           = new List<Buff>();
+        var stackableBuffs        = selection.Actor.Buffs.Where(b => b.IsStackable).ToList();
+        var groupedStackableBuffs = stackableBuffs.GroupBy(b => b.Displayname);
+        var unstackableBuffs      = selection.Actor.Buffs.Except(stackableBuffs);
+
+        foreach (var buffs in groupedStackableBuffs)
+        {
+            buffs.ToList()
+                 .ForEach(b =>
+                  {
+                      b.ResolveTick(selection.Actor);
+
+                      if (b.DurationEnded)
+                          buffsToKill.Add(b);
+                  });
+
+            EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buffs.Max(b => b.RemainingDuration), buffs.First().CombatlogEffectColor, buffs.First());
+
+            //ProcessFloatingCombatText($"{buffs.Key} TICK", HitResult.None, selection.Actor);
+        }
+
+        foreach (var buff in unstackableBuffs)
+        {
+            buff.ResolveTick(selection.Actor);
+
+            if (buff.DurationEnded)
+                buffsToKill.Add(buff);
+
+            EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buff.RemainingDuration, buff.CombatlogEffectColor, buff);
+
+            // if (buff.RemainingDuration >= 0)
+            //     ProcessFloatingCombatText($"{buff.name} TICK", HitResult.None, selection.Actor);
+        }
+
+        foreach (var buff in buffsToKill)
+            buff.Die(selection.Actor);
+
+        if (selection.Actor.Buffs.Any() || buffsToKill.Any())
+            await WaitFor(1000);
+    }
+
+    private async Task ResolveDebuffs(SkillSelection selection)
+    {
+        var debuffsToKill           = new List<Debuff>();
+        var stackableDebuffs        = selection.Actor.Debuffs.Where(d => d.IsStackable).ToList();
+        var groupedStackableDebuffs = stackableDebuffs.GroupBy(d => d.Displayname);
+        var unstackableDebuffs      = selection.Actor.Debuffs.Except(stackableDebuffs);
+
+        foreach (var debuffs in groupedStackableDebuffs)
+        {
+            var cumulatedDamage = ResolveEffect(debuffs, debuffsToKill, selection, out var remainingDuration);
+
+            EmitSignal(SignalName.DebuffTick, selection.Actor, cumulatedDamage, remainingDuration, debuffs.First().CombatlogEffectColor, debuffs.First());
+
+            if (cumulatedDamage <= 0)
+                continue;
+
+            //ProcessFloatingCombatText(cumulatedDamage.ToString(), HitResult.None, selection.Actor);
+
+            await WaitFor(1000);
+        }
+
+        foreach (var debuff in unstackableDebuffs)
+        {
+            debuff.ResolveTick(selection.Actor);
+
+            if (debuff.DurationEnded)
+                debuffsToKill.Add(debuff);
+
+            EmitSignal(SignalName.DebuffTick, selection.Actor, debuff.DamagePerTick, debuff.RemainingDuration, debuff.CombatlogEffectColor, debuff);
+
+            if (debuff.DamagePerTick <= 0)
+                continue;
+
+            //ProcessFloatingCombatText(debuff.damagePerTick.ToString(), HitResult.None, selection.Actor);
+
+            await WaitFor(1000);
+        }
+
+        foreach (var debuff in debuffsToKill)
+            debuff.Die(selection.Actor);
     }
 
     private static int ResolveEffect(IGrouping<string, Debuff> debuffs, List<Debuff> debuffsToKill, SkillSelection selection, out int remainingDuration)
@@ -357,11 +363,12 @@ public partial class Main : Node
     private void PopulateSkillButtons() { }
 
     private void _on_undo_pressed() { }
+
+    private async Task WaitFor(int milliseconds) => await ToSignal(GetTree().CreateTimer((double)milliseconds / 1000), "timeout");
+
     private void _on_orc_energist_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex, string argument1)
     {
-        if(@event is InputEventMouseButton { Pressed: true } button)
-        {
-        }
+        if (@event is InputEventMouseButton { Pressed: true } button) { }
     }
 }
 

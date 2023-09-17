@@ -2,6 +2,7 @@
 
 public enum Attribute
 {
+    None,
     Strength,
     Constitution,
     Dexterity,

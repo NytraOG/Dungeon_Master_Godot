@@ -2,5 +2,19 @@
 
 [ext_resource type="Script" path="res://Models/Skills/Melee/Knives.cs" id="1_3cp3n"]
 
-[node name="Knives" type="Node3D"]
+[node name="Knives" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_3cp3n")
+AppliedDebuffs = []
+PrimaryAttributeH = 4
+SecondaryAttributeH = 3
+MultiplierH = 1.1
+PrimaryAttributeD = 3
+SecondaryAttributeD = 4
+Normal = 1
+Good = 2
+Critical = 3
+DamageRange = 0.34
+AddedFlatDamage = 1
+Subcategory = 1
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []

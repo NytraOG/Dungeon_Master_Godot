@@ -1,14 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://b41rogpbxiemu"]
+[gd_scene load_steps=4 format=3 uid="uid://b41rogpbxiemu"]
 
 [ext_resource type="Script" path="res://Models/Skills/Melee/Bite.cs" id="1_durqm"]
+[ext_resource type="PackedScene" uid="uid://nrqjjshwpeqj" path="res://Models/Skills/Statuseffects/Debuffs/armor_shred.tscn" id="2_t6hef"]
+[ext_resource type="PackedScene" uid="uid://ktpxt7a78krn" path="res://Models/Skills/Statuseffects/Debuffs/bleed.tscn" id="3_h1btf"]
 
 [node name="Bite" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_durqm")
-AppliedDebuffs = []
-PrimaryAttributeH = 2
-SecondaryAttributeH = 3
-SecondaryAttributeD = 2
+AppliedDebuffs = [NodePath("ArmorShred"), NodePath("Bleed")]
+PrimaryAttributeH = 3
+SecondaryAttributeH = 4
+PrimaryAttributeD = 1
+PrimaryScalingD = 2.0
+SecondaryAttributeD = 3
+SecondaryScalingD = 1.0
+MultiplierD = 0.7
+Good = 1
+Critical = 2
+DamageRange = 0.25
 Subcategory = 1
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
 Displayname = "Bite"
+
+[node name="ArmorShred" parent="." instance=ExtResource("2_t6hef")]
+
+[node name="Bleed" parent="." instance=ExtResource("3_h1btf")]

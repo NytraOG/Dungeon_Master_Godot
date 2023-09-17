@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cewq8hewtdvij"]
+
+[ext_resource type="Script" path="res://Models/Skills/Magic/Firebeam.cs" id="1_phq3p"]
+
+[node name="Firebeam" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_phq3p")
+AppliedDebuffs = []
+PrimaryAttributeH = 6
+SecondaryAttributeH = 7
+MultiplierH = 0.9
+PrimaryAttributeD = 7
+SecondaryAttributeD = 8
+Good = 1
+Critical = 4
+DamageRange = 0.2
+Category = 2
+Subcategory = 1
+DescriptionBase = "Bzzt"
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []
+ManacostLevelScaling = 1.25
+Displayname = "Firebeam"

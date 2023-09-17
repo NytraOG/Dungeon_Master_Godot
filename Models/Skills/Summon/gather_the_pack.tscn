@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://chjggs36wivj6"]
+
+[ext_resource type="Script" path="res://Models/Skills/Summon/GatherThePack.cs" id="1_4am87"]
+
+[node name="GatherThePack" type="Node3D" node_paths=PackedStringArray("UnitsToSpawn", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_4am87")
+UnitsToSpawn = []
+Category = 8
+Subcategory = 2
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []
+ManacostFlat = 5
+Displayname = "Gather the Pack"

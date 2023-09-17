@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dylmajc3k42vv"]
+
+[ext_resource type="Script" path="res://Models/Skills/Social/Roar.cs" id="1_7hw8n"]
+
+[node name="Roar" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_7hw8n")
+AppliedDebuffs = []
+PrimaryAttributeH = 1
+SecondaryAttributeH = 6
+MultiplierD = 0.0
+DamageRange = 0.0
+AppliesStun = true
+TargetsHeroScaling = 0.2
+Category = 3
+Subcategory = 1
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []
+Displayname = "Roar"

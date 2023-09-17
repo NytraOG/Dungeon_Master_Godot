@@ -7,10 +7,10 @@
 [node name="ChainLightning" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_1jtdr")
 AppliedDebuffs = [NodePath("Slow"), NodePath("AttackDown")]
-PrimaryAttributeH = 5
-SecondaryAttributeH = 7
-PrimaryAttributeD = 7
-SecondaryAttributeD = 5
+PrimaryAttributeH = 6
+SecondaryAttributeH = 8
+PrimaryAttributeD = 8
+SecondaryAttributeD = 6
 MultiplierD = 0.5
 Good = 2
 Critical = 2

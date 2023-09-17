@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dly46owacijwj"]
+
+[ext_resource type="Script" path="res://Models/Skills/Support/MasterOfThePack.cs" id="1_h3ps2"]
+[ext_resource type="PackedScene" uid="uid://cch68k1bxh6ba" path="res://Models/Skills/Statuseffects/Buffs/master_of_the_pack.tscn" id="2_851kr"]
+
+[node name="MasterOfThePack" type="Node3D" node_paths=PackedStringArray("AppliedBuffs", "AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_h3ps2")
+AppliedBuffs = [NodePath("MasterOfThePack")]
+AppliedDebuffs = []
+AutoTargeting = true
+TargetsFlat = 20
+TargetsWholeGroup = true
+Category = 9
+Subcategory = 2
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []
+Displayname = "Master of the Pack"
+
+[node name="MasterOfThePack" parent="." instance=ExtResource("2_851kr")]

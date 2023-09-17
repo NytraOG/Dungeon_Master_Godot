@@ -8,6 +8,7 @@ namespace DungeonMaster.Models.Heroes;
 
 public partial class Hero : BaseUnit
 {
+
     [Export] public BaseHeroclass Class;
     [Export] public BaseSkill     InherentSkill;
     [Export] public int           InventorySize;
@@ -49,11 +50,20 @@ public partial class Hero : BaseUnit
         SetInitialHitpointsAndMana();
 
         Race.ApplyModifiers(this);
-
-        base._Ready();
-
         Class.ApplyModifiers(this);
+
+        OnSelected += OnOnSelected;
     }
+
+    private void OnOnSelected()
+    {
+        var mainNode = (Main)GetTree().CurrentScene;
+        mainNode.SelectedHero = this;
+    }
+
+    public delegate void SelectedEvent();
+
+    public event SelectedEvent OnSelected;
 
     public override (int, int) GetApproximateDamage(BaseSkill ability) => ability switch
     {
@@ -62,4 +72,10 @@ public partial class Hero : BaseUnit
     };
 
     public override string UseAbility(BaseSkill skill, HitResult hitResult, BaseUnit target = null) => GibSkillresult(skill, target);
+
+    private void _on_hero_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
+    {
+        if (@event is InputEventMouseButton { Pressed: true })
+            OnSelected?.Invoke();
+    }
 }

@@ -49,13 +49,16 @@ transform = Transform3D(0.872383, 0.379096, 0.308602, -0.143344, -0.405167, 0.90
 shadow_enabled = true
 
 [node name="WolfAlpha" parent="." instance=ExtResource("6_fkdgy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -0.5)
 
 [node name="OrcEnergist" parent="." instance=ExtResource("2_tnr5d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -0.25)
 
-[node name="OrcEnergist2" parent="." instance=ExtResource("2_tnr5d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -1)
+[node name="OrcEnergist2" parent="." node_paths=PackedStringArray("Class", "InherentSkill", "Race") instance=ExtResource("2_tnr5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 0.25)
+Class = NodePath("../OrcEnergist/Energist")
+InherentSkill = NodePath("../OrcEnergist/Knives")
+Race = NodePath("../OrcEnergist/Orc")
 
 [node name="ActionsPanel" type="Panel" parent="."]
 anchors_preset = 12
@@ -117,7 +120,5 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
-[connection signal="HeroClicked" from="OrcEnergist" to="." method="_on_orc_energist_hero_clicked"]
-[connection signal="HeroClicked" from="OrcEnergist2" to="." method="_on_orc_energist_hero_clicked"]
 [connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/StartRound" to="." method="_on_start_round_pressed"]

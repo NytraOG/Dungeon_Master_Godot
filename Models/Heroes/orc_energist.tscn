@@ -150,8 +150,7 @@ animation = &"idle"
 [node name="Orc" parent="." node_paths=PackedStringArray("ProvidedSkills") instance=ExtResource("1_mpk0v")]
 ProvidedSkills = []
 
-[node name="Energist" parent="." node_paths=PackedStringArray("ProvidedSkills") instance=ExtResource("2_65qr3")]
-ProvidedSkills = []
+[node name="Energist" parent="." instance=ExtResource("2_65qr3")]
 
 [node name="Knives" parent="." instance=ExtResource("7_uoa5s")]
 
@@ -160,3 +159,5 @@ ProvidedSkills = []
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0905153, -0.171266, 0)
 shape = SubResource("CapsuleShape3D_hy7v5")
+
+[connection signal="input_event" from="CharacterBody3D" to="." method="_on_hero_input_event"]

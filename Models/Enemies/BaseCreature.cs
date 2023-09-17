@@ -141,8 +141,5 @@ public abstract partial class BaseCreature : BaseUnit
     {
         if (@event is InputEventMouseButton { Pressed: true })
             OnSomeSignal?.Invoke();
-        //OnClicked();
     }
-
-    protected abstract void OnClicked();
 }

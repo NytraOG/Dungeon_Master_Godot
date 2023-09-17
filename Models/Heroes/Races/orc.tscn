@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" path="res://Models/Heroes/Races/Orc.cs" id="1_etr44"]
 
-[node name="Orc" type="Node3D"]
+[node name="Orc" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
 script = ExtResource("1_etr44")
 DisplayName = "Orc"
+ModifierLogic = -2
+ModifierStrength = 2
+ModifierWisdom = -1
+ProvidedSkills = []
 Displayname = "Orc"

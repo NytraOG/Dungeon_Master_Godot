@@ -8,20 +8,27 @@ namespace DungeonMaster.Models.Heroes;
 
 public partial class Hero : BaseUnit
 {
-
     [Export] public BaseHeroclass Class;
     [Export] public BaseSkill     InherentSkill;
     [Export] public int           InventorySize;
+    private         bool          isInitialized;
     [Export] public BaseRace      Race;
 
-    public override void _Ready()
+    public override void _Ready() { }
+
+    public override void _Process(double delta)
     {
+        if (isInitialized)
+            return;
+
         InitializeHero();
-        Displayname = $"{Race.Displayname}_{Class.Displayname}";
+        isInitialized = true;
     }
 
     private void InitializeHero()
     {
+        Displayname = $"{Race.Displayname}_{Class.Displayname}";
+
         Skills.Add(InherentSkill);
 
         MeleeAttackratingModifier  = 1;

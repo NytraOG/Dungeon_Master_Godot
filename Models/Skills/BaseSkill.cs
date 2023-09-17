@@ -12,30 +12,34 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseSkill : Node3D
 {
-    public          int              AcquisitionLevelHeroBasic      = 1;
-    public          int              AcquisitionLevelHeroDemanding  = 1;
-    public          int              AcquisitionLevelOutOfHeroClass = 1;
     [Export] public SkillCategory    Category;
-    [Export] public string           DescriptionBase;
-    [Export] public BaseHeroclass[]  DifficultyBasicClasses;
-    [Export] public BaseHeroclass[]  DifficultyDemandingClasses;
-    [Export] public string           DisplayName;
-    [Export] public int              Level = 1;
-    [Export] public int              ManacostFlat;
-    [Export] public float            ManacostLevelScaling;
-    [Export] public float            MultiplierT = 1;
-    [Export] public Attribute        PrimaryAttributeT;
-    [Export] public float            PrimaryScalingT = 2f;
-    [Export] public Attribute        SecondaryAttributeT;
-    [Export] public float            SecondaryScalingT  = 1f;
-    [Export] public float            SkillLevelScalingT = 2f;
     [Export] public SkillSubcategory Subcategory;
     [Export] public SkillType        Type;
+    [Export] public string           DescriptionBase;
+
+    [ExportGroup("Tactical Roll")]
+    [Export] public Attribute PrimaryAttributeT;
+    [Export] public float     PrimaryScalingT = 2f;
+    [Export] public Attribute SecondaryAttributeT;
+    [Export] public float     SecondaryScalingT  = 1f;
+    [Export] public float     SkillLevelScalingT = 2f;
+    [Export] public float     MultiplierT        = 1;
+
+
+    [ExportGroup("Leveling")]
+    [Export] public int Level = 1;
+    [Export] public int             AcquisitionLevelHeroBasic      = 1;
+    [Export] public int             AcquisitionLevelHeroDemanding  = 1;
+    [Export] public int             AcquisitionLevelOutOfHeroClass = 1;
+    [Export] public BaseHeroclass[] DifficultyBasicClasses;
+    [Export] public BaseHeroclass[] DifficultyDemandingClasses;
+    [Export] public int             XpBaseBasic      = 16;
+    [Export] public int             XpBaseDemanding  = 45;
+    [Export] public int             XpBaseOutOfClass = 62;
+    [Export] public int             ManacostFlat;
+    [Export] public float           ManacostLevelScaling;
     //public GameObject       Weapon;
-    [Export] public int XpBaseBasic      = 16;
-    [Export] public int XpBaseDemanding  = 45;
-    [Export] public int XpBaseOutOfClass = 62;
-    public          int Manacost => (int)(ManacostFlat + Level * ManacostLevelScaling);
+    public int Manacost => (int)(ManacostFlat + Level * ManacostLevelScaling);
 
     [Export]
     public string Displayname { get; set; }
@@ -138,6 +142,6 @@ public abstract partial class BaseSkill : Node3D
 
     public abstract string Activate(BaseUnit actor);
 
-    public virtual string GetTooltip(Hero hero, string damage = "0-0") => $"<b>{DisplayName.ToUpper()}</b>{Environment.NewLine}" +
+    public virtual string GetTooltip(Hero hero, string damage = "0-0") => $"<b>{Displayname.ToUpper()}</b>{Environment.NewLine}" +
                                                                           $"<i>{Category}, {Subcategory}, {Type}</i>{Environment.NewLine}{Environment.NewLine}";
 }

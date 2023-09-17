@@ -5,7 +5,8 @@ namespace DungeonMaster.Models.Skills.Statuseffects.Debuffs;
 
 public partial class Debuff : Buff
 {
-    [Export] public int DamagePerTick;
+    [Export]                            public int    DamagePerTick;
+    [Export(PropertyHint.Range, "0,1")] public double ProbabilityToApply = 1;
 
     public override string ResolveTick(BaseUnit applicant)
     {

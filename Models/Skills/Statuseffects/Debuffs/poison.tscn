@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://fa8j6e2hwxrx"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Debuffs/Poison.cs" id="1_y77no"]
+
+[node name="Poison" type="Node3D"]
+script = ExtResource("1_y77no")
+DamagePerTick = 3
+ProbabilityToApply = 0.5
+CombatlogEffectColor = Color(0.214844, 0.386719, 0.171875, 1)
+Duration = 3
+IsStackable = true

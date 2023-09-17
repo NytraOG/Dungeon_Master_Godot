@@ -27,7 +27,7 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
     [ExportGroup("On Hit added Damage")]    [Export] public int       Normal;
     [Export]                                         public int       Good;
     [Export]                                         public int       Critical;
-    [Export(PropertyHint.Range, "0,1")]              public float     DamageRange;
+    [Export(PropertyHint.Range, "0,1")]              public float     DamageRange = 1;
     [Export]                                         public int       AddedFlatDamage;
 
     public int GetHitroll(BaseUnit actor)

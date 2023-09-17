@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6o3nm7j5m757"]
+
+[ext_resource type="Script" path="res://Models/Skills/Melee/Knives.cs" id="1_3cp3n"]
+
+[node name="Knives" type="Node3D"]
+script = ExtResource("1_3cp3n")

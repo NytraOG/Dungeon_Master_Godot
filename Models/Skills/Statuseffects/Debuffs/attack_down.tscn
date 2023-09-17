@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd8lc7ui1qh7e"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Debuffs/AttackDown.cs" id="1_88hjv"]
+
+[node name="AttackDown" type="Node3D"]
+script = ExtResource("1_88hjv")
+Displayname = "Attack down"
+MeleeAttackratingModifier = -0.5
+RangedAttackratingModifier = -0.5
+MagicAttackratingModifier = -0.5
+SocialAttackratingModifier = -0.5

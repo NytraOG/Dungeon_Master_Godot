@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://nrqjjshwpeqj"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Debuffs/ArmorShred.cs" id="1_xr7de"]
+
+[node name="ArmorShred" type="Node3D"]
+script = ExtResource("1_xr7de")
+ProbabilityToApply = 0.2
+CombatlogEffectColor = Color(0.996094, 0.871094, 0.0976563, 1)
+Displayname = "Armor shred"
+MeleeDefensmodifier = -0.5
+RangedDefensemodifier = -0.5

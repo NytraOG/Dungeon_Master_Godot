@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cch68k1bxh6ba"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Buffs/MasterOfThePack.cs" id="1_y5hct"]
+
+[node name="MasterOfThePack" type="Node3D"]
+script = ExtResource("1_y5hct")
+Duration = 2
+FlatDamageModifier = 2.0

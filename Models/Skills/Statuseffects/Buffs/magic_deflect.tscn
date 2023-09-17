@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://1csnj1uu4uye"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Buffs/MagicDeflect.cs" id="1_5xtal"]
+
+[node name="MagicDeflect" type="Node3D"]
+script = ExtResource("1_5xtal")
+Duration = -1
+MagicDefensemodifier = 0.34

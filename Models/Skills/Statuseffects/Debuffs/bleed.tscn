@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ktpxt7a78krn"]
+
+[ext_resource type="Script" path="res://Models/Skills/Statuseffects/Debuffs/Bleed.cs" id="1_oj8lo"]
+
+[node name="Bleed" type="Node3D"]
+script = ExtResource("1_oj8lo")
+DamagePerTick = 1
+ProbabilityToApply = 0.8
+CombatlogEffectColor = Color(0.640625, 0.046875, 0.00390625, 1)
+Duration = 5
+IsStackable = true
+Displayname = "Bleed"

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b41rogpbxiemu"]
+
+[ext_resource type="Script" path="res://Models/Skills/Melee/Bite.cs" id="1_durqm"]
+
+[node name="Bite" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_durqm")
+AppliedDebuffs = []
+PrimaryAttributeH = 2
+SecondaryAttributeH = 3
+SecondaryAttributeD = 2
+Subcategory = 1
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []
+Displayname = "Bite"

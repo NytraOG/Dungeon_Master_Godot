@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://crkq85hpng6qx"]
+
+[ext_resource type="Script" path="res://Models/Skills/Defense/Dodge.cs" id="1_fcsa1"]
+
+[node name="Dodge" type="Node3D" node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_fcsa1")
+Type = 1
+PrimaryAttributeT = 3
+SecondaryAttributeT = 2
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []
+Displayname = "Dodge"

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DungeonMaster.Models;
+using Godot;
 
 namespace DungeonMaster;
 
@@ -32,8 +35,29 @@ public static class Extensions
     //     nameof(BaseUnit.Wisdom) => GetAttributeXpTotal(unit.xpBaseAttribut, unit.Wisdom + 1),
     //     _ => throw new ArgumentOutOfRangeException(attributeName)
     // };
-
     public static int GetXpToSpendForLevelUp(this BaseUnit unit) => GetXpTotalForLevelup(unit.Level + 1);
+
+    public static T[] GetAllChildren<T>(this Node node)
+            where T : BaseUnit
+    {
+        var myChildren = node.GetChildren()
+                             .Where(mc => mc is T)
+                             .Cast<T>()
+                             .ToList();
+
+        var retVal = new List<T>();
+
+        foreach (var child in myChildren)
+        {
+            var grandChildren = child.GetAllChildren<T>().ToList();
+
+            retVal.AddRange(grandChildren);
+        }
+
+        retVal.AddRange(myChildren);
+
+        return retVal.ToArray();
+    }
 
     private static int GetAttributeXpTotal(int xpBase, int inputLevel)
     {

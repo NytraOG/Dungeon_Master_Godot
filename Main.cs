@@ -35,8 +35,8 @@ public partial class Main : Node
 
     private bool                 allesDa;
     private bool                 combatActive;
-    public  List<BaseCreature>   Enemies = new();
-    public  Hero[]               Heroes;
+    public  BaseCreature[]       Enemies = Array.Empty<BaseCreature>();
+    public  Hero[]               Heroes  = Array.Empty<Hero>();
     public  BaseCreature         SelectedEnemy;
     public  Hero                 SelectedHero;
     public  BaseSkill            SelectedSkill;
@@ -301,11 +301,16 @@ public partial class Main : Node
 
     private void MachEnemiesCombatReady()
     {
-        if (combatActive)
+        var enemys = this.GetAllChildren<BaseCreature>();
+
+        var enemyAmount = enemys.Length;
+
+        if (combatActive || !Enemies.Any() || Enemies.Length == enemyAmount)
             return;
 
         var notCombatReadyEnemies = Enemies.Where(e => !e.IsDead &&
-                                                       e.SelectedSkill is null);
+                                                       e.SelectedSkill is null &&
+                                                       enemys.All(ea => ea.Displayname != e.Displayname));
 
         foreach (var enemy in notCombatReadyEnemies)
         {
@@ -326,7 +331,7 @@ public partial class Main : Node
         if (creature.SelectedSkill is not BaseTargetingSkill skill)
             return Array.Empty<BaseUnit>();
 
-        var maxTargets = skill.GetTargets(creature) > Enemies.Count ? Enemies.Count : skill.GetTargets(creature);
+        var maxTargets = skill.GetTargets(creature) > Enemies.Length ? Enemies.Length : skill.GetTargets(creature);
         var retVal     = new List<BaseUnit>();
 
         var eligableTargets = new List<BaseUnit>();
@@ -334,7 +339,7 @@ public partial class Main : Node
         if (creature.SelectedSkill is BaseSupportSkill supportSkill)
         {
             if (supportSkill.TargetsWholeGroup)
-                maxTargets = Enemies.Count;
+                maxTargets = Enemies.Length;
 
             eligableTargets.AddRange(Enemies.Where(e => !e.IsDead));
         }
@@ -355,8 +360,13 @@ public partial class Main : Node
         if (allesDa)
             return;
 
-        var wolf = GetNode<BaseCreature>("WolfAlpha");
-        Enemies = new List<BaseCreature> { wolf };
+        var enemies = GetChildren()
+                     .Where(c => c is BaseCreature)
+                     .Select(c => c)
+                     .Cast<BaseCreature>()
+                     .ToArray();
+
+        Enemies = enemies;
 
         var heroes = GetChildren()
                     .Where(c => c is Hero)

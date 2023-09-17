@@ -11,6 +11,9 @@ namespace DungeonMaster.Models.Enemies;
 
 public abstract partial class BaseCreature : BaseUnit
 {
+    [Signal]
+    public delegate void CreatureClickedEventHandler(BaseCreature creature);
+
     public          List<Positions> FavouritePositions = new() { Positions.None };
     private         bool            isInitialized;
     [Export] public Keyword[]       Keywords;
@@ -116,4 +119,12 @@ public abstract partial class BaseCreature : BaseUnit
         Willpower    += (int)(Monstertype.Willpower * modifier);
         Charisma     += (int)(Monstertype.Charisma * modifier);
     }
+
+    private void _on_creature_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
+    {
+        if (@event is InputEventMouseButton { Pressed: true })
+            OnClicked();
+    }
+
+    protected abstract void OnClicked();
 }

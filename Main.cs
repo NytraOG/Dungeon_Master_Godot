@@ -40,9 +40,8 @@ public partial class Main : Node
     public  BaseCreature         SelectedEnemy;
     public  Hero                 SelectedHero;
     public  BaseSkill            SelectedSkill;
-    public  List<BaseUnit>       SelectedTargets      = new();
-    public  List<SkillSelection> SkillSelection       = new();
-    public  List<BaseSkill>      SkillsOfSelectedHero = new();
+    public  List<BaseUnit>       SelectedTargets = new();
+    public  List<SkillSelection> SkillSelection  = new();
 
     public bool PlayerIsTargeting => SelectedHero is not null &&
                                      SelectedSkill is BaseDamageSkill { TargetableFaction: Factions.Foe }
@@ -394,9 +393,6 @@ public partial class Main : Node
 
     private void _on_orc_energist_hero_clicked(Hero hero)
     {
-        SelectedHero         = hero;
-        SkillsOfSelectedHero = hero.Skills;
-        SelectedTargets.Clear();
         //     controller.abilityanzeigeIstAktuell = false;
         //     inventoryDisplay.ChangeHero(this);
     }

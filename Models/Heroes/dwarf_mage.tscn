@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://bfppalap8os7e"]
+
+[ext_resource type="Script" path="res://Models/Heroes/DwarfMage.cs" id="1_121ho"]
+[ext_resource type="Texture2D" uid="uid://bllrvochpgexx" path="res://Graphics/Fire vizard/Idle.png" id="2_vim43"]
+[ext_resource type="PackedScene" uid="uid://bjxfjxhjaxqpl" path="res://Models/Heroes/Classes/mage.tscn" id="3_t0oae"]
+[ext_resource type="PackedScene" uid="uid://c1cgq6b2i8mb6" path="res://Models/Heroes/Races/dwarf.tscn" id="4_xjkip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm0e6"]
+atlas = ExtResource("2_vim43")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xu14"]
+atlas = ExtResource("2_vim43")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt6hh"]
+atlas = ExtResource("2_vim43")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igb86"]
+atlas = ExtResource("2_vim43")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kffbb"]
+atlas = ExtResource("2_vim43")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fljun"]
+atlas = ExtResource("2_vim43")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2ems"]
+atlas = ExtResource("2_vim43")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pw034"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm0e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xu14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt6hh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igb86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kffbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fljun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2ems")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2b7vn"]
+radius = 0.130527
+height = 0.692061
+
+[node name="DwarfMage" type="Node3D" node_paths=PackedStringArray("Class", "Race")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+script = ExtResource("1_121ho")
+Class = NodePath("Mage")
+Race = NodePath("Dwarf")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_pw034")
+animation = &"idle"
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.151739, -0.317268, 0)
+shape = SubResource("CapsuleShape3D_2b7vn")
+
+[node name="Mage" parent="." instance=ExtResource("3_t0oae")]
+
+[node name="Dwarf" parent="." instance=ExtResource("4_xjkip")]

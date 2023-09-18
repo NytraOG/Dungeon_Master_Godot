@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=12 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="PackedScene" uid="uid://dwpft20cm5whx" path="res://Models/Heroes/orc_energist.tscn" id="2_tnr5d"]
 [ext_resource type="FontFile" uid="uid://bj3640b5wy2xq" path="res://Graphics/fonts/upheavtt.ttf" id="4_3d50e"]
 [ext_resource type="Script" path="res://UI/Menues/Buttons/StartRound.cs" id="4_e1hhg"]
+[ext_resource type="PackedScene" uid="uid://bfppalap8os7e" path="res://Models/Heroes/dwarf_mage.tscn" id="6_1ccm7"]
 [ext_resource type="PackedScene" uid="uid://xwjet8625grl" path="res://Models/Enemies/wolf_alpha.tscn" id="6_fkdgy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
@@ -118,6 +119,9 @@ script = ExtResource("4_e1hhg")
 [node name="Panel" type="Panel" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="DwarfMage" parent="." instance=ExtResource("6_1ccm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.65, 0)
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]

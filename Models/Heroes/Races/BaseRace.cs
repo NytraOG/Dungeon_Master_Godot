@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DungeonMaster.Models.Skills;
 using Godot;
@@ -6,16 +7,16 @@ namespace DungeonMaster.Models.Heroes.Races;
 
 public abstract partial class BaseRace : Node3D
 {
-    [Export] public int         ModifierCharisma;
+    [Export] public BaseSkill[] InherentSkills = Array.Empty<BaseSkill>();
+    [Export] public int         ModifierStrength;
     [Export] public int         ModifierConstitution;
     [Export] public int         ModifierDexterity;
+    [Export] public int         ModifierQuickness;
     [Export] public int         ModifierIntuition;
     [Export] public int         ModifierLogic;
-    [Export] public int         ModifierQuickness;
-    [Export] public int         ModifierStrength;
     [Export] public int         ModifierWillpower;
     [Export] public int         ModifierWisdom;
-    [Export] public BaseSkill[] ProvidedSkills;
+    [Export] public int         ModifierCharisma;
 
     [Export]
     public string Displayname { get; set; }
@@ -35,7 +36,7 @@ public abstract partial class BaseRace : Node3D
 
     public void ApplySkills(BaseUnit unit)
     {
-        foreach (var skillToProvide in ProvidedSkills)
+        foreach (var skillToProvide in InherentSkills)
         {
             if (unit.Skills.Any(a => a.Name == skillToProvide.Name))
                 return;

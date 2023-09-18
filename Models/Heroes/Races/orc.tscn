@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dylmajc3k42vv" path="res://Models/Skills/Social/roar.tscn" id="2_46vso"]
 [ext_resource type="PackedScene" uid="uid://byhjwqm5wvif" path="res://Models/Skills/Support/magic_deflect.tscn" id="3_u5mn0"]
 
-[node name="Orc" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+[node name="Orc" type="Node3D" node_paths=PackedStringArray("InherentSkills")]
 script = ExtResource("1_etr44")
+InherentSkills = [NodePath("Roar"), NodePath("MagicDeflect")]
 ModifierLogic = -2
 ModifierStrength = 2
 ModifierWisdom = -1
-ProvidedSkills = [NodePath("Roar"), NodePath("MagicDeflect")]
 Displayname = "Orc"
 
 [node name="Roar" parent="." instance=ExtResource("2_46vso")]

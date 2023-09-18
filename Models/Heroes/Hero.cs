@@ -8,6 +8,7 @@ namespace DungeonMaster.Models.Heroes;
 
 public partial class Hero : BaseUnit
 {
+    public delegate void SelectedEvent();
 
     [Export] public BaseHeroclass Class;
     [Export] public BaseSkill     InherentSkill;
@@ -15,7 +16,12 @@ public partial class Hero : BaseUnit
     private         bool          isInitialized;
     [Export] public BaseRace      Race;
 
-    public override void _Ready() { }
+    public override void _Ready()
+    {
+        var animatedSprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
+        animatedSprite.Animation = "idle";
+        animatedSprite.Play();
+    }
 
     public override void _Process(double delta)
     {
@@ -30,7 +36,8 @@ public partial class Hero : BaseUnit
     {
         Displayname = $"{Race.Displayname}_{Class.Displayname}";
 
-        Skills.Add(InherentSkill);
+        if(InherentSkill is not null)
+            Skills.Add(InherentSkill);
 
         MeleeAttackratingModifier  = 1;
         RangedAttackratingModifier = 1;
@@ -60,8 +67,6 @@ public partial class Hero : BaseUnit
         var mainNode = (Main)GetTree().CurrentScene;
         mainNode.SelectedHero = this;
     }
-
-    public delegate void SelectedEvent();
 
     public event SelectedEvent OnSelected;
 

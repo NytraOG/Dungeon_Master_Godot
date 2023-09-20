@@ -65,33 +65,42 @@ Class = NodePath("../OrcEnergist/Energist")
 InherentSkill = NodePath("../OrcEnergist/Knives")
 Race = NodePath("../OrcEnergist/Orc")
 
-[node name="ActionsPanel" type="Panel" parent="."]
+[node name="DwarfMage" parent="." instance=ExtResource("6_1ccm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.65, 0)
+
+[node name="SkillBar" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 894.0
-offset_top = -75.0
 grow_horizontal = 2
 grow_vertical = 0
-size_flags_vertical = 8
 
-[node name="Actions" type="HBoxContainer" parent="ActionsPanel"]
+[node name="Panel" type="Panel" parent="SkillBar"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -122.0
-offset_top = -30.5
-offset_right = 122.0
-offset_bottom = 30.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Actions" type="HBoxContainer" parent="SkillBar"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -244.0
+offset_top = -61.0
+grow_horizontal = 0
+grow_vertical = 0
 alignment = 1
 
-[node name="Undo" type="Button" parent="ActionsPanel/Actions"]
+[node name="Undo" type="Button" parent="SkillBar/Actions"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -105,7 +114,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_52pw0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_52pw0")
 text = "Undo"
 
-[node name="StartRound" type="Button" parent="ActionsPanel/Actions"]
+[node name="StartRound" type="Button" parent="SkillBar/Actions"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -120,23 +129,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_52pw0")
 text = "Start Round"
 script = ExtResource("4_e1hhg")
 
-[node name="DwarfMage" parent="." instance=ExtResource("6_1ccm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.65, 0)
-
-[node name="SkillBar" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 634.0
-offset_bottom = 156.0
-
-[node name="Panel" type="Panel" parent="SkillBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="SkillContainer" type="HBoxContainer" parent="SkillBar"]
 layout_mode = 1
 anchors_preset = 7
@@ -144,9 +136,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = -268.0
+offset_top = -55.0
+offset_right = 268.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("7_ju2u4")
@@ -182,5 +175,5 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
-[connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]
-[connection signal="pressed" from="ActionsPanel/Actions/StartRound" to="." method="_on_start_round_pressed"]
+[connection signal="pressed" from="SkillBar/Actions/Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="SkillBar/Actions/StartRound" to="." method="_on_start_round_pressed"]

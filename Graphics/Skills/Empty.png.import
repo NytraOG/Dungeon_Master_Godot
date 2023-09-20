@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8siydptrgovc"
-path="res://.godot/imported/ChainLightning.png-f6082510767039df22afe71588d2ac87.ctex"
+uid="uid://bw1s5rgo10w7k"
+path="res://.godot/imported/Empty.png-3e8e72227e521d489978ffb8b9625635.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Skills/ChainLightning.png"
-dest_files=["res://.godot/imported/ChainLightning.png-f6082510767039df22afe71588d2ac87.ctex"]
+source_file="res://Graphics/Skills/Empty.png"
+dest_files=["res://.godot/imported/Empty.png-3e8e72227e521d489978ffb8b9625635.ctex"]
 
 [params]
 

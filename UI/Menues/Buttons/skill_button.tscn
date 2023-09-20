@@ -1,21 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://byba32a6e70bm"]
+[gd_scene load_steps=6 format=3 uid="uid://byba32a6e70bm"]
 
-[ext_resource type="Texture2D" uid="uid://cj64ebxqhnsld" path="res://Graphics/Skills/Default.png" id="1_2layb"]
+[ext_resource type="Texture2D" uid="uid://bw1s5rgo10w7k" path="res://Graphics/Skills/Empty.png" id="1_jlrny"]
+[ext_resource type="Texture2D" uid="uid://e5ywuliygjcp" path="res://UI/Downloads/Sliced Images/Action Bar 1/action_bar_btn_press.png" id="2_nx4ql"]
 [ext_resource type="Script" path="res://UI/Menues/Buttons/BaseSkillButton.cs" id="2_wrury"]
 [ext_resource type="Texture2D" uid="uid://cpn33mi6ptmev" path="res://Graphics/Skills/White.png" id="2_ypa0i"]
+[ext_resource type="Texture2D" uid="uid://cn0d8i6a3hv75" path="res://UI/Downloads/Sliced Images/Action Bar 1/action_bar_btn_hover.png" id="3_v1eeh"]
 
-[node name="SkillButton" type="TextureButton" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer")]
-custom_minimum_size = Vector2(40, 0)
+[node name="SkillButton" type="TextureButton"]
+custom_minimum_size = Vector2(50, 50)
 offset_right = 40.0
 offset_bottom = 40.0
-texture_normal = ExtResource("1_2layb")
+texture_normal = ExtResource("1_jlrny")
+texture_pressed = ExtResource("2_nx4ql")
+texture_hover = ExtResource("3_v1eeh")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("2_wrury")
-Hotkey = NodePath("Hotkey")
-TextureProgressBar = NodePath("TextureProgressBar")
-Time = NodePath("Label")
-Timer = NodePath("Timer")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 1
@@ -44,18 +44,6 @@ grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Hotkey" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 40.0
-grow_vertical = 0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
-vertical_alignment = 2
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

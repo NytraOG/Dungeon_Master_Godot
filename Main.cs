@@ -413,6 +413,12 @@ public partial class Main : Node
         wolf.SelectedSkill.Activate(wolf);
     }
 
+    public void _on_skill_button_timed_out(BaseSkillButton sender)
+    {
+        sender.Disabled = false;
+        sender.Time.Text = string.Empty;
+        sender.SetProcess(false);
+    }
     private void _on_creature_creature_clicked(BaseCreature creature)
     {
         SelectedEnemy = creature;

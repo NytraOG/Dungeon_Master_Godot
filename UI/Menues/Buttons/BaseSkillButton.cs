@@ -6,30 +6,22 @@ namespace DungeonMaster.UI.Menues.Buttons;
 public partial class BaseSkillButton : TextureButton
 {
     public delegate void SkillPressedSignalWithSenderArgument(BaseSkillButton sender);
+    //
+    // [Signal]
+    // public delegate void TimedOutEventHandler(BaseSkillButton sender);
 
-    private         string                            changeKey;
-    [Export] public Label                             Hotkey;
+    public          BaseSkill                         Skill;
     [Export] public TextureProgressBar                TextureProgressBar;
     [Export] public Label                             Time;
     [Export] public Timer                             Timer;
-    public          BaseSkill                         Skill;
     public event SkillPressedSignalWithSenderArgument SomeSkillbuttonPressed;
-
-    private void SetHotkeyLabel(string value)
-    {
-        changeKey   = value;
-        Hotkey.Text = value;
-
-        // Hotkey shice, braucht (noch) kein mensch
-        // var shortcut   = new Shortcut();
-        // var inputEvent = new InputEventKey();
-        // inputEvent.Keycode = Key.Key1; //(Key)1; //int.Parse(string.Join(string.Empty, value.ToCharArray()));
-        // shortcut.Events    = new Array(new[] { inputEvent });
-    }
 
     public override void _Ready()
     {
-        SetHotkeyLabel("1");
+        TextureProgressBar = GetNode<TextureProgressBar>("TextureProgressBar"); //TextureProgressBarScene.Instantiate<TextureProgressBar>();
+        Timer              = GetNode<Timer>("Timer");                           //TimerScene.Instantiate<Timer>();
+        Time               = GetNode<Label>("Label");                           //TimeScene.Instantiate<Label>();
+
         TextureProgressBar.MaxValue = Timer.WaitTime;
         SetProcess(false);
     }
@@ -40,11 +32,20 @@ public partial class BaseSkillButton : TextureButton
         TextureProgressBar.Value = Timer.TimeLeft;
     }
 
+    //
+    // public void _on_timed_out(BaseSkillButton sender)
+    // {
+    //     sender.Disabled  = false;
+    //     sender.Time.Text = string.Empty;
+    //     sender.SetProcess(false);
+    // }
+    //
     public void _on_timer_timeout()
     {
         Disabled  = false;
         Time.Text = string.Empty;
         SetProcess(false);
+        //EmitSignal(SignalName.TimedOut, this);
     }
 
     public void _on_pressed()

@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://byhjwqm5wvif"]
+[gd_scene load_steps=4 format=3 uid="uid://byhjwqm5wvif"]
 
 [ext_resource type="Script" path="res://Models/Skills/Support/MagicDeflect.cs" id="1_rq1tv"]
 [ext_resource type="PackedScene" uid="uid://1csnj1uu4uye" path="res://Models/Skills/Statuseffects/Buffs/magic_deflect.tscn" id="2_1gltr"]
+[ext_resource type="Texture2D" uid="uid://ri4d5yphqks7" path="res://Graphics/Skills/MagicDeflect.png" id="2_3yf5x"]
 
 [node name="MagicDeflect" type="Node3D" node_paths=PackedStringArray("AppliedBuffs", "AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_rq1tv")
 AffectedCategories = PackedStringArray("Magic")
 AppliedBuffs = [NodePath("MagicDeflect")]
 AppliedDebuffs = []
+Icon = ExtResource("2_3yf5x")
 Category = 9
 Subcategory = 2
 DescriptionBase = "Through hard mental training, the character is able to fend off enemy magical attacks with his sheer willpower."

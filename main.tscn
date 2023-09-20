@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
-[ext_resource type="Texture2D" uid="uid://cj64ebxqhnsld" path="res://Graphics/Skills/Default.png" id="2_j2i86"]
+[ext_resource type="Texture2D" uid="uid://bw1s5rgo10w7k" path="res://Graphics/Skills/Empty.png" id="2_i5yg1"]
 [ext_resource type="PackedScene" uid="uid://dwpft20cm5whx" path="res://Models/Heroes/orc_energist.tscn" id="2_tnr5d"]
 [ext_resource type="FontFile" uid="uid://bj3640b5wy2xq" path="res://Graphics/fonts/upheavtt.ttf" id="4_3d50e"]
 [ext_resource type="Script" path="res://UI/Menues/Buttons/StartRound.cs" id="4_e1hhg"]
@@ -32,7 +32,7 @@ bg_color = Color(1, 1, 1, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_fr21n")
-DefaultIcon = ExtResource("2_j2i86")
+DefaultIcon = ExtResource("2_i5yg1")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 
@@ -154,68 +154,32 @@ script = ExtResource("7_ju2u4")
 [node name="SkillButton" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
 
-[node name="SkillButton2" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton2" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton3" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton3" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton4" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton4" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton5" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton5" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton6" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton6" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton7" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton7" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton8" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton8" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton9" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton9" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
-[node name="SkillButton10" parent="SkillBar/SkillContainer" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer") instance=ExtResource("8_rufrx")]
+[node name="SkillButton10" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
-Hotkey = NodePath("../SkillButton/Hotkey")
-TextureProgressBar = NodePath("../SkillButton/TextureProgressBar")
-Time = NodePath("../SkillButton/Label")
-Timer = NodePath("../SkillButton/Timer")
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="ActionsPanel/Actions/Undo" to="." method="_on_undo_pressed"]

@@ -5,14 +5,14 @@
 [node name="Firebeam" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_phq3p")
 AppliedDebuffs = []
-PrimaryAttributeH = 6
-SecondaryAttributeH = 7
-MultiplierH = 0.9
-PrimaryAttributeD = 7
-SecondaryAttributeD = 8
-Good = 1
 Critical = 4
 DamageRange = 0.2
+Good = 1
+MultiplierH = 0.9
+PrimaryAttributeD = 7
+PrimaryAttributeH = 6
+SecondaryAttributeD = 8
+SecondaryAttributeH = 7
 Category = 2
 Subcategory = 1
 DescriptionBase = "Bzzt"

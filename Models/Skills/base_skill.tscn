@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://8idk3328g5fw"]
+[gd_scene load_steps=3 format=3 uid="uid://8idk3328g5fw"]
 
 [ext_resource type="Script" path="res://Models/Skills/BaseSkill.cs" id="1_wv8lu"]
+[ext_resource type="Texture2D" uid="uid://cj64ebxqhnsld" path="res://Graphics/Skills/Default.png" id="2_c8ux0"]
 
 [node name="BaseSkill" type="Node3D" node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_wv8lu")
+Icon = ExtResource("2_c8ux0")
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []

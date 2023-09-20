@@ -12,6 +12,9 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseSkill : Node3D
 {
+    [Export] public Texture2D Icon;
+
+    [ExportGroup("Details")]
     [Export] public SkillCategory    Category;
     [Export] public SkillSubcategory Subcategory;
     [Export] public SkillType        Type;

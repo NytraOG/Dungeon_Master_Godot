@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=15 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
+[ext_resource type="Texture2D" uid="uid://cj64ebxqhnsld" path="res://Graphics/Skills/Default.png" id="2_j2i86"]
 [ext_resource type="PackedScene" uid="uid://dwpft20cm5whx" path="res://Models/Heroes/orc_energist.tscn" id="2_tnr5d"]
 [ext_resource type="FontFile" uid="uid://bj3640b5wy2xq" path="res://Graphics/fonts/upheavtt.ttf" id="4_3d50e"]
 [ext_resource type="Script" path="res://UI/Menues/Buttons/StartRound.cs" id="4_e1hhg"]
@@ -31,6 +32,7 @@ bg_color = Color(1, 1, 1, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_fr21n")
+DefaultIcon = ExtResource("2_j2i86")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 

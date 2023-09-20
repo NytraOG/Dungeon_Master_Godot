@@ -34,16 +34,17 @@ public partial class Main : Node
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    public  bool                  AllesDa;
-    private bool                  combatActive;
-    public  BaseCreature[]        Enemies = Array.Empty<BaseCreature>();
-    public  Hero[]                Heroes  = Array.Empty<Hero>();
-    public  BaseCreature          SelectedEnemy;
-    public  Hero                  SelectedHero;
-    public  BaseSkill             SelectedSkill;
-    public  List<BaseUnit>        SelectedTargets = new();
-    public  List<BaseSkillButton> Skillbuttons    = new();
-    public  List<SkillSelection>  SkillSelection  = new();
+    public          bool                  AllesDa;
+    private         bool                  combatActive;
+    [Export] public Texture2D             DefaultIcon;
+    public          BaseCreature[]        Enemies = Array.Empty<BaseCreature>();
+    public          Hero[]                Heroes  = Array.Empty<Hero>();
+    public          BaseCreature          SelectedEnemy;
+    public          Hero                  SelectedHero;
+    public          BaseSkill             SelectedSkill;
+    public          List<BaseUnit>        SelectedTargets = new();
+    public          List<BaseSkillButton> Skillbuttons    = new();
+    public          List<SkillSelection>  SkillSelection  = new();
 
     private async void _on_start_round_pressed() => await HandleBattleround();
 
@@ -376,11 +377,16 @@ public partial class Main : Node
         {
             var skillbutton = Skillbuttons[i];
 
-            if (i == amountOfHeroSkills)
-                break;
+            if (i >= amountOfHeroSkills)
+            {
+                skillbutton.Skill         = null;
+                skillbutton.TextureNormal = DefaultIcon;
+
+                continue;
+            }
 
             skillbutton.Skill         = hero.Skills[i];
-            skillbutton.TextureNormal = new Texture2D(); //todo hier weitermachen
+            skillbutton.TextureNormal = hero.Skills[i].Icon;
         }
     }
 

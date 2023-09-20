@@ -7,8 +7,8 @@
 [node name="Orc" type="Node3D" node_paths=PackedStringArray("InherentSkills")]
 script = ExtResource("1_etr44")
 InherentSkills = [NodePath("Roar"), NodePath("MagicDeflect")]
-ModifierLogic = -2
 ModifierStrength = 2
+ModifierLogic = -2
 ModifierWisdom = -1
 Displayname = "Orc"
 

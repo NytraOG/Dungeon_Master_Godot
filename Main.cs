@@ -9,6 +9,7 @@ using DungeonMaster.Models.Heroes;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
+using DungeonMaster.UI.Menues.Buttons;
 using Godot;
 
 namespace DungeonMaster;
@@ -33,31 +34,29 @@ public partial class Main : Node
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    public  bool                 AllesDa;
-    private bool                 combatActive;
-    public  BaseCreature[]       Enemies = Array.Empty<BaseCreature>();
-    public  Hero[]               Heroes  = Array.Empty<Hero>();
-    public  BaseCreature         SelectedEnemy;
-    public  Hero                 SelectedHero;
-    public  BaseSkill            SelectedSkill;
-    public  List<BaseUnit>       SelectedTargets = new();
-    public  List<SkillSelection> SkillSelection  = new();
-
-    public bool PlayerIsTargeting => SelectedHero is not null &&
-                                     SelectedSkill is BaseDamageSkill { TargetableFaction: Factions.Foe }
-                                             or BaseTargetingSkill { TargetableFaction: Factions.All or Factions.Friend };
+    public  bool                  AllesDa;
+    private bool                  combatActive;
+    public  BaseCreature[]        Enemies = Array.Empty<BaseCreature>();
+    public  Hero[]                Heroes  = Array.Empty<Hero>();
+    public  BaseCreature          SelectedEnemy;
+    public  Hero                  SelectedHero;
+    public  BaseSkill             SelectedSkill;
+    public  List<BaseUnit>        SelectedTargets = new();
+    public  List<BaseSkillButton> Skillbuttons    = new();
+    public  List<SkillSelection>  SkillSelection  = new();
 
     private async void _on_start_round_pressed() => await HandleBattleround();
 
-    public override void _Ready() => PopulateSkillButtons();
+    public override void _Ready()
+    {
+        SubscribeToSkillbuttons();
+        PopulateSkillButtons();
+    }
 
     public override void _Process(double delta)
     {
         if (Input.IsActionPressed(Keys.Backspace))
-        {
-            //SelectedTargets.ForEach(t => t.GetComponent<SpriteRenderer>().material = defaultMaterial);
             SelectedTargets.Clear();
-        }
 
         MachEnemiesCombatReady();
         SetupCombatants();
@@ -65,6 +64,7 @@ public partial class Main : Node
 
     private async Task HandleBattleround()
     {
+        SetProcess(false);
         combatActive = true;
 
         if (!SkillSelection.Any())
@@ -125,6 +125,7 @@ public partial class Main : Node
 
         combatActive = false;
 
+        SetProcess(true);
         EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
     }
 
@@ -360,10 +361,43 @@ public partial class Main : Node
         Enemies = this.GetAllChildren<BaseCreature>();
         Heroes  = this.GetAllChildren<Hero>();
 
+        foreach (var hero in Heroes)
+        {
+            hero.OnSelected += HeroOnSelected;
+        }
         AllesDa = true;
     }
 
+    private void HeroOnSelected(Hero hero)
+    {
+        SelectedHero = hero;
+
+        var amountOfHeroSkills = hero.Skills.Count;
+
+        for (var i = 0; i < Skillbuttons.Count; i++)
+        {
+            if (i == amountOfHeroSkills)
+                break;
+
+            Skillbuttons[i].Skill = hero.Skills[i];
+        }
+    }
+
     private void PopulateSkillButtons() { }
+
+    private void SubscribeToSkillbuttons()
+    {
+        Skillbuttons = GetNode<Control>("SkillBar")
+                      .GetNode<HBoxContainer>("SkillContainer")
+                      .GetChildren()
+                      .Cast<BaseSkillButton>()
+                      .ToList();
+
+        foreach (var skill in Skillbuttons)
+            skill.SomeSkillbuttonPressed += SkillOnSomeSkillbuttonPressed;
+    }
+
+    private void SkillOnSomeSkillbuttonPressed(BaseSkillButton sender) { }
 
     private void _on_undo_pressed()
     {
@@ -389,12 +423,6 @@ public partial class Main : Node
         }
 
         SelectedTargets.Add(creature);
-    }
-
-    private void _on_orc_energist_hero_clicked(Hero hero)
-    {
-        //     controller.abilityanzeigeIstAktuell = false;
-        //     inventoryDisplay.ChangeHero(this);
     }
 
     private async Task WaitFor(int milliseconds) => await ToSignal(GetTree().CreateTimer((double)milliseconds / 1000), "timeout");

@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" path="res://Models/Heroes/Races/Ghul.cs" id="1_tv75s"]
 
-[node name="Ghul" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+[node name="Ghul" type="Node3D"]
 script = ExtResource("1_tv75s")
-ModifierCharisma = -2
-ModifierLogic = 1
 ModifierQuickness = -1
+ModifierLogic = 1
 ModifierWisdom = 2
-ProvidedSkills = []
+ModifierCharisma = -2
 Displayname = "Ghul"

@@ -21,7 +21,11 @@ public partial class Buff : BaseUnitModificator
         return $"{Name} ticked";
     }
 
-    public virtual void Die(BaseUnit applicant) => applicant.Buffs.Remove(this);
+    public virtual void Die(BaseUnit applicant)
+    {
+        applicant.Buffs.Remove(this);
+        QueueFree();
+    }
 
     public virtual void Reverse() { }
 }

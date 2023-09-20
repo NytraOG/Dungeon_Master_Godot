@@ -22,6 +22,7 @@ animations = [{
 }]
 
 [node name="WolfPup" type="Node3D" node_paths=PackedStringArray("Keywords", "Monstertype")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 script = ExtResource("1_0ebop")
 Keywords = [NodePath("Pup"), NodePath("Precise")]
 LevelModifier = 1.4

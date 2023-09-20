@@ -20,6 +20,7 @@ public partial class Debuff : Buff
     {
         Reverse();
         applicant.Debuffs.Remove(this);
+        QueueFree();
     }
 
     private void DealDamage(BaseUnit unit) => unit.CurrentHitpoints -= DamagePerTick;

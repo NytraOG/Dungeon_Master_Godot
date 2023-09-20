@@ -16,6 +16,7 @@ public abstract partial class BaseCreature : BaseUnit
 
     public delegate void SomeSignalWithIntArgument();
 
+
     public          List<Positions> FavouritePositions = new() { Positions.None };
     private         bool            isInitialized;
     [Export] public Keyword[]       Keywords;

@@ -147,8 +147,7 @@ billboard = 1
 sprite_frames = SubResource("SpriteFrames_n8ymr")
 animation = &"idle"
 
-[node name="Orc" parent="." node_paths=PackedStringArray("ProvidedSkills") instance=ExtResource("1_mpk0v")]
-ProvidedSkills = []
+[node name="Orc" parent="." instance=ExtResource("1_mpk0v")]
 
 [node name="Energist" parent="." instance=ExtResource("2_65qr3")]
 

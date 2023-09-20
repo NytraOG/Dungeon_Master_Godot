@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" path="res://Models/Heroes/Races/Dwarf.cs" id="1_tjr7i"]
 
-[node name="Dwarf" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+[node name="Dwarf" type="Node3D"]
 script = ExtResource("1_tjr7i")
-ModifierCharisma = -1
+ModifierStrength = -2
 ModifierDexterity = 2
 ModifierIntuition = 1
-ModifierStrength = -2
-ProvidedSkills = []
+ModifierCharisma = -1
 Displayname = "Dwarf"

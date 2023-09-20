@@ -76,23 +76,24 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
             if (target.Debuffs.Any(d => d.Displayname == debuff.Displayname) && !debuff.IsStackable)
                 continue;
 
-            AddDebuff(actor, target, debuff);
+            var rando  = GD.RandRange(0d, 1d);
+            var erTuts = debuff.ProbabilityToApply >= rando;
+
+            if(erTuts)
+                AddDebuff(actor, target, debuff);
         }
     }
 
     private void AddDebuff(BaseUnit actor, BaseUnit target, Debuff debuff)
     {
-        //Muss man schauen, obs das übers new keyword geht oder man ne godot methode braucht
-
-
         var newInstance = debuff.ToNewInstance();
         newInstance.AppliedBy   = this;
         newInstance.AppliedFrom = actor;
 
-        target.Debuffs.Add(newInstance);
         newInstance.ApplyDamageModifier(target);
         newInstance.ApplyRatingModifier(target);
 
+        target.Debuffs.Add(newInstance);
         target.AddChild(newInstance);
     }
 

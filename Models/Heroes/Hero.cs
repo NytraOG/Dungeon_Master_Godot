@@ -8,7 +8,7 @@ namespace DungeonMaster.Models.Heroes;
 
 public partial class Hero : BaseUnit
 {
-    public delegate void SelectedEvent();
+    public delegate void SelectedEvent(Hero sender);
 
     [Export] public BaseHeroclass Class;
     [Export] public BaseSkill     InherentSkill;
@@ -58,15 +58,8 @@ public partial class Hero : BaseUnit
 
         Race.ApplyModifiers(this);
         Class.ApplyModifiers(this);
-
-        OnSelected += OnOnSelected;
     }
 
-    private void OnOnSelected()
-    {
-        var mainNode = (Main)GetTree().CurrentScene;
-        mainNode.SelectedHero = this;
-    }
 
     public event SelectedEvent OnSelected;
 
@@ -81,6 +74,6 @@ public partial class Hero : BaseUnit
     private void _on_hero_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
     {
         if (@event is InputEventMouseButton { Pressed: true })
-            OnSelected?.Invoke();
+            OnSelected?.Invoke(this);
     }
 }

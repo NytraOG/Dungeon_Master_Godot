@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" path="res://Models/Heroes/Races/Elf.cs" id="1_gha56"]
 
-[node name="Elf" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+[node name="Elf" type="Node3D"]
 script = ExtResource("1_gha56")
-ModifierCharisma = 2
 ModifierQuickness = 2
 ModifierWillpower = -2
 ModifierWisdom = -2
-ProvidedSkills = []
+ModifierCharisma = 2
 Displayname = "Elf"

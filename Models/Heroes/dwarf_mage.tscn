@@ -86,3 +86,5 @@ shape = SubResource("CapsuleShape3D_2b7vn")
 [node name="Mage" parent="." instance=ExtResource("3_t0oae")]
 
 [node name="Dwarf" parent="." instance=ExtResource("4_xjkip")]
+
+[connection signal="input_event" from="CharacterBody3D" to="." method="_on_hero_input_event"]

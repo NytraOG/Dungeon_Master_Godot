@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" path="res://Models/Heroes/Races/Kobold.cs" id="1_s440k"]
 
-[node name="Kobold" type="Node3D" node_paths=PackedStringArray("ProvidedSkills")]
+[node name="Kobold" type="Node3D"]
 script = ExtResource("1_s440k")
-ModifierQuickness = 1
 ModifierStrength = -1
+ModifierQuickness = 1
 ModifierWillpower = -1
-ProvidedSkills = []
 Displayname = "Kobold"

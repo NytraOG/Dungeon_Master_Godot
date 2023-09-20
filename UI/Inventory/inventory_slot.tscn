@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c6i0nupkj1hcm"]
+
+[node name="InventorySlot" type="TextureButton"]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StackSize" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

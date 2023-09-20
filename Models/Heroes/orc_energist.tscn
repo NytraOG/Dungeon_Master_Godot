@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dwpft20cm5whx"]
+[gd_scene load_steps=30 format=3 uid="uid://dwpft20cm5whx"]
 
 [ext_resource type="Script" path="res://Models/Heroes/OrcEnergist.cs" id="1_3t1v2"]
 [ext_resource type="Texture2D" uid="uid://bi8wciiq88qmw" path="res://Graphics/Orc_Berserk/Run.png" id="1_g76td"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://brbk57c5unerm" path="res://Models/Heroes/Races/orc.tscn" id="1_mpk0v"]
 [ext_resource type="Texture2D" uid="uid://c7cqqba5kfmod" path="res://Graphics/Orc_Berserk/Idle.png" id="1_pbdjl"]
 [ext_resource type="PackedScene" uid="uid://c70xtwdch46y4" path="res://Models/Heroes/Classes/energist.tscn" id="2_65qr3"]
+[ext_resource type="Texture2D" uid="uid://ch7gldgugixck" path="res://Graphics/Orc_Berserk/Dead.png" id="4_e1rap"]
 [ext_resource type="PackedScene" uid="uid://c6o3nm7j5m757" path="res://Models/Skills/Melee/knives.tscn" id="7_uoa5s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eewbk"]
@@ -47,6 +48,22 @@ region = Rect2(384, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5pmtw"]
 atlas = ExtResource("1_g76td")
 region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sdu6"]
+atlas = ExtResource("4_e1rap")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_winnj"]
+atlas = ExtResource("4_e1rap")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrjyi"]
+atlas = ExtResource("4_e1rap")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxmy6"]
+atlas = ExtResource("4_e1rap")
+region = Rect2(288, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1rv7y"]
 atlas = ExtResource("1_pbdjl")
@@ -112,6 +129,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3sdu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_winnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrjyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxmy6")
+}],
+"loop": true,
+"name": &"die",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1rv7y")
 }, {
 "duration": 1.0,
@@ -145,7 +179,8 @@ Race = NodePath("Orc")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_n8ymr")
-animation = &"idle"
+animation = &"die"
+frame_progress = 0.473024
 
 [node name="Orc" parent="." instance=ExtResource("1_mpk0v")]
 

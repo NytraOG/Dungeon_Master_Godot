@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://b558ba10poyoa"]
+
+[ext_resource type="Texture2D" uid="uid://dhxvbwovxijth" path="res://UI/Status/globe_empty.png" id="1_23vg4"]
+[ext_resource type="Texture2D" uid="uid://dqa4qbpj0ns8p" path="res://UI/Status/globe_full_RED.png" id="2_g6sa2"]
+[ext_resource type="FontFile" uid="uid://bj3640b5wy2xq" path="res://Graphics/fonts/upheavtt.ttf" id="3_pyff1"]
+[ext_resource type="Script" path="res://UI/Status/Healthbar.cs" id="3_x8owt"]
+[ext_resource type="Texture2D" uid="uid://dtabowi1vbet2" path="res://UI/Status/HealthbarOrnamentNeu.png" id="5_q15jt"]
+[ext_resource type="Texture2D" uid="uid://f0jb1evivf3d" path="res://UI/Status/OrnamentBackground.png" id="6_2pb8d"]
+
+[node name="Healthbar" type="TextureProgressBar"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+offset_right = 240.0
+offset_bottom = 120.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+size_flags_vertical = 4
+fill_mode = 3
+texture_under = ExtResource("1_23vg4")
+texture_progress = ExtResource("2_g6sa2")
+script = ExtResource("3_x8owt")
+
+[node name="Hitpoints" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -13.0
+offset_right = 26.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_pyff1")
+theme_override_font_sizes/font_size = 30
+
+[node name="OrnamentBackground" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 2.66667
+offset_top = 100.0
+offset_right = 152.667
+offset_bottom = 250.0
+texture = ExtResource("6_2pb8d")
+
+[node name="OrnamentTop" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 146.667
+offset_top = -204.0
+offset_right = 471.667
+offset_bottom = -45.0
+rotation = 1.5708
+texture = ExtResource("5_q15jt")
+
+[node name="OrnamentRight" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 118.667
+offset_top = 94.6667
+offset_right = 443.667
+offset_bottom = 253.667
+texture = ExtResource("5_q15jt")
+flip_h = true

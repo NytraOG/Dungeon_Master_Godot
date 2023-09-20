@@ -1,9 +1,34 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfppalap8os7e"]
+[gd_scene load_steps=21 format=3 uid="uid://bfppalap8os7e"]
 
 [ext_resource type="Script" path="res://Models/Heroes/DwarfMage.cs" id="1_121ho"]
+[ext_resource type="Texture2D" uid="uid://bewm0g2qlhqgo" path="res://Graphics/Fire vizard/Dead.png" id="2_i3ffw"]
 [ext_resource type="Texture2D" uid="uid://bllrvochpgexx" path="res://Graphics/Fire vizard/Idle.png" id="2_vim43"]
 [ext_resource type="PackedScene" uid="uid://bjxfjxhjaxqpl" path="res://Models/Heroes/Classes/mage.tscn" id="3_t0oae"]
 [ext_resource type="PackedScene" uid="uid://c1cgq6b2i8mb6" path="res://Models/Heroes/Races/dwarf.tscn" id="4_xjkip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38bx8"]
+atlas = ExtResource("2_i3ffw")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7sa5"]
+atlas = ExtResource("2_i3ffw")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfdld"]
+atlas = ExtResource("2_i3ffw")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c02i"]
+atlas = ExtResource("2_i3ffw")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5jl6"]
+atlas = ExtResource("2_i3ffw")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi316"]
+atlas = ExtResource("2_i3ffw")
+region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tm0e6"]
 atlas = ExtResource("2_vim43")
@@ -35,6 +60,29 @@ region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pw034"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38bx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7sa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfdld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c02i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5jl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi316")
+}],
+"loop": true,
+"name": &"die",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tm0e6")
@@ -75,7 +123,7 @@ Race = NodePath("Dwarf")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_pw034")
-animation = &"idle"
+animation = &"die"
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 

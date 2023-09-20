@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
@@ -10,12 +12,14 @@ using Attribute = DungeonMaster.Enums.Attribute;
 
 namespace DungeonMaster.Models;
 
-public abstract partial class BaseUnit : Node3D
+public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 {
-    public Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
-    public List<Buff>                         Buffs        = new();
-    public List<Debuff>                       Debuffs      = new();
-    public List<BaseSkill>                    Skills       = new();
+    public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
+    public  List<Buff>                         Buffs        = new();
+    public  List<Debuff>                       Debuffs      = new();
+    public  List<BaseSkill>                    Skills       = new();
+    private float                              currentHitpoints;
+    private float                              currentMana;
 
     //Stats
     [Export]
@@ -27,43 +31,59 @@ public abstract partial class BaseUnit : Node3D
     public int XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
 
     [Export]
-    public int Strength { get; set; } = 1;
+    public int Strength { get; set; } = 4;
 
     [Export]
-    public int Constitution { get; set; } = 1;
+    public int Constitution { get; set; } = 4;
 
     [Export]
-    public int Dexterity { get; set; } = 1;
+    public int Dexterity { get; set; } = 4;
 
     [Export]
-    public int Wisdom { get; set; } = 1;
+    public int Wisdom { get; set; } = 4;
 
     [Export]
-    public int Quickness { get; set; } = 1;
+    public int Quickness { get; set; } = 4;
 
     [Export]
-    public int Intuition { get; set; } = 1;
+    public int Intuition { get; set; } = 4;
 
     [Export]
-    public int Logic { get; set; } = 1;
+    public int Logic { get; set; } = 4;
 
     [Export]
-    public int Willpower { get; set; } = 1;
+    public int Willpower { get; set; } = 4;
 
     [Export]
-    public int Charisma { get; set; } = 1;
+    public int Charisma { get; set; } = 4;
 
     [Export]
     public float MaximumHitpoints { get; set; }
 
     [Export]
-    public float CurrentHitpoints { get; set; }
+    public float CurrentHitpoints
+    {
+        get => currentHitpoints;
+        set
+        {
+            currentHitpoints = value;
+            OnPropertyChanged();
+        }
+    }
 
     [Export]
     public float MaximumMana { get; set; }
 
     [Export]
-    public float CurrentMana { get; set; }
+    public float CurrentMana
+    {
+        get => currentMana;
+        set
+        {
+            currentMana = value;
+            OnPropertyChanged();
+        }
+    }
 
     [Export]
     public float ManaregenerationRate { get; set; }
@@ -201,4 +221,17 @@ public abstract partial class BaseUnit : Node3D
     public virtual void SetPosition(Vector3 spawnPosition, Vector3 positionToLookAt) { }
 
     public virtual void Initialize() => CurrentHitpoints = MaximumHitpoints;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
 }

@@ -10,6 +10,7 @@ using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
 using DungeonMaster.UI.Menues.Buttons;
+using DungeonMaster.UI.Status;
 using Godot;
 
 namespace DungeonMaster;
@@ -38,7 +39,9 @@ public partial class Main : Node
     private         bool                  combatActive;
     [Export] public Texture2D             DefaultIcon;
     public          BaseCreature[]        Enemies = Array.Empty<BaseCreature>();
-    public          Hero[]                Heroes  = Array.Empty<Hero>();
+    public          Healthbar             Healthbar;
+    public          Hero[]                Heroes = Array.Empty<Hero>();
+    public          Manabar               Manabar;
     public          BaseCreature          SelectedEnemy;
     public          Hero                  SelectedHero;
     public          BaseSkill             SelectedSkill;
@@ -50,6 +53,9 @@ public partial class Main : Node
 
     public override void _Ready()
     {
+        Healthbar = GetNode<Healthbar>("Healthbar");
+        Manabar   = GetNode<Manabar>("Manabar");
+
         SubscribeToSkillbuttons();
         PopulateSkillButtons();
     }
@@ -370,6 +376,7 @@ public partial class Main : Node
     private void HeroOnSelected(Hero hero)
     {
         SelectedHero = hero;
+        Healthbar.SetDisplayedHero(SelectedHero);
 
         var amountOfHeroSkills = hero.Skills.Count;
 
@@ -415,10 +422,11 @@ public partial class Main : Node
 
     public void _on_skill_button_timed_out(BaseSkillButton sender)
     {
-        sender.Disabled = false;
+        sender.Disabled  = false;
         sender.Time.Text = string.Empty;
         sender.SetProcess(false);
     }
+
     private void _on_creature_creature_clicked(BaseCreature creature)
     {
         SelectedEnemy = creature;

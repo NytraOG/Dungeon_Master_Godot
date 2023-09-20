@@ -49,6 +49,11 @@ public abstract partial class BaseCreature : BaseUnit
 
         InitiativeModifier = 1;
 
+        CurrentMeleeDefense  = BaseMeleeDefense;
+        CurrentRangedDefense = BaseRangedDefense;
+        CurrentMagicDefense  = BaseMagicDefense;
+        CurrentSocialDefense = BaseSocialDefense;
+
         Monstertype.ApplyValues(this);
 
         SetAttributeByLevel();

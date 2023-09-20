@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Heroes.Classes;
 using DungeonMaster.Models.Heroes.Races;
@@ -10,17 +11,35 @@ public partial class Hero : BaseUnit
 {
     public delegate void SelectedEvent(Hero sender);
 
-    [Export] public BaseHeroclass Class;
-    [Export] public BaseSkill     InherentSkill;
-    [Export] public int           InventorySize;
-    private         bool          isInitialized;
-    [Export] public BaseRace      Race;
+    private         AnimatedSprite3D animatedSprite;
+    [Export] public BaseHeroclass    Class;
+    [Export] public BaseSkill        InherentSkill;
+    [Export] public int              InventorySize;
+    private         bool             isInitialized;
+    [Export] public BaseRace         Race;
 
     public override void _Ready()
     {
-        var animatedSprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
+        animatedSprite           = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
         animatedSprite.Animation = "idle";
         animatedSprite.Play();
+
+        PropertyChanged += OnPropertyChanged;
+    }
+
+    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(CurrentHitpoints) || !IsDead)
+            return;
+
+        animatedSprite.AnimationLooped += () =>
+        {
+            animatedSprite.Stop();
+            SetProcess(false);
+            animatedSprite.Frame = 4;
+        };
+
+        animatedSprite.Animation = "die";
     }
 
     public override void _Process(double delta)
@@ -36,7 +55,7 @@ public partial class Hero : BaseUnit
     {
         Displayname = $"{Race.Displayname}_{Class.Displayname}";
 
-        if(InherentSkill is not null)
+        if (InherentSkill is not null)
             Skills.Add(InherentSkill);
 
         MeleeAttackratingModifier  = 1;
@@ -51,6 +70,11 @@ public partial class Hero : BaseUnit
 
         InitiativeModifier = 1;
 
+        CurrentMeleeDefense  = BaseMeleeDefense;
+        CurrentRangedDefense = BaseRangedDefense;
+        CurrentMagicDefense  = BaseMagicDefense;
+        CurrentSocialDefense = BaseSocialDefense;
+
         Race.ApplySkills(this);
         Class.ApplySkills(this);
 
@@ -59,7 +83,6 @@ public partial class Hero : BaseUnit
         Race.ApplyModifiers(this);
         Class.ApplyModifiers(this);
     }
-
 
     public event SelectedEvent OnSelected;
 

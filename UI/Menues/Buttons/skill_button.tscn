@@ -1,19 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://byba32a6e70bm"]
+[gd_scene load_steps=4 format=3 uid="uid://byba32a6e70bm"]
 
 [ext_resource type="Texture2D" uid="uid://cj64ebxqhnsld" path="res://Graphics/Skills/Default.png" id="1_2layb"]
 [ext_resource type="Script" path="res://UI/Menues/Buttons/BaseSkillButton.cs" id="2_wrury"]
 [ext_resource type="Texture2D" uid="uid://cpn33mi6ptmev" path="res://Graphics/Skills/White.png" id="2_ypa0i"]
 
-[sub_resource type="InputEventKey" id="InputEventKey_of5i5"]
-
-[sub_resource type="Shortcut" id="Shortcut_ckot5"]
-events = [SubResource("InputEventKey_of5i5")]
-
 [node name="SkillButton" type="TextureButton" node_paths=PackedStringArray("Hotkey", "TextureProgressBar", "Time", "Timer")]
 custom_minimum_size = Vector2(40, 0)
 offset_right = 40.0
 offset_bottom = 40.0
-shortcut = SubResource("Shortcut_ckot5")
 texture_normal = ExtResource("1_2layb")
 ignore_texture_size = true
 stretch_mode = 0
@@ -25,15 +19,9 @@ Timer = NodePath("Timer")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 step = 0.05

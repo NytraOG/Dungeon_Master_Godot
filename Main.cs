@@ -362,9 +362,7 @@ public partial class Main : Node
         Heroes  = this.GetAllChildren<Hero>();
 
         foreach (var hero in Heroes)
-        {
             hero.OnSelected += HeroOnSelected;
-        }
         AllesDa = true;
     }
 
@@ -376,10 +374,13 @@ public partial class Main : Node
 
         for (var i = 0; i < Skillbuttons.Count; i++)
         {
+            var skillbutton = Skillbuttons[i];
+
             if (i == amountOfHeroSkills)
                 break;
 
-            Skillbuttons[i].Skill = hero.Skills[i];
+            skillbutton.Skill         = hero.Skills[i];
+            skillbutton.TextureNormal = new Texture2D(); //todo hier weitermachen
         }
     }
 

@@ -186,6 +186,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
         Attribute.Willpower => Willpower,
         Attribute.Wisdom => Wisdom,
         Attribute.Charisma => Charisma,
+        Attribute.None => 0,
         _ => throw new ArgumentOutOfRangeException(nameof(Attribute))
     };
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=18 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="Texture2D" uid="uid://bw1s5rgo10w7k" path="res://Graphics/Skills/Empty.png" id="2_i5yg1"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://byba32a6e70bm" path="res://UI/Menues/Buttons/skill_button.tscn" id="8_rufrx"]
 [ext_resource type="PackedScene" uid="uid://b558ba10poyoa" path="res://UI/Status/healthbar.tscn" id="10_c3jlh"]
 [ext_resource type="PackedScene" uid="uid://cv8ve3k4tec4p" path="res://UI/Status/manabar.tscn" id="11_6il4a"]
+[ext_resource type="PackedScene" uid="uid://ucfaa8aqxwri" path="res://UI/Menues/Buttons/texture_button.tscn" id="12_s1lhx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
 size = Vector3(200, 2, 200)
@@ -206,6 +207,21 @@ script = ExtResource("4_e1hhg")
 
 [node name="Manabar" parent="." instance=ExtResource("11_6il4a")]
 
+[node name="ConfirmationButton" parent="." instance=ExtResource("12_s1lhx")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -133.0
+offset_right = 272.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="Actions/Undo" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="Actions/StartRound" to="." method="_on_start_round_pressed"]
+[connection signal="pressed" from="ConfirmationButton" to="." method="_on_confirmation_button_pressed"]

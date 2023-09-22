@@ -14,7 +14,7 @@ public abstract partial class BaseCreature : BaseUnit
     [Signal]
     public delegate void CreatureClickedEventHandler(BaseCreature creature);
 
-    public delegate void SomeSignalWithIntArgument();
+    public delegate void SomeSignalWithIntArgument(BaseCreature creature);
 
 
     public          List<Positions> FavouritePositions = new() { Positions.None };
@@ -78,7 +78,7 @@ public abstract partial class BaseCreature : BaseUnit
 
     public event SomeSignalWithIntArgument OnSomeSignal;
 
-    public void UpdateSelectedEnemy()
+    public void UpdateSelectedEnemy(BaseCreature creature)
     {
         var mainNode = (Main)GetTree().CurrentScene;
         mainNode.SelectedEnemy = this;
@@ -146,6 +146,6 @@ public abstract partial class BaseCreature : BaseUnit
     private void _on_creature_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
     {
         if (@event is InputEventMouseButton { Pressed: true })
-            OnSomeSignal?.Invoke();
+            OnSomeSignal?.Invoke(this);
     }
 }

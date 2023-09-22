@@ -1,5 +1,6 @@
 using System;
 using DungeonMaster.Enums;
+using DungeonMaster.Models.Enemies;
 
 namespace DungeonMaster.Models.Skills;
 
@@ -29,16 +30,20 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             ApplyDebuffs(actor, target);
 
+            Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");
             //EmitSignal(Main.SignalName.Hit, actor, this, hitroll, (int)hitResult, target, damage.ToString());
 
             // controller.ProcessFloatingCombatText(finalDamage, hitResult, target);
             // controller.ProcessDeath(target);
+            if (target is BaseCreature { IsDead: true })
+                target.QueueFree();
 
             return finalDamage;
         }
 
         var missResult = "miss";
 
+        Console.WriteLine($"{actor.Displayname} missed {target.Displayname} with {Displayname}");
         //EmitSignal(Main.SignalName.Miss, actor, this, hitroll, target, missResult);
 
         // controller.ProcessFloatingCombatText(missResult, HitResult.None, target);

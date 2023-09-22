@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DungeonMaster.Enums;
 using DungeonMaster.Models;
@@ -15,7 +17,8 @@ using Godot;
 
 namespace DungeonMaster;
 
-public partial class Main : Node
+public partial class Main : Node,
+                            INotifyPropertyChanged
 {
     [Signal]
     public delegate void BuffAppliedEventHandler(BaseUnit actor, BaseSkill skill, BaseUnit[] targets, string skillresult);
@@ -35,26 +38,32 @@ public partial class Main : Node
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    public          bool                  AllesDa;
-    private         bool                  combatActive;
-    [Export] public Texture2D             DefaultIcon;
-    public          BaseCreature[]        Enemies = Array.Empty<BaseCreature>();
-    public          Healthbar             Healthbar;
-    public          Hero[]                Heroes = Array.Empty<Hero>();
-    public          Manabar               Manabar;
-    public          BaseCreature          SelectedEnemy;
-    public          Hero                  SelectedHero;
-    public          BaseSkill             SelectedSkill;
-    public          List<BaseUnit>        SelectedTargets = new();
-    public          List<BaseSkillButton> Skillbuttons    = new();
-    public          List<SkillSelection>  SkillSelection  = new();
+    public  bool AllesDa      { get; set; }
+    private bool combatActive { get; set; }
+
+    [Export]
+    public Texture2D DefaultIcon { get; set; }
+
+    public BaseCreature[]                    Enemies            { get; set; } = Array.Empty<BaseCreature>();
+    public Healthbar                         Healthbar          { get; set; }
+    public Hero[]                            Heroes             { get; set; } = Array.Empty<Hero>();
+    public Manabar                           Manabar            { get; set; }
+    public BaseCreature                      SelectedEnemy      { get; set; }
+    public Hero                              SelectedHero       { get; set; }
+    public BaseSkill                         SelectedSkill      { get; set; }
+    public List<BaseUnit>                    SelectedTargets    { get; set; } = new();
+    public List<BaseSkillButton>             Skillbuttons       { get; set; } = new();
+    public List<SkillSelection>              SkillSelection     { get; set; } = new();
+    public TextureButton                     ConfirmationButton { get; set; }
+    public event PropertyChangedEventHandler PropertyChanged;
 
     private async void _on_start_round_pressed() => await HandleBattleround();
 
     public override void _Ready()
     {
-        Healthbar = GetNode<Healthbar>("Healthbar");
-        Manabar   = GetNode<Manabar>("Manabar");
+        ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
+        Healthbar          = GetNode<Healthbar>("Healthbar");
+        Manabar            = GetNode<Manabar>("Manabar");
 
         SubscribeToSkillbuttons();
         PopulateSkillButtons();
@@ -125,7 +134,10 @@ public partial class Main : Node
                     creature.SelectedSkill = null;
             }
 
+            SelectedEnemy = null;
+            SelectedSkill = null;
             SkillSelection.Clear();
+            SelectedTargets.Clear();
         }
 
         //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);
@@ -369,8 +381,37 @@ public partial class Main : Node
         Heroes  = this.GetAllChildren<Hero>();
 
         foreach (var hero in Heroes)
+        {
+            hero.OnSelected -= HeroOnSelected;
             hero.OnSelected += HeroOnSelected;
+        }
+
+        foreach (var creature in Enemies)
+        {
+            creature.OnSomeSignal -= CreatureOnOnSomeSignal;
+            creature.OnSomeSignal += CreatureOnOnSomeSignal;
+        }
+
         AllesDa = true;
+    }
+
+    private void CreatureOnOnSomeSignal(BaseCreature creature)
+    {
+        SelectedEnemy = creature;
+
+        if (SelectedSkill is not BaseTargetingSkill tSkill)
+            return;
+
+        var maxTargets        = tSkill.GetTargets(SelectedHero);
+        var maxTargetsReached = SelectedTargets.Count == maxTargets;
+
+        if (maxTargetsReached)
+        {
+            Console.WriteLine($"Target maximum {maxTargets} reached for {tSkill.Displayname}");
+            return;
+        }
+
+        SelectedTargets.Add(creature);
     }
 
     private void HeroOnSelected(Hero hero)
@@ -412,7 +453,7 @@ public partial class Main : Node
             skill.SomeSkillbuttonPressed += SkillOnSomeSkillbuttonPressed;
     }
 
-    private void SkillOnSomeSkillbuttonPressed(BaseSkillButton sender) { }
+    private void SkillOnSomeSkillbuttonPressed(BaseSkillButton sender) => SelectedSkill = sender.Skill;
 
     private void _on_undo_pressed()
     {
@@ -428,26 +469,64 @@ public partial class Main : Node
         sender.SetProcess(false);
     }
 
-    private void _on_creature_creature_clicked(BaseCreature creature)
+    public void _on_confirmation_button_pressed() => ConfirmSkillselection();
+
+    private void ConfirmSkillselection()
     {
-        SelectedEnemy = creature;
-
-        if (SelectedSkill is not BaseTargetingSkill tSkill)
-            return;
-
-        var maxTargets        = tSkill.GetTargets(SelectedHero);
-        var maxTargetsReached = SelectedTargets.Count == maxTargets;
-
-        if (maxTargetsReached)
+        if (SkillSelection.Any(s => s.Actor == SelectedHero))
+            Console.WriteLine("Selected Hero is already acting");
+        else if (SelectedSkill is not null && !SelectedTargets.Any())
+            Console.WriteLine("No Targets selected");
+        else if (SelectedSkill is null)
+            Console.WriteLine("No Ability selected");
+        else
         {
-            Console.WriteLine($"Target maximum {maxTargets} reached for {tSkill.Displayname}");
-            return;
+            SelectedHero.InitiativeBestimmen();
+
+            var selection = new SkillSelection
+            {
+                Skill = SelectedSkill,
+                Actor = SelectedHero
+            };
+
+            if (selection.Skill is BaseTargetingSkill { AutoTargeting: true, TargetableFaction: Factions.Foe } skill)
+            {
+                var remainingTargetsAmount = skill.GetTargets(selection.Actor) - 1;
+
+                var remainingTargets = Enemies.Except(SelectedTargets)
+                                              .ToList();
+
+                for (var i = 0; i < remainingTargetsAmount; i++)
+                {
+                    if (i >= remainingTargets.Count)
+                        continue;
+
+                    SelectedTargets.Add(remainingTargets[i]);
+                }
+            }
+
+            selection.Targets = SelectedTargets.ToArray();
+
+            SkillSelection.Add(selection);
         }
 
-        SelectedTargets.Add(creature);
+        SelectedTargets.Clear();
+
+        SelectedSkill = null;
     }
 
     private async Task WaitFor(int milliseconds) => await ToSignal(GetTree().CreateTimer((double)milliseconds / 1000), "timeout");
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
 }
 
 public struct SkillSelection

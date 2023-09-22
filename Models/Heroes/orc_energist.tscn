@@ -180,7 +180,7 @@ Race = NodePath("Orc")
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_n8ymr")
 animation = &"idle"
-frame_progress = 0.488601
+frame_progress = 0.699552
 
 [node name="Orc" parent="." instance=ExtResource("1_mpk0v")]
 

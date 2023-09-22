@@ -68,7 +68,7 @@ InherentSkill = NodePath("../OrcEnergist/Knives")
 Race = NodePath("../OrcEnergist/Orc")
 
 [node name="DwarfMage" parent="." instance=ExtResource("6_1ccm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.65, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.65, 0)
 
 [node name="SkillBar" type="Control" parent="."]
 light_mask = 2
@@ -81,9 +81,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -275.0
-offset_top = -73.0
+offset_top = -68.0
 offset_right = 275.0
-offset_bottom = -13.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -107,43 +107,64 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -268.0
+offset_left = -254.5
 offset_top = -25.0
-offset_right = 268.0
+offset_right = 254.5
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 1
 script = ExtResource("7_ju2u4")
 
 [node name="SkillButton" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton2" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton3" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton4" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton5" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton6" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton7" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton8" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton9" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="SkillButton10" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Healthbar" parent="." instance=ExtResource("10_c3jlh")]
 offset_left = -2.0

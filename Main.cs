@@ -377,6 +377,7 @@ public partial class Main : Node
     {
         SelectedHero = hero;
         Healthbar.SetDisplayedHero(SelectedHero);
+        Manabar.SetDisplayedHero(SelectedHero);
 
         var amountOfHeroSkills = hero.Skills.Count;
 

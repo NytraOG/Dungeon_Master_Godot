@@ -15,7 +15,7 @@ public partial class Healthbar : TextureProgressBar
     public override void _Ready()
     {
         Hitpoints = GetNode<Label>("Hitpoints");
-        Value     = 100;
+        Value     = 0;
     }
 
     public void SetDisplayedHero(Hero hero)

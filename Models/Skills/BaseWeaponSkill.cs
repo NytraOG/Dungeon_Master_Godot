@@ -29,7 +29,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             ApplyDebuffs(actor, target);
 
-            EmitSignal(Main.SignalName.Hit, actor, this, hitroll, (int)hitResult, target, damage.ToString());
+            //EmitSignal(Main.SignalName.Hit, actor, this, hitroll, (int)hitResult, target, damage.ToString());
 
             // controller.ProcessFloatingCombatText(finalDamage, hitResult, target);
             // controller.ProcessDeath(target);
@@ -39,7 +39,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
         var missResult = "miss";
 
-        EmitSignal(Main.SignalName.Miss, actor, this, hitroll, target, missResult);
+        //EmitSignal(Main.SignalName.Miss, actor, this, hitroll, target, missResult);
 
         // controller.ProcessFloatingCombatText(missResult, HitResult.None, target);
 

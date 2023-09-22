@@ -15,7 +15,7 @@ public partial class Manabar : TextureProgressBar
     public override void _Ready()
     {
         Mana  = GetNode<Label>("Mana");
-        Value = 100;
+        Value = 0;
     }
 
     public override void _Process(double delta)
@@ -26,7 +26,7 @@ public partial class Manabar : TextureProgressBar
         var currentMana = DisplayedHero.CurrentMana;
         var maximumMana = DisplayedHero.MaximumMana;
 
-        Mana.Text        = $"{(int)currentMana}/{maximumMana}";
+        Mana.Text        = $"{(int)currentMana}/{(int)maximumMana}";
         Value            = currentMana / maximumMana * 100;
         HeroChanged      = false;
         ManaChanged      = false;

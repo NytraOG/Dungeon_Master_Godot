@@ -179,8 +179,8 @@ Race = NodePath("Orc")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_n8ymr")
-animation = &"die"
-frame_progress = 0.473024
+animation = &"idle"
+frame_progress = 0.488601
 
 [node name="Orc" parent="." instance=ExtResource("1_mpk0v")]
 

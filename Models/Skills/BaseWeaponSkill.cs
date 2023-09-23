@@ -1,6 +1,8 @@
 using System;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
+using DungeonMaster.UI;
+using Godot;
 
 namespace DungeonMaster.Models.Skills;
 
@@ -32,6 +34,8 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");
             //EmitSignal(Main.SignalName.Hit, actor, this, hitroll, (int)hitResult, target, damage.ToString());
+
+            target.InstatiateFloatingCombatText(int.Parse(finalDamage));
 
             // controller.ProcessFloatingCombatText(finalDamage, hitResult, target);
             // controller.ProcessDeath(target);

@@ -5,6 +5,7 @@ using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies.Keywords;
 using DungeonMaster.Models.Enemies.MonsterTypes;
 using DungeonMaster.Models.Skills;
+using DungeonMaster.UI;
 using Godot;
 
 namespace DungeonMaster.Models.Enemies;
@@ -22,6 +23,8 @@ public abstract partial class BaseCreature : BaseUnit
     [Export] public Keyword[]       Keywords;
     [Export] public float           LevelModifier;
     [Export] public BaseMonstertype Monstertype;
+    [Export]public          PackedScene               FloatingCombatText { get; set; }
+
 
     public override void _Process(double delta)
     {
@@ -30,6 +33,13 @@ public abstract partial class BaseCreature : BaseUnit
 
         Initialize();
         isInitialized = true;
+    }
+
+    public override void InstatiateFloatingCombatText(int receivedDamage)
+    {
+        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
+        floatingCombatTextInstance.Damage         = int.Parse(receivedDamage.ToString());
+        AddChild(floatingCombatTextInstance);
     }
 
     public override void Initialize()

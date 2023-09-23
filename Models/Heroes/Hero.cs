@@ -3,6 +3,7 @@ using DungeonMaster.Enums;
 using DungeonMaster.Models.Heroes.Classes;
 using DungeonMaster.Models.Heroes.Races;
 using DungeonMaster.Models.Skills;
+using DungeonMaster.UI;
 using Godot;
 
 namespace DungeonMaster.Models.Heroes;
@@ -17,6 +18,9 @@ public partial class Hero : BaseUnit
     [Export] public int              InventorySize;
     private         bool             isInitialized;
     [Export] public BaseRace         Race;
+
+    [Export]
+    public PackedScene FloatingCombatText { get; set; }
 
     public override void _Ready()
     {
@@ -85,6 +89,13 @@ public partial class Hero : BaseUnit
     }
 
     public event SelectedEvent OnSelected;
+
+    public override void InstatiateFloatingCombatText(int receivedDamage)
+    {
+        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
+        floatingCombatTextInstance.Damage = int.Parse(receivedDamage.ToString());
+        AddChild(floatingCombatTextInstance);
+    }
 
     public override (int, int) GetApproximateDamage(BaseSkill ability) => ability switch
     {

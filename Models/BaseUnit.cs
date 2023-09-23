@@ -16,10 +16,10 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 {
     public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
     public  List<Buff>                         Buffs        = new();
-    public  List<Debuff>                       Debuffs      = new();
-    public  List<BaseSkill>                    Skills       = new();
     private float                              currentHitpoints;
     private float                              currentMana;
+    public  List<Debuff>                       Debuffs = new();
+    public  List<BaseSkill>                    Skills  = new();
 
     //Stats
     [Export]
@@ -173,7 +173,11 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public float FlatDamageModifier { get; set; }
 
-    public BaseSkill SelectedSkill { get; set; }
+    public BaseSkill                         SelectedSkill { get; set; }
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/floating_combat_text.tscn");
+    public abstract void InstatiateFloatingCombatText(int receivedDamage);
 
     public int Get(Attribute attribute) => attribute switch
     {
@@ -222,8 +226,6 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public virtual void SetPosition(Vector3 spawnPosition, Vector3 positionToLookAt) { }
 
     public virtual void Initialize() => CurrentHitpoints = MaximumHitpoints;
-
-    public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

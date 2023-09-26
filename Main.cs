@@ -298,6 +298,9 @@ public partial class Main : Node,
                 break;
         }
 
+        if(selection.Actor is null)
+            return;
+
         selection.Actor.CurrentMana -= selection.Skill.Manacost;
     }
 

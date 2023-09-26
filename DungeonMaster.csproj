@@ -7,8 +7,6 @@
     <Folder Include="Models\Enemies\" />
     <Folder Include="Models\Heroes\Classes\" />
     <Folder Include="Models\Heroes\Races\" />
-    <Folder Include="Models\Items\Consumables\" />
-    <Folder Include="Models\Items\Equipment\" />
     <Folder Include="Models\Skills\Statuseffects\Buffs\" />
     <Folder Include="Models\Skills\Statuseffects\Debuffs\" />
   </ItemGroup>

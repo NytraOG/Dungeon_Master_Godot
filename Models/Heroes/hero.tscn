@@ -1,17 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccgquljmb0w8d"]
+[gd_scene load_steps=5 format=3 uid="uid://ccgquljmb0w8d"]
 
 [ext_resource type="Script" path="res://Models/Heroes/Hero.cs" id="1_x7eqe"]
 [ext_resource type="PackedScene" uid="uid://cxc1scgle2yh0" path="res://UI/floating_combat_text.tscn" id="2_5e5fw"]
+[ext_resource type="PackedScene" uid="uid://di0y10lqscodp" path="res://UI/Inventory/inventory_system.tscn" id="3_d0c36"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4pq3i"]
 radius = 0.223838
 height = 0.84754
 
-[node name="Hero" type="Node3D"]
+[node name="Hero" type="Node3D" node_paths=PackedStringArray("Inventory")]
 script = ExtResource("1_x7eqe")
+InventorySize = 30
+Inventory = NodePath("InventorySystem")
 FloatingCombatText = ExtResource("2_5e5fw")
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CapsuleShape3D_4pq3i")
+
+[node name="InventorySystem" parent="." instance=ExtResource("3_d0c36")]

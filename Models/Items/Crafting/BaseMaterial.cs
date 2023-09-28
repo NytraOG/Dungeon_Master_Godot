@@ -1,6 +1,6 @@
 ﻿namespace DungeonMaster.Models.Items.Crafting;
 
-public class BaseMaterial : BaseItem
+public partial class BaseMaterial : BaseItem
 {
     
 }

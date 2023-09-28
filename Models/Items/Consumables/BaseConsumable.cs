@@ -1,6 +1,6 @@
 ﻿namespace DungeonMaster.Models.Items.Consumables;
 
-public class BaseConsumable : BaseItem
+public partial class BaseConsumable : BaseItem
 {
     
 }

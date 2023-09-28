@@ -3,9 +3,8 @@ using Godot;
 
 namespace DungeonMaster.Models.Items;
 
-public abstract class BaseItem : Node3D
+public abstract partial class BaseItem : Node3D
 {
-    [Export]
     public Keywords[] Keywords { get; set; }
 
     [ExportGroup("Effect")]

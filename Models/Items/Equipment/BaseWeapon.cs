@@ -1,6 +1,6 @@
 ﻿namespace DungeonMaster.Models.Items.Equipment;
 
-public class BaseWeapon : BaseEquipment
+public partial class BaseWeapon : BaseEquipment
 {
     
 }

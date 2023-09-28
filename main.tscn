@@ -61,15 +61,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -0.5)
 
 [node name="OrcEnergist" parent="." instance=ExtResource("2_tnr5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.25)
+InventorySize = 30
 
 [node name="OrcEnergist2" parent="." node_paths=PackedStringArray("Class", "InherentSkill", "Race") instance=ExtResource("2_tnr5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0.25)
 Class = NodePath("../OrcEnergist/Energist")
 InherentSkill = NodePath("../OrcEnergist/Knives")
+InventorySize = 30
 Race = NodePath("../OrcEnergist/Orc")
 
 [node name="DwarfMage" parent="." instance=ExtResource("6_1ccm7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.65, 0)
+InventorySize = 30
 
 [node name="SkillBar" type="Control" parent="."]
 light_mask = 2

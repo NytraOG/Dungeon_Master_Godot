@@ -1,6 +1,9 @@
-﻿namespace DungeonMaster.Models.Items.Consumables;
+﻿using DungeonMaster.Interfaces;
 
-public partial class BaseConsumable : BaseItem
+namespace DungeonMaster.Models.Items.Consumables;
+
+public partial class BaseConsumable : BaseItem,
+                                      IStackable
 {
-    
+    public int MaxStacksize { get; set; }
 }

@@ -19,10 +19,10 @@ public abstract partial class BaseItem : Node3D
     public int LevelRequirement { get; set; }
 
     [Export]
-    public Attribute RequiredAttribute        { get; set; }
+    public Attribute RequiredAttribute { get; set; }
 
     [Export]
-    public int       RequiredLevelOfAttribute { get; set; }
+    public int RequiredLevelOfAttribute { get; set; }
 
     [ExportGroup("Misc")]
     [Export]

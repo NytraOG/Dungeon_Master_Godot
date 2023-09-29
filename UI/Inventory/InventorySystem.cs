@@ -2,16 +2,25 @@ using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
-public partial class InventorySystem : Node3D
+public partial class InventorySystem : PanelContainer
 {
     public InventoryItemSlot[] Slots;
 
+    [Export]
+    public GridContainer ItemGrid { get; set; }
+
+    public PackedScene InventorySlotScene { get; set; }
+
     public void Initialize(int inventorySize)
     {
-        Slots = new InventoryItemSlot[inventorySize];
+        InventorySlotScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
+        Slots              = new InventoryItemSlot[inventorySize];
 
         for (var i = 0; i < inventorySize; i++)
-            Slots[i] = new InventoryItemSlot();
+        {
+            var slot = InventorySlotScene.Instantiate<InventoryItemSlot>();
+            Slots[i] = slot;
+        }
     }
 
     public override void _Process(double delta) { }

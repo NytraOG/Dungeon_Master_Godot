@@ -26,7 +26,7 @@ public partial class Hero : BaseUnit
 
     public override void _Ready()
     {
-        Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory_system.tscn")
+        Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
 
         Inventory.Initialize(InventorySize);

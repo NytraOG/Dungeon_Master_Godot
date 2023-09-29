@@ -4,7 +4,7 @@ using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
-public partial class InventoryItemSlot : Node3D
+public partial class InventoryItemSlot : PanelContainer
 {
     [Export]
     public Texture2D DefaultIcon { get; set; }

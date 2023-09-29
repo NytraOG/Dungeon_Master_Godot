@@ -2,7 +2,7 @@
 
 namespace DungeonMaster.Models.Items.Equipment;
 
-public partial class BaseArmor : BaseEquipment
+public abstract partial class BaseArmor : BaseEquipment
 {
     [ExportGroup("Resistances")]
     [Export]

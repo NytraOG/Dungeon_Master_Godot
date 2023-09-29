@@ -6,6 +6,9 @@ namespace DungeonMaster.UI.Inventory;
 
 public partial class InventoryItemSlot : Node3D
 {
+    [Export]
+    public Texture2D DefaultIcon { get; set; }
+
     public int      CurrentStacksize { get; set; }
     public BaseItem ContainedItem    { get; set; }
 

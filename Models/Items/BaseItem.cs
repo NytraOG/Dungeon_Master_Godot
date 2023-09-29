@@ -5,6 +5,9 @@ namespace DungeonMaster.Models.Items;
 
 public abstract partial class BaseItem : Node3D
 {
+    [Export]
+    public Texture2D Icon { get; set; }
+
     public Keywords[] Keywords { get; set; }
 
     [ExportGroup("Effect")]
@@ -27,4 +30,6 @@ public abstract partial class BaseItem : Node3D
     [ExportGroup("Misc")]
     [Export]
     public string Fluff { get; set; }
+
+    public abstract void Use(BaseUnit actor);
 }

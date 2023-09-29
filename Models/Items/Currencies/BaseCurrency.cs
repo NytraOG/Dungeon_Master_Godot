@@ -1,6 +1,6 @@
 ﻿namespace DungeonMaster.Models.Items.Currencies;
 
-public partial class BaseCurrency : BaseItem
+public abstract partial class BaseCurrency : BaseItem
 {
     
 }

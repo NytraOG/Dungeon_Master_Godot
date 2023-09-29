@@ -11,6 +11,7 @@ using DungeonMaster.Models.Heroes;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
+using DungeonMaster.UI.Inventory;
 using DungeonMaster.UI.Menues.Buttons;
 using DungeonMaster.UI.Status;
 using Godot;
@@ -55,6 +56,7 @@ public partial class Main : Node,
     public List<BaseSkillButton>             Skillbuttons       { get; set; } = new();
     public List<SkillSelection>              SkillSelection     { get; set; } = new();
     public TextureButton                     ConfirmationButton { get; set; }
+    public InventorySystem                   InventorySystemUi  { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     private async void _on_start_round_pressed() => await HandleBattleround();
@@ -64,6 +66,8 @@ public partial class Main : Node,
         ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
         Healthbar          = GetNode<Healthbar>("Healthbar");
         Manabar            = GetNode<Manabar>("Manabar");
+        InventorySystemUi  = GetNode<Control>("InventoryDisplay").GetNode<InventorySystem>("Inventory");
+        InventorySystemUi.Initialize(32);
 
         SubscribeToSkillbuttons();
         PopulateSkillButtons();
@@ -298,7 +302,7 @@ public partial class Main : Node,
                 break;
         }
 
-        if(selection.Actor is null)
+        if (selection.Actor is null)
             return;
 
         selection.Actor.CurrentMana -= selection.Skill.Manacost;
@@ -422,6 +426,20 @@ public partial class Main : Node,
         SelectedHero = hero;
         Healthbar.SetDisplayedHero(SelectedHero);
         Manabar.SetDisplayedHero(SelectedHero);
+
+        var scene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
+        InventorySystemUi.Slots = new InventoryItemSlot[hero.InventorySize];
+
+        for (var i = 0; i < hero.InventorySize; i++)
+        {
+            var slot = scene.Instantiate<InventoryItemSlot>();
+            InventorySystemUi.Slots[i] = slot;
+            InventorySystemUi.ItemGrid.AddChild(slot);
+        }
+
+        // var heroInventory = hero.Inventory;
+        // var itemGrid      = heroInventory.ItemGrid;
+        // InventorySystemUi.ItemGrid = itemGrid;
 
         var amountOfHeroSkills = hero.Skills.Count;
 

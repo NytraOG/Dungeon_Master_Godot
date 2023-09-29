@@ -29,6 +29,7 @@ public partial class Hero : BaseUnit
         Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
 
+        AddChild(Inventory);
         Inventory.Initialize(InventorySize);
 
         animatedSprite           = GetNode<AnimatedSprite3D>("AnimatedSprite3D");

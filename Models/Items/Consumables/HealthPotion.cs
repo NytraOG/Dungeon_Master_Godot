@@ -1,6 +1,6 @@
 ﻿namespace DungeonMaster.Models.Items.Consumables;
 
-public class HealthPotion : BaseConsumable
+public partial class HealthPotion : BaseConsumable
 {
     public int AmountHealed { get; set; }
 

@@ -427,15 +427,15 @@ public partial class Main : Node,
         Healthbar.SetDisplayedHero(SelectedHero);
         Manabar.SetDisplayedHero(SelectedHero);
 
-        var scene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
-        InventorySystemUi.Slots = new InventoryItemSlot[hero.InventorySize];
-
-        for (var i = 0; i < hero.InventorySize; i++)
-        {
-            var slot = scene.Instantiate<InventoryItemSlot>();
-            InventorySystemUi.Slots[i] = slot;
-            InventorySystemUi.ItemGrid.AddChild(slot);
-        }
+        // var scene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
+        // InventorySystemUi.Slots = new InventoryItemSlot[hero.InventorySize];
+        //
+        // for (var i = 0; i < hero.InventorySize; i++)
+        // {
+        //     var slot = scene.Instantiate<InventoryItemSlot>();
+        //     InventorySystemUi.Slots[i] = slot;
+        //     InventorySystemUi.ItemGrid.AddChild(slot);
+        // }
 
         // var heroInventory = hero.Inventory;
         // var itemGrid      = heroInventory.ItemGrid;

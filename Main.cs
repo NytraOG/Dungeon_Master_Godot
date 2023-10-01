@@ -427,6 +427,18 @@ public partial class Main : Node,
         Healthbar.SetDisplayedHero(SelectedHero);
         Manabar.SetDisplayedHero(SelectedHero);
 
+        var heroItemslots = SelectedHero.Inventory.Slots;
+
+        for (var i = 0; i < InventorySystemUi.Slots.Length; i++)
+        {
+            // if (heroItemslots.Length < i)
+            //     continue;
+
+            InventorySystemUi.Slots[i].ClearSlot();
+            InventorySystemUi.Slots[i].ContainedItem    = heroItemslots[i].ContainedItem;
+            InventorySystemUi.Slots[i].CurrentStacksize = heroItemslots[i].CurrentStacksize;
+        }
+
         // var scene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
         // InventorySystemUi.Slots = new InventoryItemSlot[hero.InventorySize];
         //

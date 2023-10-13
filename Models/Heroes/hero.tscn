@@ -7,10 +7,9 @@
 radius = 0.223838
 height = 0.84754
 
-[node name="Hero" type="Node3D" node_paths=PackedStringArray("Inventory")]
+[node name="Hero" type="Node3D"]
 script = ExtResource("1_x7eqe")
 InventorySize = 30
-Inventory = NodePath("")
 FloatingCombatText = ExtResource("2_5e5fw")
 
 [node name="Area3D" type="Area3D" parent="."]

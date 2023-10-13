@@ -2,7 +2,7 @@
 
 namespace DungeonMaster.Models.Items.Consumables;
 
-public class ArmorPotion : BaseConsumable
+public partial class ArmorPotion : BaseConsumable
 {
     public override void Use(BaseUnit actor) => throw new NotImplementedException();
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Models/Skills/Magic/ChainLightning.cs" id="1_1jtdr"]
 [ext_resource type="PackedScene" uid="uid://dwk03jey3mvr" path="res://Models/Skills/Statuseffects/Debuffs/slow.tscn" id="2_ampsu"]
-[ext_resource type="Texture2D" uid="uid://dar8o3qaenon6" path="res://Graphics/Skills/ChainLightning.png" id="2_fy08a"]
+[ext_resource type="Texture2D" uid="uid://c8siydptrgovc" path="res://Graphics/Skills/ChainLightning.png" id="2_fy08a"]
 [ext_resource type="PackedScene" uid="uid://dd8lc7ui1qh7e" path="res://Models/Skills/Statuseffects/Debuffs/attack_down.tscn" id="3_7ltt1"]
 
 [node name="ChainLightning" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
@@ -19,12 +19,12 @@ SecondaryAttributeH = 8
 AutoTargeting = true
 TargetsFlat = 4
 TargetsHeroScaling = 0.25
-Icon = ExtResource("2_fy08a")
 Category = 2
-Subcategory = 1
 DescriptionBase = " The mage paralyzes several of his opponents by jumping a chain lightning from"
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
+Icon = ExtResource("2_fy08a")
+Subcategory = 1
 Displayname = "Chain Lightning"
 
 [node name="Slow" parent="." instance=ExtResource("2_ampsu")]

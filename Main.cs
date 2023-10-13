@@ -431,8 +431,8 @@ public partial class Main : Node,
 
         for (var i = 0; i < InventorySystemUi.Slots.Length; i++)
         {
-            // if (heroItemslots.Length < i)
-            //     continue;
+            if (heroItemslots.Length <= i)
+                continue;
 
             InventorySystemUi.Slots[i].ClearSlot();
             InventorySystemUi.Slots[i].ContainedItem    = heroItemslots[i].ContainedItem;

@@ -32,6 +32,7 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public override void _Ready()
     {
+        TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
         TextureRect.Texture = DefaultIcon;
 
         PropertyChanged += (_, _) =>

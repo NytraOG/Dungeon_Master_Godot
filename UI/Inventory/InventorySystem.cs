@@ -13,7 +13,6 @@ public partial class InventorySystem : PanelContainer
 
     public void Initialize(int inventorySize)
     {
-       //ItemGrid           = GetNode<GridContainer>("ItemGrid");
         InventorySlotScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
         Slots              = new InventoryItemSlot[inventorySize];
 

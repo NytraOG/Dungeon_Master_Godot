@@ -1,9 +1,11 @@
 ﻿using DungeonMaster.Models.Items;
+using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
-public class MouseItemSlot
+public partial class MouseItemSlot : PanelContainer
 {
-    public int      CurrentStacksize { get; set; }
-    public BaseItem ContainedItem    { get; set; }
+    public int               CurrentStacksize { get; set; }
+    public BaseItem          ContainedItem    { get; set; }
+    public InventoryItemSlot SourceSlot       { get; set; }
 }

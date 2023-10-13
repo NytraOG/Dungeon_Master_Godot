@@ -56,6 +56,7 @@ public partial class Main : Node,
     public List<BaseSkillButton>             Skillbuttons       { get; set; } = new();
     public List<SkillSelection>              SkillSelection     { get; set; } = new();
     public TextureButton                     ConfirmationButton { get; set; }
+    public PanelContainer                    MouseItemSlot      { get; set; }
     public InventorySystem                   InventorySystemUi  { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -63,6 +64,7 @@ public partial class Main : Node,
 
     public override void _Ready()
     {
+        MouseItemSlot      = GetNode<PanelContainer>("MouseItemSlot");
         ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
         Healthbar          = GetNode<Healthbar>("Healthbar");
         Manabar            = GetNode<Manabar>("Manabar");
@@ -80,6 +82,14 @@ public partial class Main : Node,
 
         MachEnemiesCombatReady();
         SetupCombatants();
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is not InputEventMouseMotion mouseMotion)
+            return;
+
+        MouseItemSlot.Position = mouseMotion.Position;
     }
 
     private async Task HandleBattleround()

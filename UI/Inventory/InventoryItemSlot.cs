@@ -92,7 +92,7 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public void _on_gui_input(InputEvent inputEvent)
     {
-        if (inputEvent is InputEventMouseButton)
+        if (inputEvent is InputEventMouseButton { Pressed: true })
             OnSlotClicked?.Invoke(this);
     }
 

@@ -480,27 +480,48 @@ public partial class Main : Node,
         {
             inventoryItemSlot.OnSlotClicked += clickedSlot =>
             {
+                //Items auch aus HeroInventory raus.
+
                 if (clickedSlot.ContainedItem is null && mouseItemSlot.ContainedItem is not null)
-                {
-                    clickedSlot.ContainedItem    = mouseItemSlot.ContainedItem;
-                    clickedSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
-                    mouseItemSlot.Visible        = false;
-                    mouseItemSlot.Clear();
-                }
+                    InsertIntoSlot(clickedSlot, mouseItemSlot);
+                else if (clickedSlot.ContainedItem is not null && mouseItemSlot.ContainedItem is not null)
+                    SwapItems(mouseItemSlot, clickedSlot);
                 else
-                {
-                    //Item auch aus HeroInventory raus. Bzw erstmal testen was eigentlich passiert
-
-                    mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
-                    mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
-                    mouseItemSlot.SourceSlot       = clickedSlot;
-                    mouseItemSlot.Visible          = true;
-                    mouseItemSlot.SetData();
-
-                    clickedSlot.Clear();
-                }
+                    ExtractFromSlot(mouseItemSlot, clickedSlot);
             };
         }
+    }
+
+    private static void ExtractFromSlot(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
+    {
+        mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
+        mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
+        mouseItemSlot.SourceSlot       = clickedSlot;
+        mouseItemSlot.Visible          = true;
+        mouseItemSlot.SetData();
+
+        clickedSlot.Clear();
+    }
+
+    private static void InsertIntoSlot(InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
+    {
+        clickedSlot.CurrentStacksize = mouseItemSlot.CurrentStacksize;
+        clickedSlot.ContainedItem    = mouseItemSlot.ContainedItem;
+        mouseItemSlot.Visible        = false;
+        mouseItemSlot.Clear();
+    }
+
+    private static void SwapItems(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
+    {
+        var mouseItem      = mouseItemSlot.ContainedItem;
+        var mouseStacksize = mouseItemSlot.CurrentStacksize;
+
+        mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
+        mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
+        mouseItemSlot.SetData();
+
+        clickedSlot.CurrentStacksize = mouseStacksize;
+        clickedSlot.ContainedItem    = mouseItem;
     }
 
     private void SubscribeToSkillbuttons()

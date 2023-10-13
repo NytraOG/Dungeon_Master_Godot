@@ -20,7 +20,7 @@ public partial class MouseItemSlot : PanelContainer
         ContainedItem       = null;
         CurrentStacksize    = 0;
 
-        var stacksizeLabel = GetNode<Label>("CurrentStacksize");
+        var stacksizeLabel = GetNode<Label>("CurrentStackSize");
         stacksizeLabel.Text    = "x99";
     }
 

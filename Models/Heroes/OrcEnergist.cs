@@ -16,8 +16,9 @@ public partial class OrcEnergist : Hero
             MaxStacksize = 10
         };
 
-        Inventory.Slots[0].ContainedItem    = healthPotion;
-        Inventory.Slots[0].CurrentStacksize = rng.Next(1,11);
+        var slot = rng.Next(0, 31);
+        Inventory.Slots[slot].ContainedItem    = healthPotion;
+        Inventory.Slots[slot].CurrentStacksize = rng.Next(1,11);
 
         var healthPotion2 = new HealthPotion
         {
@@ -25,8 +26,9 @@ public partial class OrcEnergist : Hero
             MaxStacksize = 10
         };
 
-        Inventory.Slots[12].ContainedItem    = healthPotion2;
-        Inventory.Slots[12].CurrentStacksize = rng.Next(1, 11);
+        slot                                   = rng.Next(0, 31);
+        Inventory.Slots[slot].ContainedItem    = healthPotion2;
+        Inventory.Slots[slot].CurrentStacksize = rng.Next(1, 11);
 
         var healthPotion3 = new HealthPotion
         {
@@ -34,7 +36,8 @@ public partial class OrcEnergist : Hero
             MaxStacksize = 10
         };
 
-        Inventory.Slots[29].ContainedItem    = healthPotion3;
-        Inventory.Slots[29].CurrentStacksize = rng.Next(1, 11);
+        slot                                   = rng.Next(0, 31);
+        Inventory.Slots[slot].ContainedItem    = healthPotion3;
+        Inventory.Slots[slot].CurrentStacksize = rng.Next(1, 11);
     }
 }

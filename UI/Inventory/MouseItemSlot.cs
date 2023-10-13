@@ -9,7 +9,7 @@ public partial class MouseItemSlot : PanelContainer
     public BaseItem          ContainedItem    { get; set; }
     public InventoryItemSlot SourceSlot       { get; set; }
 
-    public void SetData()
+    public void UpdateData()
     {
         SetMouseItemTexture();
         SetStacksizeInPanel();

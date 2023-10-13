@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using DungeonMaster.Interfaces;
 using DungeonMaster.Models.Items;
 using DungeonMaster.Models.Items.Consumables;
 using Godot;
@@ -62,16 +63,16 @@ public partial class InventoryItemSlot : PanelContainer,
     {
         remainingStackSize = 0;
 
-        if (ContainedItem is BaseConsumable consumable)
-            remainingStackSize = consumable.MaxStacksize - CurrentStacksize;
+        if (ContainedItem is IStackable stackable)
+            remainingStackSize = stackable.MaxStacksize - CurrentStacksize;
 
         return RoomLeftInStack(amount);
     }
 
     public bool RoomLeftInStack(int amount)
     {
-        if (ContainedItem is BaseConsumable consumable)
-            return CurrentStacksize + amount <= consumable.MaxStacksize;
+        if (ContainedItem is IStackable stackable)
+            return CurrentStacksize + amount <= stackable.MaxStacksize;
 
         return ContainedItem is null;
     }
@@ -87,6 +88,8 @@ public partial class InventoryItemSlot : PanelContainer,
         stacksizeLabel.Text    = "x99";
         stacksizeLabel.Visible = false;
     }
+
+    public void UpdateData() => OnPropertyChanged();
 
     public event SlotClickedSignal OnSlotClicked;
 

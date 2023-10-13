@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DungeonMaster.Enums;
+using DungeonMaster.Interfaces;
 using DungeonMaster.Models;
 using DungeonMaster.Models.Enemies;
 using DungeonMaster.Models.Heroes;
@@ -485,7 +486,36 @@ public partial class Main : Node,
                 if (clickedSlot.ContainedItem is null && mouseItemSlot.ContainedItem is not null)
                     InsertIntoSlot(clickedSlot, mouseItemSlot);
                 else if (clickedSlot.ContainedItem is not null && mouseItemSlot.ContainedItem is not null)
-                    SwapItems(mouseItemSlot, clickedSlot);
+                {
+                    if (clickedSlot.ContainedItem.GetType() == mouseItemSlot.ContainedItem.GetType() &&
+                        clickedSlot.ContainedItem is IStackable stackableItem && clickedSlot.CurrentStacksize < stackableItem.MaxStacksize)
+                    {
+                        var freeStacksize = stackableItem.MaxStacksize - clickedSlot.CurrentStacksize;
+
+                        if (mouseItemSlot.CurrentStacksize == freeStacksize)
+                        {
+                            clickedSlot.AddToStack(freeStacksize);
+                            mouseItemSlot.Visible = false;
+                            mouseItemSlot.Clear();
+                        }
+                        else if (mouseItemSlot.CurrentStacksize > freeStacksize)
+                        {
+                            mouseItemSlot.CurrentStacksize -= freeStacksize;
+                            clickedSlot.AddToStack(freeStacksize);
+                        }
+                        else if (mouseItemSlot.CurrentStacksize < freeStacksize)
+                        {
+                            clickedSlot.AddToStack(mouseItemSlot.CurrentStacksize);
+                            mouseItemSlot.Visible = false;
+                            mouseItemSlot.Clear();
+                        }
+
+                        clickedSlot.UpdateData();
+                        mouseItemSlot.UpdateData();
+                    }
+                    else
+                        SwapItems(mouseItemSlot, clickedSlot);
+                }
                 else
                     ExtractFromSlot(mouseItemSlot, clickedSlot);
             };
@@ -498,7 +528,7 @@ public partial class Main : Node,
         mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
         mouseItemSlot.SourceSlot       = clickedSlot;
         mouseItemSlot.Visible          = true;
-        mouseItemSlot.SetData();
+        mouseItemSlot.UpdateData();
 
         clickedSlot.Clear();
     }
@@ -518,7 +548,7 @@ public partial class Main : Node,
 
         mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
         mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
-        mouseItemSlot.SetData();
+        mouseItemSlot.UpdateData();
 
         clickedSlot.CurrentStacksize = mouseStacksize;
         clickedSlot.ContainedItem    = mouseItem;

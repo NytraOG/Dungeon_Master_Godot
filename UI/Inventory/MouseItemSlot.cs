@@ -8,4 +8,10 @@ public partial class MouseItemSlot : PanelContainer
     public int               CurrentStacksize { get; set; }
     public BaseItem          ContainedItem    { get; set; }
     public InventoryItemSlot SourceSlot       { get; set; }
+
+    public void SetMouseItemTexture()
+    {
+        var rect = GetNode<TextureRect>("TextureRect");
+        rect.Texture = ContainedItem.Icon;
+    }
 }

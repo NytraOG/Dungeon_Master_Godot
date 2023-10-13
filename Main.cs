@@ -71,6 +71,7 @@ public partial class Main : Node,
         InventorySystemUi  = GetNode<Control>("InventoryDisplay").GetNode<InventorySystem>("Inventory");
         InventorySystemUi.Initialize(32);
 
+        SubscribeToInventorySlots();
         SubscribeToSkillbuttons();
         PopulateSkillButtons();
     }
@@ -89,7 +90,7 @@ public partial class Main : Node,
         if (@event is not InputEventMouseMotion mouseMotion)
             return;
 
-        MouseItemSlot.Position = mouseMotion.Position;
+        MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);
     }
 
     private async Task HandleBattleround()
@@ -469,6 +470,29 @@ public partial class Main : Node,
     }
 
     private void PopulateSkillButtons() { }
+
+    private void SubscribeToInventorySlots()
+    {
+        if (MouseItemSlot is not MouseItemSlot mouseItemSlot)
+            return;
+
+        foreach (var inventoryItemSlot in InventorySystemUi.Slots)
+        {
+            inventoryItemSlot.OnSlotClicked += slot =>
+            {
+                if (slot.ContainedItem is null)
+                    return;
+
+                mouseItemSlot.ContainedItem    = slot.ContainedItem;
+                mouseItemSlot.CurrentStacksize = slot.CurrentStacksize;
+                mouseItemSlot.SourceSlot       = slot;
+                mouseItemSlot.SetMouseItemTexture();
+                mouseItemSlot.Visible = true;
+
+                slot.ClearSlot();
+            };
+        }
+    }
 
     private void SubscribeToSkillbuttons()
     {

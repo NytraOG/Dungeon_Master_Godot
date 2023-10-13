@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://UI/Inventory/MouseItemSlot.cs" id="1_ta3fx"]
 
 [node name="MouseItemSlot" type="PanelContainer"]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0

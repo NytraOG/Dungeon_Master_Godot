@@ -10,6 +10,8 @@ namespace DungeonMaster.UI.Inventory;
 public partial class InventoryItemSlot : PanelContainer,
                                          INotifyPropertyChanged
 {
+    public delegate void SlotClickedSignal(InventoryItemSlot clickedSlot);
+
     private BaseItem containedItem;
 
     [Export]
@@ -78,12 +80,20 @@ public partial class InventoryItemSlot : PanelContainer,
     {
         ContainedItem       = null;
         CurrentStacksize    = 0;
-        TextureRect            = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
-        TextureRect.Texture    = DefaultIcon;
+        TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
+        TextureRect.Texture = DefaultIcon;
 
         var stacksizeLabel = GetNode<Label>("CurrentStacksize");
         stacksizeLabel.Text    = "99";
         stacksizeLabel.Visible = false;
+    }
+
+    public event SlotClickedSignal OnSlotClicked;
+
+    public void _on_gui_input(InputEvent inputEvent)
+    {
+        if (inputEvent is InputEventMouseButton)
+            OnSlotClicked?.Invoke(this);
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

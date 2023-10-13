@@ -7,10 +7,10 @@ public partial class BaseSkillButton : TextureButton
 {
     public delegate void SkillPressedSignalWithSenderArgument(BaseSkillButton sender);
 
-    public          BaseSkill                         Skill;
-    public TextureProgressBar                TextureProgressBar;
-    public Label                             Time;
-    public Timer                             Timer;
+    public BaseSkill                                  Skill;
+    public TextureProgressBar                         TextureProgressBar;
+    public Label                                      Time;
+    public Timer                                      Timer;
     public event SkillPressedSignalWithSenderArgument SomeSkillbuttonPressed;
 
     public override void _Ready()

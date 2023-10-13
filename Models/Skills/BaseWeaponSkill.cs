@@ -1,8 +1,6 @@
 using System;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
-using DungeonMaster.UI;
-using Godot;
 
 namespace DungeonMaster.Models.Skills;
 

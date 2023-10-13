@@ -16,10 +16,10 @@ public partial class Hero : BaseUnit
     private         AnimatedSprite3D animatedSprite;
     [Export] public BaseHeroclass    Class;
     [Export] public BaseSkill        InherentSkill;
+    [Export] public InventorySystem  Inventory;
     [Export] public int              InventorySize;
     private         bool             isInitialized;
     [Export] public BaseRace         Race;
-    [Export] public InventorySystem  Inventory;
 
     [Export]
     public PackedScene FloatingCombatText { get; set; }
@@ -29,7 +29,7 @@ public partial class Hero : BaseUnit
         Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
 
-       // AddChild(Inventory); das macht die Inventories im UI sichtbar
+        // AddChild(Inventory); das macht die Inventories im UI sichtbar
         Inventory.Initialize(InventorySize);
 
         animatedSprite           = GetNode<AnimatedSprite3D>("AnimatedSprite3D");

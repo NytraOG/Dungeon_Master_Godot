@@ -9,7 +9,7 @@ public partial class Buff : BaseUnitModificator
     [Export] public Color     CombatlogEffectColor;
     [Export] public int       Duration;
     [Export] public bool      IsStackable;
-     public int       RemainingDuration;
+    public          int       RemainingDuration;
     public          bool      DurationEnded => RemainingDuration == 0;
 
     public override void _Ready() => RemainingDuration = Duration;

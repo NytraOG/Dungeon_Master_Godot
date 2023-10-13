@@ -79,7 +79,7 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
             var rando  = GD.RandRange(0d, 1d);
             var erTuts = debuff.ProbabilityToApply >= rando;
 
-            if(erTuts)
+            if (erTuts)
                 AddDebuff(actor, target, debuff);
         }
     }

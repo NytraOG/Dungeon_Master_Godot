@@ -45,11 +45,11 @@ public partial class InventoryItemSlot : PanelContainer,
             TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
             TextureRect.Texture = ContainedItem.Icon;
 
-            if (ContainedItem is not BaseConsumable consumable)
+            if (ContainedItem is not BaseConsumable)
                 return;
 
             var stacksizeLabel = GetNode<Label>("CurrentStacksize");
-            stacksizeLabel.Text    = CurrentStacksize.ToString();
+            stacksizeLabel.Text    = "x" + CurrentStacksize;
             stacksizeLabel.Visible = true;
         };
     }
@@ -76,7 +76,7 @@ public partial class InventoryItemSlot : PanelContainer,
         return ContainedItem is null;
     }
 
-    public void ClearSlot()
+    public void Clear()
     {
         ContainedItem       = null;
         CurrentStacksize    = 0;
@@ -84,7 +84,7 @@ public partial class InventoryItemSlot : PanelContainer,
         TextureRect.Texture = DefaultIcon;
 
         var stacksizeLabel = GetNode<Label>("CurrentStacksize");
-        stacksizeLabel.Text    = "99";
+        stacksizeLabel.Text    = "x99";
         stacksizeLabel.Visible = false;
     }
 

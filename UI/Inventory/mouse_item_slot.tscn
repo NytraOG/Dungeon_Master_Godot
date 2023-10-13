@@ -4,6 +4,7 @@
 
 [node name="MouseItemSlot" type="PanelContainer"]
 visible = false
+modulate = Color(1, 1, 1, 0.231373)
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
@@ -11,3 +12,13 @@ script = ExtResource("1_ta3fx")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CurrentStackSize" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "x99"

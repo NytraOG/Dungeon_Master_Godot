@@ -445,7 +445,7 @@ public partial class Main : Node,
             if (heroItemslots.Length <= i)
                 continue;
 
-            InventorySystemUi.Slots[i].ClearSlot();
+            InventorySystemUi.Slots[i].Clear();
             InventorySystemUi.Slots[i].CurrentStacksize = heroItemslots[i].CurrentStacksize;
             InventorySystemUi.Slots[i].ContainedItem    = heroItemslots[i].ContainedItem;
         }
@@ -478,18 +478,27 @@ public partial class Main : Node,
 
         foreach (var inventoryItemSlot in InventorySystemUi.Slots)
         {
-            inventoryItemSlot.OnSlotClicked += slot =>
+            inventoryItemSlot.OnSlotClicked += clickedSlot =>
             {
-                if (slot.ContainedItem is null)
-                    return;
+                if (clickedSlot.ContainedItem is null && mouseItemSlot.ContainedItem is not null)
+                {
+                    clickedSlot.ContainedItem    = mouseItemSlot.ContainedItem;
+                    clickedSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
+                    mouseItemSlot.Visible        = false;
+                    mouseItemSlot.Clear();
+                }
+                else
+                {
+                    //Item auch aus HeroInventory raus. Bzw erstmal testen was eigentlich passiert
 
-                mouseItemSlot.ContainedItem    = slot.ContainedItem;
-                mouseItemSlot.CurrentStacksize = slot.CurrentStacksize;
-                mouseItemSlot.SourceSlot       = slot;
-                mouseItemSlot.SetMouseItemTexture();
-                mouseItemSlot.Visible = true;
+                    mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
+                    mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
+                    mouseItemSlot.SourceSlot       = clickedSlot;
+                    mouseItemSlot.Visible          = true;
+                    mouseItemSlot.SetData();
 
-                slot.ClearSlot();
+                    clickedSlot.Clear();
+                }
             };
         }
     }

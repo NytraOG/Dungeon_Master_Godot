@@ -40,7 +40,7 @@ public static class Extensions
     public static int GetXpToSpendForLevelUp(this BaseUnit unit) => GetXpTotalForLevelup(unit.Level + 1);
 
     public static T[] GetAllChildren<T>(this Node node)
-            where T : BaseUnit
+            where T : Node
     {
         var myChildren = node.GetChildren()
                              .Where(mc => mc is T)

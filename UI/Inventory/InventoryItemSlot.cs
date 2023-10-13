@@ -1,16 +1,48 @@
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using DungeonMaster.Models.Items;
 using DungeonMaster.Models.Items.Consumables;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
-public partial class InventoryItemSlot : PanelContainer
+public partial class InventoryItemSlot : PanelContainer,
+                                         INotifyPropertyChanged
 {
+    private BaseItem containedItem;
+
     [Export]
     public Texture2D DefaultIcon { get; set; }
 
-    public int      CurrentStacksize { get; set; }
-    public BaseItem ContainedItem    { get; set; }
+    public TextureRect TextureRect      { get; set; }
+    public int         CurrentStacksize { get; set; }
+
+    public BaseItem ContainedItem
+    {
+        get => containedItem;
+        set
+        {
+            containedItem = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public override void _Ready()
+    {
+        TextureRect.Texture = DefaultIcon;
+
+        PropertyChanged += (_, _) =>
+        {
+            if(ContainedItem is null)
+                return;
+
+            TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
+            TextureRect.Texture = ContainedItem.Icon;
+        };
+    }
 
     public void AddToStack(int amount) => CurrentStacksize += amount;
 
@@ -38,5 +70,16 @@ public partial class InventoryItemSlot : PanelContainer
     {
         ContainedItem    = null;
         CurrentStacksize = 0;
+    }
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
 }

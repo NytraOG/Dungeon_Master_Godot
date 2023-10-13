@@ -439,20 +439,6 @@ public partial class Main : Node,
             InventorySystemUi.Slots[i].CurrentStacksize = heroItemslots[i].CurrentStacksize;
         }
 
-        // var scene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
-        // InventorySystemUi.Slots = new InventoryItemSlot[hero.InventorySize];
-        //
-        // for (var i = 0; i < hero.InventorySize; i++)
-        // {
-        //     var slot = scene.Instantiate<InventoryItemSlot>();
-        //     InventorySystemUi.Slots[i] = slot;
-        //     InventorySystemUi.ItemGrid.AddChild(slot);
-        // }
-
-        // var heroInventory = hero.Inventory;
-        // var itemGrid      = heroInventory.ItemGrid;
-        // InventorySystemUi.ItemGrid = itemGrid;
-
         var amountOfHeroSkills = hero.Skills.Count;
 
         for (var i = 0; i < Skillbuttons.Count; i++)

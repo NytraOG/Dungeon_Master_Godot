@@ -1,7 +1,11 @@
-﻿namespace DungeonMaster.Models.Items.Consumables;
+﻿using Godot;
+
+namespace DungeonMaster.Models.Items.Consumables;
 
 public partial class HealthPotion : BaseConsumable
 {
+    public HealthPotion() => Icon = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Consumables/HealthPotion.png");
+
     public int AmountHealed { get; set; }
 
     public override void Use(BaseUnit actor) => Consume(actor);

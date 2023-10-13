@@ -70,6 +70,8 @@ public partial class InventoryItemSlot : PanelContainer,
     {
         ContainedItem    = null;
         CurrentStacksize = 0;
+        TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
+        TextureRect.Texture = DefaultIcon;
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -8,10 +8,19 @@ using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
+public interface IItemSlot
+{
+    public BaseItem ContainedItem    { get; set; }
+    public int      CurrentStacksize { get; set; }
+}
+
 public partial class InventoryItemSlot : PanelContainer,
+                                         IItemSlot,
                                          INotifyPropertyChanged
 {
-    public delegate void SlotClickedSignal(InventoryItemSlot clickedSlot);
+    public delegate void SlotLeftClickedSignal(InventoryItemSlot clickedSlot);
+
+    public delegate void SlotStrgLeftClickedSignal(InventoryItemSlot clickedSlot);
 
     private BaseItem containedItem;
 
@@ -91,12 +100,20 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public void UpdateData() => OnPropertyChanged();
 
-    public event SlotClickedSignal OnSlotClicked;
+    public event SlotLeftClickedSignal     OnSlotLeftClicked;
+    public event SlotStrgLeftClickedSignal OnSlotStrgLeftClicked;
 
     public void _on_gui_input(InputEvent inputEvent)
     {
-        if (inputEvent is InputEventMouseButton { Pressed: true })
-            OnSlotClicked?.Invoke(this);
+        switch (inputEvent)
+        {
+            case InputEventMouseButton { Pressed: true, CtrlPressed: false, ButtonIndex: MouseButton.Left }:
+                OnSlotLeftClicked?.Invoke(this);
+                break;
+            case InputEventMouseButton { CtrlPressed: true, ButtonIndex: MouseButton.Left }:
+                OnSlotStrgLeftClicked?.Invoke(this);
+                break;
+        }
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

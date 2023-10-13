@@ -3,7 +3,8 @@ using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
-public partial class MouseItemSlot : PanelContainer
+public partial class MouseItemSlot : PanelContainer,
+                                     IItemSlot
 {
     public int               CurrentStacksize { get; set; }
     public BaseItem          ContainedItem    { get; set; }

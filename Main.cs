@@ -479,47 +479,70 @@ public partial class Main : Node,
 
         foreach (var inventoryItemSlot in InventorySystemUi.Slots)
         {
-            inventoryItemSlot.OnSlotClicked += clickedSlot =>
+            inventoryItemSlot.OnSlotLeftClicked += clickedSlot =>
             {
                 //Items auch aus HeroInventory raus.
 
                 if (clickedSlot.ContainedItem is null && mouseItemSlot.ContainedItem is not null)
-                    InsertIntoSlot(clickedSlot, mouseItemSlot);
+                    InsertIntoSlot(clickedSlot, mouseItemSlot, mouseItemSlot.CurrentStacksize);
                 else if (clickedSlot.ContainedItem is not null && mouseItemSlot.ContainedItem is not null)
                 {
                     if (clickedSlot.ContainedItem.GetType() == mouseItemSlot.ContainedItem.GetType() &&
                         clickedSlot.ContainedItem is IStackable stackableItem && clickedSlot.CurrentStacksize < stackableItem.MaxStacksize)
-                    {
-                        var freeStacksize = stackableItem.MaxStacksize - clickedSlot.CurrentStacksize;
-
-                        if (mouseItemSlot.CurrentStacksize == freeStacksize)
-                        {
-                            clickedSlot.AddToStack(freeStacksize);
-                            mouseItemSlot.Visible = false;
-                            mouseItemSlot.Clear();
-                        }
-                        else if (mouseItemSlot.CurrentStacksize > freeStacksize)
-                        {
-                            mouseItemSlot.CurrentStacksize -= freeStacksize;
-                            clickedSlot.AddToStack(freeStacksize);
-                        }
-                        else if (mouseItemSlot.CurrentStacksize < freeStacksize)
-                        {
-                            clickedSlot.AddToStack(mouseItemSlot.CurrentStacksize);
-                            mouseItemSlot.Visible = false;
-                            mouseItemSlot.Clear();
-                        }
-
-                        clickedSlot.UpdateData();
-                        mouseItemSlot.UpdateData();
-                    }
+                        FillStack(stackableItem, clickedSlot, mouseItemSlot);
                     else
                         SwapItems(mouseItemSlot, clickedSlot);
                 }
                 else
                     ExtractFromSlot(mouseItemSlot, clickedSlot);
             };
+
+            inventoryItemSlot.OnSlotStrgLeftClicked += clickedSlot =>
+            {
+                if (clickedSlot.ContainedItem is null || clickedSlot.ContainedItem is not IStackable stackableItem)
+                    return;
+
+                var firstStacksize  = clickedSlot.CurrentStacksize % 2 == 0 ? clickedSlot.CurrentStacksize / 2 : clickedSlot.CurrentStacksize - clickedSlot.CurrentStacksize / 2;
+                var secondStacksize = clickedSlot.CurrentStacksize - firstStacksize;
+
+                var emptySlot1 = InventorySystemUi.FindFirstEmptySlot();
+                InsertIntoSlot(emptySlot1, clickedSlot, firstStacksize);
+                emptySlot1.UpdateData();
+
+                var emptySlot2 = InventorySystemUi.FindFirstEmptySlot();
+                InsertIntoSlot(emptySlot2, clickedSlot, secondStacksize);
+                emptySlot2.UpdateData();
+
+                clickedSlot.Clear();
+                clickedSlot.UpdateData();
+            };
         }
+    }
+
+    private static void FillStack(IStackable stackableItem, InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
+    {
+        var freeStacksize = stackableItem.MaxStacksize - clickedSlot.CurrentStacksize;
+
+        if (mouseItemSlot.CurrentStacksize == freeStacksize)
+        {
+            clickedSlot.AddToStack(freeStacksize);
+            mouseItemSlot.Visible = false;
+            mouseItemSlot.Clear();
+        }
+        else if (mouseItemSlot.CurrentStacksize > freeStacksize)
+        {
+            mouseItemSlot.CurrentStacksize -= freeStacksize;
+            clickedSlot.AddToStack(freeStacksize);
+        }
+        else if (mouseItemSlot.CurrentStacksize < freeStacksize)
+        {
+            clickedSlot.AddToStack(mouseItemSlot.CurrentStacksize);
+            mouseItemSlot.Visible = false;
+            mouseItemSlot.Clear();
+        }
+
+        clickedSlot.UpdateData();
+        mouseItemSlot.UpdateData();
     }
 
     private static void ExtractFromSlot(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
@@ -533,12 +556,16 @@ public partial class Main : Node,
         clickedSlot.Clear();
     }
 
-    private static void InsertIntoSlot(InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
+    private static void InsertIntoSlot(IItemSlot targetSlot, IItemSlot sourceSlot, int stacksize)
     {
-        clickedSlot.CurrentStacksize = mouseItemSlot.CurrentStacksize;
-        clickedSlot.ContainedItem    = mouseItemSlot.ContainedItem;
-        mouseItemSlot.Visible        = false;
-        mouseItemSlot.Clear();
+        targetSlot.CurrentStacksize = stacksize;
+        targetSlot.ContainedItem    = sourceSlot.ContainedItem;
+
+        if (sourceSlot is MouseItemSlot mouseItemSlot)
+        {
+            mouseItemSlot.Visible = false;
+            mouseItemSlot.Clear();
+        }
     }
 
     private static void SwapItems(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)

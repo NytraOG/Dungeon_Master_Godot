@@ -11,6 +11,17 @@ public partial class InventorySystem : PanelContainer
 
     public PackedScene InventorySlotScene { get; set; }
 
+    public InventoryItemSlot FindFirstEmptySlot()
+    {
+        foreach (var slot in Slots)
+        {
+            if (slot.ContainedItem is null)
+                return slot;
+        }
+
+        return null;
+    }
+
     public void Initialize(int inventorySize)
     {
         InventorySlotScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");

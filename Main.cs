@@ -493,13 +493,13 @@ public partial class Main : Node,
                     else
                         SwapItems(mouseItemSlot, clickedSlot);
                 }
-                else
+                else if(clickedSlot.ContainedItem is not null)
                     ExtractFromSlot(mouseItemSlot, clickedSlot);
             };
 
             inventoryItemSlot.OnSlotStrgLeftClicked += clickedSlot =>
             {
-                if (clickedSlot.ContainedItem is null || clickedSlot.ContainedItem is not IStackable stackableItem)
+                if (clickedSlot.ContainedItem is null || clickedSlot.ContainedItem is not IStackable)
                     return;
 
                 var firstStacksize  = clickedSlot.CurrentStacksize % 2 == 0 ? clickedSlot.CurrentStacksize / 2 : clickedSlot.CurrentStacksize - clickedSlot.CurrentStacksize / 2;

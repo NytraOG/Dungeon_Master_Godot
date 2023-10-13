@@ -435,8 +435,8 @@ public partial class Main : Node,
                 continue;
 
             InventorySystemUi.Slots[i].ClearSlot();
-            InventorySystemUi.Slots[i].ContainedItem    = heroItemslots[i].ContainedItem;
             InventorySystemUi.Slots[i].CurrentStacksize = heroItemslots[i].CurrentStacksize;
+            InventorySystemUi.Slots[i].ContainedItem    = heroItemslots[i].ContainedItem;
         }
 
         var amountOfHeroSkills = hero.Skills.Count;

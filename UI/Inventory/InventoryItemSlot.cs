@@ -37,11 +37,18 @@ public partial class InventoryItemSlot : PanelContainer,
 
         PropertyChanged += (_, _) =>
         {
-            if(ContainedItem is null)
+            if (ContainedItem is null)
                 return;
 
             TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
             TextureRect.Texture = ContainedItem.Icon;
+
+            if (ContainedItem is not BaseConsumable consumable)
+                return;
+
+            var stacksizeLabel = GetNode<Label>("CurrentStacksize");
+            stacksizeLabel.Text    = CurrentStacksize.ToString();
+            stacksizeLabel.Visible = true;
         };
     }
 
@@ -69,10 +76,14 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public void ClearSlot()
     {
-        ContainedItem    = null;
-        CurrentStacksize = 0;
-        TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
-        TextureRect.Texture = DefaultIcon;
+        ContainedItem       = null;
+        CurrentStacksize    = 0;
+        TextureRect            = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
+        TextureRect.Texture    = DefaultIcon;
+
+        var stacksizeLabel = GetNode<Label>("CurrentStacksize");
+        stacksizeLabel.Text    = "99";
+        stacksizeLabel.Visible = false;
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

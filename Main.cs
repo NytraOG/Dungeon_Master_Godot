@@ -519,13 +519,14 @@ public partial class Main : Node,
         }
     }
 
-    private static void FillStack(IStackable stackableItem, InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
+    private  void FillStack(IStackable stackableItem, InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
     {
         var freeStacksize = stackableItem.MaxStacksize - clickedSlot.CurrentStacksize;
 
         if (mouseItemSlot.CurrentStacksize == freeStacksize)
         {
             clickedSlot.AddToStack(freeStacksize);
+            SelectedHero.Inventory.Slots[clickedSlot.Id].AddToStack(freeStacksize);
             mouseItemSlot.Visible = false;
             mouseItemSlot.Clear();
         }
@@ -533,10 +534,12 @@ public partial class Main : Node,
         {
             mouseItemSlot.CurrentStacksize -= freeStacksize;
             clickedSlot.AddToStack(freeStacksize);
+            SelectedHero.Inventory.Slots[clickedSlot.Id].AddToStack(freeStacksize);
         }
         else if (mouseItemSlot.CurrentStacksize < freeStacksize)
         {
             clickedSlot.AddToStack(mouseItemSlot.CurrentStacksize);
+            SelectedHero.Inventory.Slots[clickedSlot.Id].AddToStack(mouseItemSlot.CurrentStacksize);
             mouseItemSlot.Visible = false;
             mouseItemSlot.Clear();
         }
@@ -545,8 +548,9 @@ public partial class Main : Node,
         mouseItemSlot.UpdateData();
     }
 
-    private static void ExtractFromSlot(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
+    private  void ExtractFromSlot(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
     {
+        mouseItemSlot.Id               = clickedSlot.Id;
         mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
         mouseItemSlot.CurrentStacksize = clickedSlot.CurrentStacksize;
         mouseItemSlot.SourceSlot       = clickedSlot;
@@ -554,12 +558,15 @@ public partial class Main : Node,
         mouseItemSlot.UpdateData();
 
         clickedSlot.Clear();
+        SelectedHero.Inventory.Slots[clickedSlot.Id].Clear();
     }
 
-    private static void InsertIntoSlot(IItemSlot targetSlot, IItemSlot sourceSlot, int stacksize)
+    private  void InsertIntoSlot(IItemSlot targetSlot, IItemSlot sourceSlot, int stacksize)
     {
-        targetSlot.CurrentStacksize = stacksize;
-        targetSlot.ContainedItem    = sourceSlot.ContainedItem;
+        targetSlot.CurrentStacksize                                  = stacksize;
+        targetSlot.ContainedItem                                     = sourceSlot.ContainedItem;
+        SelectedHero.Inventory.Slots[targetSlot.Id].CurrentStacksize = stacksize;
+        SelectedHero.Inventory.Slots[targetSlot.Id].ContainedItem    = sourceSlot.ContainedItem;
 
         if (sourceSlot is MouseItemSlot mouseItemSlot)
         {
@@ -568,7 +575,7 @@ public partial class Main : Node,
         }
     }
 
-    private static void SwapItems(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
+    private  void SwapItems(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
     {
         var mouseItem      = mouseItemSlot.ContainedItem;
         var mouseStacksize = mouseItemSlot.CurrentStacksize;
@@ -579,6 +586,9 @@ public partial class Main : Node,
 
         clickedSlot.CurrentStacksize = mouseStacksize;
         clickedSlot.ContainedItem    = mouseItem;
+
+        SelectedHero.Inventory.Slots[clickedSlot.Id].CurrentStacksize = mouseStacksize;
+        SelectedHero.Inventory.Slots[clickedSlot.Id].ContainedItem = mouseItem;
     }
 
     private void SubscribeToSkillbuttons()

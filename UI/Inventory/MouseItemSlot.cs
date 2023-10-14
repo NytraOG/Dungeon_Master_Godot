@@ -7,6 +7,7 @@ public partial class MouseItemSlot : PanelContainer,
                                      IItemSlot
 {
     public int               CurrentStacksize { get; set; }
+    public int               Id               { get; set; }
     public BaseItem          ContainedItem    { get; set; }
     public InventoryItemSlot SourceSlot       { get; set; }
 

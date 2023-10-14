@@ -12,6 +12,7 @@ public interface IItemSlot
 {
     public BaseItem ContainedItem    { get; set; }
     public int      CurrentStacksize { get; set; }
+    public int        Id                { get; set; }
 }
 
 public partial class InventoryItemSlot : PanelContainer,
@@ -29,6 +30,7 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public TextureRect TextureRect      { get; set; }
     public int         CurrentStacksize { get; set; }
+    public int         Id               { get; set; }
 
     public BaseItem ContainedItem
     {

@@ -515,6 +515,7 @@ public partial class Main : Node,
 
                 clickedSlot.Clear();
                 clickedSlot.UpdateData();
+                SelectedHero.Inventory.Slots[clickedSlot.Id].Clear();
             };
         }
     }

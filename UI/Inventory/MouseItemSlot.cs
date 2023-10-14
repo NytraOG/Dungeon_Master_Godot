@@ -29,7 +29,7 @@ public partial class MouseItemSlot : PanelContainer,
     private void SetMouseItemTexture()
     {
         var rect = GetNode<TextureRect>("TextureRect");
-        rect.Texture = ContainedItem.Icon;
+        rect.Texture = ContainedItem?.Icon;
     }
 
     private void SetStacksizeInPanel()

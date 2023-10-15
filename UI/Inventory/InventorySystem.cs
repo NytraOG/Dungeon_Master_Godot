@@ -9,7 +9,10 @@ public partial class InventorySystem : PanelContainer
     [Export]
     public GridContainer ItemGrid { get; set; }
 
-    public PackedScene InventorySlotScene { get; set; }
+    public delegate void        InventoryClicked(Hero sender);
+
+    public event InventoryClicked OnInventoryClicked;
+    public PackedScene            InventorySlotScene { get; set; }
 
     public void Initialize(int inventorySize)
     {
@@ -37,4 +40,6 @@ public partial class InventorySystem : PanelContainer
     }
 
     public override void _Process(double delta) { }
+
+    public void _on_gui_input(InputEvent @event){}
 }

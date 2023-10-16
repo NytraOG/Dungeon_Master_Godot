@@ -26,6 +26,7 @@ public partial class Hero : BaseUnit
 
     public override void _Ready()
     {
+        FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
         Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
 

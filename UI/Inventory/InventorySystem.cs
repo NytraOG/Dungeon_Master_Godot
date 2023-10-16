@@ -45,6 +45,6 @@ public partial class InventorySystem : PanelContainer
             buttonHeldDown = mouseButtonEvent.Pressed;
 
         if (buttonHeldDown && @event is InputEventMouseMotion motionEvent)
-            Position = motionEvent.Position;
+            Position = motionEvent.GlobalPosition;
     }
 }

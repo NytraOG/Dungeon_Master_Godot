@@ -608,9 +608,6 @@ public partial class Main : Node,
 
     private void _on_undo_pressed()
     {
-        var wolf = Enemies[0];
-        wolf.PickSkill();
-        wolf.SelectedSkill.Activate(wolf);
     }
 
     public void _on_skill_button_timed_out(BaseSkillButton sender)

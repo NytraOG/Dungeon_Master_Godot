@@ -4,7 +4,7 @@
 
 [node name="Wolf" type="Node3D"]
 script = ExtResource("1_yv47j")
-Displayname = "Wolf"
-Dexterity = 3
-Quickness = 5
 Charisma = 2
+Dexterity = 3
+Displayname = "Wolf"
+Quickness = 5

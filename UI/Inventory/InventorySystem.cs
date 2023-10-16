@@ -4,15 +4,18 @@ namespace DungeonMaster.UI.Inventory;
 
 public partial class InventorySystem : PanelContainer
 {
+    public delegate void InventoryClicked(InventorySystem sender);
+
+    public delegate void InventoryClickRelease(InventorySystem sender);
+
     public InventoryItemSlot[] Slots;
 
     [Export]
     public GridContainer ItemGrid { get; set; }
 
-    public delegate void        InventoryClicked(Hero sender);
-
-    public event InventoryClicked OnInventoryClicked;
-    public PackedScene            InventorySlotScene { get; set; }
+    public PackedScene                 InventorySlotScene { get; set; }
+    public event InventoryClicked      OnInventoryClicked;
+    public event InventoryClickRelease OnInventoryClickRelease;
 
     public void Initialize(int inventorySize)
     {
@@ -41,5 +44,14 @@ public partial class InventorySystem : PanelContainer
 
     public override void _Process(double delta) { }
 
-    public void _on_gui_input(InputEvent @event){}
+    public void _on_gui_input(InputEvent @event)
+    {
+        switch (@event)
+        {
+            case InputEventMouseButton { Pressed: true }:  OnInventoryClicked?.Invoke(this);
+                break;
+            case InputEventMouseButton { Pressed: false }: OnInventoryClickRelease?.Invoke(this);
+                break;
+        }
+    }
 }

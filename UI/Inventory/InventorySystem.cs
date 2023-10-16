@@ -5,6 +5,7 @@ namespace DungeonMaster.UI.Inventory;
 public partial class InventorySystem : PanelContainer
 {
     private bool                buttonHeldDown;
+    public  double              InventoryDisplayCooldown;
     public  InventoryItemSlot[] Slots;
 
     [Export]
@@ -37,7 +38,16 @@ public partial class InventorySystem : PanelContainer
         return null;
     }
 
-    public override void _Process(double delta) { }
+    public override void _Process(double delta)
+    {
+        InventoryDisplayCooldown -= delta;
+
+        if (Input.IsKeyPressed(Key.B) && InventoryDisplayCooldown <= 0)
+        {
+            Visible                  = !Visible;
+            InventoryDisplayCooldown = 0.25;
+        }
+    }
 
     public void _on_gui_input(InputEvent @event)
     {

@@ -235,6 +235,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Inventory" parent="InventoryDisplay" instance=ExtResource("13_t30m4")]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0

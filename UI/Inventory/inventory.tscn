@@ -18,5 +18,3 @@ theme_override_constants/margin_bottom = 8
 [node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 columns = 8
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

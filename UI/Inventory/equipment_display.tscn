@@ -4,8 +4,22 @@
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainerLeft" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="EquipmentGrid" type="GridContainer" parent="MarginContainerLeft"]
 layout_mode = 2
 
-[node name="EquipmentGrid" type="GridContainer" parent="MarginContainer"]
+[node name="MarginContainerRight" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="EquipmentGrid" type="GridContainer" parent="MarginContainerRight"]
 layout_mode = 2

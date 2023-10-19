@@ -12,6 +12,8 @@ public class EquipmentItemSlot : PanelContainer,
     [Export]
     public EquipSlot SlotType { get; set; }
 
+    public TextureRect Icon { get; set; }
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -4,8 +4,9 @@ public enum EquipSlot
 {
     Head,
     Neck,
+    Cloak,
     Shoulders,
-    Chest,
+    Torso,
     Wrist,
     Gloves,
     Belt,

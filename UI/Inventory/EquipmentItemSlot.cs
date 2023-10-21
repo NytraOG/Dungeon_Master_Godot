@@ -6,7 +6,7 @@ using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
-public class EquipmentItemSlot : PanelContainer,
+public partial class EquipmentItemSlot : PanelContainer,
                                  INotifyPropertyChanged
 {
     [Export]

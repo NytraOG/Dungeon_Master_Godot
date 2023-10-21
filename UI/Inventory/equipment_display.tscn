@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cpwkfqnc553rn"]
 
 [node name="EquipmentDisplay" type="PanelContainer"]
+custom_minimum_size = Vector2(512, 648)
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -22,4 +23,13 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="EquipmentGrid" type="GridContainer" parent="MarginContainerRight"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="EquipmentSlotsLeft" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="EquipmentSlotsLeft2" type="PanelContainer" parent="."]
 layout_mode = 2

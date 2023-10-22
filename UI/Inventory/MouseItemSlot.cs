@@ -9,7 +9,7 @@ public partial class MouseItemSlot : PanelContainer,
 {
     public InventoryItemSlot SourceSlot       { get; set; }
     public int               CurrentStacksize { get; set; }
-    public int               Id               { get; set; }
+    public string            Id               { get; set; }
     public BaseItem          ContainedItem    { get; set; }
 
     public void UpdateData()

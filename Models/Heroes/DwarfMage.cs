@@ -10,12 +10,12 @@ public partial class DwarfMage : Hero
         base._Ready();
 
         var potion = new HealthPotion();
-        potion.MaxStacksize                 = 10;
-        Inventory.Slots[0].ContainedItem    = potion;
-        Inventory.Slots[0].CurrentStacksize = 2;
+        potion.MaxStacksize                   = 10;
+        Inventory.Slots["0"].ContainedItem    = potion;
+        Inventory.Slots["0"].CurrentStacksize = 2;
 
         var armor = new SimpleClothRobe();
-        Inventory.Slots[1].ContainedItem    = armor;
-        Inventory.Slots[1].CurrentStacksize = 1;
+        Inventory.Slots["1"].ContainedItem    = armor;
+        Inventory.Slots["1"].CurrentStacksize = 1;
     }
 }

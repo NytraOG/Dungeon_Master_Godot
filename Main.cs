@@ -452,14 +452,14 @@ public partial class Main : Node,
 
         var heroItemslots = SelectedHero.Inventory.Slots;
 
-        for (var i = 0; i < InventorySystemUi.Slots.Length; i++)
+        for (var i = 0; i < InventorySystemUi.Slots.Count; i++)
         {
-            if (heroItemslots.Length <= i)
+            if (heroItemslots.Count <= i)
                 continue;
 
-            InventorySystemUi.Slots[i].Clear();
-            InventorySystemUi.Slots[i].CurrentStacksize = heroItemslots[i].CurrentStacksize;
-            InventorySystemUi.Slots[i].ContainedItem    = heroItemslots[i].ContainedItem;
+            InventorySystemUi.Slots[i.ToString()].Clear();
+            InventorySystemUi.Slots[i.ToString()].CurrentStacksize = heroItemslots[i.ToString()].CurrentStacksize;
+            InventorySystemUi.Slots[i.ToString()].ContainedItem    = heroItemslots[i.ToString()].ContainedItem;
         }
 
         var amountOfHeroSkills = hero.Skills.Count;
@@ -488,12 +488,10 @@ public partial class Main : Node,
         if (MouseItemSlot is not MouseItemSlot mouseItemSlot)
             return;
 
-        foreach (var inventoryItemSlot in InventorySystemUi.Slots)
+        foreach (var inventoryItemSlot in InventorySystemUi.Slots.Select(s => s.Value))
         {
             inventoryItemSlot.OnSlotLeftClicked += clickedSlot =>
             {
-                //Items auch aus HeroInventory raus.
-
                 if (clickedSlot.ContainedItem is null && mouseItemSlot.ContainedItem is not null)
                     InsertIntoSlot(clickedSlot, mouseItemSlot, mouseItemSlot.CurrentStacksize);
                 else if (clickedSlot.ContainedItem is not null && mouseItemSlot.ContainedItem is not null)

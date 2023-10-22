@@ -18,10 +18,12 @@ public partial class EquipmentItemSlot : PanelContainer,
 
     public BaseEquipment                     EquipedItem { get; set; }
     public TextureRect                       Icon        { get; set; }
+    public string                            Id          { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     public override void _Ready()
     {
+        Id           = Name;
         Icon         = GetNode<TextureRect>("TextureRect");
         Icon.Texture = DefaultIcon;
     }
@@ -32,20 +34,62 @@ public partial class EquipmentItemSlot : PanelContainer,
         {
             var main          = (Main)GetTree().CurrentScene;
             var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
-            var item          = mouseItemSlot.ContainedItem;
-            var selectedHero  = main.SelectedHero;
 
-            if (item is not BaseEquipment equipment || equipment.EquipSlot != SlotType || !equipment.IsUsableBy(selectedHero))
-                return;
-
-            selectedHero.Equipment.Slots[equipment.EquipSlot].EquipedItem = equipment;
-            EquipedItem                                                   = equipment;
-            Icon.Texture                                                  = equipment.Icon;
-            equipment.EquipOn(selectedHero);
-
-            mouseItemSlot.Clear();
-            mouseItemSlot.Visible = false;
+            if (EquipedItem is null && mouseItemSlot.ContainedItem is not null)
+                InsertIntoSlot(main);
+            else if (EquipedItem is not null && mouseItemSlot.ContainedItem is not null)
+                SwapItems(main);
+            else if (EquipedItem is not null)
+                ExtractFromSlot(main);
         }
+    }
+
+    private void InsertIntoSlot(Main main)
+    {
+        var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
+
+        if (mouseItemSlot.ContainedItem is not BaseEquipment equipment || equipment.EquipSlot != SlotType || !equipment.IsUsableBy(main.SelectedHero))
+            return;
+
+        var selectedHero = main.SelectedHero;
+
+        EquipedItem  = equipment;
+        Icon.Texture = equipment.Icon;
+        equipment.EquipOn(selectedHero);
+
+        selectedHero.Equipment.Slots[Name].EquipedItem = equipment;
+
+        mouseItemSlot.Clear();
+        mouseItemSlot.Visible = false;
+    }
+
+    private void SwapItems(Main main)
+    {
+        var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
+        var mouseItem     = mouseItemSlot.ContainedItem;
+
+        if (mouseItem is not BaseEquipment mouseItemEquipment || mouseItemEquipment.EquipSlot != SlotType || !mouseItemEquipment.IsUsableBy(main.SelectedHero))
+            return;
+
+        mouseItemSlot.ContainedItem = EquipedItem;
+        mouseItemSlot.UpdateData();
+
+        EquipedItem = mouseItemEquipment;
+
+        main.SelectedHero.Equipment.Slots[Name].EquipedItem = mouseItemEquipment;
+    }
+
+    private void ExtractFromSlot(Main main)
+    {
+        var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
+
+        mouseItemSlot.ContainedItem = EquipedItem;
+        mouseItemSlot.SourceSlot    = null;
+        mouseItemSlot.Visible       = true;
+        mouseItemSlot.UpdateData();
+
+        Clear();
+        main.SelectedHero?.Equipment?.Slots[Name]?.Clear();
     }
 
     public void Clear()

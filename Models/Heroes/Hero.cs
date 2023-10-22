@@ -31,11 +31,11 @@ public partial class Hero : BaseUnit
 
         Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
-        Equipment = ResourceLoader.Load<PackedScene>("res://UI/Inventory/equipment_system.tscn")
+        Equipment = ResourceLoader.Load<PackedScene>("res://UI/Inventory/equipment_display.tscn")
                                   .Instantiate<EquipmentSystem>();
 
-        // AddChild(Inventory); das macht die Inventories im UI sichtbar
         Inventory.Initialize(InventorySize);
+        Equipment.Initialize();
 
         animatedSprite           = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
         animatedSprite.Animation = "idle";

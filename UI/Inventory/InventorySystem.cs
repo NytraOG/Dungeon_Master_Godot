@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
 public partial class InventorySystem : PanelContainer
 {
-    private bool                buttonHeldDown;
-    public  double              InventoryDisplayCooldown;
-    public  InventoryItemSlot[] Slots;
+    private bool                                  buttonHeldDown;
+    public  double                                InventoryDisplayCooldown;
+    public  Dictionary<string, InventoryItemSlot> Slots = new();
 
     [Export]
     public GridContainer ItemGrid { get; set; }
@@ -16,13 +17,12 @@ public partial class InventorySystem : PanelContainer
     public void Initialize(int inventorySize)
     {
         InventorySlotScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/slot.tscn");
-        Slots              = new InventoryItemSlot[inventorySize];
 
         for (var i = 0; i < inventorySize; i++)
         {
             var slot = InventorySlotScene.Instantiate<InventoryItemSlot>();
-            slot.Id  = i;
-            Slots[i] = slot;
+            slot.Id = i.ToString();
+            Slots.Add(slot.Id, slot);
             ItemGrid.AddChild(slot);
         }
     }
@@ -31,8 +31,8 @@ public partial class InventorySystem : PanelContainer
     {
         foreach (var slot in Slots)
         {
-            if (slot.ContainedItem is null)
-                return slot;
+            if (slot.Value is null)
+                return slot.Value;
         }
 
         return null;

@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpwkfqnc553rn"]
+[gd_scene load_steps=14 format=3 uid="uid://cpwkfqnc553rn"]
 
 [ext_resource type="Texture2D" uid="uid://crm8x0faaw3rm" path="res://Graphics/UI/Inventory/bar_ready.png" id="1_7ud75"]
 [ext_resource type="PackedScene" uid="uid://ci3l8xpw2a5rc" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
 [ext_resource type="Texture2D" uid="uid://c7ker0ijf2djv" path="res://Graphics/UI/Inventory/helm_background.png" id="3_2ktk5"]
+[ext_resource type="Texture2D" uid="uid://cdlutxyfff4ya" path="res://Graphics/UI/Inventory/neck_background.png" id="4_ovtxn"]
+[ext_resource type="Texture2D" uid="uid://2ayuyqt0s5uh" path="res://Graphics/UI/Inventory/cloack_background.png" id="5_xt17o"]
+[ext_resource type="Texture2D" uid="uid://c2niccu4k5ptg" path="res://Graphics/UI/Inventory/shoulder_background.png" id="6_dgppj"]
+[ext_resource type="Texture2D" uid="uid://bl5m3w5yghcci" path="res://Graphics/UI/Inventory/torso_background.png" id="7_5grth"]
+[ext_resource type="Texture2D" uid="uid://cdo61btlff7v2" path="res://Graphics/UI/Inventory/wrist_background.png" id="8_oatvj"]
+[ext_resource type="Texture2D" uid="uid://cxdrbdic47sr7" path="res://Graphics/UI/Inventory/gloves_background.png" id="9_d01er"]
+[ext_resource type="Texture2D" uid="uid://dg2h2gwwh0x7b" path="res://Graphics/UI/Inventory/locked_background.png" id="10_wsco2"]
+[ext_resource type="Texture2D" uid="uid://dfl44ule4jvbm" path="res://Graphics/UI/Inventory/pants_background.png" id="11_c7ke7"]
+[ext_resource type="Texture2D" uid="uid://ccsc2f4voivpg" path="res://Graphics/UI/Inventory/ring_background.png" id="12_7ha4a"]
+[ext_resource type="Texture2D" uid="uid://dlsng1tsl12rg" path="res://Graphics/UI/Inventory/shoes_background.png" id="12_7u41h"]
 
 [node name="EquipmentDisplay" type="PanelContainer"]
 custom_minimum_size = Vector2(430, 648)
@@ -50,41 +60,72 @@ DefaultIcon = ExtResource("3_2ktk5")
 [node name="Neck" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 1
+DefaultIcon = ExtResource("4_ovtxn")
 
 [node name="Cloak" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 2
+DefaultIcon = ExtResource("5_xt17o")
 
 [node name="Shoulders" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 3
+DefaultIcon = ExtResource("6_dgppj")
 
 [node name="Torso" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 4
+DefaultIcon = ExtResource("7_5grth")
 
 [node name="Wrist" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 5
+DefaultIcon = ExtResource("8_oatvj")
 
 [node name="Gloves" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 6
+DefaultIcon = ExtResource("9_d01er")
 
 [node name="Belt" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 7
+DefaultIcon = ExtResource("10_wsco2")
 
 [node name="Control" type="Control" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/HBoxContainer/Control"]
-custom_minimum_size = Vector2(0, 60)
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 60.0
 grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "SELECTED_HERO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer"]
+layout_mode = 2
 
 [node name="ContainerRight" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)
@@ -104,31 +145,39 @@ theme_override_constants/v_separation = 12
 [node name="Underpants" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 8
+DefaultIcon = ExtResource("10_wsco2")
 
 [node name="Pants" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 9
+DefaultIcon = ExtResource("11_c7ke7")
 
 [node name="Socks" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 10
+DefaultIcon = ExtResource("10_wsco2")
 
 [node name="Shoes" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 11
+DefaultIcon = ExtResource("12_7u41h")
 
 [node name="Ring1" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 12
+DefaultIcon = ExtResource("12_7ha4a")
 
 [node name="Ring2" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 12
+DefaultIcon = ExtResource("12_7ha4a")
 
 [node name="Ring3" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 12
+DefaultIcon = ExtResource("12_7ha4a")
 
 [node name="Ring4" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
 SlotType = 12
+DefaultIcon = ExtResource("12_7ha4a")

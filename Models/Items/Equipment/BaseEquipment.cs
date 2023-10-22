@@ -1,3 +1,8 @@
-﻿namespace DungeonMaster.Models.Items.Equipment;
+﻿using DungeonMaster.Enums;
 
-public abstract partial class BaseEquipment : BaseItem { }
+namespace DungeonMaster.Models.Items.Equipment;
+
+public abstract partial class BaseEquipment : BaseItem
+{
+    public abstract EquipSlot EquipSlot { get; }
+}

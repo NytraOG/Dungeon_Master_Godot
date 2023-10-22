@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
@@ -87,14 +86,14 @@ public partial class EquipmentSystem : PanelContainer
     private string FormatValue(PropertyInfo propertyInfo) => propertyInfo.GetValue(main.SelectedHero) switch
     {
         int i => $"{i}",
-        double d when propertyInfo.Name.Contains("mod") => $"{d - 1:P}",
+        double d when propertyInfo.Name.Contains("mod") => $"{(d - 1) * 100:N0}%",
         double d => $"{(int)d}",
         _ => throw new ArgumentOutOfRangeException(nameof(PropertyInfo))
     };
 
     private HBoxContainer FindOrCreateEntry(HBoxContainer[] entries, PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene)
     {
-        var entry = entries.FirstOrDefault(e => e.Name == FormatName(propertyInfo));
+        var entry = entries.FirstOrDefault(e => e.GetNode<Label>("Name")?.Text == FormatName(propertyInfo));
 
         if (entry is null)
         {

@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://cpwkfqnc553rn"]
 
-[ext_resource type="Texture2D" uid="uid://crm8x0faaw3rm" path="res://Graphics/UI/Inventory/bar_ready.png" id="1_7ud75"]
 [ext_resource type="Script" path="res://UI/Inventory/EquipmentSystem.cs" id="1_abw1i"]
 [ext_resource type="PackedScene" uid="uid://ci3l8xpw2a5rc" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
+[ext_resource type="Texture2D" uid="uid://d3eeconeian53" path="res://Graphics/UI/Inventory/Inventory_bar.png" id="2_ei33t"]
 [ext_resource type="Texture2D" uid="uid://c7ker0ijf2djv" path="res://Graphics/UI/Inventory/helm_background.png" id="3_2ktk5"]
 [ext_resource type="Texture2D" uid="uid://cdlutxyfff4ya" path="res://Graphics/UI/Inventory/neck_background.png" id="4_ovtxn"]
 [ext_resource type="Texture2D" uid="uid://2ayuyqt0s5uh" path="res://Graphics/UI/Inventory/cloack_background.png" id="5_xt17o"]
@@ -23,7 +23,7 @@ script = ExtResource("1_abw1i")
 
 [node name="Background" type="NinePatchRect" parent="."]
 layout_mode = 2
-texture = ExtResource("1_7ud75")
+texture = ExtResource("2_ei33t")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background"]
 layout_mode = 1
@@ -140,6 +140,12 @@ theme_override_constants/margin_bottom = 2
 
 [node name="StatsDisplay" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="Trenner" type="TextureRect" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer/MarginContainer/StatsDisplay"]
+custom_minimum_size = Vector2(215, 5)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ContainerRight" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)

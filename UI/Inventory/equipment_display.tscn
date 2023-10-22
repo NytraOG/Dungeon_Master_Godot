@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpwkfqnc553rn"]
+[gd_scene load_steps=4 format=3 uid="uid://cpwkfqnc553rn"]
 
 [ext_resource type="Texture2D" uid="uid://crm8x0faaw3rm" path="res://Graphics/UI/Inventory/bar_ready.png" id="1_7ud75"]
+[ext_resource type="PackedScene" uid="uid://ci3l8xpw2a5rc" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
+[ext_resource type="Texture2D" uid="uid://c7ker0ijf2djv" path="res://Graphics/UI/Inventory/helm_background.png" id="3_2ktk5"]
 
 [node name="EquipmentDisplay" type="PanelContainer"]
 custom_minimum_size = Vector2(430, 648)
@@ -30,6 +32,49 @@ layout_mode = 2
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/ContainerLeft"]
+layout_mode = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 13
+theme_override_constants/margin_bottom = 3
+
+[node name="GridContainer" type="GridContainer" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer"]
+layout_mode = 2
+theme_override_constants/v_separation = 12
+
+[node name="Head" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+DefaultIcon = ExtResource("3_2ktk5")
+
+[node name="Neck" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 1
+
+[node name="Cloak" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 2
+
+[node name="Shoulders" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 3
+
+[node name="Torso" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 4
+
+[node name="Wrist" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 5
+
+[node name="Gloves" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 6
+
+[node name="Belt" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 7
+
 [node name="Control" type="Control" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
@@ -44,3 +89,46 @@ grow_horizontal = 2
 [node name="ContainerRight" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/ContainerRight"]
+layout_mode = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 13
+theme_override_constants/margin_bottom = 3
+
+[node name="GridContainer" type="GridContainer" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer"]
+layout_mode = 2
+theme_override_constants/v_separation = 12
+
+[node name="Underpants" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 8
+
+[node name="Pants" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 9
+
+[node name="Socks" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 10
+
+[node name="Shoes" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 11
+
+[node name="Ring1" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 12
+
+[node name="Ring2" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 12
+
+[node name="Ring3" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 12
+
+[node name="Ring4" parent="Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 12

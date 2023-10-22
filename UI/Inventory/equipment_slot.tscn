@@ -1,16 +1,14 @@
-[gd_scene format=3 uid="uid://ci3l8xpw2a5rc"]
+[gd_scene load_steps=2 format=3 uid="uid://ci3l8xpw2a5rc"]
+
+[ext_resource type="Script" path="res://UI/Inventory/EquipmentItemSlot.cs" id="1_7g1f0"]
 
 [node name="EquipmentSlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_7g1f0")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
+expand_mode = 1
+stretch_mode = 5

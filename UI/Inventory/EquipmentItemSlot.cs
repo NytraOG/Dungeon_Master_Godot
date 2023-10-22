@@ -83,6 +83,8 @@ public partial class EquipmentItemSlot : PanelContainer,
     {
         var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
 
+        EquipedItem.UnequipFrom(main.SelectedHero);
+
         mouseItemSlot.ContainedItem = EquipedItem;
         mouseItemSlot.SourceSlot    = null;
         mouseItemSlot.Visible       = true;

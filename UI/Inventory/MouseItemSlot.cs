@@ -1,4 +1,5 @@
-﻿using DungeonMaster.Models.Items;
+﻿using DungeonMaster.Interfaces;
+using DungeonMaster.Models.Items;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
@@ -6,10 +7,10 @@ namespace DungeonMaster.UI.Inventory;
 public partial class MouseItemSlot : PanelContainer,
                                      IItemSlot
 {
+    public InventoryItemSlot SourceSlot       { get; set; }
     public int               CurrentStacksize { get; set; }
     public int               Id               { get; set; }
     public BaseItem          ContainedItem    { get; set; }
-    public InventoryItemSlot SourceSlot       { get; set; }
 
     public void UpdateData()
     {
@@ -19,11 +20,11 @@ public partial class MouseItemSlot : PanelContainer,
 
     public void Clear()
     {
-        ContainedItem       = null;
-        CurrentStacksize    = 0;
+        ContainedItem    = null;
+        CurrentStacksize = 0;
 
         var stacksizeLabel = GetNode<Label>("CurrentStackSize");
-        stacksizeLabel.Text    = "x99";
+        stacksizeLabel.Text = "x99";
     }
 
     private void SetMouseItemTexture()
@@ -35,6 +36,7 @@ public partial class MouseItemSlot : PanelContainer,
     private void SetStacksizeInPanel()
     {
         var label = GetNode<Label>("CurrentStackSize");
-        label.Text = "x" + CurrentStacksize;
+
+        label.Text = ContainedItem is IStackable ? label.Text = "x" + CurrentStacksize : label.Text = string.Empty;
     }
 }

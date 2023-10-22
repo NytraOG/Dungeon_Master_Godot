@@ -32,4 +32,6 @@ public abstract partial class BaseItem : Node3D
     public string Fluff { get; set; }
 
     public abstract void Use(BaseUnit actor);
+
+    public bool IsUsableBy(BaseUnit actor) => actor.Level >= LevelRequirement && actor.Get(RequiredAttribute) >= RequiredLevelOfAttribute;
 }

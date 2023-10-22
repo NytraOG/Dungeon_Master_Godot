@@ -1,18 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using DungeonMaster.Models.Items.Equipment;
+using DungeonMaster.Enums;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
 
 public partial class EquipmentSystem : PanelContainer
 {
-    private Label         heronameLabel;
-    private double        inventoryDisplayCooldown;
-    private Main          main;
-    private VBoxContainer statDisplayNode;
+    private Label                                    heronameLabel;
+    private double                                   inventoryDisplayCooldown;
+    private Main                                     main;
+    private VBoxContainer                            statDisplayNode;
+    public  Dictionary<EquipSlot, EquipmentItemSlot> Slots = new ();
 
     public override void _Ready()
     {
@@ -24,6 +26,13 @@ public partial class EquipmentSystem : PanelContainer
 
         main                 =  mainScene;
         main.PropertyChanged += UpsertStatsDisplayEntries;
+
+
+        var rightSlots = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
+        var leftSlots  = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
+
+        Slots = rightSlots.Union(leftSlots)
+                          .ToDictionary(k => k.SlotType, v => v);
     }
 
     private void UpsertStatsDisplayEntries(object sender, PropertyChangedEventArgs args)

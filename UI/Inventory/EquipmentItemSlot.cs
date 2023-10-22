@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DungeonMaster.Enums;
@@ -31,14 +30,28 @@ public partial class EquipmentItemSlot : PanelContainer,
     {
         if (@event is InputEventMouseButton { Pressed: true })
         {
-            var mouseItemSlot = GetTree().CurrentScene.GetNode<MouseItemSlot>("MouseItemSlot");
+            var main          = (Main)GetTree().CurrentScene;
+            var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
             var item          = mouseItemSlot.ContainedItem;
+            var selectedHero  = main.SelectedHero;
 
-            if (item is not BaseEquipment equipment)
+            if (item is not BaseEquipment equipment || equipment.EquipSlot != SlotType || !equipment.IsUsableBy(selectedHero))
                 return;
 
+            selectedHero.Equipment.Slots[equipment.EquipSlot].EquipedItem = equipment;
+            EquipedItem                                                   = equipment;
+            Icon.Texture                                                  = equipment.Icon;
+            equipment.EquipOn(selectedHero);
 
+            mouseItemSlot.Clear();
+            mouseItemSlot.Visible = false;
         }
+    }
+
+    public void Clear()
+    {
+        EquipedItem  = null;
+        Icon.Texture = DefaultIcon;
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

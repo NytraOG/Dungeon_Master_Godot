@@ -17,6 +17,7 @@ public partial class Hero : BaseUnit
     [Export] public BaseHeroclass    Class;
     [Export] public BaseSkill        InherentSkill;
     [Export] public InventorySystem  Inventory;
+    [Export] public EquipmentSystem  Equipment;
     [Export] public int              InventorySize;
     private         bool             isInitialized;
     [Export] public BaseRace         Race;
@@ -27,8 +28,11 @@ public partial class Hero : BaseUnit
     public override void _Ready()
     {
         FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
+
         Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
+        Equipment = ResourceLoader.Load<PackedScene>("res://UI/Inventory/equipment_system.tscn")
+                                  .Instantiate<EquipmentSystem>();
 
         // AddChild(Inventory); das macht die Inventories im UI sichtbar
         Inventory.Initialize(InventorySize);

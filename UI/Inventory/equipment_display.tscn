@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cpwkfqnc553rn"]
+[gd_scene load_steps=15 format=3 uid="uid://cpwkfqnc553rn"]
 
 [ext_resource type="Texture2D" uid="uid://crm8x0faaw3rm" path="res://Graphics/UI/Inventory/bar_ready.png" id="1_7ud75"]
+[ext_resource type="Script" path="res://UI/Inventory/EquipmentSystem.cs" id="1_abw1i"]
 [ext_resource type="PackedScene" uid="uid://ci3l8xpw2a5rc" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
 [ext_resource type="Texture2D" uid="uid://c7ker0ijf2djv" path="res://Graphics/UI/Inventory/helm_background.png" id="3_2ktk5"]
 [ext_resource type="Texture2D" uid="uid://cdlutxyfff4ya" path="res://Graphics/UI/Inventory/neck_background.png" id="4_ovtxn"]
@@ -18,6 +19,7 @@
 custom_minimum_size = Vector2(430, 648)
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_abw1i")
 
 [node name="Background" type="NinePatchRect" parent="."]
 layout_mode = 2
@@ -107,7 +109,7 @@ grow_horizontal = 2
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/TextureRect"]
+[node name="HeroName" type="Label" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -121,10 +123,22 @@ text = "SELECTED_HERO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="StatsDisplay" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 
 [node name="ContainerRight" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer"]

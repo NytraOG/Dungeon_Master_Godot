@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://toxino8jpwad"]
+
+[node name="StatDisplayEntry" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+
+[node name="Value" type="RichTextLabel" parent="."]
+layout_mode = 2

@@ -40,18 +40,29 @@ public partial class Main : Node,
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
+    private Hero selectedHero;
     public  bool AllesDa      { get; set; }
     private bool combatActive { get; set; }
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
 
-    public BaseCreature[]                    Enemies            { get; set; } = Array.Empty<BaseCreature>();
-    public Healthbar                         Healthbar          { get; set; }
-    public Hero[]                            Heroes             { get; set; } = Array.Empty<Hero>();
-    public Manabar                           Manabar            { get; set; }
-    public BaseCreature                      SelectedEnemy      { get; set; }
-    public Hero                              SelectedHero       { get; set; }
+    public BaseCreature[] Enemies       { get; set; } = Array.Empty<BaseCreature>();
+    public Healthbar      Healthbar     { get; set; }
+    public Hero[]         Heroes        { get; set; } = Array.Empty<Hero>();
+    public Manabar        Manabar       { get; set; }
+    public BaseCreature   SelectedEnemy { get; set; }
+
+    public Hero SelectedHero
+    {
+        get => selectedHero;
+        set
+        {
+            selectedHero = value;
+            OnPropertyChanged();
+        }
+    }
+
     public BaseSkill                         SelectedSkill      { get; set; }
     public List<BaseUnit>                    SelectedTargets    { get; set; } = new();
     public List<BaseSkillButton>             Skillbuttons       { get; set; } = new();
@@ -493,7 +504,7 @@ public partial class Main : Node,
                     else
                         SwapItems(mouseItemSlot, clickedSlot);
                 }
-                else if(clickedSlot.ContainedItem is not null)
+                else if (clickedSlot.ContainedItem is not null)
                     ExtractFromSlot(mouseItemSlot, clickedSlot);
             };
 
@@ -520,7 +531,7 @@ public partial class Main : Node,
         }
     }
 
-    private  void FillStack(IStackable stackableItem, InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
+    private void FillStack(IStackable stackableItem, InventoryItemSlot clickedSlot, MouseItemSlot mouseItemSlot)
     {
         var freeStacksize = stackableItem.MaxStacksize - clickedSlot.CurrentStacksize;
 
@@ -549,7 +560,7 @@ public partial class Main : Node,
         mouseItemSlot.UpdateData();
     }
 
-    private  void ExtractFromSlot(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
+    private void ExtractFromSlot(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
     {
         mouseItemSlot.Id               = clickedSlot.Id;
         mouseItemSlot.ContainedItem    = clickedSlot.ContainedItem;
@@ -562,7 +573,7 @@ public partial class Main : Node,
         SelectedHero.Inventory.Slots[clickedSlot.Id].Clear();
     }
 
-    private  void InsertIntoSlot(IItemSlot targetSlot, IItemSlot sourceSlot, int stacksize)
+    private void InsertIntoSlot(IItemSlot targetSlot, IItemSlot sourceSlot, int stacksize)
     {
         targetSlot.CurrentStacksize                                  = stacksize;
         targetSlot.ContainedItem                                     = sourceSlot.ContainedItem;
@@ -576,7 +587,7 @@ public partial class Main : Node,
         }
     }
 
-    private  void SwapItems(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
+    private void SwapItems(MouseItemSlot mouseItemSlot, InventoryItemSlot clickedSlot)
     {
         var mouseItem      = mouseItemSlot.ContainedItem;
         var mouseStacksize = mouseItemSlot.CurrentStacksize;
@@ -589,7 +600,7 @@ public partial class Main : Node,
         clickedSlot.ContainedItem    = mouseItem;
 
         SelectedHero.Inventory.Slots[clickedSlot.Id].CurrentStacksize = mouseStacksize;
-        SelectedHero.Inventory.Slots[clickedSlot.Id].ContainedItem = mouseItem;
+        SelectedHero.Inventory.Slots[clickedSlot.Id].ContainedItem    = mouseItem;
     }
 
     private void SubscribeToSkillbuttons()
@@ -606,9 +617,7 @@ public partial class Main : Node,
 
     private void SkillOnSomeSkillbuttonPressed(BaseSkillButton sender) => SelectedSkill = sender.Skill;
 
-    private void _on_undo_pressed()
-    {
-    }
+    private void _on_undo_pressed() { }
 
     public void _on_skill_button_timed_out(BaseSkillButton sender)
     {

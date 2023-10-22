@@ -22,14 +22,14 @@ public abstract partial class BaseSkill : Node3D
     [Export]                           public Texture2D       Icon;
     [ExportGroup("Leveling")] [Export] public int             Level = 1;
     [Export]                           public int             ManacostFlat;
-    [Export]                           public float           ManacostLevelScaling;
-    [Export]                           public float           MultiplierT = 1;
+    [Export]                           public double           ManacostLevelScaling;
+    [Export]                           public double           MultiplierT = 1;
     [ExportGroup("Tactical Roll")] [Export]
     public Attribute PrimaryAttributeT;
-    [Export] public float            PrimaryScalingT = 2f;
+    [Export] public double            PrimaryScalingT = 2f;
     [Export] public Attribute        SecondaryAttributeT;
-    [Export] public float            SecondaryScalingT  = 1f;
-    [Export] public float            SkillLevelScalingT = 2f;
+    [Export] public double            SecondaryScalingT  = 1f;
+    [Export] public double            SkillLevelScalingT = 2f;
     [Export] public SkillSubcategory Subcategory;
     [Export] public SkillType        Type;
     [Export] public int              XpBaseBasic      = 16;
@@ -126,7 +126,7 @@ public abstract partial class BaseSkill : Node3D
         return DifficultyDemandingClasses.Any(dd => dd.Name == heroclass.Name) ? SkillDifficulty.Demanding : SkillDifficulty.OutOfClass;
     }
 
-    protected float GetAttackmodifier(BaseSkill skill, BaseUnit actor) => skill.Category switch
+    protected double GetAttackmodifier(BaseSkill skill, BaseUnit actor) => skill.Category switch
     {
         SkillCategory.Melee => actor.MeleeAttackratingModifier,
         SkillCategory.Ranged => actor.RangedAttackratingModifier,

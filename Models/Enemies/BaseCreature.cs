@@ -20,11 +20,11 @@ public abstract partial class BaseCreature : BaseUnit
     public          List<Positions> FavouritePositions = new() { Positions.None };
     private         bool            isInitialized;
     [Export] public Keyword[]       Keywords;
-    [Export] public float           LevelModifier;
+    [Export] public double           LevelModifier;
     [Export] public BaseMonstertype Monstertype;
 
     [Export]
-    public PackedScene FloatingCombatText { get; set; }
+    public PackedScene doubleingCombatText { get; set; }
 
     public override void _Process(double delta)
     {
@@ -37,10 +37,10 @@ public abstract partial class BaseCreature : BaseUnit
 
     public override void InstatiateFloatingCombatText(int receivedDamage)
     {
-        FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
-        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage = int.Parse(receivedDamage.ToString());
-        AddChild(floatingCombatTextInstance);
+        doubleingCombatText = ResourceLoader.Load<PackedScene>("res://UI/doubleing_combat_text.tscn");
+        var doubleingCombatTextInstance = doubleingCombatText.Instantiate<FloatingCombatText>();
+        doubleingCombatTextInstance.Damage = int.Parse(receivedDamage.ToString());
+        AddChild(doubleingCombatTextInstance);
     }
 
     public override void Initialize()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using DungeonMaster.Models;
 using DungeonMaster.Models.Skills.Statuseffects;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
@@ -187,7 +188,7 @@ public static class Extensions
         return newInstance;
     }
 
-    public static float ApplyOperation(this float attributeValue, string op, float modifier) => op switch
+    public static double ApplyOperation(this double attributeValue, string op, double modifier) => op switch
     {
         "+" => attributeValue + modifier,
         "-" => attributeValue - modifier,
@@ -196,7 +197,7 @@ public static class Extensions
         _ => throw new Exception("Ins Operatorfield kommen nur +, -, *, / rein >:C")
     };
 
-    public static float InfuseRandomness(this float luckyBoyWhoIsAboutToBeRandomized)
+    public static double InfuseRandomness(this double luckyBoyWhoIsAboutToBeRandomized)
     {
         var          random   = new Random();
         const double minValue = 0.5;
@@ -204,6 +205,30 @@ public static class Extensions
 
         var modifier = random.NextDouble() * (maxValue - minValue) + minValue;
 
-        return (float)(modifier * luckyBoyWhoIsAboutToBeRandomized);
+        return modifier * luckyBoyWhoIsAboutToBeRandomized;
+    }
+
+    public static string AddSpacesToString(this string text, bool preserveAcronyms)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return string.Empty;
+
+        var newText = new StringBuilder(text.Length * 2);
+        newText.Append(text[0]);
+
+        for (var i = 1; i < text.Length; i++)
+        {
+            if (char.IsUpper(text[i]))
+            {
+                if ((text[i - 1] != ' ' && !char.IsUpper(text[i - 1])) ||
+                    (preserveAcronyms && char.IsUpper(text[i - 1]) &&
+                     i < text.Length - 1 && !char.IsUpper(text[i + 1])))
+                    newText.Append(' ');
+            }
+
+            newText.Append(text[i]);
+        }
+
+        return newText.ToString();
     }
 }

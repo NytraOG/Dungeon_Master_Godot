@@ -24,7 +24,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             target.IsStunned = AppliesStun;
 
-            target.CurrentHitpoints -= (float)damageInRange;
+            target.CurrentHitpoints -= damageInRange;
 
             var finalDamage = ((int)damageInRange).ToString();
 

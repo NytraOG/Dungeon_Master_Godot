@@ -14,23 +14,23 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
     [Export]                            public int      AddedFlatDamage;
     [Export]                            public Debuff[] AppliedDebuffs;
     [Export]                            public int      Critical;
-    [Export(PropertyHint.Range, "0,1")] public float    DamageRange = 1;
+    [Export(PropertyHint.Range, "0,1")] public double   DamageRange = 1;
     [Export]                            public int      Good;
-    [Export]                            public float    MultiplierD = 1;
-    [Export]                            public float    MultiplierH = 1;
+    [Export]                            public double   MultiplierD = 1;
+    [Export]                            public double   MultiplierH = 1;
     [ExportGroup("On Hit added Damage")] [Export]
     public int Normal;
     [ExportGroup("Effect and Damageroll")] [Export]
     public Attribute PrimaryAttributeD;
     [ExportGroup("Hitroll")] [Export] public Attribute PrimaryAttributeH;
-    [Export]                          public float     PrimaryScalingD = 0.5f;
-    [Export]                          public float     PrimaryScalingH = 2f;
+    [Export]                          public double    PrimaryScalingD = 0.5f;
+    [Export]                          public double    PrimaryScalingH = 2f;
     [Export]                          public Attribute SecondaryAttributeD;
     [Export]                          public Attribute SecondaryAttributeH;
-    [Export]                          public float     SecondaryScalingD  = 0.34f;
-    [Export]                          public float     SecondaryScalingH  = 1f;
-    [Export]                          public float     SkillLevelScalingD = 0.5f;
-    [Export]                          public float     SkillLevelScalingH = 2f;
+    [Export]                          public double    SecondaryScalingD  = 0.34f;
+    [Export]                          public double    SecondaryScalingH  = 1f;
+    [Export]                          public double    SkillLevelScalingD = 0.5f;
+    [Export]                          public double    SkillLevelScalingH = 2f;
 
     public int GetHitroll(BaseUnit actor)
     {

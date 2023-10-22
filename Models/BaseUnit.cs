@@ -16,8 +16,8 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 {
     public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
     public  List<Buff>                         Buffs        = new();
-    private float                              currentHitpoints;
-    private float                              currentMana;
+    private double                              currentHitpoints;
+    private double                              currentMana;
     public  List<Debuff>                       Debuffs = new();
     public  List<BaseSkill>                    Skills  = new();
 
@@ -58,10 +58,10 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public int Charisma { get; set; } = 4;
 
     [Export]
-    public float MaximumHitpoints { get; set; }
+    public double MaximumHitpoints { get; set; }
 
     [Export]
-    public float CurrentHitpoints
+    public double CurrentHitpoints
     {
         get => currentHitpoints;
         set
@@ -72,10 +72,10 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     }
 
     [Export]
-    public float MaximumMana { get; set; }
+    public double MaximumMana { get; set; }
 
     [Export]
-    public float CurrentMana
+    public double CurrentMana
     {
         get => currentMana;
         set
@@ -86,7 +86,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     }
 
     [Export]
-    public float ManaregenerationRate { get; set; }
+    public double ManaregenerationRate { get; set; }
 
     [Export]
     public int Armour { get; set; }
@@ -95,74 +95,74 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public bool IsDead    => CurrentHitpoints <= 0;
 
     //Magic
-    public float BaseMagicDefense => 2 * Willpower + Wisdom;
+    public double BaseMagicDefense => 2 * Willpower + Wisdom;
 
     [Export]
-    public float MagicAttackratingModifier { get; set; }
+    public double MagicAttackratingModifier { get; set; }
 
     [Export]
-    public float CurrentMagicDefense { get; set; }
+    public double CurrentMagicDefense { get; set; }
 
     [Export]
-    public float MagicDefensemodifier { get; set; }
+    public double MagicDefensemodifier { get; set; }
 
-    public float ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => CurrentMagicDefense * MagicDefensemodifier);
+    public double ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => CurrentMagicDefense * MagicDefensemodifier);
 
     //Social
-    public float BaseSocialDefense => 2 * Logic + Charisma;
+    public double BaseSocialDefense => 2 * Logic + Charisma;
 
     [Export]
-    public float SocialAttackratingModifier { get; set; }
+    public double SocialAttackratingModifier { get; set; }
 
     [Export]
-    public float CurrentSocialDefense { get; set; }
+    public double CurrentSocialDefense { get; set; }
 
     [Export]
-    public float SocialDefensemodifier { get; set; }
+    public double SocialDefensemodifier { get; set; }
 
-    public float ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => CurrentSocialDefense * SocialDefensemodifier);
+    public double ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => CurrentSocialDefense * SocialDefensemodifier);
 
     //Melee
-    public float BaseMeleeDefense => 2 * Dexterity + Quickness;
+    public double BaseMeleeDefense => 2 * Dexterity + Quickness;
 
     [Export]
-    public float MeleeAttackratingModifier { get; set; }
+    public double MeleeAttackratingModifier { get; set; }
 
     [Export]
-    public float CurrentMeleeDefense { get; set; }
+    public double CurrentMeleeDefense { get; set; }
 
     [Export]
-    public float MeleeDefensmodifier { get; set; }
+    public double MeleeDefensmodifier { get; set; }
 
-    public float ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => CurrentMeleeDefense * MeleeDefensmodifier);
+    public double ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => CurrentMeleeDefense * MeleeDefensmodifier);
 
     //Ranged
-    public float BaseRangedDefense => 2 * Quickness + Dexterity;
+    public double BaseRangedDefense => 2 * Quickness + Dexterity;
 
     [Export]
-    public float RangedAttackratingModifier { get; set; }
+    public double RangedAttackratingModifier { get; set; }
 
     [Export]
-    public float CurrentRangedDefense { get; set; }
+    public double CurrentRangedDefense { get; set; }
 
     [Export]
-    public float RangedDefensemodifier { get; set; }
+    public double RangedDefensemodifier { get; set; }
 
-    public float ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => CurrentRangedDefense * RangedDefensemodifier);
+    public double ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => CurrentRangedDefense * RangedDefensemodifier);
 
     //Initiative
-    public float BaseInitiative => 2 * Intuition + Quickness;
+    public double BaseInitiative => 2 * Intuition + Quickness;
 
     [Export]
-    public float CurrentInitiative { get; set; }
+    public double CurrentInitiative { get; set; }
 
     [Export]
-    public float InitiativeFlatAdded { get; set; }
+    public double InitiativeFlatAdded { get; set; }
 
     [Export]
-    public float InitiativeModifier { get; set; }
+    public double InitiativeModifier { get; set; }
 
-    public float ModifiedInitiative => FetchRollFor(SkillCategory.Initiative, () => CurrentInitiative * InitiativeModifier) + InitiativeFlatAdded;
+    public double ModifiedInitiative => FetchRollFor(SkillCategory.Initiative, () => CurrentInitiative * InitiativeModifier) + InitiativeFlatAdded;
 
     [Export]
     public int AktionenGesamt { get; set; }
@@ -171,12 +171,12 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public int AktionenAktuell { get; set; }
 
     [Export]
-    public float FlatDamageModifier { get; set; }
+    public double FlatDamageModifier { get; set; }
 
     public BaseSkill                         SelectedSkill { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
-    //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/floating_combat_text.tscn");
+    //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");
     public abstract void InstatiateFloatingCombatText(int receivedDamage);
 
     public int Get(Attribute attribute) => attribute switch
@@ -194,13 +194,13 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
         _ => throw new ArgumentOutOfRangeException(nameof(Attribute))
     };
 
-    private float FetchRollFor(SkillCategory category, Func<float> returnDefaultModifiedDefense)
+    private double FetchRollFor(SkillCategory category, Func<double> returnDefaultModifiedDefense)
     {
         var matchingDefenseSkills = Skills.Where(s => s.Subcategory == SkillSubcategory.Defense &&
                                                       s.Category == category)
                                           .ToList();
 
-        return !matchingDefenseSkills.Any() ? returnDefaultModifiedDefense() : float.Parse(matchingDefenseSkills.First().Activate(this));
+        return !matchingDefenseSkills.Any() ? returnDefaultModifiedDefense() : double.Parse(matchingDefenseSkills.First().Activate(this));
     }
 
     protected void SetInitialHitpointsAndMana()
@@ -221,7 +221,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     public abstract string UseAbility(BaseSkill ability, HitResult hitResult, BaseUnit target = null);
 
-    public virtual void InitiativeBestimmen(double modifier = 1) => CurrentInitiative = (float)modifier * InitiativeModifier * (InitiativeFlatAdded + BaseInitiative.InfuseRandomness());
+    public virtual void InitiativeBestimmen(double modifier = 1) => CurrentInitiative = (double)modifier * InitiativeModifier * (InitiativeFlatAdded + BaseInitiative.InfuseRandomness());
 
     public virtual void SetPosition(Vector3 spawnPosition, Vector3 positionToLookAt) { }
 

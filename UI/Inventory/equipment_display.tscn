@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cpwkfqnc553rn"]
+[gd_scene load_steps=14 format=3 uid="uid://cpwkfqnc553rn"]
 
 [ext_resource type="Script" path="res://UI/Inventory/EquipmentSystem.cs" id="1_abw1i"]
-[ext_resource type="PackedScene" uid="uid://ci3l8xpw2a5rc" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
+[ext_resource type="PackedScene" uid="uid://c45ruaug1goon" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
 [ext_resource type="Texture2D" uid="uid://d3eeconeian53" path="res://Graphics/UI/Inventory/Inventory_bar.png" id="2_ei33t"]
-[ext_resource type="Texture2D" uid="uid://c7ker0ijf2djv" path="res://Graphics/UI/Inventory/helm_background.png" id="3_2ktk5"]
 [ext_resource type="Texture2D" uid="uid://cdlutxyfff4ya" path="res://Graphics/UI/Inventory/neck_background.png" id="4_ovtxn"]
 [ext_resource type="Texture2D" uid="uid://2ayuyqt0s5uh" path="res://Graphics/UI/Inventory/cloack_background.png" id="5_xt17o"]
 [ext_resource type="Texture2D" uid="uid://c2niccu4k5ptg" path="res://Graphics/UI/Inventory/shoulder_background.png" id="6_dgppj"]
@@ -57,7 +56,6 @@ theme_override_constants/v_separation = 12
 
 [node name="Head" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2
-DefaultIcon = ExtResource("3_2ktk5")
 
 [node name="Neck" parent="Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer" instance=ExtResource("2_aggd6")]
 layout_mode = 2

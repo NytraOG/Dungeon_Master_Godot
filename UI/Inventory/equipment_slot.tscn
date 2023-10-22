@@ -1,14 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://ci3l8xpw2a5rc"]
+[gd_scene load_steps=3 format=3 uid="uid://c45ruaug1goon"]
 
 [ext_resource type="Script" path="res://UI/Inventory/EquipmentItemSlot.cs" id="1_7g1f0"]
+[ext_resource type="Texture2D" uid="uid://c7ker0ijf2djv" path="res://Graphics/UI/Inventory/helm_background.png" id="2_6h63n"]
 
 [node name="EquipmentSlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_7g1f0")
+DefaultIcon = ExtResource("2_6h63n")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
+
+[connection signal="gui_input" from="." to="." method="_on_equipment_slot_gui_input"]

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using DungeonMaster.Models.Items.Equipment;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
@@ -48,6 +49,7 @@ public partial class EquipmentSystem : PanelContainer
             UpdateValues(entry, propertyInfo);
         }
     }
+
 
     private void UpdateValues(HBoxContainer entry, PropertyInfo propertyInfo)
     {

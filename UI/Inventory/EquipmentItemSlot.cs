@@ -27,6 +27,20 @@ public partial class EquipmentItemSlot : PanelContainer,
         Icon.Texture = DefaultIcon;
     }
 
+    public void _on_equipment_slot_gui_input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton { Pressed: true })
+        {
+            var mouseItemSlot = GetTree().CurrentScene.GetNode<MouseItemSlot>("MouseItemSlot");
+            var item          = mouseItemSlot.ContainedItem;
+
+            if (item is not BaseEquipment equipment)
+                return;
+
+
+        }
+    }
+
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)

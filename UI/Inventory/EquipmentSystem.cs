@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
@@ -58,18 +59,42 @@ public partial class EquipmentSystem : PanelContainer
         valueNode.Text = FormatValue(propertyInfo);
     }
 
-    private static string FormatName(PropertyInfo propertyInfo) => propertyInfo.Name.AddSpacesToString(true);
+    private string FormatName(PropertyInfo propertyInfo)
+    {
+        var name = propertyInfo.Name;
+
+        if (name.Contains("Xp"))
+            return "XP for next Level";
+
+        if (name.Contains("Attack"))
+            name = name.Replace("Attack", "A");
+
+        if (name.Contains("rating"))
+            name = name.Replace("rating", "R");
+
+        if (name.Contains("Defense"))
+            name = name.Replace("Defense", "Def.");
+
+        if (name.ToLower().Contains("modifier"))
+        {
+            name = name.Replace("Modifier", "Mult.");
+            name = name.Replace("modifier", "Mult.");
+        }
+
+        return name.AddSpacesToString(true);
+    }
 
     private string FormatValue(PropertyInfo propertyInfo) => propertyInfo.GetValue(main.SelectedHero) switch
     {
         int i => $"{i}",
+        double d when propertyInfo.Name.Contains("mod") => $"{d - 1:P}",
         double d => $"{(int)d}",
         _ => throw new ArgumentOutOfRangeException(nameof(PropertyInfo))
     };
 
     private HBoxContainer FindOrCreateEntry(HBoxContainer[] entries, PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene)
     {
-        var entry = entries.FirstOrDefault(e => e.Name == propertyInfo.Name);
+        var entry = entries.FirstOrDefault(e => e.Name == FormatName(propertyInfo));
 
         if (entry is null)
         {

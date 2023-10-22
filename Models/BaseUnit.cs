@@ -28,8 +28,6 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public int Level { get; set; }
 
-    public int XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
-
     [Export]
     public int Strength { get; set; } = 4;
 
@@ -174,6 +172,8 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public double FlatDamageModifier { get; set; }
 
     public BaseSkill                         SelectedSkill { get; set; }
+
+    public int                               XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
     public event PropertyChangedEventHandler PropertyChanged;
 
     //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");

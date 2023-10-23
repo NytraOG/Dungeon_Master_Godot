@@ -10,11 +10,19 @@ namespace DungeonMaster.UI.Inventory;
 public partial class EquipmentItemSlot : PanelContainer,
                                          INotifyPropertyChanged
 {
+    private bool isHoveredByMouse;
+
     [Export]
     public EquipSlot SlotType { get; set; }
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
+
+    [Export]
+    public Texture2D NotAllowedIcon { get; set; }
+
+    [Export]
+    public Texture2D AllowedIcon { get; set; }
 
     public BaseEquipment                     EquipedItem { get; set; }
     public TextureRect                       Icon        { get; set; }
@@ -42,6 +50,26 @@ public partial class EquipmentItemSlot : PanelContainer,
             else if (EquipedItem is not null)
                 ExtractFromSlot(main);
         }
+    }
+
+    public void _on_mouse_entered()
+    {
+        var main          = (Main)GetTree().CurrentScene;
+        var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
+
+        if(mouseItemSlot.ContainedItem is null)
+            return;
+
+        if (mouseItemSlot.ContainedItem is not BaseEquipment || (mouseItemSlot.ContainedItem is BaseEquipment equipment && equipment.EquipSlot != SlotType))
+            Icon.Texture = NotAllowedIcon;
+        else
+            Icon.Texture = AllowedIcon;
+    }
+
+    public void _on_mouse_exited()
+    {
+        if(EquipedItem is null)
+            Icon.Texture = DefaultIcon;
     }
 
     private void InsertIntoSlot(Main main)

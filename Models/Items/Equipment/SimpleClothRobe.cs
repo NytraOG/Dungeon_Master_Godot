@@ -6,7 +6,18 @@ namespace DungeonMaster.Models.Items.Equipment;
 
 public partial class SimpleClothRobe : BaseArmor
 {
-    public SimpleClothRobe() => Icon = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Armor/SimpleRobe.png");
+    public SimpleClothRobe()
+    {
+        Icon = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Armor/SimpleRobe.png");
+
+        SlashNormal   = 2;
+        SlashGood     = 1;
+        SlashCritical = 0;
+
+        PierceNormal   = 0;
+        PierceGood     = -1;
+        PierceCritical = -3;
+    }
 
     public override EquipSlot EquipSlot => EquipSlot.Torso;
 

@@ -86,7 +86,6 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double ManaregenerationRate { get; set; }
 
-    [Export]
     public int Armour { get; set; }
 
     public bool IsStunned { get; set; }

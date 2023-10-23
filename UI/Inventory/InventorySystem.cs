@@ -7,6 +7,10 @@ public partial class InventorySystem : PanelContainer
 {
     private bool                                  buttonHeldDown;
     public  double                                InventoryDisplayCooldown;
+    private Vector2                               mousePositionNew;
+    private Vector2                               mousePositionOld;
+    private Vector2                               mouseVelocity;
+    private Vector2                               position;
     public  Dictionary<string, InventoryItemSlot> Slots = new();
 
     [Export]
@@ -49,12 +53,31 @@ public partial class InventorySystem : PanelContainer
         }
     }
 
+    public override void _PhysicsProcess(double delta)
+    {
+        if (buttonHeldDown)
+            SetPosition((Position + (mousePositionNew - mousePositionOld)));
+    }
+
     public void _on_gui_input(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseButtonEvent)
             buttonHeldDown = mouseButtonEvent.Pressed;
 
-        if (buttonHeldDown && @event is InputEventMouseMotion motionEvent)
-            Position = motionEvent.GlobalPosition;
+        if (!buttonHeldDown || @event is not InputEventMouseMotion motionEvent)
+            return;
+
+        if (mousePositionOld == Vector2.Zero && mousePositionNew == Vector2.Zero)
+            mousePositionOld = motionEvent.GlobalPosition;
+        else if (mousePositionOld != Vector2.Zero && mousePositionNew != Vector2.Zero)
+        {
+            mousePositionOld = mousePositionNew;
+            mousePositionNew = motionEvent.GlobalPosition;
+        }
+        else
+            mousePositionNew = motionEvent.GlobalPosition;
+
+        mouseVelocity = motionEvent.Velocity;
+        position      = motionEvent.GlobalPosition - GlobalPosition;
     }
 }

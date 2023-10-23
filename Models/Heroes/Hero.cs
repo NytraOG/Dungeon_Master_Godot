@@ -92,11 +92,6 @@ public partial class Hero : BaseUnit
 
         InitiativeModifier = 1;
 
-        CurrentMeleeDefense  = BaseMeleeDefense;
-        CurrentRangedDefense = BaseRangedDefense;
-        CurrentMagicDefense  = BaseMagicDefense;
-        CurrentSocialDefense = BaseSocialDefense;
-
         Race.ApplySkills(this);
         Class.ApplySkills(this);
 
@@ -104,6 +99,11 @@ public partial class Hero : BaseUnit
 
         Race.ApplyModifiers(this);
         Class.ApplyModifiers(this);
+
+        MeleeDefense  = BaseDefenseMelee;
+        RangedDefense = BaseDefenseRanged;
+        MagicDefense  = BaseDefenseMagic;
+        SocialDefense = BaseDefenseSocial;
     }
 
     public event SelectedEvent OnSelected;

@@ -50,7 +50,7 @@ public abstract partial class BaseDamageSkill : BaseTargetingSkill
         var secondaryValue = SecondaryScalingD * actor.Get(SecondaryAttributeD);
         var levelValue     = Level * SkillLevelScalingD;
 
-        var maxhit = (primaryValue + secondaryValue + levelValue + AddedFlatDamage) * MultiplierD + actor.FlatDamageModifier;
+        var maxhit = (primaryValue + secondaryValue + levelValue + AddedFlatDamage) * MultiplierD + actor.FlatDamagebonus;
 
         maxhit += hitresult switch
         {

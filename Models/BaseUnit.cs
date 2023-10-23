@@ -16,8 +16,8 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 {
     public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
     public  List<Buff>                         Buffs        = new();
-    private double                              currentHitpoints;
-    private double                              currentMana;
+    private double                             currentHitpoints;
+    private double                             currentMana;
     public  List<Debuff>                       Debuffs = new();
     public  List<BaseSkill>                    Skills  = new();
 
@@ -26,7 +26,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public string Displayname { get; set; }
 
     [Export]
-    public int Level { get; set; }
+    public int Level { get; set; } = 1;
 
     [Export]
     public int Strength { get; set; } = 4;
@@ -86,80 +86,82 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double ManaregenerationRate { get; set; }
 
-    public int Armour { get; set; }
-
     public bool IsStunned { get; set; }
     public bool IsDead    => CurrentHitpoints <= 0;
 
-    //Magic
-    public double BaseMagicDefense => 2 * Willpower + Wisdom;
-
-    [Export]
-    public double MagicAttackratingModifier { get; set; }
-
-    [Export]
-    public double CurrentMagicDefense { get; set; }
-
-    [Export]
-    public double MagicDefensemodifier { get; set; }
-
-    public double ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => CurrentMagicDefense * MagicDefensemodifier);
-
-    //Social
-    public double BaseSocialDefense => 2 * Logic + Charisma;
-
-    [Export]
-    public double SocialAttackratingModifier { get; set; }
-
-    [Export]
-    public double CurrentSocialDefense { get; set; }
-
-    [Export]
-    public double SocialDefensemodifier { get; set; }
-
-    public double ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => CurrentSocialDefense * SocialDefensemodifier);
+    //Defense
+    public int Armour { get; set; }
 
     //Melee
-    public double BaseMeleeDefense => 2 * Dexterity + Quickness;
+    public double BaseDefenseMelee => 2 * Dexterity + Quickness;
 
     [Export]
-    public double MeleeAttackratingModifier { get; set; }
-
-    [Export]
-    public double CurrentMeleeDefense { get; set; }
+    public double MeleeDefense { get; set; }
 
     [Export]
     public double MeleeDefensmodifier { get; set; }
 
-    public double ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => CurrentMeleeDefense * MeleeDefensmodifier);
+    public double ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => MeleeDefense * MeleeDefensmodifier);
 
     //Ranged
-    public double BaseRangedDefense => 2 * Quickness + Dexterity;
+    public double BaseDefenseRanged => 2 * Quickness + Dexterity;
+
+    [Export]
+    public double RangedDefense { get; set; }
+
+    [Export]
+    public double RangedDefensemodifier { get; set; }
+
+    public double ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => RangedDefense * RangedDefensemodifier);
+
+    //Magic
+    public double BaseDefenseMagic => 2 * Willpower + Wisdom;
+
+    [Export]
+    public double MagicDefense { get; set; }
+
+    [Export]
+    public double MagicDefensemodifier { get; set; }
+
+    public double ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => MagicDefense * MagicDefensemodifier);
+
+    //Social
+    public double BaseDefenseSocial => 2 * Logic + Charisma;
+
+    [Export]
+    public double SocialDefense { get; set; }
+
+    [Export]
+    public double SocialDefensemodifier { get; set; }
+
+    public double ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => SocialDefense * SocialDefensemodifier);
+
+    //Attackratings
+    [Export]
+    public double MeleeAttackratingModifier { get; set; }
 
     [Export]
     public double RangedAttackratingModifier { get; set; }
 
     [Export]
-    public double CurrentRangedDefense { get; set; }
+    public double MagicAttackratingModifier { get; set; }
 
     [Export]
-    public double RangedDefensemodifier { get; set; }
-
-    public double ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => CurrentRangedDefense * RangedDefensemodifier);
+    public double SocialAttackratingModifier { get; set; }
 
     //Initiative
     public double BaseInitiative => 2 * Intuition + Quickness;
 
     [Export]
-    public double CurrentInitiative { get; set; }
-
-    [Export]
-    public double InitiativeFlatAdded { get; set; }
+    public double Initiative { get; set; }
 
     [Export]
     public double InitiativeModifier { get; set; }
 
-    public double ModifiedInitiative => FetchRollFor(SkillCategory.Initiative, () => CurrentInitiative * InitiativeModifier) + InitiativeFlatAdded;
+    [Export]
+    public double InitiativeFlatAdded { get; set; }
+
+    public double ModifiedInitiative => FetchRollFor(SkillCategory.Initiative, () => Initiative * InitiativeModifier) + InitiativeFlatAdded;
 
     [Export]
     public int AktionenGesamt { get; set; }
@@ -168,10 +170,9 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public int AktionenAktuell { get; set; }
 
     [Export]
-    public double FlatDamageModifier { get; set; }
+    public double FlatDamagebonus { get; set; }
 
-    public BaseSkill                         SelectedSkill { get; set; }
-
+    public BaseSkill                         SelectedSkill       { get; set; }
     public int                               XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -220,7 +221,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     public abstract string UseAbility(BaseSkill ability, HitResult hitResult, BaseUnit target = null);
 
-    public virtual void InitiativeBestimmen(double modifier = 1) => CurrentInitiative = (double)modifier * InitiativeModifier * (InitiativeFlatAdded + BaseInitiative.InfuseRandomness());
+    public virtual void InitiativeBestimmen(double modifier = 1) => Initiative = modifier * InitiativeModifier * (InitiativeFlatAdded + BaseInitiative.InfuseRandomness());
 
     public virtual void SetPosition(Vector3 spawnPosition, Vector3 positionToLookAt) { }
 

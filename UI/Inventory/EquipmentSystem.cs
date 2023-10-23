@@ -99,7 +99,8 @@ public partial class EquipmentSystem : PanelContainer
     private string FormatValue(PropertyInfo propertyInfo) => propertyInfo.GetValue(main.SelectedHero) switch
     {
         int i => $"{i}",
-        double d when propertyInfo.Name.Contains("mod") => $"{(d - 1) * 100:N0}%",
+        double d when propertyInfo.Name.ToLower().Contains("modifier") && d - 1 >= 0 => $"+{(d - 1) * 100:N0}%",
+        double d when propertyInfo.Name.ToLower().Contains("modifier") => $"{(d - 1) * 100:N0}%",
         double d => $"{(int)d}",
         _ => throw new ArgumentOutOfRangeException(nameof(PropertyInfo))
     };

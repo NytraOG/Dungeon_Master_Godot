@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctlcawqeae4ov"]
+
+[ext_resource type="Texture2D" uid="uid://d2dw2r54cfr2w" path="res://Graphics/UI/Inventory/trenner.png" id="1_0n2xa"]
+
+[node name="Trenner" type="TextureRect"]
+custom_minimum_size = Vector2(215, 5)
+texture = ExtResource("1_0n2xa")
+expand_mode = 1
+stretch_mode = 5

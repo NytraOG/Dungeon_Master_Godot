@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using DungeonMaster.Models;
 using Godot;
 
 namespace DungeonMaster.UI.Inventory;
@@ -14,6 +15,8 @@ public partial class EquipmentSystem : PanelContainer
     private Main                                  main;
     public  Dictionary<string, EquipmentItemSlot> Slots = new();
     private VBoxContainer                         statDisplayNode;
+    public  Color                                 ColorRed   => new(0.86f, 0.09f, 0.09f);
+    public  Color                                 ColorGreen => new(0.02f, 0.7f, 0.08f);
 
     public override void _Ready()
     {
@@ -45,21 +48,30 @@ public partial class EquipmentSystem : PanelContainer
 
         heronameLabel.Text = main.SelectedHero.Name;
 
-        var statsDisplayEntryScrene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/stats_display_entry.tscn");
-        var entries                 = statDisplayNode.GetAllChildren<HBoxContainer>();
+        var statsDisplayEntryScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/stats_display_entry.tscn");
+        var trennerScene           = ResourceLoader.Load<PackedScene>("res://UI/Inventory/trenner.tscn");
+
+        var entries = statDisplayNode.GetAllChildren<HBoxContainer>();
 
         var publicProperties = main.SelectedHero
                                    .GetType()
                                    .GetProperties() //BindingFlags gehen irgendwie mit Godot nicht
                                    .Where(pi => (pi.PropertyType == typeof(int) || pi.PropertyType == typeof(double))
-                                                && !pi.Name.Contains("Process"));
+                                                && !pi.Name.Contains("Process"))
+                                   .ToArray();
 
         foreach (var propertyInfo in publicProperties)
         {
-            var entry = FindOrCreateEntry(entries, propertyInfo, statsDisplayEntryScrene);
+            var entry = FindOrCreateEntry(entries, propertyInfo, statsDisplayEntryScene, trennerScene);
 
             UpdateValues(entry, propertyInfo);
         }
+    }
+
+    private void InsertTrennerinstance(PackedScene trennerScene)
+    {
+        var instance = trennerScene.Instantiate<TextureRect>();
+        statDisplayNode.AddChild(instance);
     }
 
     private void UpdateValues(HBoxContainer entry, PropertyInfo propertyInfo)
@@ -67,8 +79,35 @@ public partial class EquipmentSystem : PanelContainer
         var nameNode = entry.GetNode<Label>("Name");
         nameNode.Text = FormatName(propertyInfo);
 
+        var rawValue = propertyInfo.GetValue(main.SelectedHero);
+
+        var textColor = rawValue switch
+        {
+            double when propertyInfo.Name
+                    is nameof(BaseUnit.MaximumHitpoints)
+                    or nameof(BaseUnit.CurrentHitpoints)
+                    or nameof(BaseUnit.MaximumMana)
+                    or nameof(BaseUnit.CurrentMana)
+                    or nameof(BaseUnit.BaseDefenseMelee)
+                    or nameof(BaseUnit.MeleeDefense)
+                    or nameof(BaseUnit.ModifiedMeleeDefense)
+                    or nameof(BaseUnit.BaseDefenseRanged)
+                    or nameof(BaseUnit.RangedDefense)
+                    or nameof(BaseUnit.ModifiedRangedDefense)
+                    or nameof(BaseUnit.BaseDefenseMagic)
+                    or nameof(BaseUnit.MagicDefense)
+                    or nameof(BaseUnit.ModifiedMagicDefense)
+                    or nameof(BaseUnit.BaseDefenseSocial)
+                    or nameof(BaseUnit.SocialDefense)
+                    or nameof(BaseUnit.ModifiedSocialDefense) => Colors.White,
+            double d when d - 1 < 0 => ColorRed,
+            double d when d - 1 > 0 => ColorGreen,
+            _ => Colors.White
+        };
+
         var valueNode = entry.GetNode<Label>("Value");
         valueNode.Text = FormatValue(propertyInfo);
+        valueNode.AddThemeColorOverride("font_color", textColor);
     }
 
     private string FormatName(PropertyInfo propertyInfo)
@@ -105,7 +144,7 @@ public partial class EquipmentSystem : PanelContainer
         _ => throw new ArgumentOutOfRangeException(nameof(PropertyInfo))
     };
 
-    private HBoxContainer FindOrCreateEntry(HBoxContainer[] entries, PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene)
+    private HBoxContainer FindOrCreateEntry(HBoxContainer[] entries, PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene, PackedScene trennerScene)
     {
         var entry = entries.FirstOrDefault(e => e.GetNode<Label>("Name")?.Text == FormatName(propertyInfo));
 
@@ -115,6 +154,35 @@ public partial class EquipmentSystem : PanelContainer
             entry.Name = new StringName(propertyInfo.Name);
 
             statDisplayNode.AddChild(entry);
+
+            if (propertyInfo.Name == nameof(BaseUnit.Level))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.Charisma))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.CurrentHitpoints))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ManaregenerationRate))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.SocialAttackratingModifier))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.Armour))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedMeleeDefense))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedRangedDefense))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedMagicDefense))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedSocialDefense))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedInitiative))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.AktionenAktuell))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.FlatDamagebonus))
+                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.AktionenAktuell))
+                InsertTrennerinstance(trennerScene);
         }
 
         return entry;

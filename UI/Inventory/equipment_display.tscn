@@ -164,6 +164,7 @@ layout_mode = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
+scroll_deadzone = 10
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer"]
 layout_mode = 2
@@ -174,12 +175,6 @@ theme_override_constants/margin_bottom = 2
 
 [node name="StatsDisplay" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-
-[node name="Trenner" type="TextureRect" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer/MarginContainer/StatsDisplay"]
-custom_minimum_size = Vector2(215, 5)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
 
 [node name="ContainerRight" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)

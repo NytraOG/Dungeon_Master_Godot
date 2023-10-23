@@ -114,6 +114,8 @@ public partial class EquipmentSystem : PanelContainer
     {
         var name = propertyInfo.Name;
 
+        //Father...forgive me, for I have sinned.
+
         if (name.Contains("Xp"))
             return "XP for next Level";
 

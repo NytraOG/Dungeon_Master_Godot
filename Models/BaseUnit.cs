@@ -86,6 +86,19 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double ManaregenerationRate { get; set; }
 
+    //Attackratings
+    [Export]
+    public double MeleeAttackratingModifier { get; set; }
+
+    [Export]
+    public double RangedAttackratingModifier { get; set; }
+
+    [Export]
+    public double MagicAttackratingModifier { get; set; }
+
+    [Export]
+    public double SocialAttackratingModifier { get; set; }
+
     public bool IsStunned { get; set; }
     public bool IsDead    => CurrentHitpoints <= 0;
 
@@ -135,19 +148,6 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public double SocialDefensemodifier { get; set; }
 
     public double ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => SocialDefense * SocialDefensemodifier);
-
-    //Attackratings
-    [Export]
-    public double MeleeAttackratingModifier { get; set; }
-
-    [Export]
-    public double RangedAttackratingModifier { get; set; }
-
-    [Export]
-    public double MagicAttackratingModifier { get; set; }
-
-    [Export]
-    public double SocialAttackratingModifier { get; set; }
 
     //Initiative
     public double BaseInitiative => 2 * Intuition + Quickness;

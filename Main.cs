@@ -107,28 +107,36 @@ public partial class Main : Node,
         if (@event is not InputEventMouseMotion mouseMotion)
             return;
 
-        MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);
-        var globalMousePosition = mouseMotion.GlobalPosition;
-        var screensize          = GetViewport().GetVisibleRect().Size;
-
-        // var adjustedPosition = new Vector2
-        // {
-        //     X = Mathf.Clamp(globalMousePosition.X, 0, WeaponTooltip.Size.X - 4),
-        //     Y = Mathf.Clamp(globalMousePosition.Y, 0, WeaponTooltip.Size.Y - 4)
-        // };
-        //
-        // var xOverlap = globalMousePosition.X + WeaponTooltip.Size.X;
-        //
-        // if (xOverlap > screensize.X)
-        //     globalMousePosition -= new Vector2(xOverlap - screensize.X, 0);
-        //
-        // var yOverlap = globalMousePosition.Y + WeaponTooltip.Size.Y;
-        //
-        // if (yOverlap > screensize.Y)
-        //     globalMousePosition.Y -= yOverlap - screensize.Y;
-
-        WeaponTooltip.SetPosition(globalMousePosition);
+        MoveMousItem(mouseMotion);
+        MoveTooltips(mouseMotion);
     }
+
+    private void MoveTooltips(InputEventMouseMotion mouseMotion)
+    {
+        var globalMousePosition = mouseMotion.GlobalPosition;
+
+        var screensize = GetViewport().GetVisibleRect().Size;
+
+        var adjustedPosition = new Vector2
+        {
+            X = Mathf.Clamp(globalMousePosition.X, 0, screensize.X - 4),
+            Y = Mathf.Clamp(globalMousePosition.Y, 0, screensize.Y - 4)
+        };
+
+        var xOverlap = adjustedPosition.X + WeaponTooltip.Size.X;
+
+        if (xOverlap > screensize.X)
+            adjustedPosition.X -= xOverlap - screensize.X;
+
+        var yOverlap = adjustedPosition.Y + WeaponTooltip.Size.Y;
+
+        if (yOverlap > screensize.Y)
+            adjustedPosition.Y -= yOverlap - screensize.Y;
+
+        WeaponTooltip.SetPosition(adjustedPosition);
+    }
+
+    private void MoveMousItem(InputEventMouseMotion mouseMotion) => MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);
 
     private async Task HandleBattleround()
     {

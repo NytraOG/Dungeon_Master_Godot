@@ -4,13 +4,12 @@ namespace DungeonMaster.UI;
 
 public partial class WeaponTooltip : PanelContainer
 {
-    private Vector2 globalPositionMouse;
+    private Vector2 originalSize;
 
-    public override void _Process(double delta) => GlobalPosition = globalPositionMouse;
-
-    public void _on_gui_input(InputEvent @event)
+    public override void _Ready()
     {
-        if (@event is InputEventMouseMotion mousMotionEvent)
-            globalPositionMouse = mousMotionEvent.GlobalPosition;
+        originalSize = Size;
+        SetSize(new Vector2(originalSize.X, 350));
     }
+
 }

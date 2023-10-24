@@ -263,6 +263,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 
 [node name="WeaponTooltip" parent="." instance=ExtResource("16_anps1")]
+visible = false
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="Actions/Undo" to="." method="_on_undo_pressed"]

@@ -24,16 +24,18 @@ public partial class EquipmentItemSlot : PanelContainer,
     [Export]
     public Texture2D AllowedIcon { get; set; }
 
-    public BaseEquipment                     EquipedItem { get; set; }
-    public TextureRect                       Icon        { get; set; }
-    public string                            Id          { get; set; }
+    public BaseEquipment                     EquipedItem   { get; set; }
+    public TextureRect                       Icon          { get; set; }
+    public string                            Id            { get; set; }
+    public WeaponTooltip                     WeaponTooltip { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     public override void _Ready()
     {
-        Id           = Name;
-        Icon         = GetNode<TextureRect>("TextureRect");
-        Icon.Texture = DefaultIcon;
+        Id            = Name;
+        Icon          = GetNode<TextureRect>("TextureRect");
+        Icon.Texture  = DefaultIcon;
+        WeaponTooltip = ((Main)GetTree().CurrentScene).WeaponTooltip;
     }
 
     public void _on_equipment_slot_gui_input(InputEvent @event)
@@ -54,10 +56,17 @@ public partial class EquipmentItemSlot : PanelContainer,
 
     public void _on_mouse_entered()
     {
+        CheckMouseItemCompatible();
+
+        WeaponTooltip.Visible = EquipedItem is not null;
+    }
+
+    private void CheckMouseItemCompatible()
+    {
         var main          = (Main)GetTree().CurrentScene;
         var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
 
-        if(mouseItemSlot.ContainedItem is null)
+        if (mouseItemSlot.ContainedItem is null)
             return;
 
         if (mouseItemSlot.ContainedItem is not BaseEquipment || (mouseItemSlot.ContainedItem is BaseEquipment equipment && equipment.EquipSlot != SlotType))
@@ -68,8 +77,10 @@ public partial class EquipmentItemSlot : PanelContainer,
 
     public void _on_mouse_exited()
     {
-        if(EquipedItem is null)
+        if (EquipedItem is null)
             Icon.Texture = DefaultIcon;
+
+        WeaponTooltip.Visible = false;
     }
 
     private void InsertIntoSlot(Main main)

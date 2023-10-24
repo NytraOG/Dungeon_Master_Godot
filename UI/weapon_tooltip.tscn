@@ -20,10 +20,10 @@ axis_stretch_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 11
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -134,5 +134,3 @@ Diam maecenas sed enim ut sem viverra.\"
 [/i]"
 fit_content = true
 scroll_active = false
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -12,6 +12,7 @@ using DungeonMaster.Models.Heroes;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
+using DungeonMaster.UI;
 using DungeonMaster.UI.Inventory;
 using DungeonMaster.UI.Menues.Buttons;
 using DungeonMaster.UI.Status;
@@ -47,6 +48,9 @@ public partial class Main : Node,
     [Export]
     public Texture2D DefaultIcon { get; set; }
 
+    [Export]
+    public WeaponTooltip WeaponTooltip { get; set; }
+
     public BaseCreature[] Enemies       { get; set; } = Array.Empty<BaseCreature>();
     public Healthbar      Healthbar     { get; set; }
     public Hero[]         Heroes        { get; set; } = Array.Empty<Hero>();
@@ -63,13 +67,14 @@ public partial class Main : Node,
         }
     }
 
-    public BaseSkill                         SelectedSkill      { get; set; }
-    public List<BaseUnit>                    SelectedTargets    { get; set; } = new();
-    public List<BaseSkillButton>             Skillbuttons       { get; set; } = new();
-    public List<SkillSelection>              SkillSelection     { get; set; } = new();
-    public TextureButton                     ConfirmationButton { get; set; }
-    public PanelContainer                    MouseItemSlot      { get; set; }
-    public InventorySystem                   InventorySystemUi  { get; set; }
+    public BaseSkill                         SelectedSkill       { get; set; }
+    public List<BaseUnit>                    SelectedTargets     { get; set; } = new();
+    public List<BaseSkillButton>             Skillbuttons        { get; set; } = new();
+    public List<SkillSelection>              SkillSelection      { get; set; } = new();
+    public TextureButton                     ConfirmationButton  { get; set; }
+    public PanelContainer                    MouseItemSlot       { get; set; }
+    public InventorySystem                   InventorySystemUi   { get; set; }
+    public Vector2                           GlobalPositionMouse { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     private async void _on_start_round_pressed() => await HandleBattleround();
@@ -103,6 +108,26 @@ public partial class Main : Node,
             return;
 
         MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);
+        var globalMousePosition = mouseMotion.GlobalPosition;
+        var screensize          = GetViewport().GetVisibleRect().Size;
+
+        // var adjustedPosition = new Vector2
+        // {
+        //     X = Mathf.Clamp(globalMousePosition.X, 0, WeaponTooltip.Size.X - 4),
+        //     Y = Mathf.Clamp(globalMousePosition.Y, 0, WeaponTooltip.Size.Y - 4)
+        // };
+        //
+        // var xOverlap = globalMousePosition.X + WeaponTooltip.Size.X;
+        //
+        // if (xOverlap > screensize.X)
+        //     globalMousePosition -= new Vector2(xOverlap - screensize.X, 0);
+        //
+        // var yOverlap = globalMousePosition.Y + WeaponTooltip.Size.Y;
+        //
+        // if (yOverlap > screensize.Y)
+        //     globalMousePosition.Y -= yOverlap - screensize.Y;
+
+        WeaponTooltip.SetPosition(globalMousePosition);
     }
 
     private async Task HandleBattleround()

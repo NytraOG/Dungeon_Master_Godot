@@ -49,7 +49,7 @@ public partial class Main : Node,
     public Texture2D DefaultIcon { get; set; }
 
     [Export]
-    public WeaponTooltip WeaponTooltip { get; set; }
+    public ItemTooltip ItemTooltip { get; set; }
 
     public BaseCreature[] Enemies       { get; set; } = Array.Empty<BaseCreature>();
     public Healthbar      Healthbar     { get; set; }
@@ -123,17 +123,17 @@ public partial class Main : Node,
             Y = Mathf.Clamp(globalMousePosition.Y, 0, screensize.Y - 4)
         };
 
-        var xOverlap = adjustedPosition.X + WeaponTooltip.Size.X;
+        var xOverlap = adjustedPosition.X + ItemTooltip.Size.X;
 
         if (xOverlap > screensize.X)
             adjustedPosition.X -= xOverlap - screensize.X;
 
-        var yOverlap = adjustedPosition.Y + WeaponTooltip.Size.Y;
+        var yOverlap = adjustedPosition.Y + ItemTooltip.Size.Y;
 
         if (yOverlap > screensize.Y)
             adjustedPosition.Y -= yOverlap - screensize.Y;
 
-        WeaponTooltip.SetPosition(adjustedPosition);
+        ItemTooltip.SetPosition(adjustedPosition);
     }
 
     private void MoveMousItem(InputEventMouseMotion mouseMotion) => MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);

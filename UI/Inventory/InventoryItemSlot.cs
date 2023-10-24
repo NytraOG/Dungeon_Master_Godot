@@ -23,7 +23,8 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public delegate void SlotStrgLeftClickedSignal(InventoryItemSlot clickedSlot);
 
-    private BaseItem containedItem;
+    private BaseItem      containedItem;
+    private ItemTooltip itemTooltip;
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
@@ -46,11 +47,14 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public override void _Ready()
     {
+        itemTooltip       = ((Main)GetTree().CurrentScene).ItemTooltip;
         TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
         TextureRect.Texture = DefaultIcon;
 
         PropertyChanged += (_, _) =>
         {
+            itemTooltip.Visible = ContainedItem is not null;
+
             if (ContainedItem is null)
                 return;
 
@@ -62,7 +66,7 @@ public partial class InventoryItemSlot : PanelContainer,
 
             var stacksizeLabel = GetNode<Label>("CurrentStacksize");
             stacksizeLabel.Text    = "x" + CurrentStacksize;
-            stacksizeLabel.Visible = true;
+            stacksizeLabel.Visible = ContainedItem is IStackable;
         };
     }
 
@@ -115,8 +119,20 @@ public partial class InventoryItemSlot : PanelContainer,
             case InputEventMouseButton { CtrlPressed: true, ButtonIndex: MouseButton.Left }:
                 OnSlotStrgLeftClicked?.Invoke(this);
                 break;
+            case InputEventMouseMotion when ContainedItem is not null:
+                ShowToolTip();
+                break;
+            case InputEventMouseMotion when ContainedItem is null && itemTooltip.Visible:
+                itemTooltip.Hide();
+                break;
         }
     }
+
+    public void _on_mouse_entered() => ShowToolTip();
+
+    public void _on_mouse_exited() => itemTooltip.Hide();
+
+    private void ShowToolTip() => itemTooltip.Show(ContainedItem);
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

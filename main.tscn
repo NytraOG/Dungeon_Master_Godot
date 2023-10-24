@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b4w7osnh30mu6" path="res://UI/Inventory/inventory.tscn" id="13_t30m4"]
 [ext_resource type="PackedScene" uid="uid://eqhcabx6cby1" path="res://UI/Inventory/mouse_item_slot.tscn" id="14_r2y1l"]
 [ext_resource type="PackedScene" uid="uid://cpwkfqnc553rn" path="res://UI/Inventory/equipment_display.tscn" id="15_d2ps7"]
-[ext_resource type="PackedScene" uid="uid://dyswq8axb4l3k" path="res://UI/weapon_tooltip.tscn" id="16_anps1"]
+[ext_resource type="PackedScene" uid="uid://dyswq8axb4l3k" path="res://UI/item_tooltip.tscn" id="16_anps1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
 size = Vector3(200, 2, 200)
@@ -37,10 +37,10 @@ border_color = Color(0.490196, 0.137255, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52pw0"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="Main" type="Node" node_paths=PackedStringArray("WeaponTooltip")]
+[node name="Main" type="Node" node_paths=PackedStringArray("ItemTooltip")]
 script = ExtResource("1_fr21n")
 DefaultIcon = ExtResource("2_i5yg1")
-WeaponTooltip = NodePath("WeaponTooltip")
+ItemTooltip = NodePath("ItemTooltip")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 
@@ -262,7 +262,7 @@ visibility_layer = 524288
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="WeaponTooltip" parent="." instance=ExtResource("16_anps1")]
+[node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
 visible = false
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]

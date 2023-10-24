@@ -4,7 +4,11 @@ namespace DungeonMaster.Models.Items.Consumables;
 
 public partial class HealthPotion : BaseConsumable
 {
-    public HealthPotion() => Icon = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Consumables/HealthPotion.png");
+    public HealthPotion()
+    {
+        Icon = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Consumables/HealthPotion.png");
+        Name = "Health Potion";
+    }
 
     public int AmountHealed { get; set; }
 

@@ -27,7 +27,7 @@ public partial class EquipmentItemSlot : PanelContainer,
     public BaseEquipment                     EquipedItem   { get; set; }
     public TextureRect                       Icon          { get; set; }
     public string                            Id            { get; set; }
-    public WeaponTooltip                     WeaponTooltip { get; set; }
+    public ItemTooltip                     ItemTooltip { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     public override void _Ready()
@@ -35,7 +35,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         Id            = Name;
         Icon          = GetNode<TextureRect>("TextureRect");
         Icon.Texture  = DefaultIcon;
-        WeaponTooltip = ((Main)GetTree().CurrentScene).WeaponTooltip;
+        ItemTooltip = ((Main)GetTree().CurrentScene).ItemTooltip;
     }
 
     public void _on_equipment_slot_gui_input(InputEvent @event)
@@ -52,10 +52,10 @@ public partial class EquipmentItemSlot : PanelContainer,
             else if (EquipedItem is not null)
                 ExtractFromSlot(main);
         }
-        else if (@event is InputEventMouseMotion && EquipedItem is not null && !WeaponTooltip.Visible)
+        else if (@event is InputEventMouseMotion && EquipedItem is not null && !ItemTooltip.Visible)
             ShowToolTip();
-        else if(@event is InputEventMouseMotion && EquipedItem is null && WeaponTooltip.Visible)
-            WeaponTooltip.Hide();
+        else if (@event is InputEventMouseMotion && EquipedItem is null && ItemTooltip.Visible)
+            ItemTooltip.Hide();
     }
 
     public void _on_mouse_entered()
@@ -69,7 +69,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         if (EquipedItem is null)
             return;
 
-        WeaponTooltip.Show(EquipedItem);
+        ItemTooltip.Show(EquipedItem);
     }
 
     private void CheckMouseItemCompatible()
@@ -91,7 +91,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         if (EquipedItem is null)
             Icon.Texture = DefaultIcon;
 
-        WeaponTooltip.Hide();
+        ItemTooltip.Hide();
     }
 
     private void InsertIntoSlot(Main main)
@@ -145,7 +145,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         Clear();
         main.SelectedHero?.Equipment?.Slots[Name]?.Clear();
 
-        WeaponTooltip.Hide();
+        ItemTooltip.Hide();
     }
 
     public void Clear()

@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyswq8axb4l3k"]
 
-[ext_resource type="Script" path="res://UI/WeaponTooltip.cs" id="1_a385m"]
+[ext_resource type="Script" path="res://UI/ItemTooltip.cs" id="1_a385m"]
 [ext_resource type="Texture2D" uid="uid://cjaokkusl1m1w" path="res://Graphics/UI/Red_vert_panel.png" id="1_d1j15"]
 
-[node name="WeaponTooltip" type="PanelContainer"]
+[node name="ItemTooltip" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_a385m")
@@ -36,7 +36,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 22
-text = "Lorem Ipsum dolor sit"
+text = "[Name]"
 
 [node name="Keywords" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -46,7 +46,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 16
-text = "Felis, Eget, Velit"
+text = "[Keywords]"
 
 [node name="Requirements" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
@@ -71,7 +71,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 14
-text = "Level X, Strength Y
+text = "[Requirements]
 "
 
 [node name="EmptySpace" type="Label" parent="MarginContainer/VBoxContainer"]
@@ -93,9 +93,9 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 14
-text = "Damagetype (Slash)
-x/y/z
-AP-Cost Modifier(0.8)"
+text = "[Damagetype]
+[Damagevalues]
+[APCostModifier]"
 
 [node name="Effects" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 visible = false
@@ -126,10 +126,8 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/italics_font_size = 12
 bbcode_enabled = true
-text = "[i]\"Consequat semper viverra nam libero justo laoreet sit 
-amet cursus. Cursus euismod quis viverra nibh cras. 
-Diam maecenas sed enim ut sem viverra.\"
-	- Nytra, 2023
+text = "[i]\"[Fluff-Content].\"
+	- [Author], [Date]
 [/i]"
 fit_content = true
 scroll_active = false

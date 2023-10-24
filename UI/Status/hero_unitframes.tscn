@@ -1,5 +1,107 @@
-[gd_scene format=3 uid="uid://dnwlsv67ybivv"]
+[gd_scene load_steps=8 format=3 uid="uid://dnwlsv67ybivv"]
 
-[node name="HeroUnitframes" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[ext_resource type="Script" path="res://UI/Status/Unitframe.cs" id="1_7xtlk"]
+[ext_resource type="Texture2D" uid="uid://dk762pe0etqtn" path="res://Graphics/UI/inventory_button2.png" id="1_jurqw"]
+[ext_resource type="Texture2D" uid="uid://bcgygutm2dssf" path="res://Graphics/UI/Scull.png" id="3_7qspa"]
+[ext_resource type="Texture2D" uid="uid://nt3bw4daugeu" path="res://Graphics/UI/Hero_icon_frame.png" id="4_m3ikr"]
+[ext_resource type="Texture2D" uid="uid://7otjyrw1wl23" path="res://Graphics/UI/Hp_frame.png" id="5_7r7ol"]
+[ext_resource type="Texture2D" uid="uid://btcrq8tprh6vg" path="res://Graphics/UI/Hp_line.png" id="5_kmfnn"]
+[ext_resource type="Texture2D" uid="uid://cgvpwddtp37xh" path="res://Graphics/UI/Mana_line.png" id="7_a23wf"]
+
+[node name="Unitframe" type="PanelContainer"]
+custom_minimum_size = Vector2(330, 150)
+offset_right = 344.0
+offset_bottom = 154.0
+script = ExtResource("1_7xtlk")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_jurqw")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Avatar" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/Avatar"]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+
+[node name="Avatar" type="TextureRect" parent="MarginContainer/HBoxContainer/Avatar/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_7qspa")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Border" type="TextureRect" parent="MarginContainer/HBoxContainer/Avatar/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("4_m3ikr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Details" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Details"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/outline_size = 5
+bbcode_enabled = true
+text = "[center]NAME[/center]"
+scroll_active = false
+
+[node name="Health" type="PanelContainer" parent="MarginContainer/HBoxContainer/Details"]
+custom_minimum_size = Vector2(190, 52)
+layout_mode = 2
+
+[node name="Healthbar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Details/Health"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 50.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_progress = ExtResource("5_kmfnn")
+
+[node name="Border" type="NinePatchRect" parent="MarginContainer/HBoxContainer/Details/Health"]
+layout_mode = 2
+texture = ExtResource("5_7r7ol")
+patch_margin_left = 30
+patch_margin_top = 24
+patch_margin_right = 26
+patch_margin_bottom = 22
+
+[node name="Mana" type="PanelContainer" parent="MarginContainer/HBoxContainer/Details"]
+custom_minimum_size = Vector2(190, 52)
+layout_mode = 2
+
+[node name="Manabar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Details/Mana"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 50.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_progress = ExtResource("7_a23wf")
+
+[node name="Border" type="NinePatchRect" parent="MarginContainer/HBoxContainer/Details/Mana"]
+layout_mode = 2
+texture = ExtResource("5_7r7ol")
+patch_margin_left = 30
+patch_margin_top = 24
+patch_margin_right = 26
+patch_margin_bottom = 22

@@ -27,7 +27,8 @@ public partial class EquipmentItemSlot : PanelContainer,
     public BaseEquipment                     EquipedItem   { get; set; }
     public TextureRect                       Icon          { get; set; }
     public string                            Id            { get; set; }
-    public ItemTooltip                     ItemTooltip { get; set; }
+    public ItemTooltip                       ItemTooltip   { get; set; }
+    public MouseItemSlot                     MouseItemSlot { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     public override void _Ready()
@@ -35,7 +36,8 @@ public partial class EquipmentItemSlot : PanelContainer,
         Id            = Name;
         Icon          = GetNode<TextureRect>("TextureRect");
         Icon.Texture  = DefaultIcon;
-        ItemTooltip = ((Main)GetTree().CurrentScene).ItemTooltip;
+        ItemTooltip   = ((Main)GetTree().CurrentScene).ItemTooltip;
+        MouseItemSlot = ((Main)GetTree().CurrentScene).GetNode<MouseItemSlot>("MouseItemSlot");
     }
 
     public void _on_equipment_slot_gui_input(InputEvent @event)
@@ -66,7 +68,7 @@ public partial class EquipmentItemSlot : PanelContainer,
 
     private void ShowToolTip()
     {
-        if (EquipedItem is null)
+        if (EquipedItem is null || MouseItemSlot?.ContainedItem is not null)
             return;
 
         ItemTooltip.Show(EquipedItem);
@@ -77,7 +79,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         var main          = (Main)GetTree().CurrentScene;
         var mouseItemSlot = main.GetNode<MouseItemSlot>("MouseItemSlot");
 
-        if (mouseItemSlot.ContainedItem is null)
+        if (mouseItemSlot.ContainedItem is null || EquipedItem is not null && mouseItemSlot.ContainedItem is not BaseEquipment)
             return;
 
         if (mouseItemSlot.ContainedItem is not BaseEquipment || (mouseItemSlot.ContainedItem is BaseEquipment equipment && equipment.EquipSlot != SlotType))

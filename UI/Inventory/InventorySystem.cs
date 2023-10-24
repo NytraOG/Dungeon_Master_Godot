@@ -35,7 +35,7 @@ public partial class InventorySystem : PanelContainer
     {
         foreach (var slot in Slots)
         {
-            if (slot.Value is null)
+            if (slot.Value?.ContainedItem is null)
                 return slot.Value;
         }
 

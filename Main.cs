@@ -72,7 +72,7 @@ public partial class Main : Node,
     public List<BaseSkillButton>             Skillbuttons        { get; set; } = new();
     public List<SkillSelection>              SkillSelection      { get; set; } = new();
     public TextureButton                     ConfirmationButton  { get; set; }
-    public PanelContainer                    MouseItemSlot       { get; set; }
+    public MouseItemSlot                     MouseItemSlot       { get; set; }
     public InventorySystem                   InventorySystemUi   { get; set; }
     public Vector2                           GlobalPositionMouse { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
@@ -81,7 +81,7 @@ public partial class Main : Node,
 
     public override void _Ready()
     {
-        MouseItemSlot      = GetNode<PanelContainer>("MouseItemSlot");
+        MouseItemSlot      = GetNode<MouseItemSlot>("MouseItemSlot");
         ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
         Healthbar          = GetNode<Healthbar>("Healthbar");
         Manabar            = GetNode<Manabar>("Manabar");

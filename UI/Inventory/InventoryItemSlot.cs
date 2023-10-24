@@ -24,7 +24,8 @@ public partial class InventoryItemSlot : PanelContainer,
     public delegate void SlotStrgLeftClickedSignal(InventoryItemSlot clickedSlot);
 
     private BaseItem      containedItem;
-    private ItemTooltip itemTooltip;
+    private ItemTooltip   itemTooltip;
+    private MouseItemSlot mouseItemSlot;
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
@@ -47,7 +48,10 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public override void _Ready()
     {
-        itemTooltip       = ((Main)GetTree().CurrentScene).ItemTooltip;
+        var main = (Main)GetTree().CurrentScene;
+
+        itemTooltip         = main.ItemTooltip;
+        mouseItemSlot       = main.GetNode<MouseItemSlot>("MouseItemSlot");
         TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
         TextureRect.Texture = DefaultIcon;
 
@@ -133,7 +137,13 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public void _on_mouse_exited() => itemTooltip.Hide();
 
-    private void ShowToolTip() => itemTooltip.Show(ContainedItem);
+    private void ShowToolTip()
+    {
+        if(mouseItemSlot.ContainedItem is not null)
+            return;
+
+        itemTooltip.Show(ContainedItem);
+    }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

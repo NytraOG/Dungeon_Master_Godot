@@ -88,9 +88,13 @@ public partial class Main : Node,
         InventorySystemUi  = GetNode<Control>("InventoryDisplay").GetNode<InventorySystem>("Inventory");
         InventorySystemUi.Initialize(32);
 
+        Enemies = this.GetAllChildren<BaseCreature>();
+        Heroes  = this.GetAllChildren<Hero>();
+
         SubscribeToInventorySlots();
         SubscribeToSkillbuttons();
         PopulateSkillButtons();
+        AssignHeroesToUnitframes();
     }
 
     public override void _Process(double delta)
@@ -441,7 +445,6 @@ public partial class Main : Node,
             return;
 
         Enemies = this.GetAllChildren<BaseCreature>();
-        Heroes  = this.GetAllChildren<Hero>();
 
         foreach (var hero in Heroes)
         {
@@ -480,8 +483,6 @@ public partial class Main : Node,
     private void HeroOnSelected(Hero hero)
     {
         SelectedHero = hero;
-        Healthbar.SetDisplayedHero(SelectedHero);
-        Manabar.SetDisplayedHero(SelectedHero);
 
         var heroItemslots = SelectedHero.Inventory.Slots;
 
@@ -515,6 +516,19 @@ public partial class Main : Node,
     }
 
     private void PopulateSkillButtons() { }
+
+    private void AssignHeroesToUnitframes()
+    {
+        var unitframes = GetNode<VBoxContainer>("%Unitframes").GetAllChildren<Unitframe>();
+
+        for (var i = 0; i < unitframes.Length; i++)
+        {
+            if (i >= Heroes.Length)
+                unitframes[i].Hide();
+            else
+                unitframes[i].SetHero(Heroes[i]);
+        }
+    }
 
     private void SubscribeToInventorySlots()
     {

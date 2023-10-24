@@ -54,6 +54,7 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Name" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Details"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -86,6 +87,19 @@ patch_margin_top = 24
 patch_margin_right = 26
 patch_margin_bottom = 22
 
+[node name="HealthValue" type="Label" parent="MarginContainer/HBoxContainer/Details/Health"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+text = "9999/9999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Mana" type="PanelContainer" parent="MarginContainer/HBoxContainer/Details"]
 custom_minimum_size = Vector2(190, 52)
 layout_mode = 2
@@ -105,3 +119,21 @@ patch_margin_left = 30
 patch_margin_top = 24
 patch_margin_right = 26
 patch_margin_bottom = 22
+
+[node name="ManaValue" type="Label" parent="MarginContainer/HBoxContainer/Details/Mana"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+text = "9999/9999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/Details/Health" to="." method="_on_health_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/HBoxContainer/Details/Health" to="." method="_on_health_mouse_exited"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/Details/Mana" to="." method="_on_mana_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/HBoxContainer/Details/Mana" to="." method="_on_mana_mouse_exited"]

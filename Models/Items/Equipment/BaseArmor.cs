@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Text;
+using Godot;
 
 namespace DungeonMaster.Models.Items.Equipment;
 
@@ -58,4 +59,31 @@ public abstract partial class BaseArmor : BaseEquipment
 
     [Export]
     public int LightningCritical { get; set; }
+
+    public override string GetTooltipContent()
+    {
+        var emil = new StringBuilder();
+
+        emil.AppendLine("Armor:");
+
+        if(SlashNormal != 0 || SlashGood != 0 || SlashCritical != 0)
+            emil.AppendLine($"Slash {SlashNormal}/{SlashGood}/{SlashCritical}");
+
+        if (PierceNormal != 0 || PierceGood != 0 || PierceCritical != 0)
+            emil.AppendLine($"Pierce {PierceNormal}/{PierceGood}/{PierceCritical}");
+
+        if (CrushNormal != 0 || CrushGood != 0 || CrushCritical != 0)
+            emil.AppendLine($"Crush {CrushNormal}/{CrushGood}/{CrushCritical}");
+
+        if (FireNormal != 0 || FireGood != 0 || FireCritical != 0)
+            emil.AppendLine($"Fire {FireNormal}/{FireGood}/{FireCritical}");
+
+        if (IceNormal != 0 || IceGood != 0 || IceCritical != 0)
+            emil.AppendLine($"Ice {IceNormal}/{IceGood}/{IceCritical}");
+
+        if (LightningNormal != 0 || LightningGood != 0 || LightningCritical != 0)
+            emil.AppendLine($"Lightning {LightningNormal}/{LightningGood}/{LightningCritical}");
+
+        return emil.ToString();
+    }
 }

@@ -19,9 +19,14 @@ public partial class SimpleClothRobe : BaseArmor
         PierceCritical = -3;
 
         Name = "Simple Cloth Robe";
+
+        Keywords.Add(Items.Keywords.Equipment);
     }
 
-    public override EquipSlot EquipSlot => EquipSlot.Torso;
+    public override EquipSlot EquipSlot    => EquipSlot.Torso;
+    public override string    FluffContent => "Give me silky, give me smooth!";
+    public override string    FluffAuthor  => "Snuggley the Crow";
+    public override string    FluffDate    => "2014";
 
     public override void EquipOn(BaseUnit wearer) => Console.WriteLine("Cloth Robe applied Armor and Stats!");
 

@@ -12,5 +12,6 @@ public enum Keywords
     Equipment,
     Bolt,
     Current,
-    Arrow
+    Arrow,
+    Heal
 }

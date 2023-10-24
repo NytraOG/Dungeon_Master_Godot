@@ -1,14 +1,19 @@
-﻿using DungeonMaster.Enums;
+﻿using System.Collections.Generic;
+using DungeonMaster.Enums;
 using Godot;
 
 namespace DungeonMaster.Models.Items;
 
 public abstract partial class BaseItem : Node3D
 {
+    public abstract string FluffContent { get; }
+    public abstract string FluffAuthor  { get; }
+    public abstract string FluffDate    { get; }
+
     [Export]
     public Texture2D Icon { get; set; }
 
-    public Keywords[] Keywords { get; set; }
+    public List<Keywords> Keywords { get; set; } = new();
 
     [ExportGroup("Effect")]
     [Export]
@@ -27,11 +32,9 @@ public abstract partial class BaseItem : Node3D
     [Export]
     public int RequiredLevelOfAttribute { get; set; }
 
-    [ExportGroup("Misc")]
-    [Export]
-    public string Fluff { get; set; }
-
     public abstract void Use(BaseUnit actor);
 
     public bool IsUsableBy(BaseUnit actor) => actor.Level >= LevelRequirement && actor.Get(RequiredAttribute) >= RequiredLevelOfAttribute;
+
+    public abstract string GetTooltipContent();
 }

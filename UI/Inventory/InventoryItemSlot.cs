@@ -114,6 +114,7 @@ public partial class InventoryItemSlot : PanelContainer,
         switch (inputEvent)
         {
             case InputEventMouseButton { Pressed: true, CtrlPressed: false, ButtonIndex: MouseButton.Left }:
+                ShowToolTip();
                 OnSlotLeftClicked?.Invoke(this);
                 break;
             case InputEventMouseButton { CtrlPressed: true, ButtonIndex: MouseButton.Left }:

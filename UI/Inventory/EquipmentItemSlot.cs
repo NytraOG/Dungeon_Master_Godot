@@ -52,13 +52,24 @@ public partial class EquipmentItemSlot : PanelContainer,
             else if (EquipedItem is not null)
                 ExtractFromSlot(main);
         }
+        else if (@event is InputEventMouseMotion && EquipedItem is not null && !WeaponTooltip.Visible)
+            ShowToolTip();
+        else if(@event is InputEventMouseMotion && EquipedItem is null && WeaponTooltip.Visible)
+            WeaponTooltip.Hide();
     }
 
     public void _on_mouse_entered()
     {
         CheckMouseItemCompatible();
+        ShowToolTip();
+    }
 
-        WeaponTooltip.Visible = EquipedItem is not null;
+    private void ShowToolTip()
+    {
+        if (EquipedItem is null)
+            return;
+
+        WeaponTooltip.Show(EquipedItem);
     }
 
     private void CheckMouseItemCompatible()
@@ -80,7 +91,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         if (EquipedItem is null)
             Icon.Texture = DefaultIcon;
 
-        WeaponTooltip.Visible = false;
+        WeaponTooltip.Hide();
     }
 
     private void InsertIntoSlot(Main main)
@@ -116,6 +127,8 @@ public partial class EquipmentItemSlot : PanelContainer,
         EquipedItem = mouseItemEquipment;
 
         main.SelectedHero.Equipment.Slots[Name].EquipedItem = mouseItemEquipment;
+
+        ShowToolTip();
     }
 
     private void ExtractFromSlot(Main main)
@@ -131,6 +144,8 @@ public partial class EquipmentItemSlot : PanelContainer,
 
         Clear();
         main.SelectedHero?.Equipment?.Slots[Name]?.Clear();
+
+        WeaponTooltip.Hide();
     }
 
     public void Clear()

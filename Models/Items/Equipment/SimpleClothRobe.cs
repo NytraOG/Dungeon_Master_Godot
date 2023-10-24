@@ -17,6 +17,8 @@ public partial class SimpleClothRobe : BaseArmor
         PierceNormal   = 0;
         PierceGood     = -1;
         PierceCritical = -3;
+
+        Name = "Simple Cloth Robe";
     }
 
     public override EquipSlot EquipSlot => EquipSlot.Torso;

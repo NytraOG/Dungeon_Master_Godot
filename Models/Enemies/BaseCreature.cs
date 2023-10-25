@@ -24,7 +24,7 @@ public abstract partial class BaseCreature : BaseUnit
     [Export] public BaseMonstertype Monstertype;
 
     [Export]
-    public PackedScene doubleingCombatText { get; set; }
+    public PackedScene FloatingCombatText { get; set; }
 
     public override void _Process(double delta)
     {
@@ -37,10 +37,12 @@ public abstract partial class BaseCreature : BaseUnit
 
     public override void InstatiateFloatingCombatText(int receivedDamage)
     {
-        doubleingCombatText = ResourceLoader.Load<PackedScene>("res://UI/doubleing_combat_text.tscn");
-        var doubleingCombatTextInstance = doubleingCombatText.Instantiate<FloatingCombatText>();
-        doubleingCombatTextInstance.Damage = int.Parse(receivedDamage.ToString());
-        AddChild(doubleingCombatTextInstance);
+        FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
+        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
+        floatingCombatTextInstance.Damage         = receivedDamage;
+        floatingCombatTextInstance.GlobalPosition = GlobalPosition += new Vector3(0, 20, 0);
+        AddChild(floatingCombatTextInstance);
+        floatingCombatTextInstance.Show();
     }
 
     public override void Initialize()

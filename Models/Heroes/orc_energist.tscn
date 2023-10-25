@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dwpft20cm5whx"]
+[gd_scene load_steps=32 format=3 uid="uid://dwpft20cm5whx"]
 
 [ext_resource type="Script" path="res://Models/Heroes/OrcEnergist.cs" id="1_3t1v2"]
 [ext_resource type="Texture2D" uid="uid://bi8wciiq88qmw" path="res://Graphics/Orc_Berserk/Run.png" id="1_g76td"]
@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://brbk57c5unerm" path="res://Models/Heroes/Races/orc.tscn" id="1_mpk0v"]
 [ext_resource type="Texture2D" uid="uid://c7cqqba5kfmod" path="res://Graphics/Orc_Berserk/Idle.png" id="1_pbdjl"]
 [ext_resource type="PackedScene" uid="uid://c70xtwdch46y4" path="res://Models/Heroes/Classes/energist.tscn" id="2_65qr3"]
+[ext_resource type="Shader" path="res://Models/Heroes/orc_energist.gdshader" id="2_p4vm3"]
 [ext_resource type="Texture2D" uid="uid://ch7gldgugixck" path="res://Graphics/Orc_Berserk/Dead.png" id="4_e1rap"]
 [ext_resource type="PackedScene" uid="uid://c6o3nm7j5m757" path="res://Models/Skills/Melee/knives.tscn" id="7_uoa5s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vj2jn"]
+shader = ExtResource("2_p4vm3")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eewbk"]
 atlas = ExtResource("1_gnahg")
@@ -177,6 +181,7 @@ InherentSkill = NodePath("Knives")
 Race = NodePath("Orc")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+material_overlay = SubResource("ShaderMaterial_vj2jn")
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_n8ymr")
 animation = &"idle"

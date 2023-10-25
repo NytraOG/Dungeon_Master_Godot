@@ -2,7 +2,7 @@ using Godot;
 
 namespace DungeonMaster.UI;
 
-public partial class FloatingCombatText : Node2D
+public partial class FloatingCombatText : Node3D
 {
     public Label Display { get; set; }
     public int   Damage  { get; set; }

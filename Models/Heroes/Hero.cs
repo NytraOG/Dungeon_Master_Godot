@@ -111,8 +111,9 @@ public partial class Hero : BaseUnit
     public override void InstatiateFloatingCombatText(int receivedDamage)
     {
         var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage = int.Parse(receivedDamage.ToString());
+        floatingCombatTextInstance.Damage = receivedDamage;
         AddChild(floatingCombatTextInstance);
+        floatingCombatTextInstance.Show();
     }
 
     public override (int, int) GetApproximateDamage(BaseSkill ability) => ability switch

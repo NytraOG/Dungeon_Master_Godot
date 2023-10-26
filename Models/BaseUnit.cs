@@ -186,32 +186,40 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");
     public void InvokeRoundFinished() => OnRoundFinished?.Invoke();
+
     public virtual void InstatiateFloatingCombatText(int receivedDamage, BaseWeaponSkill usedSkill, HitResult hitResult = HitResult.None)
     {
-        var cameraUnposition           = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
-        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-
-        floatingCombatTextInstance.Display      = floatingCombatTextInstance.GetNode<Label>("Label");
-        floatingCombatTextInstance.Display.Text = receivedDamage.ToString();
-        floatingCombatTextInstance.Damage       = receivedDamage;
-        floatingCombatTextInstance.Position     = cameraUnposition + new Vector2(0, -50);
-        floatingCombatTextInstance.Show();
-
-        switch (hitResult)
+        try
         {
-            case HitResult.Good:
-                floatingCombatTextInstance.Display.AddThemeColorOverride("font_color", Colors.Orange);
-                floatingCombatTextInstance.Display.Text += "!";
-                break;
-            case HitResult.Critical:
-                floatingCombatTextInstance.Display.AddThemeColorOverride("font_color", Colors.Red);
-                floatingCombatTextInstance.Display.Text += "!!";
-                break;
+            var cameraUnposition           = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
+            var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
+
+            floatingCombatTextInstance.Display      = floatingCombatTextInstance.GetNode<Label>("Label");
+            floatingCombatTextInstance.Display.Text = receivedDamage.ToString();
+            floatingCombatTextInstance.Damage       = receivedDamage;
+            floatingCombatTextInstance.Position     = cameraUnposition + new Vector2(0, -50);
+            floatingCombatTextInstance.Show();
+
+            switch (hitResult)
+            {
+                case HitResult.Good:
+                    floatingCombatTextInstance.Display.AddThemeColorOverride("font_color", Colors.Orange);
+                    floatingCombatTextInstance.Display.Text += "!";
+                    break;
+                case HitResult.Critical:
+                    floatingCombatTextInstance.Display.AddThemeColorOverride("font_color", Colors.Red);
+                    floatingCombatTextInstance.Display.Text += "!!";
+                    break;
+            }
+
+            floatingCombatTextInstance.Display.Text += $" ({usedSkill.Name})";
+
+            AddChild(floatingCombatTextInstance);
         }
-
-        floatingCombatTextInstance.Display.Text += $" ({usedSkill.Name})";
-
-        AddChild(floatingCombatTextInstance);
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
     public int Get(Attribute attribute) => attribute switch

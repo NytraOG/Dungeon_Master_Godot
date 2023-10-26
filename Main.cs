@@ -41,9 +41,9 @@ public partial class Main : Node,
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    private Hero                selectedHero;
-    public  bool                AllesDa      { get; set; }
-    private bool                combatActive { get; set; }
+    private Hero selectedHero;
+    public  bool AllesDa      { get; set; }
+    private bool combatActive { get; set; }
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
@@ -147,83 +147,94 @@ public partial class Main : Node,
 
     private async Task HandleBattleround()
     {
-        SetProcess(false);
-        combatActive = true;
-
-        foreach (var enemy in Enemies)
+        try
         {
-            InitiativeContainer.AddParticipant(enemy);
+            SetProcess(false);
+            combatActive = true;
 
-            await WaitFor(300);
-        }
-
-        InitiativeContainer.OrderParticipants();
-
-        if (!SkillSelection.Any())
-            Console.WriteLine("No Skills have been selected");
-        else
-        {
-            SkillSelection = SkillSelection.OrderByDescending(a => a.Actor.ModifiedInitiative)
-                                           .ToList();
-
-            foreach (var selection in SkillSelection)
+            foreach (var enemy in Enemies.Where(e => !e.IsDead))
             {
-                if (selection.Actor.IsDead)
-                {
-                    await WaitFor(500);
+                InitiativeContainer.AddParticipant(enemy);
 
-                    continue;
-                }
-
-                if (selection.Actor.IsStunned)
-                {
-                    EmitSignal(SignalName.Misc, $"{selection.Actor.Displayname}'s <b><color=yellow>Stun</color></b> expired");
-
-                    //InstantiateFloatingCombatText(selection.Actor, "STUNNED");
-
-                    selection.Actor.IsStunned = false;
-
-                    if (selection.Actor is BaseCreature baseCreature)
-                        baseCreature.SelectedSkill = null;
-
-                    await WaitFor(1000);
-                }
-                else if (selection.Targets.Any() && selection.Targets.All(t => t.IsDead) && selection.Actor is BaseCreature baseCreature)
-                {
-                    baseCreature.SelectedSkill = null;
-                    continue;
-                }
-                else if (selection.Targets.Any() && selection.Targets.All(t => t.IsDead)) { }
-                else
-                {
-                    ProcessSkillactivation(selection);
-
-                    await WaitFor(1000);
-                }
-
-                await ResolveDebuffs(selection);
-                await ResolveBuffs(selection);
-
-                ResolveSupportSkills(selection);
-
-                if (selection.Actor is BaseCreature creature)
-                    creature.SelectedSkill = null;
-
-                selection.Actor.InvokeRoundFinished();
+                await WaitFor(500);
             }
 
-            SelectedEnemy = null;
-            SelectedSkill = null;
-            SkillSelection.Clear();
-            SelectedTargets.Clear();
-            InitiativeContainer.Clear();
+            InitiativeContainer.OrderParticipants();
+
+            await WaitFor(500);
+
+            if (!SkillSelection.Any())
+                Console.WriteLine("No Skills have been selected");
+            else
+            {
+                SkillSelection = SkillSelection.OrderByDescending(a => a.Actor.ModifiedInitiative)
+                                               .ToList();
+
+                foreach (var selection in SkillSelection)
+                {
+                    if (selection.Actor.IsDead)
+                    {
+                        await WaitFor(500);
+
+                        continue;
+                    }
+
+                    if (selection.Actor.IsStunned)
+                    {
+                        EmitSignal(SignalName.Misc, $"{selection.Actor.Displayname}'s <b><color=yellow>Stun</color></b> expired");
+
+                        //InstantiateFloatingCombatText(selection.Actor, "STUNNED");
+
+                        selection.Actor.IsStunned = false;
+
+                        if (selection.Actor is BaseCreature baseCreature)
+                            baseCreature.SelectedSkill = null;
+
+                        await WaitFor(1000);
+                    }
+                    else if (selection.Targets.Any() && selection.Targets.All(t => t.IsDead) && selection.Actor is BaseCreature baseCreature)
+                    {
+                        baseCreature.SelectedSkill = null;
+                        continue;
+                    }
+                    else if (selection.Targets.Any() && selection.Targets.All(t => t.IsDead)) { }
+                    else
+                    {
+                        ProcessSkillactivation(selection);
+
+                        await WaitFor(1000);
+                    }
+
+                    await ResolveDebuffs(selection);
+                    await ResolveBuffs(selection);
+
+                    ResolveSupportSkills(selection);
+
+                    if (selection.Actor is BaseCreature creature)
+                        creature.SelectedSkill = null;
+
+                    selection.Actor.InvokeRoundFinished();
+                }
+
+                SelectedEnemy = null;
+                SelectedSkill = null;
+                SkillSelection.Clear();
+                SelectedTargets.Clear();
+                InitiativeContainer.Clear();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        finally
+        {
+            combatActive = false;
+            SetProcess(true);
         }
 
         //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);
 
-        combatActive = false;
-
-        SetProcess(true);
         EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
     }
 
@@ -711,6 +722,7 @@ public partial class Main : Node,
                 var remainingTargetsAmount = skill.GetTargets(selection.Actor) - 1;
 
                 var remainingTargets = Enemies.Except(SelectedTargets)
+                                              .Where(t => !t.IsDead)
                                               .ToList();
 
                 for (var i = 0; i < remainingTargetsAmount; i++)

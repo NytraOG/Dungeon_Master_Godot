@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=22 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="Texture2D" uid="uid://bw1s5rgo10w7k" path="res://Graphics/Skills/Empty.png" id="2_i5yg1"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b4w7osnh30mu6" path="res://UI/Inventory/inventory.tscn" id="13_t30m4"]
 [ext_resource type="PackedScene" uid="uid://eqhcabx6cby1" path="res://UI/Inventory/mouse_item_slot.tscn" id="14_r2y1l"]
 [ext_resource type="PackedScene" uid="uid://cpwkfqnc553rn" path="res://UI/Inventory/equipment_display.tscn" id="15_d2ps7"]
+[ext_resource type="Script" path="res://UI/InitiativeContainer.cs" id="16_34bl1"]
 [ext_resource type="PackedScene" uid="uid://dyswq8axb4l3k" path="res://UI/item_tooltip.tscn" id="16_anps1"]
 [ext_resource type="PackedScene" uid="uid://dnwlsv67ybivv" path="res://UI/Status/hero_unitframes.tscn" id="17_olvri"]
 
@@ -36,10 +37,11 @@ border_color = Color(0.490196, 0.137255, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52pw0"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="Main" type="Node" node_paths=PackedStringArray("ItemTooltip")]
+[node name="Main" type="Node" node_paths=PackedStringArray("ItemTooltip", "InitiativeContainer")]
 script = ExtResource("1_fr21n")
 DefaultIcon = ExtResource("2_i5yg1")
 ItemTooltip = NodePath("ItemTooltip")
+InitiativeContainer = NodePath("InitiativeOrder/MarginContainer/PanelContainer/InitiativeContainer")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 
@@ -183,8 +185,12 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Actions" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -61.0
 offset_right = 244.0
-offset_bottom = 61.0
+grow_vertical = 0
 alignment = 1
 
 [node name="Undo" type="Button" parent="Actions"]
@@ -267,6 +273,8 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="Party"]
 layout_mode = 1
@@ -297,6 +305,31 @@ layout_mode = 2
 
 [node name="Unitframe4" parent="Party/MarginContainer/Unitframes" instance=ExtResource("17_olvri")]
 layout_mode = 2
+
+[node name="InitiativeOrder" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="InitiativeOrder"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="InitiativeOrder/MarginContainer"]
+custom_minimum_size = Vector2(1572, 200)
+layout_mode = 2
+
+[node name="InitiativeContainer" type="HBoxContainer" parent="InitiativeOrder/MarginContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+script = ExtResource("16_34bl1")
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="Actions/Undo" to="." method="_on_undo_pressed"]

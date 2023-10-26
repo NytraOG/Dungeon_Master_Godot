@@ -9,7 +9,7 @@ public partial class InitiativeSlot : PanelContainer
     public Label       InitiativeValue { get; set; }
     public BaseUnit    AssignedUnit    { get; set; }
 
-    public override void _Ready()
+    public void Initialize()
     {
         UnitIcon        = GetNode<PanelContainer>("%Unit").GetNode<TextureRect>("Icon");
         InitiativeValue = GetNode<PanelContainer>("%Initiative").GetNode<Label>("Value");

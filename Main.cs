@@ -41,15 +41,18 @@ public partial class Main : Node,
     [Signal]
     public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
 
-    private Hero selectedHero;
-    public  bool AllesDa      { get; set; }
-    private bool combatActive { get; set; }
+    private Hero                selectedHero;
+    public  bool                AllesDa      { get; set; }
+    private bool                combatActive { get; set; }
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
 
     [Export]
     public ItemTooltip ItemTooltip { get; set; }
+
+    [Export]
+    public InitiativeContainer InitiativeContainer { get; set; }
 
     public BaseCreature[] Enemies       { get; set; } = Array.Empty<BaseCreature>();
     public Healthbar      Healthbar     { get; set; }
@@ -710,6 +713,7 @@ public partial class Main : Node,
             selection.Targets = SelectedTargets.ToArray();
 
             SkillSelection.Add(selection);
+            InitiativeContainer.AddParticipant(SelectedHero);
         }
 
         SelectedTargets.Clear();

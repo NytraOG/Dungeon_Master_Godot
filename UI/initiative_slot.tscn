@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4cm8oyw4g5og"]
+[gd_scene load_steps=4 format=3 uid="uid://c4cm8oyw4g5og"]
 
+[ext_resource type="Script" path="res://UI/InitiativeSlot.cs" id="1_cgti3"]
 [ext_resource type="Texture2D" uid="uid://c64ocf4sgc8hc" path="res://Graphics/UI/Inventory/Mini_frame1.png" id="1_ffm83"]
 [ext_resource type="Texture2D" uid="uid://crp1n1pr1wcqp" path="res://Graphics/UI/button3_ready.png" id="2_0gt3w"]
 
@@ -8,6 +9,7 @@ self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 100)
 offset_right = 110.0
 offset_bottom = 174.0
+script = ExtResource("1_cgti3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -54,7 +56,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 3
+theme_override_constants/outline_size = 9
 text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1

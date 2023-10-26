@@ -1,6 +1,7 @@
 using System;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
+using DungeonMaster.UI;
 
 namespace DungeonMaster.Models.Skills;
 
@@ -32,23 +33,18 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");
 
-            target.InstatiateFloatingCombatText(finalDamage, hitResult);
+            target.InstatiateFloatingCombatText(finalDamage, this, hitResult);
 
             if (target is BaseCreature { IsDead: true })
-                target.QueueFree();
+                target.GetNode<FloatingCombatText>(nameof(FloatingCombatText)).OnQueueFreed += target.QueueFree;
 
             return finalDamage.ToString();
         }
 
-        var missResult = "miss";
-
         Console.WriteLine($"{actor.Displayname} missed {target.Displayname} with {Displayname}");
-        target.InstatiateFloatingCombatText(0);
-        //EmitSignal(Main.SignalName.Miss, actor, this, hitroll, target, missResult);
+        target.InstatiateFloatingCombatText(0, this, HitResult.Miss);
 
-        // controller.ProcessFloatingCombatText(missResult, HitResult.None, target);
-
-        return missResult;
+        return HitResult.Miss.ToString();
     }
 
     private bool CalculateHit(BaseUnit actor, BaseUnit target, out int hitroll, out HitResult hitResult)

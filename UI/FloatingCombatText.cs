@@ -4,14 +4,15 @@ namespace DungeonMaster.UI;
 
 public partial class FloatingCombatText : Node2D
 {
+    public delegate void QueueFreedSignal();
+
     [Export]
-    public float DriftVelocity { get; set; } = 0.5f;
+    public float DriftVelocity { get; set; } = 0.3f;
 
-    public Label  Display { get; set; }
-    public int    Damage  { get; set; }
-    public double Elapsed { get; set; }
-
-    public override void _Ready() => Display.Text = Damage == 0 ? "Miss" : Damage.ToString();
+    public Label                  Display { get; set; }
+    public int                    Damage  { get; set; }
+    public double                 Elapsed { get; set; }
+    public event QueueFreedSignal OnQueueFreed;
 
     public override void _Process(double delta)
     {
@@ -25,4 +26,6 @@ public partial class FloatingCombatText : Node2D
 
         Position += new Vector2(0, -DriftVelocity);
     }
+
+    public void _freed() => OnQueueFreed?.Invoke();
 }

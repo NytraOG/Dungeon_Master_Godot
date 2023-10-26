@@ -24,6 +24,8 @@ DescriptionBase = " The mage paralyzes several of his opponents by jumping a cha
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
 Icon = ExtResource("2_fy08a")
+ManacostFlat = 3
+ManacostLevelScaling = 1.0
 Subcategory = 1
 Displayname = "Chain Lightning"
 

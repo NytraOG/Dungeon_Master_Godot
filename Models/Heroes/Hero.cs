@@ -111,7 +111,9 @@ public partial class Hero : BaseUnit
     public override void InstatiateFloatingCombatText(int receivedDamage)
     {
         var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage = receivedDamage;
+        floatingCombatTextInstance.Damage   = receivedDamage;
+        var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
+        floatingCombatTextInstance.Position = cameraUnposition;
         AddChild(floatingCombatTextInstance);
         floatingCombatTextInstance.Show();
     }

@@ -39,8 +39,9 @@ public abstract partial class BaseCreature : BaseUnit
     {
         FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
         var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage         = receivedDamage;
-        floatingCombatTextInstance.GlobalPosition = GlobalPosition += new Vector3(0, 20, 0);
+        floatingCombatTextInstance.Damage   = receivedDamage;
+        var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
+        floatingCombatTextInstance.Position = cameraUnposition;
         AddChild(floatingCombatTextInstance);
         floatingCombatTextInstance.Show();
     }

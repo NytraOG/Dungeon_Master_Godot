@@ -113,7 +113,7 @@ public partial class Hero : BaseUnit
         var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
         floatingCombatTextInstance.Damage   = receivedDamage;
         var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
-        floatingCombatTextInstance.Position = cameraUnposition;
+        floatingCombatTextInstance.Position = cameraUnposition + new Vector2(0, -100);
         AddChild(floatingCombatTextInstance);
         floatingCombatTextInstance.Show();
     }

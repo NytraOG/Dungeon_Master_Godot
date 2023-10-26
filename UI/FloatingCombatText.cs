@@ -14,7 +14,7 @@ public partial class FloatingCombatText : Node2D
     public override void _Ready()
     {
         Display      = GetNode<Label>("Label");
-        Display.Text = Damage.ToString();
+        Display.Text = Damage == 0 ? "Miss" : Damage.ToString();
     }
 
     public override void _Process(double delta)
@@ -22,7 +22,7 @@ public partial class FloatingCombatText : Node2D
         Elapsed += delta;
 
         if (Elapsed >= 1)
-            Modulate = new Color(Modulate, (float)Elapsed - 1);
+            Modulate = new Color(Modulate, 1 - ((float)Elapsed - 1));
 
         if (Elapsed >= 2)
             QueueFree();

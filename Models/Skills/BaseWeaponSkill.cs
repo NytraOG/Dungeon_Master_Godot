@@ -46,6 +46,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
         var missResult = "miss";
 
         Console.WriteLine($"{actor.Displayname} missed {target.Displayname} with {Displayname}");
+        target.InstatiateFloatingCombatText(0);
         //EmitSignal(Main.SignalName.Miss, actor, this, hitroll, target, missResult);
 
         // controller.ProcessFloatingCombatText(missResult, HitResult.None, target);

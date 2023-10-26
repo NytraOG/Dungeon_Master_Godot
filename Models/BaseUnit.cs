@@ -182,14 +182,27 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
 
     //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");
-    public virtual void InstatiateFloatingCombatText(int receivedDamage)
+    public virtual void InstatiateFloatingCombatText(int receivedDamage, HitResult hitResult = HitResult.None)
     {
+        var cameraUnposition           = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
         var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage = receivedDamage;
-        var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
+
+        floatingCombatTextInstance.Display  = floatingCombatTextInstance.GetNode<Label>("Label");
+        floatingCombatTextInstance.Damage   = receivedDamage;
         floatingCombatTextInstance.Position = cameraUnposition + new Vector2(0, -50);
-        AddChild(floatingCombatTextInstance);
         floatingCombatTextInstance.Show();
+
+        switch (hitResult)
+        {
+            case HitResult.Good:
+                floatingCombatTextInstance.Display.AddThemeColorOverride("font_color", Colors.Orange);
+                break;
+            case HitResult.Critical:
+                floatingCombatTextInstance.Display.AddThemeColorOverride("font_color", Colors.Red);
+                break;
+        }
+
+        AddChild(floatingCombatTextInstance);
     }
 
     public int Get(Attribute attribute) => attribute switch

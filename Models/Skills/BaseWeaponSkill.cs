@@ -26,21 +26,18 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             target.CurrentHitpoints -= damageInRange;
 
-            var finalDamage = ((int)damageInRange).ToString();
+            var finalDamage = (int)damageInRange;
 
             ApplyDebuffs(actor, target);
 
             Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");
-            //EmitSignal(Main.SignalName.Hit, actor, this, hitroll, (int)hitResult, target, damage.ToString());
 
-            target.InstatiateFloatingCombatText(int.Parse(finalDamage));
+            target.InstatiateFloatingCombatText(finalDamage, hitResult);
 
-            // controller.ProcessFloatingCombatText(finalDamage, hitResult, target);
-            // controller.ProcessDeath(target);
             if (target is BaseCreature { IsDead: true })
                 target.QueueFree();
 
-            return finalDamage;
+            return finalDamage.ToString();
         }
 
         var missResult = "miss";

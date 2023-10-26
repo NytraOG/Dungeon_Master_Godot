@@ -11,11 +11,7 @@ public partial class FloatingCombatText : Node2D
     public int    Damage  { get; set; }
     public double Elapsed { get; set; }
 
-    public override void _Ready()
-    {
-        Display      = GetNode<Label>("Label");
-        Display.Text = Damage == 0 ? "Miss" : Damage.ToString();
-    }
+    public override void _Ready() => Display.Text = Damage == 0 ? "Miss" : Damage.ToString();
 
     public override void _Process(double delta)
     {

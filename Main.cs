@@ -150,6 +150,15 @@ public partial class Main : Node,
         SetProcess(false);
         combatActive = true;
 
+        foreach (var enemy in Enemies)
+        {
+            InitiativeContainer.AddParticipant(enemy);
+
+            await WaitFor(300);
+        }
+
+        InitiativeContainer.OrderParticipants();
+
         if (!SkillSelection.Any())
             Console.WriteLine("No Skills have been selected");
         else

@@ -7,7 +7,7 @@ public partial class InitiativeSlot : PanelContainer
 {
     public TextureRect UnitIcon        { get; set; }
     public Label       InitiativeValue { get; set; }
-    public BaseUnit    AssignedUnit    { get; set; }
+    public BaseUnit    AssignedUnit    { get; private set; }
 
     public void Initialize()
     {

@@ -252,7 +252,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     public abstract string UseAbility(BaseSkill ability, HitResult hitResult, BaseUnit target = null);
 
-    public virtual void InitiativeBestimmen(double modifier = 1) => Initiative = modifier * InitiativeModifier * (InitiativeFlatAdded + BaseInitiative.InfuseRandomness());
+    public virtual void InitiativeBestimmen(double modifier = 1) => Initiative = modifier * BaseInitiative.InfuseRandomness();
 
     public virtual void SetPosition(Vector3 spawnPosition, Vector3 positionToLookAt) { }
 

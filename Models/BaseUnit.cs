@@ -15,6 +15,8 @@ namespace DungeonMaster.Models;
 
 public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 {
+    public delegate void RoundFinishedEventHandler();
+
     public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
     public  List<Buff>                         Buffs        = new();
     private double                             currentHitpoints;
@@ -180,8 +182,10 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public PackedScene FloatingCombatText { get; set; }
 
     public event PropertyChangedEventHandler PropertyChanged;
+    public event RoundFinishedEventHandler   OnRoundFinished;
 
     //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");
+    public void InvokeRoundFinished() => OnRoundFinished?.Invoke();
     public virtual void InstatiateFloatingCombatText(int receivedDamage, BaseWeaponSkill usedSkill, HitResult hitResult = HitResult.None)
     {
         var cameraUnposition           = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);

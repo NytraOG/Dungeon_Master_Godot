@@ -208,12 +208,15 @@ public partial class Main : Node,
 
                 if (selection.Actor is BaseCreature creature)
                     creature.SelectedSkill = null;
+
+                selection.Actor.InvokeRoundFinished();
             }
 
             SelectedEnemy = null;
             SelectedSkill = null;
             SkillSelection.Clear();
             SelectedTargets.Clear();
+            InitiativeContainer.Clear();
         }
 
         //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);

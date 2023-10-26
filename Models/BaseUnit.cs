@@ -7,6 +7,7 @@ using DungeonMaster.Enums;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
+using DungeonMaster.UI;
 using Godot;
 using Attribute = DungeonMaster.Enums.Attribute;
 
@@ -172,12 +173,24 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double FlatDamagebonus { get; set; }
 
-    public BaseSkill                         SelectedSkill       { get; set; }
-    public int                               XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
+    public BaseSkill SelectedSkill       { get; set; }
+    public int       XpToSpendForLevelUp => this.GetXpToSpendForLevelUp();
+
+    [Export]
+    public PackedScene FloatingCombatText { get; set; }
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");
-    public abstract void InstatiateFloatingCombatText(int receivedDamage);
+    public virtual void InstatiateFloatingCombatText(int receivedDamage)
+    {
+        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
+        floatingCombatTextInstance.Damage = receivedDamage;
+        var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
+        floatingCombatTextInstance.Position = cameraUnposition + new Vector2(0, -50);
+        AddChild(floatingCombatTextInstance);
+        floatingCombatTextInstance.Show();
+    }
 
     public int Get(Attribute attribute) => attribute switch
     {

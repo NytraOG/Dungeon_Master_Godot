@@ -5,7 +5,6 @@ using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies.Keywords;
 using DungeonMaster.Models.Enemies.MonsterTypes;
 using DungeonMaster.Models.Skills;
-using DungeonMaster.UI;
 using Godot;
 
 namespace DungeonMaster.Models.Enemies;
@@ -20,11 +19,8 @@ public abstract partial class BaseCreature : BaseUnit
     public          List<Positions> FavouritePositions = new() { Positions.None };
     private         bool            isInitialized;
     [Export] public Keyword[]       Keywords;
-    [Export] public double           LevelModifier;
+    [Export] public double          LevelModifier;
     [Export] public BaseMonstertype Monstertype;
-
-    [Export]
-    public PackedScene FloatingCombatText { get; set; }
 
     public override void _Process(double delta)
     {
@@ -35,21 +31,11 @@ public abstract partial class BaseCreature : BaseUnit
         isInitialized = true;
     }
 
-    public override void InstatiateFloatingCombatText(int receivedDamage)
-    {
-        FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
-        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage   = receivedDamage;
-        var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
-        floatingCombatTextInstance.Position = cameraUnposition + new Vector2(0, -100);
-        AddChild(floatingCombatTextInstance);
-        floatingCombatTextInstance.Show();
-    }
-
     public override void Initialize()
     {
-        Displayname = $"{Monstertype.Displayname} {Keywords[0]?.Displayname}";
-        Name        = Displayname;
+        FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
+        Displayname        = $"{Monstertype.Displayname} {Keywords[0]?.Displayname}";
+        Name               = Displayname;
 
         MeleeAttackratingModifier  = 1;
         RangedAttackratingModifier = 1;

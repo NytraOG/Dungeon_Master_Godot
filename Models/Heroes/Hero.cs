@@ -4,7 +4,6 @@ using DungeonMaster.Enums;
 using DungeonMaster.Models.Heroes.Classes;
 using DungeonMaster.Models.Heroes.Races;
 using DungeonMaster.Models.Skills;
-using DungeonMaster.UI;
 using DungeonMaster.UI.Inventory;
 using Godot;
 
@@ -24,14 +23,11 @@ public partial class Hero : BaseUnit
     private         Main             main;
     [Export] public BaseRace         Race;
 
-    [Export]
-    public PackedScene FloatingCombatText { get; set; }
 
     public override void _Ready()
     {
         FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
-
-        main = (Main)GetTree().CurrentScene;
+        main               = (Main)GetTree().CurrentScene;
 
         Inventory = ResourceLoader.Load<PackedScene>("res://UI/Inventory/inventory.tscn")
                                   .Instantiate<InventorySystem>();
@@ -107,16 +103,6 @@ public partial class Hero : BaseUnit
     }
 
     public event SelectedEvent OnSelected;
-
-    public override void InstatiateFloatingCombatText(int receivedDamage)
-    {
-        var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
-        floatingCombatTextInstance.Damage   = receivedDamage;
-        var cameraUnposition = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
-        floatingCombatTextInstance.Position = cameraUnposition + new Vector2(0, -100);
-        AddChild(floatingCombatTextInstance);
-        floatingCombatTextInstance.Show();
-    }
 
     public override (int, int) GetApproximateDamage(BaseSkill ability) => ability switch
     {

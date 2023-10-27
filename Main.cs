@@ -101,6 +101,12 @@ public partial class Main : Node,
         if (Input.IsActionPressed(Keys.Backspace))
             SelectedTargets.Clear();
 
+        if (Input.IsKeyPressed(Key.P))
+        {
+            GetTree().Paused = true;
+            GetNode<PanelContainer>("PauseMenu").Show();
+        }
+
         MachEnemiesCombatReady();
         SetupCombatants();
     }
@@ -145,7 +151,6 @@ public partial class Main : Node,
     {
         try
         {
-            SetProcess(false);
             combatActive = true;
 
             foreach (var enemy in Enemies.Where(e => !e.IsDead))
@@ -226,7 +231,6 @@ public partial class Main : Node,
         finally
         {
             combatActive = false;
-            SetProcess(true);
         }
 
         //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);

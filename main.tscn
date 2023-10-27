@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=23 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="Texture2D" uid="uid://bw1s5rgo10w7k" path="res://Graphics/Skills/Empty.png" id="2_i5yg1"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cpwkfqnc553rn" path="res://UI/Inventory/equipment_display.tscn" id="15_d2ps7"]
 [ext_resource type="Script" path="res://UI/InitiativeContainer.cs" id="16_34bl1"]
 [ext_resource type="PackedScene" uid="uid://dyswq8axb4l3k" path="res://UI/item_tooltip.tscn" id="16_anps1"]
+[ext_resource type="Script" path="res://UI/PauseMenu.cs" id="17_idkqh"]
 [ext_resource type="PackedScene" uid="uid://dnwlsv67ybivv" path="res://UI/Status/hero_unitframes.tscn" id="17_olvri"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
@@ -329,7 +330,51 @@ script = ExtResource("16_34bl1")
 
 [node name="EquipmentDisplay" parent="." instance=ExtResource("15_d2ps7")]
 
+[node name="PauseMenu" type="PanelContainer" parent="."]
+process_mode = 2
+visible = false
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_idkqh")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+text = "GAME PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="Actions/Undo" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="Actions/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="pressed" from="ConfirmationButton" to="." method="_on_confirmation_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Button" to="PauseMenu" method="_on_button_pressed"]

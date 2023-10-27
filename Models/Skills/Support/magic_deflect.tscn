@@ -9,11 +9,11 @@ script = ExtResource("1_rq1tv")
 AffectedCategories = PackedStringArray("Magic")
 AppliedBuffs = [NodePath("MagicDeflect")]
 AppliedDebuffs = []
-Icon = ExtResource("2_3yf5x")
 Category = 9
-Subcategory = 2
 DescriptionBase = "Through hard mental training, the character is able to fend off enemy magical attacks with his sheer willpower."
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
+Icon = ExtResource("2_3yf5x")
+Subcategory = 2
 
 [node name="MagicDeflect" parent="." instance=ExtResource("2_1gltr")]

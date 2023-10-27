@@ -40,5 +40,5 @@ public partial class ItemTooltip : BaseTooltip
     }
 
     //Hack, aus irgendwelche gründen wächst der Tooltip von alleine auf 2800+ px, wtf
-    public override void _Process(double delta) => SetSize(originalSize);
+    public override void _Process(double delta) => SetSize(new Vector2(originalSize.X, 1));
 }

@@ -321,6 +321,7 @@ alignment = 1
 script = ExtResource("16_34bl1")
 
 [node name="EquipmentDisplay" parent="." instance=ExtResource("15_d2ps7")]
+visible = false
 
 [node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
 visible = false

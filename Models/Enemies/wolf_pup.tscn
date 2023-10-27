@@ -28,7 +28,8 @@ Keywords = [NodePath("Pup"), NodePath("Precise")]
 LevelModifier = 1.4
 Monstertype = NodePath("Wolf")
 Displayname = "Wolf, Pup"
-Level = 1
+Dexterity = 5
+Quickness = 6
 
 [node name="Wolf" parent="." instance=ExtResource("2_86f42")]
 

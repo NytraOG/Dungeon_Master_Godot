@@ -55,9 +55,7 @@ public partial class Main : Node,
     public InitiativeContainer InitiativeContainer { get; set; }
 
     public BaseCreature[] Enemies       { get; set; } = Array.Empty<BaseCreature>();
-    public Healthbar      Healthbar     { get; set; }
     public Hero[]         Heroes        { get; set; } = Array.Empty<Hero>();
-    public Manabar        Manabar       { get; set; }
     public BaseCreature   SelectedEnemy { get; set; }
 
     public Hero SelectedHero
@@ -86,8 +84,6 @@ public partial class Main : Node,
     {
         MouseItemSlot      = GetNode<MouseItemSlot>("MouseItemSlot");
         ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
-        Healthbar          = GetNode<Healthbar>("Healthbar");
-        Manabar            = GetNode<Manabar>("Manabar");
         InventorySystemUi  = GetNode<Control>("InventoryDisplay").GetNode<InventorySystem>("Inventory");
         InventorySystemUi.Initialize(32);
 
@@ -126,8 +122,8 @@ public partial class Main : Node,
 
         var adjustedPosition = new Vector2
         {
-            X = Mathf.Clamp(globalMousePosition.X, 0, screensize.X - 4),
-            Y = Mathf.Clamp(globalMousePosition.Y, 0, screensize.Y - 4)
+            X = Mathf.Clamp(globalMousePosition.X + 3, 0, screensize.X - 4),
+            Y = Mathf.Clamp(globalMousePosition.Y + 3, 0, screensize.Y - 4)
         };
 
         var xOverlap = adjustedPosition.X + ItemTooltip.Size.X;

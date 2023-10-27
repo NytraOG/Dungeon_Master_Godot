@@ -38,7 +38,7 @@ public partial class ItemTooltip : BaseTooltip
 
         Fluff.Text = emil.ToString();
     }
-
-    //Hack, aus irgendwelche gründen wächst der Tooltip von alleine auf 2800+ px, wtf
-    public override void _Process(double delta) => SetSize(new Vector2(originalSize.X, 400));
+    //
+    // //Hack, aus irgendwelche gründen wächst der Tooltip von alleine auf 2800+ px, wtf
+    // public override void _Process(double delta) => SetSize(new Vector2(originalSize.X, 400));
 }

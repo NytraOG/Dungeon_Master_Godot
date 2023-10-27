@@ -253,14 +253,6 @@ offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
-[node name="MouseItemSlot" parent="." instance=ExtResource("14_r2y1l")]
-visibility_layer = 524288
-offset_right = 64.0
-offset_bottom = 64.0
-
-[node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
-visible = false
-
 [node name="Party" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 1
@@ -329,6 +321,16 @@ alignment = 1
 script = ExtResource("16_34bl1")
 
 [node name="EquipmentDisplay" parent="." instance=ExtResource("15_d2ps7")]
+
+[node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
+visible = false
+offset_right = 191.0
+offset_bottom = 801.0
+
+[node name="MouseItemSlot" parent="." instance=ExtResource("14_r2y1l")]
+visibility_layer = 524288
+offset_right = 64.0
+offset_bottom = 64.0
 
 [node name="PauseMenu" type="PanelContainer" parent="."]
 process_mode = 2

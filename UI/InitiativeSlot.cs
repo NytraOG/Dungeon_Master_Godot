@@ -23,5 +23,9 @@ public partial class InitiativeSlot : PanelContainer
         InitiativeValue.Text = unit.ModifiedInitiative.ToString("N0");
         NameLabel.Text       = unit.Name;
         //UnitIcon.Texture = unit.Icon;
+
+        //AssignedUnit.OnRoundFinished += AssignedUnitOnOnRoundFinished;
     }
+
+    private void AssignedUnitOnOnRoundFinished() => Modulate = new Color(Modulate, 0.5f);
 }

@@ -214,8 +214,10 @@ public partial class Main : Node,
                     if (selection.Actor is BaseCreature creature)
                         creature.SelectedSkill = null;
 
-                    selection.Actor.InvokeRoundFinished();
+                    await FadeOutInislot(selection);
                 }
+
+                await WaitFor(1000);
 
                 SelectedEnemy = null;
                 SelectedSkill = null;
@@ -236,6 +238,14 @@ public partial class Main : Node,
         //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);
 
         EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
+    }
+
+    private async Task FadeOutInislot(SkillSelection selection)
+    {
+        var slotskek = InitiativeContainer.GetAllChildren<InitiativeSlot>().First(s => s.AssignedUnit?.Name == selection.Actor.Name);
+        slotskek.Modulate = new Color(slotskek.Modulate, 0.5f);
+
+        await WaitFor(1000);
     }
 
     private static void ResolveSupportSkills(SkillSelection selection)

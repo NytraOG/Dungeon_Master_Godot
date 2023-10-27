@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cpwkfqnc553rn"]
+[gd_scene load_steps=40 format=3 uid="uid://cpwkfqnc553rn"]
 
 [ext_resource type="Script" path="res://UI/Inventory/EquipmentSystem.cs" id="1_abw1i"]
 [ext_resource type="PackedScene" uid="uid://c45ruaug1goon" path="res://UI/Inventory/equipment_slot.tscn" id="2_aggd6"]
@@ -26,8 +26,14 @@
 [ext_resource type="Texture2D" uid="uid://duuebbv3gtna8" path="res://Graphics/UI/Inventory/shoes_background_red.png" id="14_sak30"]
 [ext_resource type="Texture2D" uid="uid://ocwjxxho5g2" path="res://Graphics/UI/Inventory/wrist_background_red.png" id="19_cnuwo"]
 [ext_resource type="Texture2D" uid="uid://bmtmbhb52bcnq" path="res://Graphics/UI/Inventory/wrist_background_green.png" id="20_vi504"]
+[ext_resource type="Texture2D" uid="uid://cjdxd11a3eet3" path="res://Graphics/UI/Inventory/mainhand.png" id="21_uq567"]
+[ext_resource type="Texture2D" uid="uid://b0tnasuta7fkc" path="res://Graphics/UI/Inventory/mainhand_NotAllowed.png" id="22_2vykw"]
 [ext_resource type="Texture2D" uid="uid://bffmvhxidjqq3" path="res://Graphics/UI/Inventory/gloves_background_red.png" id="22_8n5bc"]
 [ext_resource type="Texture2D" uid="uid://xbwfmg0n3iem" path="res://Graphics/UI/Inventory/gloves_background_green.png" id="23_gwc7c"]
+[ext_resource type="Texture2D" uid="uid://cnvojeco5uexf" path="res://Graphics/UI/Inventory/mainhand_Allowed.png" id="23_r24wb"]
+[ext_resource type="Texture2D" uid="uid://bh0ss4ej50wig" path="res://Graphics/UI/Inventory/offhand_background.png" id="24_unvpa"]
+[ext_resource type="Texture2D" uid="uid://d152p8rfa7bbf" path="res://Graphics/UI/Inventory/offhand_background_red.png" id="25_nuxdt"]
+[ext_resource type="Texture2D" uid="uid://dw1bs7yb1ptob" path="res://Graphics/UI/Inventory/offhand_background_green.png" id="26_5k1go"]
 [ext_resource type="Texture2D" uid="uid://dg4j0e0t5yvjr" path="res://Graphics/UI/Inventory/pants_background_red.png" id="26_m32qi"]
 [ext_resource type="Texture2D" uid="uid://daxd6sse4ygjm" path="res://Graphics/UI/Inventory/pants_background_green.png" id="27_qojf7"]
 [ext_resource type="Texture2D" uid="uid://bif6nybrgs6ck" path="res://Graphics/UI/Inventory/shoes_background_green.png" id="30_koeo6"]
@@ -147,11 +153,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
-custom_minimum_size = Vector2(0, 220)
+custom_minimum_size = Vector2(0, 325)
 layout_mode = 2
 scroll_deadzone = 10
 
@@ -164,6 +171,46 @@ theme_override_constants/margin_bottom = 10
 
 [node name="StatsDisplay" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="Mainhand" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/MarginContainer" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 13
+DefaultIcon = ExtResource("21_uq567")
+NotAllowedIcon = ExtResource("22_2vykw")
+AllowedIcon = ExtResource("23_r24wb")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="MarginContainer3" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="Offhand" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/MarginContainer3" instance=ExtResource("2_aggd6")]
+layout_mode = 2
+SlotType = 14
+DefaultIcon = ExtResource("24_unvpa")
+NotAllowedIcon = ExtResource("25_nuxdt")
+AllowedIcon = ExtResource("26_5k1go")
 
 [node name="ContainerRight" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)

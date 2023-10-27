@@ -14,5 +14,7 @@ public enum EquipSlot
     Pants,
     Socks,
     Shoes,
-    Ring
+    Ring,
+    Mainhand,
+    Offhand
 }

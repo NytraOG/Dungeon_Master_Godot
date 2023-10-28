@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4w7osnh30mu6"]
+[gd_scene load_steps=3 format=3 uid="uid://b4w7osnh30mu6"]
 
 [ext_resource type="Script" path="res://UI/Inventory/InventorySystem.cs" id="1_5vmet"]
+[ext_resource type="Texture2D" uid="uid://jqwb40k2g7gm" path="res://Graphics/UI/inventory_frame.png" id="2_o0w5y"]
 
 [node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("ItemGrid")]
 offset_right = 40.0
@@ -18,5 +19,13 @@ theme_override_constants/margin_bottom = 8
 [node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 columns = 8
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_o0w5y")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

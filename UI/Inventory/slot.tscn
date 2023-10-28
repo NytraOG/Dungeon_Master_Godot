@@ -19,14 +19,14 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
 [node name="Background" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
 texture = ExtResource("3_jjk80")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
@@ -36,13 +36,17 @@ texture = ExtResource("4_6ip4s")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CurrentStacksize" type="Label" parent="."]
-visible = false
+[node name="CurrentStacksize" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 12
 text = "x99"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

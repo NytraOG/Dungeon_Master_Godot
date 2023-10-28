@@ -98,12 +98,13 @@ public partial class InventoryItemSlot : PanelContainer,
 
     public void Clear()
     {
+        var container = GetNode<MarginContainer>("MarginContainer");
         ContainedItem       = null;
         CurrentStacksize    = 0;
-        TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
+        TextureRect         = container.GetNode<TextureRect>("TextureRect");
         TextureRect.Texture = DefaultIcon;
 
-        var stacksizeLabel = GetNode<Label>("CurrentStacksize");
+        var stacksizeLabel = container.GetNode<Label>("CurrentStacksize");
         stacksizeLabel.Text    = "x99";
         stacksizeLabel.Visible = false;
     }

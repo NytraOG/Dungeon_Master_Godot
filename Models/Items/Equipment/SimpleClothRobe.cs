@@ -28,7 +28,12 @@ public partial class SimpleClothRobe : BaseArmor
     public override string    FluffAuthor  => "Snuggley the Crow";
     public override string    FluffDate    => "2014";
 
-    public override void EquipOn(BaseUnit wearer) => Console.WriteLine("Cloth Robe applied Armor and Stats!");
+    public override void EquipOn(BaseUnit wearer)
+    {
+        base.EquipOn(wearer);
+
+        Console.WriteLine("Cloth Robe applied Armor and Stats!");
+    }
 
     public override void UnequipFrom(BaseUnit wearer) => Console.WriteLine("Removed Cloth Robe!");
 

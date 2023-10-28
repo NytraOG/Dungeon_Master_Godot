@@ -106,7 +106,24 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public bool IsDead    => CurrentHitpoints <= 0;
 
     //Defense
-    public int Armour { get; set; }
+    public int ArmorSlashNormal       { get; set; }
+    public int ArmorSlashGood         { get; set; }
+    public int ArmorSlashCritical     { get; set; }
+    public int ArmorPierceNormal      { get; set; }
+    public int ArmorPierceGood        { get; set; }
+    public int ArmorPierceCritical    { get; set; }
+    public int ArmorCrushNormal       { get; set; }
+    public int ArmorCrushGood         { get; set; }
+    public int ArmorCrushCritical     { get; set; }
+    public int ArmorFireNormal        { get; set; }
+    public int ArmorFireGood          { get; set; }
+    public int ArmorFireCritical      { get; set; }
+    public int ArmorIceNormal         { get; set; }
+    public int ArmorIceGood           { get; set; }
+    public int ArmorIceCritical       { get; set; }
+    public int ArmorLightningNormal   { get; set; }
+    public int ArmorLightningGood     { get; set; }
+    public int ArmorLightningCritical { get; set; }
 
     //Melee
     public double BaseDefenseMelee => 2 * Dexterity + Quickness;

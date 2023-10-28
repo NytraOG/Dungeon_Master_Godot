@@ -51,8 +51,6 @@ public partial class EquipmentSystem : PanelContainer
         var statsDisplayEntryScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/stats_display_entry.tscn");
         var trennerScene           = ResourceLoader.Load<PackedScene>("res://UI/Inventory/trenner.tscn");
 
-        var entries = statDisplayNode.GetAllChildren<HBoxContainer>();
-
         var publicProperties = main.SelectedHero
                                    .GetType()
                                    .GetProperties() //BindingFlags gehen irgendwie mit Godot nicht
@@ -62,7 +60,7 @@ public partial class EquipmentSystem : PanelContainer
 
         foreach (var propertyInfo in publicProperties)
         {
-            var entry = FindOrCreateEntry(entries, propertyInfo, statsDisplayEntryScene, trennerScene);
+            var entry = FindOrCreateEntry(propertyInfo, statsDisplayEntryScene, trennerScene);
 
             UpdateValues(entry, propertyInfo);
         }
@@ -116,6 +114,24 @@ public partial class EquipmentSystem : PanelContainer
 
         //Father...forgive me, for I have sinned.
 
+        if (name.Contains("Crush"))
+            return "Crush Armor";
+
+        if (name.Contains("Pierce"))
+            return "Pierce Armor";
+
+        if (name.Contains("Slash"))
+            return "Slash Armor";
+
+        if (name.Contains("Ice"))
+            return "Ice Armor";
+
+        if (name.Contains("Fire"))
+            return "Fire Armor";
+
+        if (name.Contains("Lightning"))
+            return "Lightning Armor";
+
         if (name.Contains("Xp"))
             return "XP for next Level";
 
@@ -139,6 +155,12 @@ public partial class EquipmentSystem : PanelContainer
 
     private string FormatValue(PropertyInfo propertyInfo) => propertyInfo.GetValue(main.SelectedHero) switch
     {
+        int when propertyInfo.Name.ToLower().Contains("slash") => $"{main.SelectedHero.ArmorSlashNormal}/{main.SelectedHero.ArmorSlashGood}/{main.SelectedHero.ArmorSlashCritical}",
+        int when propertyInfo.Name.ToLower().Contains("pierce") => $"{main.SelectedHero.ArmorPierceNormal}/{main.SelectedHero.ArmorPierceGood}/{main.SelectedHero.ArmorPierceCritical}",
+        int when propertyInfo.Name.ToLower().Contains("crush") => $"{main.SelectedHero.ArmorCrushNormal}/{main.SelectedHero.ArmorCrushGood}/{main.SelectedHero.ArmorCrushCritical}",
+        int when propertyInfo.Name.ToLower().Contains("fire") => $"{main.SelectedHero.ArmorFireNormal}/{main.SelectedHero.ArmorFireGood}/{main.SelectedHero.ArmorFireCritical}",
+        int when propertyInfo.Name.ToLower().Contains("ice") => $"{main.SelectedHero.ArmorIceNormal}/{main.SelectedHero.ArmorIceGood}/{main.SelectedHero.ArmorIceCritical}",
+        int when propertyInfo.Name.ToLower().Contains("lightning") => $"{main.SelectedHero.ArmorLightningNormal}/{main.SelectedHero.ArmorLightningGood}/{main.SelectedHero.ArmorLightningCritical}",
         int i => $"{i}",
         double d when propertyInfo.Name.ToLower().Contains("modifier") && d - 1 >= 0 => $"+{(d - 1) * 100:N0}%",
         double d when propertyInfo.Name.ToLower().Contains("modifier") => $"{(d - 1) * 100:N0}%",
@@ -146,9 +168,10 @@ public partial class EquipmentSystem : PanelContainer
         _ => throw new ArgumentOutOfRangeException(nameof(PropertyInfo))
     };
 
-    private HBoxContainer FindOrCreateEntry(HBoxContainer[] entries, PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene, PackedScene trennerScene)
+    private HBoxContainer FindOrCreateEntry(PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene, PackedScene trennerScene)
     {
-        var entry = entries.FirstOrDefault(e => e.GetNode<Label>("Name")?.Text == FormatName(propertyInfo));
+        var entries = statDisplayNode.GetAllChildren<HBoxContainer>();
+        var entry   = entries.FirstOrDefault(e => e.GetNode<Label>("Name")?.Text == FormatName(propertyInfo));
 
         if (entry is null)
         {
@@ -167,8 +190,8 @@ public partial class EquipmentSystem : PanelContainer
                 InsertTrennerinstance(trennerScene);
             else if (propertyInfo.Name == nameof(BaseUnit.SocialAttackratingModifier))
                 InsertTrennerinstance(trennerScene);
-            else if (propertyInfo.Name == nameof(BaseUnit.Armour))
-                InsertTrennerinstance(trennerScene);
+            else if (propertyInfo.Name == nameof(BaseUnit.ArmorLightningNormal))
+                 InsertTrennerinstance(trennerScene);
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedMeleeDefense))
                 InsertTrennerinstance(trennerScene);
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedRangedDefense))

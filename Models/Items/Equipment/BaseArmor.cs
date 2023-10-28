@@ -60,13 +60,67 @@ public abstract partial class BaseArmor : BaseEquipment
     [Export]
     public int LightningCritical { get; set; }
 
+    public override void EquipOn(BaseUnit wearer)
+    {
+        wearer.ArmorCrushNormal   += CrushNormal;
+        wearer.ArmorCrushGood     += CrushGood;
+        wearer.ArmorCrushCritical += CrushCritical;
+
+        wearer.ArmorSlashNormal   += SlashNormal;
+        wearer.ArmorSlashGood     += SlashGood;
+        wearer.ArmorSlashCritical += SlashCritical;
+
+        wearer.ArmorPierceNormal   += PierceNormal;
+        wearer.ArmorPierceGood     += PierceGood;
+        wearer.ArmorPierceCritical += PierceCritical;
+
+        wearer.ArmorFireNormal   += FireNormal;
+        wearer.ArmorFireGood     += FireGood;
+        wearer.ArmorFireCritical += FireCritical;
+
+        wearer.ArmorIceNormal   += IceNormal;
+        wearer.ArmorIceGood     += IceGood;
+        wearer.ArmorIceCritical += IceCritical;
+
+        wearer.ArmorLightningNormal   += LightningNormal;
+        wearer.ArmorLightningGood     += LightningGood;
+        wearer.ArmorLightningCritical += LightningCritical;
+    }
+
+    public override void UnequipFrom(BaseUnit wearer)
+    {
+        wearer.ArmorCrushNormal   -= CrushNormal;
+        wearer.ArmorCrushGood     -= CrushGood;
+        wearer.ArmorCrushCritical -= CrushCritical;
+
+        wearer.ArmorSlashNormal   -= SlashNormal;
+        wearer.ArmorSlashGood     -= SlashGood;
+        wearer.ArmorSlashCritical -= SlashCritical;
+
+        wearer.ArmorPierceNormal   -= PierceNormal;
+        wearer.ArmorPierceGood     -= PierceGood;
+        wearer.ArmorPierceCritical -= PierceCritical;
+
+        wearer.ArmorFireNormal   -= FireNormal;
+        wearer.ArmorFireGood     -= FireGood;
+        wearer.ArmorFireCritical -= FireCritical;
+
+        wearer.ArmorIceNormal   -= IceNormal;
+        wearer.ArmorIceGood     -= IceGood;
+        wearer.ArmorIceCritical -= IceCritical;
+
+        wearer.ArmorLightningNormal   -= LightningNormal;
+        wearer.ArmorLightningGood     -= LightningGood;
+        wearer.ArmorLightningCritical -= LightningCritical;
+    }
+
     public override string GetTooltipContent()
     {
         var emil = new StringBuilder();
 
         emil.AppendLine("Armor:");
 
-        if(SlashNormal != 0 || SlashGood != 0 || SlashCritical != 0)
+        if (SlashNormal != 0 || SlashGood != 0 || SlashCritical != 0)
             emil.AppendLine($"Slash {SlashNormal}/{SlashGood}/{SlashCritical}");
 
         if (PierceNormal != 0 || PierceGood != 0 || PierceCritical != 0)

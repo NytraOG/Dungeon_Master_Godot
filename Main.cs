@@ -167,6 +167,11 @@ public partial class Main : Node,
 
                 foreach (var selection in SkillSelection)
                 {
+                    await ResolveDebuffs(selection);
+                    await ResolveBuffs(selection);
+
+                    ResolveSupportSkills(selection);
+
                     if (selection.Actor.IsDead)
                     {
                         await WaitFor(500);
@@ -197,11 +202,6 @@ public partial class Main : Node,
 
                         await WaitFor(1000);
                     }
-
-                    await ResolveDebuffs(selection);
-                    await ResolveBuffs(selection);
-
-                    ResolveSupportSkills(selection);
 
                     if (selection.Actor is BaseCreature creature)
                         creature.SelectedSkill = null;

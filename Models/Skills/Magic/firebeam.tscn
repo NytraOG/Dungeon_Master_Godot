@@ -5,6 +5,7 @@
 
 [node name="Firebeam" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_phq3p")
+DamageType = 3
 AppliedDebuffs = []
 Critical = 4
 DamageRange = 0.2
@@ -14,11 +15,11 @@ PrimaryAttributeD = 7
 PrimaryAttributeH = 6
 SecondaryAttributeD = 8
 SecondaryAttributeH = 7
-Icon = ExtResource("2_06q6y")
 Category = 2
-Subcategory = 1
 DescriptionBase = "Bzzt"
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
+Icon = ExtResource("2_06q6y")
 ManacostLevelScaling = 1.25
+Subcategory = 1
 Displayname = "Firebeam"

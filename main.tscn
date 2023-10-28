@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://eb2mwwfxrd78"]
+[gd_scene load_steps=24 format=3 uid="uid://eb2mwwfxrd78"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_fr21n"]
 [ext_resource type="Texture2D" uid="uid://bw1s5rgo10w7k" path="res://Graphics/Skills/Empty.png" id="2_i5yg1"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dyswq8axb4l3k" path="res://UI/item_tooltip.tscn" id="16_anps1"]
 [ext_resource type="Script" path="res://UI/PauseMenu.cs" id="17_idkqh"]
 [ext_resource type="PackedScene" uid="uid://dnwlsv67ybivv" path="res://UI/Status/hero_unitframes.tscn" id="17_olvri"]
+[ext_resource type="PackedScene" uid="uid://du4w53udsneng" path="res://UI/combat_log.tscn" id="18_h57c0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid5t"]
 size = Vector3(200, 2, 200)
@@ -375,6 +376,12 @@ vertical_alignment = 1
 [node name="Button" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
+
+[node name="CombatLog" parent="." instance=ExtResource("18_h57c0")]
+offset_left = 1419.0
+offset_top = 779.0
+offset_right = 1419.0
+offset_bottom = 779.0
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="Actions/Undo" to="." method="_on_undo_pressed"]

@@ -2,6 +2,7 @@ using System;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
 using DungeonMaster.UI;
+using Godot;
 
 namespace DungeonMaster.Models.Skills;
 
@@ -23,12 +24,9 @@ public partial class BaseWeaponSkill : BaseDamageSkill
             var rando         = new Random();
             var damageInRange = rando.NextDouble() * (maxhit - minhit) + minhit;
 
-            target.IsStunned = AppliesStun;
+            target.IsStunned        =  AppliesStun;
 
-            target.CurrentHitpoints -= damageInRange;
-
-            var finalDamage = (int)damageInRange;
-
+            DealDamageTo(hitResult, (int)damageInRange, target,  out var finalDamage);
             ApplyDebuffs(actor, target);
 
             Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");

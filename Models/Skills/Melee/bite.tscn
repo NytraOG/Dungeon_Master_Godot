@@ -6,20 +6,21 @@
 
 [node name="Bite" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_durqm")
+DamageType = 1
 AppliedDebuffs = [NodePath("ArmorShred"), NodePath("Bleed")]
-PrimaryAttributeH = 3
-SecondaryAttributeH = 4
-PrimaryAttributeD = 1
-PrimaryScalingD = 2.0
-SecondaryAttributeD = 3
-SecondaryScalingD = 1.0
-MultiplierD = 0.7
-Good = 1
 Critical = 2
 DamageRange = 0.25
-Subcategory = 1
+Good = 1
+MultiplierD = 0.7
+PrimaryAttributeD = 1
+PrimaryAttributeH = 3
+PrimaryScalingD = 2.0
+SecondaryAttributeD = 3
+SecondaryAttributeH = 4
+SecondaryScalingD = 1.0
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
+Subcategory = 1
 Displayname = "Bite"
 
 [node name="ArmorShred" parent="." instance=ExtResource("2_t6hef")]

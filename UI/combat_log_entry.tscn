@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d0ke7rm70w36f"]
+
+[node name="CombatLogEntry" type="Label"]
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 12
+text = "1estaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTesta"
+vertical_alignment = 1

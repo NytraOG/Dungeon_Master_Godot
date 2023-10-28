@@ -76,6 +76,7 @@ public partial class Main : Node,
     public MouseItemSlot                     MouseItemSlot       { get; set; }
     public InventorySystem                   InventorySystem     { get; set; }
     public EquipmentSystem                   EquipmentSystem     { get; set; }
+    public CombatLog                         CombatLog           { get; set; }
     public Vector2                           GlobalPositionMouse { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -83,6 +84,7 @@ public partial class Main : Node,
 
     public override void _Ready()
     {
+        CombatLog          = GetNode<CombatLog>(nameof(CombatLog));
         MouseItemSlot      = GetNode<MouseItemSlot>("MouseItemSlot");
         ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
         EquipmentSystem    = GetNode<EquipmentSystem>("EquipmentDisplay");
@@ -102,6 +104,9 @@ public partial class Main : Node,
     {
         if (Input.IsActionPressed(Keys.Backspace))
             SelectedTargets.Clear();
+
+        if (Input.IsKeyPressed(Key.X))
+            CombatLog.InsertEntry();
 
         if (Input.IsKeyPressed(Key.P))
         {

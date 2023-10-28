@@ -85,6 +85,8 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningNormal   += LightningNormal;
         wearer.ArmorLightningGood     += LightningGood;
         wearer.ArmorLightningCritical += LightningCritical;
+
+        wearer.Skills.Add(GrantedSkill);
     }
 
     public override void UnequipFrom(BaseUnit wearer)
@@ -112,6 +114,8 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningNormal   -= LightningNormal;
         wearer.ArmorLightningGood     -= LightningGood;
         wearer.ArmorLightningCritical -= LightningCritical;
+
+        wearer.Skills.Remove(GrantedSkill);
     }
 
     public override string GetTooltipContent()

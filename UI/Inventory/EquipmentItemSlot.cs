@@ -110,6 +110,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         equipment.EquipOn(selectedHero);
 
         selectedHero.Equipment.Slots[Name].EquipedItem = equipment;
+        OnPropertyChanged(nameof(EquipedItem));
 
         mouseItemSlot.Clear();
         mouseItemSlot.Visible = false;
@@ -129,6 +130,7 @@ public partial class EquipmentItemSlot : PanelContainer,
         EquipedItem = mouseItemEquipment;
 
         main.SelectedHero.Equipment.Slots[Name].EquipedItem = mouseItemEquipment;
+        OnPropertyChanged(nameof(EquipedItem));
 
         ShowToolTip();
     }
@@ -146,6 +148,7 @@ public partial class EquipmentItemSlot : PanelContainer,
 
         Clear();
         main.SelectedHero?.Equipment?.Slots[Name]?.Clear();
+        OnPropertyChanged(nameof(EquipedItem));
 
         ItemTooltip.Hide();
     }
@@ -153,6 +156,10 @@ public partial class EquipmentItemSlot : PanelContainer,
     public void Clear()
     {
         EquipedItem  = null;
+
+        if(Icon is null)
+            return;
+
         Icon.Texture = DefaultIcon;
     }
 

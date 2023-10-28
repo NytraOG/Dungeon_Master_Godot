@@ -15,6 +15,8 @@ public partial class EquipmentSystem : PanelContainer
     private Main                                  main;
     public  Dictionary<string, EquipmentItemSlot> Slots = new();
     private VBoxContainer                         statDisplayNode;
+    private PackedScene                           statsDisplayEntryScene;
+    private PackedScene                           trennerScene;
     public  Color                                 ColorRed   => new(0.86f, 0.09f, 0.09f);
     public  Color                                 ColorGreen => new(0.02f, 0.7f, 0.08f);
 
@@ -34,11 +36,25 @@ public partial class EquipmentSystem : PanelContainer
 
     public void Initialize()
     {
+        statsDisplayEntryScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/stats_display_entry.tscn");
+        trennerScene           = ResourceLoader.Load<PackedScene>("res://UI/Inventory/trenner.tscn");
         var rightSlots = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
         var leftSlots  = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
 
         Slots = rightSlots.Union(leftSlots)
                           .ToDictionary(k => k.Name.ToString(), v => v);
+
+        foreach (var slot in Slots)
+        {
+            slot.Value.PropertyChanged -= ValueOnPropertyChanged;
+            slot.Value.PropertyChanged += ValueOnPropertyChanged;
+        }
+    }
+
+    private void ValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(EquipmentItemSlot.EquipedItem))
+            UpdateValues();
     }
 
     private void UpsertStatsDisplayEntries(object sender, PropertyChangedEventArgs args)
@@ -48,9 +64,11 @@ public partial class EquipmentSystem : PanelContainer
 
         heronameLabel.Text = main.SelectedHero.Name;
 
-        var statsDisplayEntryScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/stats_display_entry.tscn");
-        var trennerScene           = ResourceLoader.Load<PackedScene>("res://UI/Inventory/trenner.tscn");
+        UpdateValues();
+    }
 
+    private void UpdateValues()
+    {
         var publicProperties = main.SelectedHero
                                    .GetType()
                                    .GetProperties() //BindingFlags gehen irgendwie mit Godot nicht
@@ -60,9 +78,9 @@ public partial class EquipmentSystem : PanelContainer
 
         foreach (var propertyInfo in publicProperties)
         {
-            var entry = FindOrCreateEntry(propertyInfo, statsDisplayEntryScene, trennerScene);
+            var entry = FindOrCreateEntry(propertyInfo);
 
-            UpdateValues(entry, propertyInfo);
+            UpdateValue(entry, propertyInfo);
         }
     }
 
@@ -72,7 +90,7 @@ public partial class EquipmentSystem : PanelContainer
         statDisplayNode.AddChild(instance);
     }
 
-    private void UpdateValues(HBoxContainer entry, PropertyInfo propertyInfo)
+    private void UpdateValue(HBoxContainer entry, PropertyInfo propertyInfo)
     {
         var nameNode = entry.GetNode<Label>("Name");
         nameNode.Text = FormatName(propertyInfo);
@@ -168,14 +186,14 @@ public partial class EquipmentSystem : PanelContainer
         _ => throw new ArgumentOutOfRangeException(nameof(PropertyInfo))
     };
 
-    private HBoxContainer FindOrCreateEntry(PropertyInfo propertyInfo, PackedScene statsDisplayEntryScrene, PackedScene trennerScene)
+    private HBoxContainer FindOrCreateEntry(PropertyInfo propertyInfo)
     {
         var entries = statDisplayNode.GetAllChildren<HBoxContainer>();
         var entry   = entries.FirstOrDefault(e => e.GetNode<Label>("Name")?.Text == FormatName(propertyInfo));
 
         if (entry is null)
         {
-            entry      = statsDisplayEntryScrene.Instantiate<HBoxContainer>();
+            entry      = statsDisplayEntryScene.Instantiate<HBoxContainer>();
             entry.Name = new StringName(propertyInfo.Name);
 
             statDisplayNode.AddChild(entry);
@@ -191,7 +209,7 @@ public partial class EquipmentSystem : PanelContainer
             else if (propertyInfo.Name == nameof(BaseUnit.SocialAttackratingModifier))
                 InsertTrennerinstance(trennerScene);
             else if (propertyInfo.Name == nameof(BaseUnit.ArmorLightningNormal))
-                 InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance(trennerScene);
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedMeleeDefense))
                 InsertTrennerinstance(trennerScene);
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedRangedDefense))

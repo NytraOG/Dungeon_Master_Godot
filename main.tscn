@@ -48,7 +48,7 @@ InitiativeContainer = NodePath("InitiativeOrder/MarginContainer/PanelContainer/I
 [node name="CameraPivot" type="Marker3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.835414, 0.549621, 0, -0.549621, 0.835414, -0.0305634, 2.37817, 1.76466)
+transform = Transform3D(1, 0, 0, 0, 0.835414, 0.549621, 0, -0.549621, 0.835414, 0.183766, 1.46338, 1.76466)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -146,11 +146,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="SkillButton3" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
 [node name="SkillButton4" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -241,13 +236,12 @@ scale = Vector2(0.5, 0.5)
 [node name="InventoryDisplay" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 553.0
-offset_top = 86.0
-offset_right = 553.0
-offset_bottom = 86.0
+offset_left = -10.0
+offset_top = 489.0
+offset_right = -10.0
+offset_bottom = 489.0
 
 [node name="Inventory" parent="InventoryDisplay" instance=ExtResource("13_t30m4")]
-visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -322,7 +316,6 @@ alignment = 1
 script = ExtResource("16_34bl1")
 
 [node name="EquipmentDisplay" parent="." instance=ExtResource("15_d2ps7")]
-visible = false
 
 [node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
 visible = false

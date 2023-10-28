@@ -21,4 +21,5 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 14
 text = "x99"

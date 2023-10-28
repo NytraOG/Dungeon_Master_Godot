@@ -46,7 +46,7 @@ public partial class InventorySystem : PanelContainer
     {
         InventoryDisplayCooldown -= delta;
 
-        if (Input.IsKeyPressed(Key.B) && InventoryDisplayCooldown <= 0)
+        if (Input.IsKeyPressed(Key.C) && InventoryDisplayCooldown <= 0)
         {
             Visible                  = !Visible;
             InventoryDisplayCooldown = 0.25;

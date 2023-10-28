@@ -37,6 +37,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CurrentStacksize" type="Label" parent="MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_horizontal = 8

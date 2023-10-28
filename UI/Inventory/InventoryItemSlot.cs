@@ -62,13 +62,15 @@ public partial class InventoryItemSlot : PanelContainer,
             if (ContainedItem is null)
                 return;
 
-            TextureRect         = GetNode<MarginContainer>("MarginContainer").GetNode<TextureRect>("TextureRect");
+            var container = GetNode<MarginContainer>("MarginContainer");
+
+            TextureRect         = container.GetNode<TextureRect>("TextureRect");
             TextureRect.Texture = ContainedItem.Icon;
 
             if (ContainedItem is not BaseConsumable)
                 return;
 
-            var stacksizeLabel = GetNode<Label>("CurrentStacksize");
+            var stacksizeLabel = container.GetNode<Label>("CurrentStacksize");
             stacksizeLabel.Text    = "x" + CurrentStacksize;
             stacksizeLabel.Visible = ContainedItem is IStackable;
         };

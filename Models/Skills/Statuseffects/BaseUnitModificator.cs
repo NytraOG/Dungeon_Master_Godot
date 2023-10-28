@@ -55,8 +55,8 @@ public abstract partial class BaseUnitModificator : Node3D
     public virtual void ApplyDamageModifier(BaseUnit creature)
     {
         creature.InitiativeFlatAdded += FlatInititiveModifier;
-        creature.AktionenGesamt      += ActionsModifier;
-        creature.AktionenAktuell     =  creature.AktionenGesamt;
+        creature.MaximumActionpoints      += ActionsModifier;
+        creature.CurrentActionpoints     =  creature.MaximumActionpoints;
         creature.FlatDamagebonus  += FlatDamageModifier;
     }
 }

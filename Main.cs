@@ -74,7 +74,8 @@ public partial class Main : Node,
     public List<SkillSelection>              SkillSelection      { get; set; } = new();
     public TextureButton                     ConfirmationButton  { get; set; }
     public MouseItemSlot                     MouseItemSlot       { get; set; }
-    public InventorySystem                   InventorySystemUi   { get; set; }
+    public InventorySystem                   InventorySystem     { get; set; }
+    public EquipmentSystem                   EquipmentSystem     { get; set; }
     public Vector2                           GlobalPositionMouse { get; set; }
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -84,8 +85,9 @@ public partial class Main : Node,
     {
         MouseItemSlot      = GetNode<MouseItemSlot>("MouseItemSlot");
         ConfirmationButton = GetNode<TextureButton>("ConfirmationButton");
-        InventorySystemUi  = GetNode<Control>("InventoryDisplay").GetNode<InventorySystem>("Inventory");
-        InventorySystemUi.Initialize(32);
+        EquipmentSystem    = GetNode<EquipmentSystem>("EquipmentDisplay");
+        InventorySystem    = GetNode<Control>("InventoryDisplay").GetNode<InventorySystem>("Inventory");
+        InventorySystem.Initialize(32);
 
         Enemies = this.GetAllChildren<BaseCreature>();
         Heroes  = this.GetAllChildren<Hero>();
@@ -105,6 +107,14 @@ public partial class Main : Node,
         {
             GetTree().Paused = true;
             GetNode<PanelContainer>("PauseMenu").Show();
+        }
+
+        if (Input.IsKeyPressed(Key.Escape))
+        {
+            InventorySystem.Hide();
+            EquipmentSystem.Hide();
+
+            ClearSelection();
         }
 
         MachEnemiesCombatReady();
@@ -219,10 +229,8 @@ public partial class Main : Node,
 
                 await WaitFor(1000);
 
-                SelectedEnemy = null;
-                SelectedSkill = null;
-                SkillSelection.Clear();
-                SelectedTargets.Clear();
+                ClearSelection();
+
                 InitiativeContainer.Clear();
             }
         }
@@ -238,6 +246,14 @@ public partial class Main : Node,
         //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);
 
         EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
+    }
+
+    private void ClearSelection()
+    {
+        SelectedEnemy = null;
+        SelectedSkill = null;
+        SkillSelection.Clear();
+        SelectedTargets.Clear();
     }
 
     private async Task FadeOutInislot(SkillSelection selection)
@@ -522,14 +538,14 @@ public partial class Main : Node,
 
         var heroItemslots = SelectedHero.Inventory.Slots;
 
-        for (var i = 0; i < InventorySystemUi.Slots.Count; i++)
+        for (var i = 0; i < InventorySystem.Slots.Count; i++)
         {
             if (heroItemslots.Count <= i)
                 continue;
 
-            InventorySystemUi.Slots[i.ToString()].Clear();
-            InventorySystemUi.Slots[i.ToString()].CurrentStacksize = heroItemslots[i.ToString()].CurrentStacksize;
-            InventorySystemUi.Slots[i.ToString()].ContainedItem    = heroItemslots[i.ToString()].ContainedItem;
+            InventorySystem.Slots[i.ToString()].Clear();
+            InventorySystem.Slots[i.ToString()].CurrentStacksize = heroItemslots[i.ToString()].CurrentStacksize;
+            InventorySystem.Slots[i.ToString()].ContainedItem    = heroItemslots[i.ToString()].ContainedItem;
         }
 
         var amountOfHeroSkills = hero.Skills.Count;
@@ -571,7 +587,7 @@ public partial class Main : Node,
         if (MouseItemSlot is not MouseItemSlot mouseItemSlot)
             return;
 
-        foreach (var inventoryItemSlot in InventorySystemUi.Slots.Select(s => s.Value))
+        foreach (var inventoryItemSlot in InventorySystem.Slots.Select(s => s.Value))
         {
             inventoryItemSlot.OnSlotLeftClicked += clickedSlot =>
             {
@@ -597,11 +613,11 @@ public partial class Main : Node,
                 var firstStacksize  = clickedSlot.CurrentStacksize % 2 == 0 ? clickedSlot.CurrentStacksize / 2 : clickedSlot.CurrentStacksize - clickedSlot.CurrentStacksize / 2;
                 var secondStacksize = clickedSlot.CurrentStacksize - firstStacksize;
 
-                var emptySlot1 = InventorySystemUi.FindFirstEmptySlot();
+                var emptySlot1 = InventorySystem.FindFirstEmptySlot();
                 InsertIntoSlot(emptySlot1, clickedSlot, firstStacksize);
                 emptySlot1.UpdateData();
 
-                var emptySlot2 = InventorySystemUi.FindFirstEmptySlot();
+                var emptySlot2 = InventorySystem.FindFirstEmptySlot();
                 InsertIntoSlot(emptySlot2, clickedSlot, secondStacksize);
                 emptySlot2.UpdateData();
 

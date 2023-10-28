@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using DungeonMaster.Misc;
 using DungeonMaster.Models;
 using Godot;
 
@@ -78,8 +79,7 @@ public partial class EquipmentSystem : PanelContainer
         var publicProperties = main.SelectedHero
                                    .GetType()
                                    .GetProperties() //BindingFlags gehen irgendwie mit Godot nicht
-                                   .Where(pi => (pi.PropertyType == typeof(int) || pi.PropertyType == typeof(double))
-                                                && !pi.Name.Contains("Process"))
+                                   .Where(pi => Attribute.IsDefined(pi, typeof(StatdisplayAttribute)))
                                    .ToArray();
 
         foreach (var propertyInfo in publicProperties)
@@ -90,7 +90,7 @@ public partial class EquipmentSystem : PanelContainer
         }
     }
 
-    private void InsertTrennerinstance(PackedScene trennerScene)
+    private void InsertTrennerinstance()
     {
         var instance = trennerScene.Instantiate<TextureRect>();
         statDisplayNode.AddChild(instance);
@@ -165,16 +165,19 @@ public partial class EquipmentSystem : PanelContainer
         if (name.Contains("rating"))
             name = name.Replace("rating", "R");
 
-        if (name.Contains("Defense"))
-            name = name.Replace("Defense", "Def.");
-
         if (name.ToLower().Contains("modifier"))
         {
             name = name.Replace("Modifier", "Mult.");
             name = name.Replace("modifier", "Mult.");
         }
 
-        return name.AddSpacesToString(true);
+        if (name.ToLower().Contains("modified"))
+        {
+            name = name.Replace("Modified", string.Empty).Trim();
+            name = name.Replace("modified", string.Empty).Trim();
+        }
+
+        return name.AddSpacesToString();
     }
 
     private string FormatValue(PropertyInfo propertyInfo) => propertyInfo.GetValue(main.SelectedHero) switch
@@ -205,33 +208,23 @@ public partial class EquipmentSystem : PanelContainer
             statDisplayNode.AddChild(entry);
 
             if (propertyInfo.Name == nameof(BaseUnit.Level))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.Charisma))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.CurrentHitpoints))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.ManaregenerationRate))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.SocialAttackratingModifier))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.ArmorLightningNormal))
-                InsertTrennerinstance(trennerScene);
-            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedMeleeDefense))
-                InsertTrennerinstance(trennerScene);
-            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedRangedDefense))
-                InsertTrennerinstance(trennerScene);
-            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedMagicDefense))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedSocialDefense))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedInitiative))
-                InsertTrennerinstance(trennerScene);
-            else if (propertyInfo.Name == nameof(BaseUnit.AktionenAktuell))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.FlatDamagebonus))
-                InsertTrennerinstance(trennerScene);
-            else if (propertyInfo.Name == nameof(BaseUnit.AktionenAktuell))
-                InsertTrennerinstance(trennerScene);
+                InsertTrennerinstance();
         }
 
         return entry;

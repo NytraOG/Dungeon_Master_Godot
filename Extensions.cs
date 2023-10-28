@@ -208,7 +208,7 @@ public static class Extensions
         return modifier * luckyBoyWhoIsAboutToBeRandomized;
     }
 
-    public static string AddSpacesToString(this string text, bool preserveAcronyms)
+    public static string AddSpacesToString(this string text, bool preserveAcronyms = true)
     {
         if (string.IsNullOrWhiteSpace(text))
             return string.Empty;

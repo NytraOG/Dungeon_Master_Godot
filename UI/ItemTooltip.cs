@@ -18,7 +18,7 @@ public partial class ItemTooltip : BaseTooltip
             return;
 
         Keywords.Text    = string.Join(", ", itemToShow.Keywords);
-        Displayname.Text = itemToShow.Name;
+        Displayname.Text = itemToShow.Name.ToString().AddSpacesToString();
         Content.Text     = itemToShow.GetTooltipContent();
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffContent, itemToShow.FluffContent);
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffAuthor, itemToShow.FluffAuthor);

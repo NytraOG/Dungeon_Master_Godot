@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using DungeonMaster.Enums;
+using DungeonMaster.Misc;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
@@ -29,39 +30,51 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public string Displayname { get; set; }
 
     [Export]
+    [Statdisplay]
     public int Level { get; set; } = 1;
 
     [Export]
+    [Statdisplay]
     public int Strength { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Constitution { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Dexterity { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Wisdom { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Quickness { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Intuition { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Logic { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Willpower { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public int Charisma { get; set; } = 4;
 
     [Export]
+    [Statdisplay]
     public double MaximumHitpoints { get; set; }
 
     [Export]
+    [Statdisplay]
     public double CurrentHitpoints
     {
         get => currentHitpoints;
@@ -73,9 +86,11 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     }
 
     [Export]
+    [Statdisplay]
     public double MaximumMana { get; set; }
 
     [Export]
+    [Statdisplay]
     public double CurrentMana
     {
         get => currentMana;
@@ -87,42 +102,86 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     }
 
     [Export]
+    [Statdisplay]
     public double ManaregenerationRate { get; set; }
 
-    //Attackratings
+    //Modifier
     [Export]
+    [Statdisplay]
+    public double InitiativeModifier { get; set; }
+
+    [Export]
+    [Statdisplay]
     public double MeleeAttackratingModifier { get; set; }
 
     [Export]
+    [Statdisplay]
     public double RangedAttackratingModifier { get; set; }
 
     [Export]
+    [Statdisplay]
     public double MagicAttackratingModifier { get; set; }
 
     [Export]
+    [Statdisplay]
     public double SocialAttackratingModifier { get; set; }
 
     public bool IsStunned { get; set; }
     public bool IsDead    => CurrentHitpoints <= 0;
 
     //Defense
-    public int ArmorSlashNormal       { get; set; }
-    public int ArmorSlashGood         { get; set; }
-    public int ArmorSlashCritical     { get; set; }
-    public int ArmorPierceNormal      { get; set; }
-    public int ArmorPierceGood        { get; set; }
-    public int ArmorPierceCritical    { get; set; }
-    public int ArmorCrushNormal       { get; set; }
-    public int ArmorCrushGood         { get; set; }
-    public int ArmorCrushCritical     { get; set; }
-    public int ArmorFireNormal        { get; set; }
-    public int ArmorFireGood          { get; set; }
-    public int ArmorFireCritical      { get; set; }
-    public int ArmorIceNormal         { get; set; }
-    public int ArmorIceGood           { get; set; }
-    public int ArmorIceCritical       { get; set; }
-    public int ArmorLightningNormal   { get; set; }
-    public int ArmorLightningGood     { get; set; }
+    [Statdisplay]
+    public int ArmorSlashNormal { get; set; }
+
+    [Statdisplay]
+    public int ArmorSlashGood { get; set; }
+
+    [Statdisplay]
+    public int ArmorSlashCritical { get; set; }
+
+    [Statdisplay]
+    public int ArmorPierceNormal { get; set; }
+
+    [Statdisplay]
+    public int ArmorPierceGood { get; set; }
+
+    [Statdisplay]
+    public int ArmorPierceCritical { get; set; }
+
+    [Statdisplay]
+    public int ArmorCrushNormal { get; set; }
+
+    [Statdisplay]
+    public int ArmorCrushGood { get; set; }
+
+    [Statdisplay]
+    public int ArmorCrushCritical { get; set; }
+
+    [Statdisplay]
+    public int ArmorFireNormal { get; set; }
+
+    [Statdisplay]
+    public int ArmorFireGood { get; set; }
+
+    [Statdisplay]
+    public int ArmorFireCritical { get; set; }
+
+    [Statdisplay]
+    public int ArmorIceNormal { get; set; }
+
+    [Statdisplay]
+    public int ArmorIceGood { get; set; }
+
+    [Statdisplay]
+    public int ArmorIceCritical { get; set; }
+
+    [Statdisplay]
+    public int ArmorLightningNormal { get; set; }
+
+    [Statdisplay]
+    public int ArmorLightningGood { get; set; }
+
+    [Statdisplay]
     public int ArmorLightningCritical { get; set; }
 
     //Melee
@@ -134,6 +193,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double MeleeDefensmodifier { get; set; }
 
+    [Statdisplay]
     public double ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => MeleeDefense * MeleeDefensmodifier);
 
     //Ranged
@@ -145,6 +205,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double RangedDefensemodifier { get; set; }
 
+    [Statdisplay]
     public double ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => RangedDefense * RangedDefensemodifier);
 
     //Magic
@@ -156,6 +217,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double MagicDefensemodifier { get; set; }
 
+    [Statdisplay]
     public double ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => MagicDefense * MagicDefensemodifier);
 
     //Social
@@ -167,6 +229,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     [Export]
     public double SocialDefensemodifier { get; set; }
 
+    [Statdisplay]
     public double ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => SocialDefense * SocialDefensemodifier);
 
     //Initiative
@@ -176,18 +239,17 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public double Initiative { get; set; }
 
     [Export]
-    public double InitiativeModifier { get; set; }
-
-    [Export]
     public double InitiativeFlatAdded { get; set; }
 
     public double ModifiedInitiative => FetchRollFor(SkillCategory.Initiative, () => Initiative * InitiativeModifier) + InitiativeFlatAdded;
 
     [Export]
-    public int AktionenGesamt { get; set; }
+    [Statdisplay]
+    public int MaximumActionpoints { get; set; }
 
     [Export]
-    public int AktionenAktuell { get; set; }
+    [Statdisplay]
+    public int CurrentActionpoints { get; set; }
 
     [Export]
     public double FlatDamagebonus { get; set; }

@@ -6,8 +6,8 @@
 [ext_resource type="FontFile" uid="uid://bj3640b5wy2xq" path="res://Graphics/fonts/upheavtt.ttf" id="4_m62nn"]
 
 [node name="ConfirmationButton" type="TextureButton"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 362.0
+offset_bottom = 142.0
 texture_normal = ExtResource("1_e42xa")
 texture_pressed = ExtResource("2_ely1l")
 texture_hover = ExtResource("3_lwuvg")
@@ -30,4 +30,5 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("4_m62nn")
 theme_override_font_sizes/font_size = 27
-text = "Confirm Selection"
+text = "Confirm 
+Selection"

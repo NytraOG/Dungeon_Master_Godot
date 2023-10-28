@@ -23,7 +23,19 @@ public partial class CombatLog : Control
                          .GetNode<ScrollContainer>(nameof(ScrollContainer));
     }
 
-    public void InsertEntry()
+    public void LogBuffTick() { }
+
+    public void LogDebuffTick() { }
+
+    public void LogSpawn() { }
+
+    public void LogHit() { }
+
+    public void LogMiss() { }
+
+    public void Log(string message) { }
+
+    private void InsertEntry()
     {
         var entry = logentryScene.Instantiate<Label>();
         entry.Text = $"TESTINSERT #{++count}";

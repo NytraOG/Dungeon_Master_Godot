@@ -266,7 +266,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     //public  PackedScene                        FloatingCombatTextScene { get; set; } = (PackedScene)ResourceLoader.Load("res://UI/doubleing_combat_text.tscn");
     public void InvokeRoundFinished() => OnRoundFinished?.Invoke();
 
-    public virtual void InstatiateFloatingCombatText(int receivedDamage, BaseWeaponSkill usedSkill, HitResult hitResult = HitResult.None)
+    public virtual void InstatiateFloatingCombatText(int receivedDamage, string sourceName, HitResult hitResult = HitResult.None)
     {
         try
         {
@@ -291,7 +291,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
                     break;
             }
 
-            floatingCombatTextInstance.Display.Text += $" ({usedSkill.Name})";
+            floatingCombatTextInstance.Display.Text += $" ({sourceName})";
 
             AddChild(floatingCombatTextInstance);
         }

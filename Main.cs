@@ -23,24 +23,6 @@ namespace DungeonMaster;
 public partial class Main : Node,
                             INotifyPropertyChanged
 {
-    [Signal]
-    public delegate void BuffAppliedEventHandler(BaseUnit actor, BaseSkill skill, BaseUnit[] targets, string skillresult);
-
-    [Signal]
-    public delegate void BuffTickEventHandler(BaseUnit applicant, string effect, int remainingDuration, Color combatlogEffectColor, Buff buff);
-
-    [Signal]
-    public delegate void DebuffTickEventHandler(BaseUnit actor, int damage, int remainingDuration, Color combatlogEffectColor, Debuff debuff);
-
-    [Signal]
-    public delegate void HitEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
-
-    [Signal]
-    public delegate void MiscEventHandler(string arg);
-
-    [Signal]
-    public delegate void MissEventHandler(BaseUnit actor, BaseSkill skill, int hitroll, int hitResult, BaseUnit target, string skillresult);
-
     private Hero selectedHero;
     public  bool AllesDa      { get; set; }
     private bool combatActive { get; set; }
@@ -105,8 +87,8 @@ public partial class Main : Node,
         if (Input.IsActionPressed(Keys.Backspace))
             SelectedTargets.Clear();
 
-        if (Input.IsKeyPressed(Key.X))
-            CombatLog.InsertEntry();
+        // if (Input.IsKeyPressed(Key.X))
+        //     CombatLog.InsertEntry();
 
         if (Input.IsKeyPressed(Key.P))
         {
@@ -197,8 +179,6 @@ public partial class Main : Node,
 
                     if (selection.Actor.IsStunned)
                     {
-                        EmitSignal(SignalName.Misc, $"{selection.Actor.Displayname}'s <b><color=yellow>Stun</color></b> expired");
-
                         //InstantiateFloatingCombatText(selection.Actor, "STUNNED");
 
                         selection.Actor.IsStunned = false;
@@ -248,9 +228,7 @@ public partial class Main : Node,
             combatActive = false;
         }
 
-        //Heroes.ForEach(h => h.GetComponent<SpriteRenderer>().material = heroOutlineMaterial);
-
-        EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
+        //EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
     }
 
     private void ClearSelection()
@@ -310,7 +288,7 @@ public partial class Main : Node,
                           buffsToKill.Add(b);
                   });
 
-            EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buffs.Max(b => b.RemainingDuration), buffs.First().CombatlogEffectColor, buffs.First());
+            //EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buffs.Max(b => b.RemainingDuration), buffs.First().CombatlogEffectColor, buffs.First());
 
             //ProcessFloatingCombatText($"{buffs.Key} TICK", HitResult.None, selection.Actor);
         }
@@ -322,7 +300,7 @@ public partial class Main : Node,
             if (buff.DurationEnded)
                 buffsToKill.Add(buff);
 
-            EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buff.RemainingDuration, buff.CombatlogEffectColor, buff);
+            //EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buff.RemainingDuration, buff.CombatlogEffectColor, buff);
 
             // if (buff.RemainingDuration >= 0)
             //     ProcessFloatingCombatText($"{buff.name} TICK", HitResult.None, selection.Actor);
@@ -346,29 +324,27 @@ public partial class Main : Node,
         {
             var cumulatedDamage = ResolveEffect(debuffs, debuffsToKill, selection, out var remainingDuration);
 
-            EmitSignal(SignalName.DebuffTick, selection.Actor, cumulatedDamage, remainingDuration, debuffs.First().CombatlogEffectColor, debuffs.First());
+            //EmitSignal(SignalName.DebuffTick, selection.Actor, cumulatedDamage, remainingDuration, debuffs.First().CombatlogEffectColor, debuffs.First());
 
             if (cumulatedDamage <= 0)
                 continue;
 
-            //ProcessFloatingCombatText(cumulatedDamage.ToString(), HitResult.None, selection.Actor);
+            selection.Actor.InstatiateFloatingCombatText(cumulatedDamage, debuffs.First().Name);
 
             await WaitFor(1000);
         }
 
         foreach (var debuff in unstackableDebuffs)
         {
-            debuff.ResolveTick(selection.Actor);
-
             if (debuff.DurationEnded)
                 debuffsToKill.Add(debuff);
 
-            EmitSignal(SignalName.DebuffTick, selection.Actor, debuff.DamagePerTick, debuff.RemainingDuration, debuff.CombatlogEffectColor, debuff);
+            //EmitSignal(SignalName.DebuffTick, selection.Actor, debuff.DamagePerTick, debuff.RemainingDuration, debuff.CombatlogEffectColor, debuff);
 
             if (debuff.DamagePerTick <= 0)
                 continue;
 
-            //ProcessFloatingCombatText(debuff.damagePerTick.ToString(), HitResult.None, selection.Actor);
+            selection.Actor.InstatiateFloatingCombatText(debuff.DamagePerTick, debuff.Name);
 
             await WaitFor(1000);
         }
@@ -439,7 +415,7 @@ public partial class Main : Node,
         {
             var skillResult = selection.Actor.UseAbility(selection.Skill, HitResult.None, target) + " ";
 
-            EmitSignal(SignalName.BuffApplied, selection.Actor, selection.Skill, selection.Targets.ToArray(), skillResult);
+            //EmitSignal(SignalName.BuffApplied, selection.Actor, selection.Skill, selection.Targets.ToArray(), skillResult);
 
             //ProcessFloatingCombatText(skillResult, HitResult.None, selection.Actor);
         }

@@ -31,7 +31,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");
 
-            target.InstatiateFloatingCombatText(finalDamage, this, hitResult);
+            target.InstatiateFloatingCombatText(finalDamage, Name, hitResult);
 
             if (target is BaseCreature { IsDead: true })
                 target.GetNode<FloatingCombatText>(nameof(FloatingCombatText)).OnQueueFreed += target.QueueFree;
@@ -40,7 +40,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
         }
 
         Console.WriteLine($"{actor.Displayname} missed {target.Displayname} with {Displayname}");
-        target.InstatiateFloatingCombatText(0, this, HitResult.Miss);
+        target.InstatiateFloatingCombatText(0, Name, HitResult.Miss);
 
         return HitResult.Miss.ToString();
     }

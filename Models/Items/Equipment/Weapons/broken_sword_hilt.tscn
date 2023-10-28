@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://de3yt27hxrxt3"]
+
+[ext_resource type="Script" path="res://Models/Items/Equipment/Weapons/BrokenSwordHilt.cs" id="1_0pppd"]
+[ext_resource type="Texture2D" uid="uid://di8kd0na44ugw" path="res://Graphics/Items/Armor/BrokenSwordHilt.png" id="2_j78jv"]
+
+[node name="BrokenSwordHilt" type="Node3D"]
+script = ExtResource("1_0pppd")
+AddedDamageNormal = 1
+AddedDamageGood = 2
+AddedDamageCritical = 4
+ApCost = 1.0
+Icon = ExtResource("2_j78jv")
+LevelRequirement = 1
+RequiredAttribute = 1
+RequiredLevelOfAttribute = 3

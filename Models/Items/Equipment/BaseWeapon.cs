@@ -27,6 +27,8 @@ public abstract partial class BaseWeapon : BaseEquipment
     [Export]
     public int NeededAmountOfMaterial { get; set; }
 
+    public abstract void Initialize();
+
     public override void EquipOn(BaseUnit wearer)
     {
         if(GrantedSkill is not null)

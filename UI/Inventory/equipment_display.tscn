@@ -184,6 +184,7 @@ theme_override_constants/margin_right = 9
 theme_override_constants/margin_bottom = 9
 
 [node name="Mainhand" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/MarginContainer" instance=ExtResource("2_aggd6")]
+unique_name_in_owner = true
 layout_mode = 2
 SlotType = 13
 DefaultIcon = ExtResource("21_uq567")
@@ -206,6 +207,7 @@ theme_override_constants/margin_right = 9
 theme_override_constants/margin_bottom = 9
 
 [node name="Offhand" parent="Background/MarginContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/MarginContainer3" instance=ExtResource("2_aggd6")]
+unique_name_in_owner = true
 layout_mode = 2
 SlotType = 14
 DefaultIcon = ExtResource("24_unvpa")

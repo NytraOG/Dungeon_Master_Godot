@@ -17,12 +17,12 @@ public partial class ItemTooltip : BaseTooltip
         if (itemToShow is null)
             return;
 
+        Keywords.Text    = string.Join(", ", itemToShow.Keywords);
         Displayname.Text = itemToShow.Name;
         Content.Text     = itemToShow.GetTooltipContent();
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffContent, itemToShow.FluffContent);
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffAuthor, itemToShow.FluffAuthor);
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffDate, itemToShow.FluffDate);
-        Keywords.Text    = string.Join(", ", itemToShow.Keywords);
     }
 
     public override void Hide()

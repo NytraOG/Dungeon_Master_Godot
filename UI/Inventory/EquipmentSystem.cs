@@ -38,11 +38,17 @@ public partial class EquipmentSystem : PanelContainer
     {
         statsDisplayEntryScene = ResourceLoader.Load<PackedScene>("res://UI/Inventory/stats_display_entry.tscn");
         trennerScene           = ResourceLoader.Load<PackedScene>("res://UI/Inventory/trenner.tscn");
-        var rightSlots = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
-        var leftSlots  = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
+
+        var rightSlots   = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerRight/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
+        var leftSlots    = GetNode<GridContainer>("Background/MarginContainer/HBoxContainer/ContainerLeft/MarginContainer/GridContainer").GetAllChildren<EquipmentItemSlot>();
+        var mainhandSlot = GetNode<EquipmentItemSlot>("%Mainhand");
+        var offhandSlot  = GetNode<EquipmentItemSlot>("%Offhand");
 
         Slots = rightSlots.Union(leftSlots)
                           .ToDictionary(k => k.Name.ToString(), v => v);
+
+        Slots.Add(mainhandSlot.Name.ToString()!, mainhandSlot);
+        Slots.Add(offhandSlot.Name.ToString()!, offhandSlot);
 
         foreach (var slot in Slots)
         {

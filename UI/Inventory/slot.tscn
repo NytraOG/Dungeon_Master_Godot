@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcaywe5wfv7a"]
+[gd_scene load_steps=5 format=3 uid="uid://bcaywe5wfv7a"]
 
 [ext_resource type="Script" path="res://UI/Inventory/InventoryItemSlot.cs" id="1_b3p2x"]
 [ext_resource type="Texture2D" uid="uid://cnn8bj13cv0m1" path="res://Graphics/UI/Inventory/bg_grey.png" id="1_u1iyo"]
+[ext_resource type="Texture2D" uid="uid://chjtmx342wwaw" path="res://Graphics/UI/little_background_frame.png" id="3_jjk80"]
+[ext_resource type="Texture2D" uid="uid://jqwb40k2g7gm" path="res://Graphics/UI/inventory_frame.png" id="4_6ip4s"]
 
 [node name="InventorySlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
@@ -19,6 +21,18 @@ theme_override_constants/margin_bottom = 4
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Background" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_jjk80")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Border" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_6ip4s")
 expand_mode = 1
 stretch_mode = 5
 

@@ -6,6 +6,6 @@
 script = ExtResource("1_y77no")
 DamagePerTick = 3
 ProbabilityToApply = 0.5
-CombatlogEffectColor = Color(0.214844, 0.386719, 0.171875, 1)
+CombatlogColorHex = "#1a891a"
 Duration = 3
 IsStackable = true

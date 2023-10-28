@@ -6,7 +6,7 @@
 script = ExtResource("1_oj8lo")
 DamagePerTick = 1
 ProbabilityToApply = 0.8
-CombatlogEffectColor = Color(0.640625, 0.046875, 0.00390625, 1)
+CombatlogColorHex = "#990000"
 Duration = 5
 IsStackable = true
 Displayname = "Bleed"

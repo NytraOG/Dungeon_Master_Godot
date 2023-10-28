@@ -6,7 +6,7 @@ public partial class Buff : BaseUnitModificator
 {
     public          BaseSkill AppliedBy;
     public          BaseUnit  AppliedFrom;
-    [Export] public Color     CombatlogEffectColor;
+    [Export] public string    CombatlogColorHex;
     [Export] public int       Duration;
     [Export] public bool      IsStackable;
     public          int       RemainingDuration;

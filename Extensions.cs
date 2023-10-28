@@ -178,11 +178,11 @@ public static class Extensions
 
         if (from is Debuff debuff && newInstance is Debuff newInstanceDebuff)
         {
-            newInstanceDebuff.DamagePerTick        = debuff.DamagePerTick;
-            newInstanceDebuff.Duration             = debuff.Duration;
-            newInstanceDebuff.RemainingDuration    = debuff.RemainingDuration;
-            newInstanceDebuff.IsStackable          = debuff.IsStackable;
-            newInstanceDebuff.CombatlogEffectColor = debuff.CombatlogEffectColor;
+            newInstanceDebuff.DamagePerTick     = debuff.DamagePerTick;
+            newInstanceDebuff.Duration          = debuff.Duration;
+            newInstanceDebuff.RemainingDuration = debuff.RemainingDuration;
+            newInstanceDebuff.IsStackable       = debuff.IsStackable;
+            newInstanceDebuff.CombatlogColorHex = debuff.CombatlogColorHex;
         }
 
         return newInstance;

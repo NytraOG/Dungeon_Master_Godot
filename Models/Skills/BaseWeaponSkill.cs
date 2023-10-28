@@ -2,16 +2,18 @@ using System;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
 using DungeonMaster.UI;
-using Godot;
 
 namespace DungeonMaster.Models.Skills;
 
 public partial class BaseWeaponSkill : BaseDamageSkill
 {
-    public override Factions TargetableFaction => Factions.Foe;
+    private         CombatLog combatLog;
+    public override Factions  TargetableFaction => Factions.Foe;
 
     public override string Activate(BaseUnit actor, BaseUnit target)
     {
+        combatLog ??= ((Main)GetTree().CurrentScene).CombatLog;
+
         var isHit = CalculateHit(actor, target, out var hitroll, out var hitResult);
 
         if (isHit)
@@ -24,12 +26,12 @@ public partial class BaseWeaponSkill : BaseDamageSkill
             var rando         = new Random();
             var damageInRange = rando.NextDouble() * (maxhit - minhit) + minhit;
 
-            target.IsStunned        =  AppliesStun;
+            target.IsStunned = AppliesStun;
 
-            DealDamageTo(hitResult, (int)damageInRange, target,  out var finalDamage);
+            DealDamageTo(hitResult, (int)damageInRange, target, out var finalDamage);
             ApplyDebuffs(actor, target);
 
-            Console.WriteLine($"{actor.Displayname} dealt {finalDamage} Damage with {Displayname} to {target.Displayname}");
+            combatLog.LogHit(actor, this, hitroll, hitResult, target, finalDamage.ToString("N0"));
 
             target.InstatiateFloatingCombatText(finalDamage, Name, hitResult);
 
@@ -39,7 +41,7 @@ public partial class BaseWeaponSkill : BaseDamageSkill
             return finalDamage.ToString();
         }
 
-        Console.WriteLine($"{actor.Displayname} missed {target.Displayname} with {Displayname}");
+        combatLog.LogMiss(actor, this, hitroll, target);
         target.InstatiateFloatingCombatText(0, Name, HitResult.Miss);
 
         return HitResult.Miss.ToString();

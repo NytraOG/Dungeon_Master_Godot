@@ -25,7 +25,7 @@ public partial class Main : Node,
 {
     private Hero selectedHero;
     public  bool AllesDa      { get; set; }
-    private bool combatActive { get; set; }
+    private bool CombatActive { get; set; }
 
     [Export]
     public Texture2D DefaultIcon { get; set; }
@@ -87,9 +87,6 @@ public partial class Main : Node,
         if (Input.IsActionPressed(Keys.Backspace))
             SelectedTargets.Clear();
 
-        // if (Input.IsKeyPressed(Key.X))
-        //     CombatLog.InsertEntry();
-
         if (Input.IsKeyPressed(Key.P))
         {
             GetTree().Paused = true;
@@ -148,7 +145,7 @@ public partial class Main : Node,
     {
         try
         {
-            combatActive = true;
+            CombatActive = true;
 
             foreach (var enemy in Enemies.Where(e => !e.IsDead))
             {
@@ -225,10 +222,10 @@ public partial class Main : Node,
         }
         finally
         {
-            combatActive = false;
+            CombatActive = false;
         }
 
-        //EmitSignal(SignalName.Misc, "-----------------------------------------------------------------------------------------------");
+        CombatLog.Log("-----------------------------------------------------------------------------------------------");
     }
 
     private void ClearSelection()
@@ -288,7 +285,7 @@ public partial class Main : Node,
                           buffsToKill.Add(b);
                   });
 
-            //EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buffs.Max(b => b.RemainingDuration), buffs.First().CombatlogEffectColor, buffs.First());
+            CombatLog.LogBuffTick(selection.Actor, buffs.First(), "EFFECT TODO", buffs.Max(b => b.RemainingDuration));
 
             //ProcessFloatingCombatText($"{buffs.Key} TICK", HitResult.None, selection.Actor);
         }
@@ -300,7 +297,7 @@ public partial class Main : Node,
             if (buff.DurationEnded)
                 buffsToKill.Add(buff);
 
-            //EmitSignal(SignalName.BuffTick, selection.Actor, "EFFECT", buff.RemainingDuration, buff.CombatlogEffectColor, buff);
+            CombatLog.LogBuffTick(selection.Actor, buff, "EFFECT TODO", buff.RemainingDuration);
 
             // if (buff.RemainingDuration >= 0)
             //     ProcessFloatingCombatText($"{buff.name} TICK", HitResult.None, selection.Actor);
@@ -324,7 +321,7 @@ public partial class Main : Node,
         {
             var cumulatedDamage = ResolveEffect(debuffs, debuffsToKill, selection, out var remainingDuration);
 
-            //EmitSignal(SignalName.DebuffTick, selection.Actor, cumulatedDamage, remainingDuration, debuffs.First().CombatlogEffectColor, debuffs.First());
+            CombatLog.LogDebuffTick(selection.Actor, debuffs.First(), cumulatedDamage.ToString("N0"), remainingDuration);
 
             if (cumulatedDamage <= 0)
                 continue;
@@ -339,7 +336,7 @@ public partial class Main : Node,
             if (debuff.DurationEnded)
                 debuffsToKill.Add(debuff);
 
-            //EmitSignal(SignalName.DebuffTick, selection.Actor, debuff.DamagePerTick, debuff.RemainingDuration, debuff.CombatlogEffectColor, debuff);
+            CombatLog.LogDebuffTick(selection.Actor, debuff, debuff.DamagePerTick.ToString("N0"), debuff.RemainingDuration);
 
             if (debuff.DamagePerTick <= 0)
                 continue;
@@ -415,7 +412,7 @@ public partial class Main : Node,
         {
             var skillResult = selection.Actor.UseAbility(selection.Skill, HitResult.None, target) + " ";
 
-            //EmitSignal(SignalName.BuffApplied, selection.Actor, selection.Skill, selection.Targets.ToArray(), skillResult);
+            CombatLog.LogBuffApplied(selection.Actor, selection.Skill, selection.Targets);
 
             //ProcessFloatingCombatText(skillResult, HitResult.None, selection.Actor);
         }
@@ -423,7 +420,7 @@ public partial class Main : Node,
 
     private void MachEnemiesCombatReady()
     {
-        if (combatActive || !Enemies.Any())
+        if (CombatActive || !Enemies.Any())
             return;
 
         var notCombatReadyEnemies = Enemies.Where(e => !e.IsDead &&

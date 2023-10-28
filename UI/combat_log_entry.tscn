@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://d0ke7rm70w36f"]
 
-[node name="CombatLogEntry" type="Label"]
+[node name="CombatLogEntry" type="RichTextLabel"]
+custom_minimum_size = Vector2(470, 0)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
 text = "1estaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTestaTesta"
-vertical_alignment = 1
+fit_content = true
+scroll_active = false

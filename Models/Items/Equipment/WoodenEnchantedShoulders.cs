@@ -11,19 +11,5 @@ public partial class WoodenEnchantedShoulders : BaseArmor
 
 	public override void Use(BaseUnit actor) => throw new NotImplementedException();
 
-	public override void EquipOn(BaseUnit wearer)
-	{
-		base.EquipOn(wearer);
-
-		wearer.Constitution += 3;
-	}
-
-	public override void UnequipFrom(BaseUnit wearer)
-	{
-		base.UnequipFrom(wearer);
-
-		wearer.Constitution -= 3;
-	}
-
 	public override EquipSlot EquipSlot => EquipSlot.Shoulders;
 }

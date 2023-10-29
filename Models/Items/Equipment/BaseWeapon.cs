@@ -32,12 +32,22 @@ public abstract partial class BaseWeapon : BaseEquipment
 
     public override void EquipOn(BaseUnit wearer)
     {
+        base.EquipOn(wearer);
+
+        if (GrantedSkillScene is null)
+            return;
+
         GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
         wearer.Skills.Add(GrantedSkill);
     }
 
     public override void UnequipFrom(BaseUnit wearer)
     {
+        base.UnequipFrom(wearer);
+
+        if (GrantedSkillScene is null)
+            return;
+
         if (GrantedSkill is not null)
             wearer.Skills.Remove(GrantedSkill);
     }

@@ -63,6 +63,8 @@ public abstract partial class BaseArmor : BaseEquipment
 
     public override void EquipOn(BaseUnit wearer)
     {
+        base.EquipOn(wearer);
+
         wearer.ArmorCrushNormal   += CrushNormal;
         wearer.ArmorCrushGood     += CrushGood;
         wearer.ArmorCrushCritical += CrushCritical;
@@ -131,6 +133,8 @@ public abstract partial class BaseArmor : BaseEquipment
 
         wearer.Skills.Remove(GrantedSkill);
         GrantedSkill.QueueFree();
+
+        base.UnequipFrom(wearer);
     }
 
     public override string GetTooltipContent()

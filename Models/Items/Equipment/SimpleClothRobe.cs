@@ -37,9 +37,9 @@ public partial class SimpleClothRobe : BaseArmor
 
     public override void UnequipFrom(BaseUnit wearer)
     {
-        base.UnequipFrom(wearer);
-
         Console.WriteLine("Removed Cloth Robe!");
+
+        base.UnequipFrom(wearer);
     }
 
     public override void Use(BaseUnit actor) => Console.WriteLine("Cloth Robe applied Buffs or whatever!");

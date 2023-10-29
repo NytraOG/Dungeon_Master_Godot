@@ -103,6 +103,12 @@ public partial class Hero : BaseUnit
         isInitialized = true;
     }
 
+    public void StopBlinking()
+    {
+        CanStillAct             = false;
+        animatedSprite.Modulate = new Color(1, 1, 1);
+    }
+
     private void InitializeHero()
     {
         Displayname = $"{Race.Displayname}_{Class.Displayname}";

@@ -167,11 +167,6 @@ public partial class Main : Node,
 
                 foreach (var selection in SkillSelection)
                 {
-                    await ResolveDebuffs(selection);
-                    await ResolveBuffs(selection);
-
-                    ResolveSupportSkills(selection);
-
                     if (selection.Actor.IsDead)
                     {
                         await WaitFor(500);
@@ -206,12 +201,20 @@ public partial class Main : Node,
                     if (selection.Actor is BaseCreature creature)
                         creature.SelectedSkill = null;
 
+                    await ResolveDebuffs(selection);
+                    await ResolveBuffs(selection);
+
+                    ResolveSupportSkills(selection);
+
                     await FadeOutInislot(selection);
                 }
 
                 await WaitFor(1000);
 
                 ClearSelection();
+
+                foreach (var hero in Heroes)
+                    hero.CanStillAct = true;
 
                 InitiativeContainer.Clear();
             }
@@ -230,9 +233,13 @@ public partial class Main : Node,
 
     private void ClearSelection()
     {
+        if (SelectedHero is not null)
+            SelectedHero.CanStillAct = SkillSelection.All(ss => ss.Actor.Name != SelectedHero.Name);
+
+        SelectedHero  = null;
         SelectedEnemy = null;
         SelectedSkill = null;
-        SkillSelection.Clear();
+        Skillbuttons.Clear();
         SelectedTargets.Clear();
     }
 
@@ -512,7 +519,11 @@ public partial class Main : Node,
 
     private void HeroOnSelected(Hero hero)
     {
+        if (SelectedHero is not null)
+            SelectedHero.CanStillAct = SkillSelection.All(ss => ss.Actor.Name != SelectedHero.Name);
+
         SelectedHero = hero;
+        SelectedHero.StopBlinking();
 
         var heroItemslots = SelectedHero.Inventory.Slots;
 

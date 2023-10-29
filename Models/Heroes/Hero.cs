@@ -14,6 +14,7 @@ public partial class Hero : BaseUnit
     public delegate void SelectedEvent(Hero sender);
 
     private         AnimatedSprite3D animatedSprite;
+    public          bool             CanStillAct = true;
     [Export] public BaseHeroclass    Class;
     [Export] public EquipmentSystem  Equipment;
     [Export] public BaseSkill        InherentSkill;
@@ -22,7 +23,8 @@ public partial class Hero : BaseUnit
     private         bool             isInitialized;
     private         Main             main;
     [Export] public BaseRace         Race;
-
+    private         bool             shadowIsGrowing;
+    private         int              shadowValue = 300;
 
     public override void _Ready()
     {
@@ -62,6 +64,38 @@ public partial class Hero : BaseUnit
 
     public override void _Process(double delta)
     {
+        if (CanStillAct)
+        {
+            var maxValue = 300;
+            var minValue = maxValue / 2;
+
+            if (shadowValue >= maxValue)
+            {
+                shadowIsGrowing = false;
+                shadowValue--;
+            }
+
+            if (shadowValue <= minValue)
+            {
+                shadowIsGrowing = true;
+                shadowValue++;
+            }
+
+            if (shadowIsGrowing && shadowValue < maxValue)
+            {
+                var colorValue = shadowValue / (float)maxValue;
+                animatedSprite.Modulate = new Color(colorValue, colorValue, colorValue);
+                shadowValue++;
+            }
+
+            if (!shadowIsGrowing && shadowValue > minValue)
+            {
+                var colorValue = shadowValue / (float)maxValue;
+                animatedSprite.Modulate = new Color(colorValue, colorValue, colorValue);
+                shadowValue--;
+            }
+        }
+
         if (isInitialized)
             return;
 

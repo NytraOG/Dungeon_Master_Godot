@@ -5,4 +5,4 @@
 [node name="Evasive" type="Node3D" node_paths=PackedStringArray("Skills")]
 script = ExtResource("1_piidg")
 Skills = []
-MeleeDefensmodifier = 0.75
+MeleeDefensmodifier = 0.25

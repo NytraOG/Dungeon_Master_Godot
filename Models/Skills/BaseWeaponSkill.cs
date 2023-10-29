@@ -1,6 +1,8 @@
 using System;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
+using DungeonMaster.Models.Heroes;
+using DungeonMaster.Models.Items.Equipment;
 using DungeonMaster.UI;
 
 namespace DungeonMaster.Models.Skills;
@@ -18,10 +20,26 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
         if (isHit)
         {
-            var damage = GetDamage(actor, hitResult);
+            var bonusDamage = 0;
 
-            var minhit = damage.Item1;
-            var maxhit = damage.Item2;
+            if (actor is Hero actingHero)
+            {
+                var equipedWeapon = (BaseWeapon)actingHero.Equipment
+                                                          .Slots[EquipSlot.Mainhand.ToString()]
+                                                          .EquipedItem;
+
+                bonusDamage = hitResult switch
+                {
+                    HitResult.Normal when equipedWeapon is not null => equipedWeapon.AddedDamageNormal,
+                    HitResult.Good when equipedWeapon is not null => equipedWeapon.AddedDamageGood,
+                    HitResult.Critical when equipedWeapon is not null => equipedWeapon.AddedDamageCritical,
+                    _ => 0
+                };
+            }
+
+            var damageRange = GetDamage(actor, hitResult);
+            var minhit      = damageRange.Item1 + bonusDamage;
+            var maxhit      = damageRange.Item2 + bonusDamage;
 
             var rando         = new Random();
             var damageInRange = rando.NextDouble() * (maxhit - minhit) + minhit;
@@ -53,9 +71,13 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
         var relation = Category switch
         {
+            SkillCategory.Melee when target is BaseCreature => hitroll / target.ModifiedMeleeDefense.InfuseRandomness(),
             SkillCategory.Melee => hitroll / target.ModifiedMeleeDefense,
+            SkillCategory.Ranged when target is BaseCreature => hitroll / target.ModifiedRangedDefense.InfuseRandomness(),
             SkillCategory.Ranged => hitroll / target.ModifiedRangedDefense,
+            SkillCategory.Magic when target is BaseCreature => hitroll / target.ModifiedMagicDefense.InfuseRandomness(),
             SkillCategory.Magic => hitroll / target.ModifiedMagicDefense,
+            SkillCategory.Social when target is BaseCreature => hitroll / target.ModifiedSocialDefense.InfuseRandomness(),
             SkillCategory.Social => hitroll / target.ModifiedSocialDefense,
             _ => 0f
         };

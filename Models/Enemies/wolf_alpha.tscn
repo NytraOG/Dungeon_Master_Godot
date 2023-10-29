@@ -24,10 +24,10 @@ animations = [{
 [node name="WolfAlpha" type="Node3D" node_paths=PackedStringArray("Keywords", "Monstertype")]
 script = ExtResource("1_7ej0k")
 Keywords = [NodePath("Alpha"), NodePath("Evasive")]
-LevelModifier = 1.4
+LevelModifier = 1.15
 Monstertype = NodePath("Wolf")
 Displayname = "Wolf, Alpha"
-Level = 2
+Level = 3
 Dexterity = 6
 Quickness = 5
 

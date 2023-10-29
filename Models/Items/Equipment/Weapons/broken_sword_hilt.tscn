@@ -5,9 +5,8 @@
 
 [node name="BrokenSwordHilt" type="Node3D"]
 script = ExtResource("1_0pppd")
-AddedDamageNormal = 1
-AddedDamageGood = 2
-AddedDamageCritical = 4
+AddedDamageNormal = 3
+AddedDamageGood = 1
 ApCost = 1.0
 Icon = ExtResource("2_j78jv")
 LevelRequirement = 1

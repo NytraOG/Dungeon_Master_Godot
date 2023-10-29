@@ -1,5 +1,6 @@
 using System;
 using DungeonMaster.Models.Items.Consumables;
+using DungeonMaster.Models.Items.Equipment;
 using DungeonMaster.Models.Items.Equipment.Weapons;
 using Godot;
 
@@ -34,9 +35,11 @@ public partial class OrcEnergist : Hero
 
         var swordHilt = ResourceLoader.Load<PackedScene>("res://Models/Items/Equipment/Weapons/broken_sword_hilt.tscn")
                                       .Instantiate<BrokenSwordHilt>();
-
         swordHilt.Initialize();
-
         Inventory.Slots["0"].ContainedItem = swordHilt;
+
+        var natureShoulders = ResourceLoader.Load<PackedScene>("res://Models/Items/Equipment/wooden_enchanted_shoulders.tscn")
+                                            .Instantiate<WoodenEnchantedShoulders>();
+        Inventory.Slots["1"].ContainedItem = natureShoulders;
     }
 }

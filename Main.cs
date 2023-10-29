@@ -526,7 +526,10 @@ public partial class Main : Node,
             InventorySystem.Slots[i.ToString()].ContainedItem    = heroItemslots[i.ToString()].ContainedItem;
         }
 
-        var amountOfHeroSkills = hero.Skills.Count;
+        var relevantSkill = hero.Skills.Where(s => s.Type != SkillType.Passive)
+                                .ToList();
+
+        var amountOfHeroSkills = relevantSkill.Count();
 
         for (var i = 0; i < Skillbuttons.Count; i++)
         {
@@ -540,8 +543,8 @@ public partial class Main : Node,
                 continue;
             }
 
-            skillbutton.Skill         = hero.Skills[i];
-            skillbutton.TextureNormal = hero.Skills[i].Icon;
+            skillbutton.Skill         = relevantSkill[i];
+            skillbutton.TextureNormal = relevantSkill[i].Icon;
         }
     }
 

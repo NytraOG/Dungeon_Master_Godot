@@ -63,10 +63,47 @@ public partial class BaseDefenseSkill : BaseSkill
 
     public virtual void ApplyPassiveEffects(BaseUnit applicant)
     {
-
+        applicant.ArmorSlashNormal       += ArmorSlashNormal;
+        applicant.ArmorSlashGood         += ArmorSlashGood;
+        applicant.ArmorSlashCritical     += ArmorSlashCritical;
+        applicant.ArmorPierceNormal      += ArmorPierceNormal;
+        applicant.ArmorPierceGood        += ArmorPierceGood;
+        applicant.ArmorPierceCritical    += ArmorPierceCritical;
+        applicant.ArmorCrushNormal       += ArmorCrushNormal;
+        applicant.ArmorCrushGood         += ArmorCrushGood;
+        applicant.ArmorCrushCritical     += ArmorCrushCritical;
+        applicant.ArmorFireNormal        += ArmorFireNormal;
+        applicant.ArmorFireGood          += ArmorFireGood;
+        applicant.ArmorFireCritical      += ArmorFireCritical;
+        applicant.ArmorIceNormal         += ArmorIceNormal;
+        applicant.ArmorIceGood           += ArmorIceGood;
+        applicant.ArmorIceCritical       += ArmorIceCritical;
+        applicant.ArmorLightningCritical += ArmorLightningNormal;
+        applicant.ArmorLightningCritical += ArmorLightningGood;
+        applicant.ArmorLightningCritical += ArmorLightningCritical;
     }
 
-    public virtual void UndoPassiveEffects(BaseUnit applicant) {}
+    public virtual void UndoPassiveEffects(BaseUnit applicant)
+    {
+        applicant.ArmorSlashNormal       -= ArmorSlashNormal;
+        applicant.ArmorSlashGood         -= ArmorSlashGood;
+        applicant.ArmorSlashCritical     -= ArmorSlashCritical;
+        applicant.ArmorPierceNormal      -= ArmorPierceNormal;
+        applicant.ArmorPierceGood        -= ArmorPierceGood;
+        applicant.ArmorPierceCritical    -= ArmorPierceCritical;
+        applicant.ArmorCrushNormal       -= ArmorCrushNormal;
+        applicant.ArmorCrushGood         -= ArmorCrushGood;
+        applicant.ArmorCrushCritical     -= ArmorCrushCritical;
+        applicant.ArmorFireNormal        -= ArmorFireNormal;
+        applicant.ArmorFireGood          -= ArmorFireGood;
+        applicant.ArmorFireCritical      -= ArmorFireCritical;
+        applicant.ArmorIceNormal         -= ArmorIceNormal;
+        applicant.ArmorIceGood           -= ArmorIceGood;
+        applicant.ArmorIceCritical       -= ArmorIceCritical;
+        applicant.ArmorLightningCritical -= ArmorLightningNormal;
+        applicant.ArmorLightningCritical -= ArmorLightningGood;
+        applicant.ArmorLightningCritical -= ArmorLightningCritical;
+    }
 
     public override string Activate(BaseUnit actor) => GetTacticalRoll(actor).ToString();
 }

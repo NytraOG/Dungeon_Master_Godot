@@ -2,5 +2,17 @@
 
 [ext_resource type="Script" path="res://Models/Skills/Defense/NaturalArmor.cs" id="1_tgn3x"]
 
-[node name="NaturalArmor" type="Node3D"]
+[node name="NaturalArmor" type="Node3D" node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_tgn3x")
+ArmorSlashNormal = 1
+ArmorSlashGood = 1
+ArmorSlashCritical = 1
+ArmorPierceNormal = 1
+ArmorPierceGood = 1
+ArmorPierceCritical = 1
+ArmorCrushNormal = 1
+ArmorCrushGood = 1
+ArmorCrushCritical = 1
+Type = 1
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []

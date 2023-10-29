@@ -87,11 +87,14 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningGood     += LightningGood;
         wearer.ArmorLightningCritical += LightningCritical;
 
-        if (GrantedSkillScene is null)
+        if (GrantedSkillScene  is null)
             return;
 
         GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
         wearer.Skills.Add(GrantedSkill);
+
+        if(GrantedSkill is BaseDefenseSkill defenseSkill)
+            defenseSkill.ApplyPassiveEffects(wearer);
     }
 
     public override void UnequipFrom(BaseUnit wearer)
@@ -122,6 +125,9 @@ public abstract partial class BaseArmor : BaseEquipment
 
         if (GrantedSkill is null)
             return;
+
+        if(GrantedSkill is BaseDefenseSkill defenseSkill)
+            defenseSkill.UndoPassiveEffects(wearer);
 
         wearer.Skills.Remove(GrantedSkill);
         GrantedSkill.QueueFree();

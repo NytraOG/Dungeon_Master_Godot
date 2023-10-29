@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using DungeonMaster.Models.Skills;
 using Godot;
 
 namespace DungeonMaster.Models.Items.Equipment;
@@ -86,8 +87,11 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningGood     += LightningGood;
         wearer.ArmorLightningCritical += LightningCritical;
 
-        if (GrantedSkill is not null)
-            wearer.Skills.Add(GrantedSkill);
+        if (GrantedSkillScene is null)
+            return;
+
+        GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
+        wearer.Skills.Add(GrantedSkill);
     }
 
     public override void UnequipFrom(BaseUnit wearer)
@@ -116,8 +120,11 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningGood     -= LightningGood;
         wearer.ArmorLightningCritical -= LightningCritical;
 
-        if (GrantedSkill is not null)
-            wearer.Skills.Remove(GrantedSkill);
+        if (GrantedSkill is null)
+            return;
+
+        wearer.Skills.Remove(GrantedSkill);
+        GrantedSkill.QueueFree();
     }
 
     public override string GetTooltipContent()

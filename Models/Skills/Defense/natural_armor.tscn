@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvkhphtaectaq"]
+
+[ext_resource type="Script" path="res://Models/Skills/Defense/NaturalArmor.cs" id="1_tgn3x"]
+
+[node name="NaturalArmor" type="Node3D"]
+script = ExtResource("1_tgn3x")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvix60xco4fvx"]
+
+[ext_resource type="Script" path="res://Models/Items/Equipment/WoodenEnchantedShoulders.cs" id="1_neytb"]
+[ext_resource type="Texture2D" uid="uid://c3vlkwxwxij7p" path="res://Graphics/Items/Armor/WoodenEnchantedShoulds.png" id="2_gp77h"]
+
+[node name="WoodenEnchantedShoulders" type="Node3D"]
+script = ExtResource("1_neytb")
+SlashNormal = 3
+SlashGood = 3
+PierceNormal = 3
+PierceGood = 3
+CrushNormal = 3
+CrushGood = 3
+FireNormal = -2
+FireGood = -2
+FireCritical = -3
+LightningNormal = 2
+LightningGood = 2
+LightningCritical = 1
+Icon = ExtResource("2_gp77h")

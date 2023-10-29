@@ -1,5 +1,6 @@
 ﻿using DungeonMaster.Enums;
 using DungeonMaster.Models.Items.Crafting;
+using DungeonMaster.Models.Skills;
 using Godot;
 
 namespace DungeonMaster.Models.Items.Equipment;
@@ -31,8 +32,8 @@ public abstract partial class BaseWeapon : BaseEquipment
 
     public override void EquipOn(BaseUnit wearer)
     {
-        if(GrantedSkill is not null)
-            wearer.Skills.Add(GrantedSkill);
+        GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
+        wearer.Skills.Add(GrantedSkill);
     }
 
     public override void UnequipFrom(BaseUnit wearer)

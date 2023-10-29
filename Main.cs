@@ -218,7 +218,7 @@ public partial class Main : Node,
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            CombatLog.Log(e.ToString());
         }
         finally
         {

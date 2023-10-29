@@ -45,25 +45,25 @@ public partial class BaseSupportSkill : BaseTargetingSkill
             {
                 target.MeleeAttackratingModifier += MeleeAttackratingModifier;
                 target.MeleeDefensmodifier       += MeleeDefensmodifier;
-                target.MeleeDefense       += GetTacticalRoll(target);
+                target.MeleeDefense              += GetTacticalRoll(target);
             }
             else if (skillCategory == SkillCategory.Ranged.ToString())
             {
                 target.RangedAttackratingModifier += RangedAttackratingModifier;
                 target.RangedDefensemodifier      += RangedDefensemodifier;
-                target.RangedDefense       += GetTacticalRoll(target);
+                target.RangedDefense              += GetTacticalRoll(target);
             }
             else if (skillCategory == SkillCategory.Magic.ToString())
             {
                 target.MagicAttackratingModifier += MagicAttackratingModifier;
                 target.MagicDefensemodifier      += MagicDefensemodifier;
-                target.MagicDefense       += GetTacticalRoll(target);
+                target.MagicDefense              += GetTacticalRoll(target);
             }
             else if (skillCategory == SkillCategory.Social.ToString())
             {
                 target.SocialAttackratingModifier += SocialAttackratingModifier;
                 target.SocialDefensemodifier      += SocialDefensemodifier;
-                target.SocialDefense       += GetTacticalRoll(target);
+                target.SocialDefense              += GetTacticalRoll(target);
             }
             else
                 Console.WriteLine($"{skillCategory} not implemented in {nameof(BaseSupportSkill)}");
@@ -88,25 +88,25 @@ public partial class BaseSupportSkill : BaseTargetingSkill
             {
                 target.MeleeAttackratingModifier -= MeleeAttackratingModifier;
                 target.MeleeDefensmodifier       -= MeleeDefensmodifier;
-                target.MeleeDefense       -= GetTacticalRoll(target);
+                target.MeleeDefense              -= GetTacticalRoll(target);
             }
             else if (skillCategory == SkillCategory.Ranged.ToString())
             {
                 target.RangedAttackratingModifier -= RangedAttackratingModifier;
                 target.RangedDefensemodifier      -= RangedDefensemodifier;
-                target.RangedDefense       -= GetTacticalRoll(target);
+                target.RangedDefense              -= GetTacticalRoll(target);
             }
             else if (skillCategory == SkillCategory.Magic.ToString())
             {
                 target.MagicAttackratingModifier -= MagicAttackratingModifier;
                 target.MagicDefensemodifier      -= MagicDefensemodifier;
-                target.MagicDefense       -= GetTacticalRoll(target);
+                target.MagicDefense              -= GetTacticalRoll(target);
             }
             else if (skillCategory == SkillCategory.Social.ToString())
             {
                 target.SocialAttackratingModifier -= SocialAttackratingModifier;
                 target.SocialDefensemodifier      -= SocialDefensemodifier;
-                target.SocialDefense       -= GetTacticalRoll(target);
+                target.SocialDefense              -= GetTacticalRoll(target);
             }
             else
                 Console.WriteLine($"{skillCategory} not implemented in {nameof(BaseSupportSkill)}");
@@ -142,5 +142,5 @@ public partial class BaseSupportSkill : BaseTargetingSkill
         }
     }
 
-    public override string Activate(BaseUnit actor) => throw new NotImplementedException();
+    public override string Activate(BaseUnit actor) => GetTacticalRoll(actor).ToString();
 }

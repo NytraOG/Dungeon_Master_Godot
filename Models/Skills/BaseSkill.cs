@@ -12,30 +12,29 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseSkill : Node3D
 {
-    [Export]                           public int              AcquisitionLevelHeroBasic      = 1;
-    [Export]                           public int              AcquisitionLevelHeroDemanding  = 1;
-    [Export]                           public int              AcquisitionLevelOutOfHeroClass = 1;
-    [Export]                           public SkillType        Type;
-    [Export]                           public int              XpBaseBasic      = 16;
-    [Export]                           public int              XpBaseDemanding  = 45;
-    [Export]                           public int              XpBaseOutOfClass = 62;
-    [ExportGroup("Details")] [Export]  public SkillCategory    Category;
-    [Export]                           public SkillSubcategory Subcategory;
-    [Export]                           public string           DescriptionBase;
-    [Export]                           public BaseHeroclass[]  DifficultyBasicClasses;
-    [Export]                           public BaseHeroclass[]  DifficultyDemandingClasses;
-    [Export]                           public Texture2D        Icon;
-    [ExportGroup("Leveling")] [Export] public int              Level = 1;
-    [Export]                           public int              ManacostFlat;
-    [Export]                           public double           ManacostLevelScaling;
-    [Export]                           public double           MultiplierT = 1;
+    [Export]                           public int             AcquisitionLevelHeroBasic      = 1;
+    [Export]                           public int             AcquisitionLevelHeroDemanding  = 1;
+    [Export]                           public int             AcquisitionLevelOutOfHeroClass = 1;
+    [ExportGroup("Details")] [Export]  public SkillCategory   Category;
+    [Export]                           public string          DescriptionBase;
+    [Export]                           public BaseHeroclass[] DifficultyBasicClasses;
+    [Export]                           public BaseHeroclass[] DifficultyDemandingClasses;
+    [Export]                           public Texture2D       Icon;
+    [ExportGroup("Leveling")] [Export] public int             Level = 1;
+    [Export]                           public int             ManacostFlat;
+    [Export]                           public double          ManacostLevelScaling;
+    [Export]                           public double          MultiplierT = 1;
     [ExportGroup("Tactical Roll")] [Export]
     public Attribute PrimaryAttributeT;
-    [Export] public double            PrimaryScalingT = 2f;
+    [Export] public double           PrimaryScalingT = 2f;
     [Export] public Attribute        SecondaryAttributeT;
-    [Export] public double            SecondaryScalingT  = 1f;
-    [Export] public double            SkillLevelScalingT = 2f;
-
+    [Export] public double           SecondaryScalingT  = 1f;
+    [Export] public double           SkillLevelScalingT = 2f;
+    [Export] public SkillSubcategory Subcategory;
+    [Export] public SkillType        Type;
+    [Export] public int              XpBaseBasic      = 16;
+    [Export] public int              XpBaseDemanding  = 45;
+    [Export] public int              XpBaseOutOfClass = 62;
 
     //public GameObject       Weapon;
     public int Manacost => (int)(ManacostFlat + Level * ManacostLevelScaling);
@@ -92,14 +91,14 @@ public abstract partial class BaseSkill : Node3D
         }
     }
 
-    public int GetTacticalRoll(BaseUnit unit)
+    public int GetTacticalRoll(BaseUnit actor)
     {
-        var primaryValue   = PrimaryScalingT * unit.Get(PrimaryAttributeT);
-        var secondaryValue = SecondaryScalingT * unit.Get(SecondaryAttributeT);
+        var primaryValue   = PrimaryScalingT * actor.Get(PrimaryAttributeT);
+        var secondaryValue = SecondaryScalingT * actor.Get(SecondaryAttributeT);
         var levelValue     = Level * SkillLevelScalingT;
 
         var tacticalRoll = (primaryValue + secondaryValue + levelValue).InfuseRandomness();
-        var finalHitroll = tacticalRoll * MultiplierT * GetAttackmodifier(this, unit);
+        var finalHitroll = tacticalRoll * MultiplierT * GetDefensemodifier(this, actor);
 
         return (int)finalHitroll;
     }
@@ -127,16 +126,26 @@ public abstract partial class BaseSkill : Node3D
         return DifficultyDemandingClasses.Any(dd => dd.Name == heroclass.Name) ? SkillDifficulty.Demanding : SkillDifficulty.OutOfClass;
     }
 
+    protected double GetDefensemodifier(BaseSkill skill, BaseUnit actor) => skill.Category switch
+    {
+        SkillCategory.Melee => actor.MeleeDefensmodifier,
+        SkillCategory.Ranged => actor.RangedDefensemodifier,
+        SkillCategory.Magic => actor.MagicDefensemodifier,
+        SkillCategory.Social => actor.SocialDefensemodifier,
+        SkillCategory.Support when skill is BaseSupportSkill supportSkill && supportSkill.AffectedCategories.Any(ac => ac == SkillCategory.Melee.ToString()) => actor.MeleeDefensmodifier,
+        SkillCategory.Support when skill is BaseSupportSkill supportSkill && supportSkill.AffectedCategories.Any(ac => ac == SkillCategory.Ranged.ToString()) => actor.RangedDefensemodifier,
+        SkillCategory.Support when skill is BaseSupportSkill supportSkill && supportSkill.AffectedCategories.Any(ac => ac == SkillCategory.Magic.ToString()) => actor.MagicDefensemodifier,
+        SkillCategory.Support when skill is BaseSupportSkill supportSkill && supportSkill.AffectedCategories.Any(ac => ac == SkillCategory.Social.ToString()) => actor.SocialDefensemodifier,
+        _ => 0
+    };
+
     protected double GetAttackmodifier(BaseSkill skill, BaseUnit actor) => skill.Category switch
     {
         SkillCategory.Melee => actor.MeleeAttackratingModifier,
         SkillCategory.Ranged => actor.RangedAttackratingModifier,
         SkillCategory.Magic => actor.MagicAttackratingModifier,
         SkillCategory.Social => actor.SocialAttackratingModifier,
-        SkillCategory.Summon => 0,
-        SkillCategory.Support => 0,
-        SkillCategory.Initiative => 0,
-        _ => throw new ArgumentOutOfRangeException()
+        _ => 0
     };
 
     public abstract string Activate(BaseUnit actor);

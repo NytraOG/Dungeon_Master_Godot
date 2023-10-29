@@ -49,10 +49,10 @@ public abstract partial class BaseCreature : BaseUnit
 
         InitiativeModifier = 1;
 
-        MeleeDefense  = BaseDefenseMelee;
-        RangedDefense = BaseDefenseRanged;
-        MagicDefense  = BaseDefenseMagic;
-        SocialDefense = BaseDefenseSocial;
+        MeleeDefense  = MeleeDefenseBase;
+        RangedDefense = RangedDefenseBase;
+        MagicDefense  = MagicDefenseBase;
+        SocialDefense = SocialDefenseBase;
 
         Monstertype.ApplyValues(this);
 

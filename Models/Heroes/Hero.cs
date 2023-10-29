@@ -96,10 +96,10 @@ public partial class Hero : BaseUnit
         Race.ApplyModifiers(this);
         Class.ApplyModifiers(this);
 
-        MeleeDefense  = BaseDefenseMelee;
-        RangedDefense = BaseDefenseRanged;
-        MagicDefense  = BaseDefenseMagic;
-        SocialDefense = BaseDefenseSocial;
+        MeleeDefense  = MeleeDefenseBase;
+        RangedDefense = RangedDefenseBase;
+        MagicDefense  = MagicDefenseBase;
+        SocialDefense = SocialDefenseBase;
     }
 
     public event SelectedEvent OnSelected;

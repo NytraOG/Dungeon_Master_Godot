@@ -110,16 +110,16 @@ public partial class EquipmentSystem : PanelContainer
                     or nameof(BaseUnit.CurrentHitpoints)
                     or nameof(BaseUnit.MaximumMana)
                     or nameof(BaseUnit.CurrentMana)
-                    or nameof(BaseUnit.BaseDefenseMelee)
+                    or nameof(BaseUnit.MeleeDefenseBase)
                     or nameof(BaseUnit.MeleeDefense)
                     or nameof(BaseUnit.ModifiedMeleeDefense)
-                    or nameof(BaseUnit.BaseDefenseRanged)
+                    or nameof(BaseUnit.RangedDefenseBase)
                     or nameof(BaseUnit.RangedDefense)
                     or nameof(BaseUnit.ModifiedRangedDefense)
-                    or nameof(BaseUnit.BaseDefenseMagic)
+                    or nameof(BaseUnit.MagicDefenseBase)
                     or nameof(BaseUnit.MagicDefense)
                     or nameof(BaseUnit.ModifiedMagicDefense)
-                    or nameof(BaseUnit.BaseDefenseSocial)
+                    or nameof(BaseUnit.SocialDefenseBase)
                     or nameof(BaseUnit.SocialDefense)
                     or nameof(BaseUnit.ModifiedSocialDefense) => Colors.White,
             double d when d - 1 < 0 => ColorRed,
@@ -219,7 +219,7 @@ public partial class EquipmentSystem : PanelContainer
                 InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.ArmorLightningNormal))
                 InsertTrennerinstance();
-            else if (propertyInfo.Name == nameof(BaseUnit.ModifiedSocialDefense))
+            else if (propertyInfo.Name == nameof(BaseUnit.SocialDefensemodifier))
                 InsertTrennerinstance();
             else if (propertyInfo.Name == nameof(BaseUnit.ModifiedInitiative))
                 InsertTrennerinstance();

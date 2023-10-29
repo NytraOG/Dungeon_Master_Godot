@@ -185,51 +185,55 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
     public int ArmorLightningCritical { get; set; }
 
     //Melee
-    public double BaseDefenseMelee => 2 * Dexterity + Quickness;
+    [Statdisplay]
+    public double MeleeDefenseBase => 2 * Dexterity + Quickness;
 
     [Export]
     public double MeleeDefense { get; set; }
 
     [Export]
+    [Statdisplay]
     public double MeleeDefensmodifier { get; set; }
 
-    [Statdisplay]
     public double ModifiedMeleeDefense => FetchRollFor(SkillCategory.Melee, () => MeleeDefense * MeleeDefensmodifier);
 
     //Ranged
-    public double BaseDefenseRanged => 2 * Quickness + Dexterity;
+    [Statdisplay]
+    public double RangedDefenseBase => 2 * Quickness + Dexterity;
 
     [Export]
     public double RangedDefense { get; set; }
 
     [Export]
+    [Statdisplay]
     public double RangedDefensemodifier { get; set; }
 
-    [Statdisplay]
     public double ModifiedRangedDefense => FetchRollFor(SkillCategory.Ranged, () => RangedDefense * RangedDefensemodifier);
 
     //Magic
-    public double BaseDefenseMagic => 2 * Willpower + Wisdom;
+    [Statdisplay]
+    public double MagicDefenseBase => 2 * Willpower + Wisdom;
 
     [Export]
     public double MagicDefense { get; set; }
 
     [Export]
+    [Statdisplay]
     public double MagicDefensemodifier { get; set; }
 
-    [Statdisplay]
     public double ModifiedMagicDefense => FetchRollFor(SkillCategory.Magic, () => MagicDefense * MagicDefensemodifier);
 
     //Social
-    public double BaseDefenseSocial => 2 * Logic + Charisma;
+    [Statdisplay]
+    public double SocialDefenseBase => 2 * Logic + Charisma;
 
     [Export]
     public double SocialDefense { get; set; }
 
     [Export]
+    [Statdisplay]
     public double SocialDefensemodifier { get; set; }
 
-    [Statdisplay]
     public double ModifiedSocialDefense => FetchRollFor(SkillCategory.Social, () => SocialDefense * SocialDefensemodifier);
 
     //Initiative
@@ -318,12 +322,21 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     private double FetchRollFor(SkillCategory category, Func<double> returnDefaultModifiedDefense)
     {
-        var matchingDefenseSkills = Skills.Where(s => s.Subcategory == SkillSubcategory.Defense &&
-                                                      s.Category == category)
+        var matchingDefenseSkills = Skills.Where(s => s is BaseSupportSkill { Subcategory: SkillSubcategory.Defense or SkillSubcategory.Special } supportSkill &&
+                                                      supportSkill.AffectedCategories.Any(ac => ac == category.ToString()))
                                           .ToList();
 
-        return !matchingDefenseSkills.Any() ? returnDefaultModifiedDefense() : double.Parse(matchingDefenseSkills.First().Activate(this));
+        return !matchingDefenseSkills.Any() ? returnDefaultModifiedDefense() : matchingDefenseSkills.First().GetTacticalRoll(this);
     }
+
+    public double GetUnmodifiedNaturalRollFor(SkillCategory category) => category switch
+    {
+        SkillCategory.Melee => MeleeDefenseBase,
+        SkillCategory.Ranged => RangedDefenseBase,
+        SkillCategory.Magic => MagicDefenseBase,
+        SkillCategory.Social => SocialDefenseBase,
+        _ => 0
+    };
 
     protected void SetInitialHitpointsAndMana()
     {

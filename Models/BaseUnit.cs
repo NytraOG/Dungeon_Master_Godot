@@ -456,8 +456,8 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     private double FetchRollFor(SkillCategory category, Func<double> returnDefaultModifiedDefense)
     {
-        var matchingDefenseSkills = Skills.Where(s => s is BaseSupportSkill { Subcategory: SkillSubcategory.Defense or SkillSubcategory.Special } supportSkill &&
-                                                      supportSkill.AffectedCategories.Any(ac => ac == category.ToString()))
+        var matchingDefenseSkills = Skills.Where(s => s is BaseSupportSkill { Subcategory: SkillSubcategory.Defense or SkillSubcategory.Special, AffectedCategories: not null } supportSkill
+                                                      && supportSkill.AffectedCategories.Any(ac => ac == category.ToString()))
                                           .ToList();
 
         return !matchingDefenseSkills.Any() ? returnDefaultModifiedDefense() : matchingDefenseSkills.First().GetTacticalRoll(this);

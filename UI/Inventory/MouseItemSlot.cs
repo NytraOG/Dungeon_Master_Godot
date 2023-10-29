@@ -16,8 +16,8 @@ public partial class MouseItemSlot : PanelContainer,
 
     public override void _Ready()
     {
-        defaultCursor  = ResourceLoader.Load("res://Graphics/UI/Cursors 64/G_Cursor_Hand.png");
-        clenchedCursor = ResourceLoader.Load("res://Graphics/UI/Cursors 64/G_Cursor_Hand2.png");
+        defaultCursor  = ResourceLoader.Load("res://Graphics/UI/Cursors 64/G_Cursor_Hand3.png");
+        clenchedCursor = ResourceLoader.Load("res://Graphics/UI/Cursors 64/G_Cursor_Hand4.png");
 
         Input.SetCustomMouseCursor(defaultCursor);
     }
@@ -31,7 +31,10 @@ public partial class MouseItemSlot : PanelContainer,
 
     private void SetCursorSprite()
     {
-        Input.SetCustomMouseCursor(ContainedItem is not null ? clenchedCursor : defaultCursor, Input.CursorShape.Arrow, new Vector2(0,-200));
+        if(ContainedItem is null)
+            Input.SetCustomMouseCursor(defaultCursor);
+        else
+            Input.SetCustomMouseCursor(clenchedCursor);
     }
 
     public void Clear()

@@ -130,17 +130,18 @@ public abstract partial class BaseCreature : BaseUnit
         if (Level == 1)
             return;
 
-        var modifier = LevelModifier * Level;
+        var modifier = (LevelModifier - 1) * Level;
+        modifier++;
 
-        Strength     += (int)(Monstertype.Strength * modifier);
-        Constitution += (int)(Monstertype.Constitution * modifier);
-        Dexterity    += (int)(Monstertype.Dexterity * modifier);
-        Quickness    += (int)(Monstertype.Quickness * modifier);
-        Intuition    += (int)(Monstertype.Intuition * modifier);
-        Logic        += (int)(Monstertype.Logic * modifier);
-        Wisdom       += (int)(Monstertype.Wisdom * modifier);
-        Willpower    += (int)(Monstertype.Willpower * modifier);
-        Charisma     += (int)(Monstertype.Charisma * modifier);
+        Strength     = (int)(Monstertype.Strength * modifier);
+        Constitution = (int)(Monstertype.Constitution * modifier);
+        Dexterity    = (int)(Monstertype.Dexterity * modifier);
+        Quickness    = (int)(Monstertype.Quickness * modifier);
+        Intuition    = (int)(Monstertype.Intuition * modifier);
+        Logic        = (int)(Monstertype.Logic * modifier);
+        Wisdom       = (int)(Monstertype.Wisdom * modifier);
+        Willpower    = (int)(Monstertype.Willpower * modifier);
+        Charisma     = (int)(Monstertype.Charisma * modifier);
     }
 
     private void _on_creature_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)

@@ -122,8 +122,8 @@ public partial class Main : Node,
 
         var adjustedPosition = new Vector2
         {
-            X = Mathf.Clamp(globalMousePosition.X + 3, 0, screensize.X - 4),
-            Y = Mathf.Clamp(globalMousePosition.Y + 3, 0, screensize.Y - 4)
+            X = Mathf.Clamp(globalMousePosition.X + 50, 0, screensize.X - 4),
+            Y = Mathf.Clamp(globalMousePosition.Y + 10, 0, screensize.Y - 4)
         };
 
         var xOverlap = adjustedPosition.X + ItemTooltip.Size.X;

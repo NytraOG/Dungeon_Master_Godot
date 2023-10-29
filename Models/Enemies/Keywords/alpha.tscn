@@ -8,16 +8,16 @@
 [node name="Alpha" type="Node3D" node_paths=PackedStringArray("Skills")]
 script = ExtResource("1_65y35")
 Skills = [NodePath("Bite"), NodePath("GatherThePack"), NodePath("MasterOfThePack")]
-Displayname = "Alpha"
-StrengthMultiplier = 2.0
-ConstitutionMultiplier = 5.0
+CharismaMultiplier = 4.0
+ConstitutionMultiplier = 1.5
 DexterityMultiplier = 1.5
+Displayname = "Alpha"
+FlatDamageModifier = 2.0
 IntuitionMultiplier = 1.5
 LogicMultiplier = 3.0
-WisdomMultiplier = 3.0
+StrengthMultiplier = 2.0
 WillpowerMultiplier = 4.0
-CharismaMultiplier = 4.0
-FlatDamageModifier = 2.0
+WisdomMultiplier = 3.0
 
 [node name="Bite" parent="." instance=ExtResource("2_tgxjo")]
 

@@ -32,10 +32,10 @@ public abstract partial class BaseHeroclass : Node3D
         unit.RangedDefensemodifier      += RangedDefense;
         unit.MagicDefensemodifier       += MagicDefense;
         unit.SocialDefensemodifier      += SocialDefense;
-        unit.MaximumHitpoints           += unit.MaximumHitpoints * Health;
-        unit.CurrentHitpoints           =  unit.MaximumHitpoints;
-        unit.MaximumMana                += unit.MaximumMana * Mana;
-        unit.CurrentMana                =  unit.MaximumMana;
+        // unit.MaximumHitpoints           += unit.MaximumHitpoints * Health;
+        // unit.CurrentHitpoints           =  unit.MaximumHitpoints;
+        // unit.MaximumMana                += unit.MaximumMana * Mana;
+        // unit.CurrentMana                =  unit.MaximumMana;
     }
 
     public virtual void ApplySkills(BaseUnit unit)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using DungeonMaster.Enums;
 using DungeonMaster.Misc;
+using DungeonMaster.Models.Heroes;
 using DungeonMaster.Models.Skills;
 using DungeonMaster.Models.Skills.Statuseffects.Buffs;
 using DungeonMaster.Models.Skills.Statuseffects.Debuffs;
@@ -20,10 +21,21 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
     public  List<Buff>                         Buffs        = new();
+    private int                                charisma     = 4;
+    private int                                constitution = 4;
     private double                             currentHitpoints;
     private double                             currentMana;
-    public  List<Debuff>                       Debuffs = new();
-    public  List<BaseSkill>                    Skills  = new();
+    public  List<Debuff>                       Debuffs   = new();
+    private int                                dexterity = 4;
+    private int                                intuition = 4;
+    private int                                level     = 1;
+    private int                                logic     = 4;
+    private double                             maximumHitpoints;
+    private int                                quickness = 4;
+    public  List<BaseSkill>                    Skills    = new();
+    private int                                strength  = 4;
+    private int                                willpower = 4;
+    private int                                wisdom    = 4;
 
     //Stats
     [Export]
@@ -31,47 +43,169 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     [Export]
     [Statdisplay]
-    public int Level { get; set; } = 1;
+    public int Level
+    {
+        get => level;
+        set
+        {
+            if (value == level)
+                return;
+
+            level = value;
+            OnPropertyChanged();
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Strength { get; set; } = 4;
+    public int Strength
+    {
+        get => strength;
+        set
+        {
+            if (value == strength)
+                return;
+            strength = value;
+            OnPropertyChanged();
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Constitution { get; set; } = 4;
+    public int Constitution
+    {
+        get => constitution;
+        set
+        {
+            if (value == constitution)
+                return;
+            constitution = value;
+            OnPropertyChanged();
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Dexterity { get; set; } = 4;
+    public int Dexterity
+    {
+        get => dexterity;
+        set
+        {
+            if (value == dexterity)
+                return;
+            dexterity = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(MeleeDefenseBase));
+            OnPropertyChanged(nameof(RangedDefenseBase));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Wisdom { get; set; } = 4;
+    public int Wisdom
+    {
+        get => wisdom;
+        set
+        {
+            if (value == wisdom)
+                return;
+            wisdom = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(MagicDefenseBase));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Quickness { get; set; } = 4;
+    public int Quickness
+    {
+        get => quickness;
+        set
+        {
+            if (value == quickness)
+                return;
+            quickness = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(MeleeDefenseBase));
+            OnPropertyChanged(nameof(RangedDefenseBase));
+            OnPropertyChanged(nameof(BaseInitiative));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Intuition { get; set; } = 4;
+    public int Intuition
+    {
+        get => intuition;
+        set
+        {
+            if (value == intuition)
+                return;
+            intuition = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(BaseInitiative));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Logic { get; set; } = 4;
+    public int Logic
+    {
+        get => logic;
+        set
+        {
+            if (value == logic)
+                return;
+            logic = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(SocialDefenseBase));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Willpower { get; set; } = 4;
+    public int Willpower
+    {
+        get => willpower;
+        set
+        {
+            if (value == willpower)
+                return;
+            willpower = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(MagicDefenseBase));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public int Charisma { get; set; } = 4;
+    public int Charisma
+    {
+        get => charisma;
+        set
+        {
+            if (value == charisma)
+                return;
+            charisma = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(SocialDefenseBase));
+        }
+    }
 
     [Export]
     [Statdisplay]
-    public double MaximumHitpoints { get; set; }
+    public double MaximumHitpoints
+    {
+        get => maximumHitpoints;
+        set
+        {
+            if (value.Equals(maximumHitpoints))
+                return;
+
+            maximumHitpoints = value;
+            OnPropertyChanged();
+        }
+    }
 
     [Export]
     [Statdisplay]
@@ -340,10 +474,8 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     protected void SetInitialHitpointsAndMana()
     {
-        MaximumMana      = 2 * Wisdom + Logic;
-        CurrentMana      = MaximumMana;
-        MaximumHitpoints = 3 * Constitution + 2 * Strength;
-        CurrentHitpoints = MaximumHitpoints;
+        OnPropertyChanged(nameof(Constitution));
+        OnPropertyChanged(nameof(Wisdom));
     }
 
     protected string GibSkillresult(BaseSkill skill, BaseUnit target) => skill switch
@@ -362,7 +494,38 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 
     public virtual void Initialize() => CurrentHitpoints = MaximumHitpoints;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        switch (propertyName)
+        {
+            case nameof(Constitution) or nameof(Strength):
+                double healthMod = 1;
+
+                if (this is Hero hero1)
+                    healthMod += hero1.Class.Health;
+
+                var oldMaxhealth = MaximumHitpoints;
+                MaximumHitpoints = (3 * Constitution + 2 * Strength) * healthMod;
+
+                var maxHealthDifference = MaximumHitpoints - oldMaxhealth;
+                CurrentHitpoints += maxHealthDifference;
+                break;
+            case nameof(Wisdom) or nameof(Logic):
+                double manaMod = 1;
+
+                if (this is Hero hero2)
+                    manaMod += hero2.Class.Mana;
+
+                var oldMaxMana = MaximumMana;
+                MaximumMana = (2 * Wisdom + Logic) * manaMod;
+
+                var maxManaDifference = MaximumMana - oldMaxMana;
+                CurrentMana += maxManaDifference;
+                break;
+        }
+
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
     {

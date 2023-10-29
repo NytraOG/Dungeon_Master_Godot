@@ -13,6 +13,6 @@ ArmorPierceCritical = 1
 ArmorCrushNormal = 1
 ArmorCrushGood = 1
 ArmorCrushCritical = 1
-Type = 1
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
+Type = 1

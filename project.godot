@@ -22,6 +22,8 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image_hotspot=Vector2(10, 10)
+mouse_cursor/tooltip_position_offset=Vector2(100, 100)
 
 [dotnet]
 

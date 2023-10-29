@@ -21,13 +21,13 @@ AutoTargeting = true
 TargetsFlat = 4
 TargetsHeroScaling = 0.25
 Category = 2
-Subcategory = 1
 DescriptionBase = " The mage paralyzes several of his opponents by jumping a chain lightning from"
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
 Icon = ExtResource("2_fy08a")
 ManacostFlat = 3
 ManacostLevelScaling = 1.0
+Subcategory = 1
 Displayname = "Chain Lightning"
 
 [node name="Slow" parent="." instance=ExtResource("2_ampsu")]

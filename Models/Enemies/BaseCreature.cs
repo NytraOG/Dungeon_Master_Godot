@@ -5,6 +5,7 @@ using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies.Keywords;
 using DungeonMaster.Models.Enemies.MonsterTypes;
 using DungeonMaster.Models.Skills;
+using DungeonMaster.UI;
 using Godot;
 
 namespace DungeonMaster.Models.Enemies;
@@ -108,6 +109,22 @@ public abstract partial class BaseCreature : BaseUnit
             keyword.ApplyDamageModifier(this);
             keyword.PopulateSkills(this);
         }
+    }
+
+    public override void DieProperly(Main mainScene)
+    {
+        var iniSlot = mainScene.InitiativeContainer.GetChildren()
+                               .Cast<InitiativeSlot>()
+                               .FirstOrDefault(s => s.AssignedUnit.Name == Name);
+
+        if (iniSlot is not null)
+        {
+            mainScene.InitiativeContainer.GetChildren().Remove(iniSlot);
+            mainScene.Enemies = mainScene.Enemies.Except(new[] { (BaseCreature)iniSlot.AssignedUnit }).ToArray();
+            iniSlot.QueueFree();
+        }
+
+        GetNode<FloatingCombatText>(nameof(FloatingCombatText)).OnQueueFreed += QueueFree;
     }
 
     public void PickSkill()

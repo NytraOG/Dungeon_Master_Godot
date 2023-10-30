@@ -57,10 +57,10 @@ public partial class InventoryItemSlot : PanelContainer,
 
         PropertyChanged += (_, _) =>
         {
-            itemTooltip.Visible = ContainedItem is not null;
-
             if (ContainedItem is null)
                 return;
+
+            itemTooltip.Visible = false;
 
             var container = GetNode<MarginContainer>("MarginContainer");
 

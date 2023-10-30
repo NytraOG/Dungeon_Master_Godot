@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
 using DungeonMaster.Models.Heroes;
@@ -52,28 +51,15 @@ public partial class BaseWeaponSkill : BaseDamageSkill
 
             target.IsStunned = AppliesStun;
 
-            DealDamageTo(hitResult, (int)damageInRange, target, out var finalDamage);
             ApplyDebuffs(actor, target);
+            DealDamageTo(hitResult, (int)damageInRange, target, out var finalDamage);
 
             combatLog.LogHit(actor, this, hitroll, hitResult, target, finalDamage.ToString("N0"));
 
             target.InstatiateFloatingCombatText(finalDamage, Name, hitResult);
 
-            if (target is BaseCreature { IsDead: true })
-            {
-                var iniSlot = mainScene.InitiativeContainer.GetChildren()
-                                       .Cast<InitiativeSlot>()
-                                       .FirstOrDefault(s => s.AssignedUnit.Name == target.Name);
-
-                if (iniSlot is not null)
-                {
-                    mainScene.InitiativeContainer.GetChildren().Remove(iniSlot);
-                    mainScene.Enemies = mainScene.Enemies.Except(new[] { (BaseCreature)iniSlot.AssignedUnit }).ToArray();
-                    iniSlot.QueueFree();
-                }
-
-                target.GetNode<FloatingCombatText>(nameof(FloatingCombatText)).OnQueueFreed += target.QueueFree;
-            }
+            if (target.IsDead)
+                target.DieProperly(mainScene);
 
             return finalDamage.ToString();
         }

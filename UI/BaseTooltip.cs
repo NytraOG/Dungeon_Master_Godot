@@ -6,7 +6,7 @@ namespace DungeonMaster.UI;
 public abstract partial class BaseTooltip : PanelContainer
 {
     public Label         Displayname  { get; set; }
-    public Label         Content      { get; set; }
+    public RichTextLabel Content      { get; set; }
     public Label         Keywords     { get; set; }
     public VBoxContainer Container    { get; set; }
     public HBoxContainer Requirements { get; set; }
@@ -26,7 +26,7 @@ public abstract partial class BaseTooltip : PanelContainer
         Effects      ??= Container.GetNode<HBoxContainer>("Effects");
         Boni         ??= Container.GetNode<HBoxContainer>("Boni");
         Displayname  ??= Container.GetNode<Label>("Name");
-        Content      ??= Container.GetNode<Label>("Content");
+        Content      ??= Container.GetNode<RichTextLabel>("%Content");
         Keywords     ??= Container.GetNode<Label>("Keywords");
         Fluff        ??= Container.GetNode<RichTextLabel>("Fluff");
 

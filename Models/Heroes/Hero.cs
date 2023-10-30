@@ -1,9 +1,11 @@
 using System.ComponentModel;
 using System.Linq;
 using DungeonMaster.Enums;
+using DungeonMaster.Models.Enemies;
 using DungeonMaster.Models.Heroes.Classes;
 using DungeonMaster.Models.Heroes.Races;
 using DungeonMaster.Models.Skills;
+using DungeonMaster.UI;
 using DungeonMaster.UI.Inventory;
 using Godot;
 
@@ -37,7 +39,7 @@ public partial class Hero : BaseUnit
         Equipment = ResourceLoader.Load<PackedScene>("res://UI/Inventory/equipment_display.tscn")
                                   .Instantiate<EquipmentSystem>();
 
-        Inventory.Initialize(InventorySize);
+        Inventory.Initialize(main.InventorySize);
         Equipment.Initialize();
 
         animatedSprite           = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
@@ -151,6 +153,22 @@ public partial class Hero : BaseUnit
     };
 
     public override string UseAbility(BaseSkill skill, HitResult hitResult, BaseUnit target = null) => GibSkillresult(skill, target);
+
+    public override void DieProperly(Main mainScene)
+    {
+        var iniSlot = mainScene.InitiativeContainer.GetChildren()
+                               .Cast<InitiativeSlot>()
+                               .FirstOrDefault(s => s.AssignedUnit.Name == Name);
+
+        if (iniSlot is not null)
+        {
+            mainScene.InitiativeContainer.GetChildren().Remove(iniSlot);
+            mainScene.Heroes = mainScene.Heroes.Except(new[] { (Hero)iniSlot.AssignedUnit }).ToArray();
+            iniSlot.QueueFree();
+        }
+
+        GetNode<FloatingCombatText>(nameof(FloatingCombatText)).OnQueueFreed += QueueFree;
+    }
 
     private void _on_hero_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
     {

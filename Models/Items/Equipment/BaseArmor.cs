@@ -89,13 +89,13 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningGood     += LightningGood;
         wearer.ArmorLightningCritical += LightningCritical;
 
-        if (GrantedSkillScene  is null)
+        if (GrantedSkillScene is null)
             return;
 
         GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
         wearer.Skills.Add(GrantedSkill);
 
-        if(GrantedSkill is BaseDefenseSkill defenseSkill)
+        if (GrantedSkill is BaseDefenseSkill defenseSkill)
             defenseSkill.ApplyPassiveEffects(wearer);
     }
 
@@ -128,7 +128,7 @@ public abstract partial class BaseArmor : BaseEquipment
         if (GrantedSkill is null)
             return;
 
-        if(GrantedSkill is BaseDefenseSkill defenseSkill)
+        if (GrantedSkill is BaseDefenseSkill defenseSkill)
             defenseSkill.UndoPassiveEffects(wearer);
 
         wearer.Skills.Remove(GrantedSkill);
@@ -141,25 +141,12 @@ public abstract partial class BaseArmor : BaseEquipment
     {
         var emil = new StringBuilder();
 
-        emil.AppendLine("Armor:");
-
-        if (SlashNormal != 0 || SlashGood != 0 || SlashCritical != 0)
-            emil.AppendLine($"Slash {SlashNormal}/{SlashGood}/{SlashCritical}");
-
-        if (PierceNormal != 0 || PierceGood != 0 || PierceCritical != 0)
-            emil.AppendLine($"Pierce {PierceNormal}/{PierceGood}/{PierceCritical}");
-
-        if (CrushNormal != 0 || CrushGood != 0 || CrushCritical != 0)
-            emil.AppendLine($"Crush {CrushNormal}/{CrushGood}/{CrushCritical}");
-
-        if (FireNormal != 0 || FireGood != 0 || FireCritical != 0)
-            emil.AppendLine($"Fire {FireNormal}/{FireGood}/{FireCritical}");
-
-        if (IceNormal != 0 || IceGood != 0 || IceCritical != 0)
-            emil.AppendLine($"Ice {IceNormal}/{IceGood}/{IceCritical}");
-
-        if (LightningNormal != 0 || LightningGood != 0 || LightningCritical != 0)
-            emil.AppendLine($"Lightning {LightningNormal}/{LightningGood}/{LightningCritical}");
+        emil.AppendLine($"Slash \t\t\t{SlashNormal}/[color=orange]{SlashGood}[/color]/[color=red]{SlashCritical}[/color] \tFire \t\t\t\t{FireNormal}/[color=orange]{FireGood}[/color]/[color=red]{FireCritical}[/color]");
+        //emil.Append($"Fire \t\t{FireNormal}/[color=orange]{FireGood}[/color]/[color=red]{FireCritical}[/color]");
+        emil.AppendLine($"Pierce \t\t{PierceNormal}/[color=orange]{PierceGood}[/color]/[color=red]{PierceCritical}[/color] \tIce \t\t\t\t\t{IceNormal}/[color=orange]{IceGood}[/color]/[color=red]{IceCritical}[/color]");
+        //emil.Append($"Ice \t\t{IceNormal}/[color=orange]{IceGood}[/color]/[color=red]{IceCritical}[/color]");
+        emil.AppendLine($"Crush \t\t\t{CrushNormal}/[color=orange]{CrushGood}[/color]/[color=red]{CrushCritical}[/color] \tLightning \t\t{LightningNormal}/[color=orange]{LightningGood}[/color]/[color=red]{LightningCritical}[/color]");
+        //emil.Append($"Lightning \t\t{LightningNormal}/[color=orange]{LightningGood}[/color]/[color=red]{LightningCritical}[/color]");
 
         return emil.ToString();
     }

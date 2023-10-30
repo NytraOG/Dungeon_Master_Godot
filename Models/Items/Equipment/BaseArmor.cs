@@ -143,9 +143,12 @@ public abstract partial class BaseArmor : BaseEquipment
     {
         var emil = new StringBuilder();
 
-        emil.AppendLine($"Slash \t\t\t{SlashNormal}/[color={CombatLog.GoodDamageColor}]{SlashGood}[/color]/[color={CombatLog.CriticalDamageColor}]{SlashCritical}[/color] \tFire \t\t\t\t{FireNormal}/[color=orange]{FireGood}[/color]/[color=red]{FireCritical}[/color]");
-        emil.AppendLine($"Pierce \t\t{PierceNormal}/[color={CombatLog.CriticalDamageColor}]{PierceGood}[/color]/[color={CombatLog.CriticalDamageColor}]{PierceCritical}[/color] \tIce \t\t\t\t\t{IceNormal}/[color=orange]{IceGood}[/color]/[color=red]{IceCritical}[/color]");
-        emil.AppendLine($"Crush \t\t\t{CrushNormal}/[color={CombatLog.CriticalDamageColor}]{CrushGood}[/color]/[color={CombatLog.CriticalDamageColor}]{CrushCritical}[/color] \tLightning \t\t{LightningNormal}/[color=orange]{LightningGood}[/color]/[color=red]{LightningCritical}[/color]");
+        emil.AppendLine($"Slash \t[{GetVorzeichen(SlashNormal)}{SlashNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(SlashGood)}{SlashGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(SlashCritical)}{SlashCritical}[/color]]\t" +
+                        $"Fire\t\t\t\t[{GetVorzeichen(FireNormal)}{FireNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(FireGood)}{FireGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(FireCritical)}{FireCritical}[/color]]");
+        emil.AppendLine($"Pierce [{GetVorzeichen(PierceNormal)}{PierceNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(PierceGood)}{PierceGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(PierceCritical)}{PierceCritical}[/color]]\t" +
+                        $"Ice\t\t\t\t[{GetVorzeichen(IceNormal)}{IceNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(IceGood)}{IceGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(IceCritical)}{IceCritical}[/color]]");
+        emil.AppendLine($"Crush \t[{GetVorzeichen(CrushNormal)}{CrushNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(CrushGood)}{CrushGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(CrushCritical)}{CrushCritical}[/color]]\t" +
+                        $"Lightning\t[{GetVorzeichen(LightningNormal)}{LightningNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(LightningGood)}{LightningGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(LightningCritical)}{LightningCritical}[/color]]");
 
         return emil.ToString();
     }
@@ -194,7 +197,7 @@ public abstract partial class BaseArmor : BaseEquipment
         return emil.ToString();
     }
 
-    private string GetVorzeichen(int value) => value > 0 ? "+" : "-";
+    private string GetVorzeichen(int value) => value >= 0 ? "+" : string.Empty;
 
     private string GetDisplayColor(string propertyName)
     {

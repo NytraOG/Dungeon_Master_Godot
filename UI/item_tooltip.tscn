@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cjaokkusl1m1w" path="res://Graphics/UI/Red_vert_panel.png" id="1_d1j15"]
 
 [node name="ItemTooltip" type="PanelContainer"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(260, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_a385m")
@@ -122,6 +122,16 @@ text = "[Content]"
 fit_content = true
 scroll_active = false
 
+[node name="EmptySpace2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+
 [node name="Boni" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -135,6 +145,16 @@ bbcode_enabled = true
 text = "[Boni]"
 fit_content = true
 scroll_active = false
+
+[node name="EmptySpace3" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
 
 [node name="Effects" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -150,7 +170,7 @@ text = "[Effects]"
 fit_content = true
 scroll_active = false
 
-[node name="EmptySpace2" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="EmptySpace4" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

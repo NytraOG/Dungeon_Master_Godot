@@ -233,14 +233,18 @@ public partial class Main : Node,
 
     private void ClearSelection()
     {
-        if (SelectedHero is not null)
-            SelectedHero.CanStillAct = SkillSelection.All(ss => ss.Actor.Name != SelectedHero.Name);
-
-        SelectedHero  = null;
         SelectedEnemy = null;
         SelectedSkill = null;
-        Skillbuttons.Clear();
+        SkillSelection.Clear();
         SelectedTargets.Clear();
+
+        foreach (var skillbutton in Skillbuttons)
+        {
+            skillbutton.Skill         = null;
+            skillbutton.TextureNormal = DefaultIcon;
+        }
+        //
+        // SelectedHero = null;
     }
 
     private async Task FadeOutInislot(SkillSelection selection)
@@ -431,7 +435,8 @@ public partial class Main : Node,
             return;
 
         var notCombatReadyEnemies = Enemies.Where(e => !e.IsDead &&
-                                                       e.SelectedSkill is null);
+                                                       e.SelectedSkill is null ||
+                                                       e.SelectedSkill is not null && SkillSelection.All(ss => ss.Actor.Name != e.Name));
 
         foreach (var enemy in notCombatReadyEnemies)
         {
@@ -659,6 +664,7 @@ public partial class Main : Node,
         mouseItemSlot.UpdateData();
 
         clickedSlot.Clear();
+
         SelectedHero.Inventory.Slots[clickedSlot.Id].Clear();
     }
 

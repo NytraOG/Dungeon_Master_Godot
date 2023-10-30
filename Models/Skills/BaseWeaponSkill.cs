@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DungeonMaster.Enums;
 using DungeonMaster.Models.Enemies;
 using DungeonMaster.Models.Heroes;
@@ -10,11 +11,16 @@ namespace DungeonMaster.Models.Skills;
 public partial class BaseWeaponSkill : BaseDamageSkill
 {
     private         CombatLog combatLog;
+    private         Main      mainScene;
     public override Factions  TargetableFaction => Factions.Foe;
 
     public override string Activate(BaseUnit actor, BaseUnit target)
     {
-        combatLog ??= ((Main)GetTree().CurrentScene).CombatLog;
+        if (target.IsDead)
+            return "Target dead";
+
+        mainScene =   (Main)GetTree().CurrentScene;
+        combatLog ??= mainScene.CombatLog;
 
         var isHit = CalculateHit(actor, target, out var hitroll, out var hitResult);
 
@@ -54,7 +60,20 @@ public partial class BaseWeaponSkill : BaseDamageSkill
             target.InstatiateFloatingCombatText(finalDamage, Name, hitResult);
 
             if (target is BaseCreature { IsDead: true })
+            {
+                var iniSlot = mainScene.InitiativeContainer.GetChildren()
+                                       .Cast<InitiativeSlot>()
+                                       .FirstOrDefault(s => s.AssignedUnit.Name == target.Name);
+
+                if (iniSlot is not null)
+                {
+                    mainScene.InitiativeContainer.GetChildren().Remove(iniSlot);
+                    mainScene.Enemies = mainScene.Enemies.Except(new[] { (BaseCreature)iniSlot.AssignedUnit }).ToArray();
+                    iniSlot.QueueFree();
+                }
+
                 target.GetNode<FloatingCombatText>(nameof(FloatingCombatText)).OnQueueFreed += target.QueueFree;
+            }
 
             return finalDamage.ToString();
         }

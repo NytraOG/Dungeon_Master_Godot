@@ -9,11 +9,13 @@ public partial class GatherThePack : BaseSummonSkill
 
     public override string Activate(BaseUnit actor)
     {
+        var mainScene = (Main)GetTree().CurrentScene;
+
         for (var i = 0; i < UnitsToSpawn.Length; i++)
         {
             var instance = UnitsToSpawn[i].Instantiate<BaseUnit>();
             instance.SetPosition(new Vector3(0, 0, (float)(i + 1) / 2), new Vector3(-2, 0, 0));
-            actor.AddChild(instance);
+            mainScene.AddChild(instance);
 
             if (actor.Owner is not Main main)
                 return string.Empty;

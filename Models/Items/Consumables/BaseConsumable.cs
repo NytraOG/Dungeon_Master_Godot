@@ -9,5 +9,7 @@ public abstract partial class BaseConsumable : BaseItem,
 
     public abstract void Consume(BaseUnit imbiber);
 
-    public override string GetTooltipContent() => "";
+    public override string GetContentTooltip() => "";
+
+    public override string GetEffectTooltip() => "throw new System.NotImplementedException()";
 }

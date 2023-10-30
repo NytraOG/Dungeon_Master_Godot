@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using DungeonMaster.Enums;
+using Godot;
 
 namespace DungeonMaster.Models.Items.Consumables;
 
@@ -6,8 +7,9 @@ public partial class HealthPotion : BaseConsumable
 {
     public HealthPotion()
     {
-        Icon = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Consumables/HealthPotion.png");
-        Name = "Health Potion";
+        Icon   = ResourceLoader.Load<Texture2D>("res://Graphics/Items/Consumables/HealthPotion.png");
+        Name   = "Health Potion";
+        Rarity = ItemRarity.Normal;
 
         Keywords.AddRange(new[]
         {
@@ -23,6 +25,8 @@ public partial class HealthPotion : BaseConsumable
     public override string FluffDate    => "????";
 
     public override void Use(BaseUnit actor) => Consume(actor);
+
+    public override string GetBoniTooltip() => "throw new System.NotImplementedException()";
 
     public override void Consume(BaseUnit imbiber)
     {

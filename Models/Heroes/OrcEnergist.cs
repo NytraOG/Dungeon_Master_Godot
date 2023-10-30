@@ -1,4 +1,5 @@
 using System;
+using DungeonMaster.Models.Items;
 using DungeonMaster.Models.Items.Consumables;
 using DungeonMaster.Models.Items.Equipment;
 using DungeonMaster.Models.Items.Equipment.Weapons;
@@ -39,7 +40,11 @@ public partial class OrcEnergist : Hero
         Inventory.Slots["0"].ContainedItem = swordHilt;
 
         var natureShoulders = ResourceLoader.Load<PackedScene>("res://Models/Items/Equipment/wooden_enchanted_shoulders.tscn")
-                                            .Instantiate<WoodenEnchantedShoulders>();
+                                            .Instantiate<WoodenShoulders>();
+
+        natureShoulders.Keywords.Add(Keywords.Armor);
+        natureShoulders.Keywords.Add(Keywords.Enchanted);
+
         Inventory.Slots["1"].ContainedItem = natureShoulders;
     }
 }

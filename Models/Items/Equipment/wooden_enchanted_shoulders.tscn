@@ -1,26 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvix60xco4fvx"]
 
-[ext_resource type="Script" path="res://Models/Items/Equipment/WoodenEnchantedShoulders.cs" id="1_neytb"]
+[ext_resource type="Script" path="res://Models/Items/Equipment/WoodenShoulders.cs" id="1_w2kwy"]
 [ext_resource type="PackedScene" uid="uid://bvkhphtaectaq" path="res://Models/Skills/Defense/natural_armor.tscn" id="2_0t8nr"]
 [ext_resource type="Texture2D" uid="uid://c3vlkwxwxij7p" path="res://Graphics/Items/Armor/WoodenEnchantedShoulds.png" id="2_gp77h"]
 
-[node name="WoodenEnchantedShoulders" type="Node3D"]
-script = ExtResource("1_neytb")
-SlashNormal = 3
-SlashGood = 3
-PierceNormal = 3
-PierceGood = 3
-CrushNormal = 3
-CrushGood = 3
-FireNormal = -2
-FireGood = -2
+[node name="WoodenShoulders" type="Node3D"]
+script = ExtResource("1_w2kwy")
+SlashNormal = 2
+SlashGood = 1
+PierceNormal = 2
+PierceGood = 1
+CrushNormal = 2
+CrushGood = 1
+FireGood = -1
 FireCritical = -3
-LightningNormal = 2
-LightningGood = 2
-LightningCritical = 1
 ConstitutionBonus = 3
+DexterityBonus = -1
 IntuitionBonus = 2
 HealthBonusFlat = 5
 HealthBonusMultiplier = 1.1
 GrantedSkillScene = ExtResource("2_0t8nr")
+Rarity = 2
 Icon = ExtResource("2_gp77h")

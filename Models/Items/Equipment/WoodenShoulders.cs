@@ -3,7 +3,7 @@ using DungeonMaster.Enums;
 
 namespace DungeonMaster.Models.Items.Equipment;
 
-public partial class WoodenEnchantedShoulders : BaseArmor
+public partial class WoodenShoulders : BaseArmor
 {
 	public override string FluffContent => "Hm, mal schauen, ob das geht..";
 	public override string FluffAuthor  => "Nytra";

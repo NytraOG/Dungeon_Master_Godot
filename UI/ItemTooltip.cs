@@ -17,9 +17,12 @@ public partial class ItemTooltip : BaseTooltip
         if (itemToShow is null)
             return;
 
-        Keywords.Text    = string.Join(", ", itemToShow.Keywords);
-        Displayname.Text = itemToShow.Name.ToString().AddSpacesToString();
-        Content.Text     = itemToShow.GetTooltipContent();
+        Keywords.Text    = $"[i]{string.Join(", ", itemToShow.Keywords)}[/i]";
+        Rarity.Text      = itemToShow.GetRarityTooltip();
+        Displayname.Text = itemToShow.GetNameTooltip();
+        Content.Text     = itemToShow.GetContentTooltip();
+        Boni.Text        = itemToShow.GetBoniTooltip();
+        Effects.Text     = itemToShow.GetEffectTooltip();
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffContent, itemToShow.FluffContent);
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffAuthor, itemToShow.FluffAuthor);
         Fluff.Text       = Fluff.Text.Replace(Konstanten.FluffDate, itemToShow.FluffDate);

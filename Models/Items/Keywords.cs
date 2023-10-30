@@ -3,6 +3,7 @@
 public enum Keywords
 {
     Conventional,
+    Armor,
     Onehanded,
     Twohanded,
     Consumable,
@@ -13,5 +14,6 @@ public enum Keywords
     Bolt,
     Current,
     Arrow,
-    Heal
+    Heal,
+    Enchanted
 }

@@ -16,5 +16,9 @@ public partial class BrokenSwordHilt : BaseWeapon
 
     public override void Use(BaseUnit actor) => throw new NotImplementedException();
 
-    public override string GetTooltipContent() => "throw new NotImplementedException();";
+    public override string GetContentTooltip() => "throw new NotImplementedException();";
+
+    public override string GetEffectTooltip() => "throw new NotImplementedException()";
+
+    public override string GetBoniTooltip() => "throw new NotImplementedException()";
 }

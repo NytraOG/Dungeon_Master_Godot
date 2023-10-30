@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cjaokkusl1m1w" path="res://Graphics/UI/Red_vert_panel.png" id="1_d1j15"]
 
 [node name="ItemTooltip" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_a385m")
@@ -20,33 +21,56 @@ axis_stretch_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 11
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 11
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 13
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Name" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
 text = "[Name]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Keywords" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Rarity" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
+text = "[Rarity]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Keywords" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
 text = "[Keywords]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Requirements" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
@@ -98,15 +122,33 @@ text = "[Content]"
 fit_content = true
 scroll_active = false
 
-[node name="Effects" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 15)
+[node name="Boni" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
+text = "[Boni]"
+fit_content = true
+scroll_active = false
 
-[node name="Boni" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 15)
+[node name="Effects" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
+text = "[Effects]"
+fit_content = true
+scroll_active = false
 
 [node name="EmptySpace2" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

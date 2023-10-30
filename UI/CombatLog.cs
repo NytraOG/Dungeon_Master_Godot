@@ -13,9 +13,9 @@ namespace DungeonMaster.UI;
 
 public partial class CombatLog : Control
 {
-    private const string          NormalDamageColor   = "#f7f7f7";
-    private const string          GoodDamageColor     = "#e0e00c";
-    private const string          CriticalDamageColor = "#ef6703";
+    public const  string          NormalDamageColor   = "#f7f7f7";
+    public const  string          GoodDamageColor     = "#e0e00c";
+    public const  string          CriticalDamageColor = "#ef6703";
     private const string          HealColor           = "green";
     private const string          CreatureColor       = "#f16a67";
     private const string          HeroColor           = "#5cce5c";

@@ -12,7 +12,7 @@ public partial class BrokenSwordHilt : BaseWeapon
 
     public override void _Ready() => Initialize();
 
-    public override void Initialize() => Keywords.AddRange(new[] { Items.Keywords.Melee, Items.Keywords.Onehanded, Items.Keywords.Conventional });
+    public override void Initialize() => Keywords.AddRange(new[] { Enums.Keywords.Melee, Enums.Keywords.Onehanded, Enums.Keywords.Conventional });
 
     public override void Use(BaseUnit actor) => throw new NotImplementedException();
 

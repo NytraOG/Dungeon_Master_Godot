@@ -13,9 +13,9 @@ public partial class HealthPotion : BaseConsumable
 
         Keywords.AddRange(new[]
         {
-            Items.Keywords.Consumable,
-            Items.Keywords.Onehanded,
-            Items.Keywords.Heal
+            Enums.Keywords.Consumable,
+            Enums.Keywords.Onehanded,
+            Enums.Keywords.Heal
         });
     }
 

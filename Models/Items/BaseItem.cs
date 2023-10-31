@@ -8,16 +8,20 @@ namespace DungeonMaster.Models.Items;
 
 public abstract partial class BaseItem : Node3D
 {
-    public abstract string     FluffContent { get; }
-    public abstract string     FluffAuthor  { get; }
-    public abstract string     FluffDate    { get; }
+    public abstract string FluffContent { get; }
+    public abstract string FluffAuthor  { get; }
+    public abstract string FluffDate    { get; }
+
     [Export]
-    public          ItemRarity Rarity       { get; set; }
+    public ItemRarity Rarity { get; set; }
 
     [Export]
     public Texture2D Icon { get; set; }
 
     public List<Keywords> Keywords { get; set; } = new();
+
+    [Export]
+    public string Description { get; set; }
 
     [ExportGroup("Effect")]
     [Export]

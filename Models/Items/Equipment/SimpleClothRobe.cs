@@ -20,7 +20,7 @@ public partial class SimpleClothRobe : BaseArmor
 
         Name = "Simple Cloth Robe";
 
-        Keywords.Add(Items.Keywords.Equipment);
+        Keywords.Add(Enums.Keywords.Equipment);
     }
 
     public override EquipSlot EquipSlot    => EquipSlot.Torso;

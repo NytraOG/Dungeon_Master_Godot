@@ -1,4 +1,4 @@
-﻿namespace DungeonMaster.Models.Items;
+﻿namespace DungeonMaster.Enums;
 
 public enum Keywords
 {

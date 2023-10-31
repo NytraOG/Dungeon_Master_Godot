@@ -1,4 +1,6 @@
-﻿using DungeonMaster.Enums;
+﻿using System.Linq;
+using DungeonMaster.Enums;
+using DungeonMaster.Models.Heroes;
 using DungeonMaster.Models.Skills;
 using Godot;
 
@@ -6,6 +8,15 @@ namespace DungeonMaster.Models.Items.Equipment;
 
 public abstract partial class BaseEquipment : BaseItem
 {
+    [Export]
+    public BaseWeaponSkill RequiredSkill { get; set; }
+
+    [Export]
+    public int RequiredSkilllevel { get; set; }
+
+    [Export]
+    public PackedScene GrantedSkillScene { get; set; }
+
     [Export]
     public int StrengthBonus { get; set; }
 
@@ -38,9 +49,6 @@ public abstract partial class BaseEquipment : BaseItem
 
     [Export]
     public double HealthBonusMultiplier { get; set; } = 1;
-
-    [Export]
-    public PackedScene GrantedSkillScene { get; set; }
 
     public          BaseSkill GrantedSkill { get; set; }
     public abstract EquipSlot EquipSlot    { get; }
@@ -81,5 +89,23 @@ public abstract partial class BaseEquipment : BaseItem
         var oldMaxHealth = wearer.MaximumHitpoints;
         var newMaxHealth = wearer.MaximumHitpoints /= HealthBonusMultiplier;
         wearer.CurrentHitpoints += newMaxHealth - oldMaxHealth;
+    }
+
+    public bool RequirementsMetToEquip(Hero possibleWearer)
+    {
+        var requirementsMet = possibleWearer.Level >= LevelRequirement;
+        requirementsMet &= possibleWearer.Get(RequiredAttribute) >= RequiredLevelOfAttribute;
+
+        if (RequiredSkill is null)
+            return requirementsMet;
+
+        var requiredSkillOfWearer = possibleWearer.Skills.FirstOrDefault(s => s.Name == RequiredSkill.Name);
+
+        if (requiredSkillOfWearer is null)
+            return false;
+
+        requirementsMet = requiredSkillOfWearer.Level >= RequiredSkilllevel;
+
+        return requirementsMet;
     }
 }

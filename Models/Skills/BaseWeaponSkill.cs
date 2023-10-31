@@ -9,9 +9,10 @@ namespace DungeonMaster.Models.Skills;
 
 public partial class BaseWeaponSkill : BaseDamageSkill
 {
-    private         CombatLog combatLog;
-    private         Main      mainScene;
-    public override Factions  TargetableFaction => Factions.Foe;
+    private CombatLog combatLog;
+    private Main      mainScene;
+
+    public override Factions TargetableFaction => Factions.Foe;
 
     public override string Activate(BaseUnit actor, BaseUnit target)
     {
@@ -106,4 +107,5 @@ public partial class BaseWeaponSkill : BaseDamageSkill
     }
 
     public override string Activate(BaseUnit actor) => throw new NotImplementedException();
+
 }

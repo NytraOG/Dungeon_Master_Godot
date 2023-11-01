@@ -37,7 +37,7 @@ public abstract partial class BaseWeapon : BaseEquipment
         if (GrantedSkill is null)
             return;
 
-        var copy = GrantedSkill.Duplicate();
+        var copy = (BaseSkill)GrantedSkill.Duplicate();
 
         wearer.Skills.Add(copy);
     }

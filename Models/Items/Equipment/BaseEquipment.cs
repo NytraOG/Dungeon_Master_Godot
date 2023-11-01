@@ -12,10 +12,10 @@ public abstract partial class BaseEquipment : BaseItem
     public BaseWeaponSkill RequiredSkill { get; set; }
 
     [Export]
-    public int RequiredSkilllevel { get; set; }
+    public BaseSkill GrantedSkill { get; set; }
 
     [Export]
-    public PackedScene GrantedSkillScene { get; set; }
+    public int RequiredSkilllevel { get; set; }
 
     [Export]
     public int StrengthBonus { get; set; }
@@ -50,7 +50,6 @@ public abstract partial class BaseEquipment : BaseItem
     [Export]
     public double HealthBonusMultiplier { get; set; } = 1;
 
-    public          BaseSkill GrantedSkill { get; set; }
     public abstract EquipSlot EquipSlot    { get; }
 
     public virtual void EquipOn(BaseUnit wearer)

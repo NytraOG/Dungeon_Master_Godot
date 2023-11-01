@@ -91,7 +91,7 @@ public abstract partial class BaseSkill : Node3D
         }
     }
 
-    public int GetTacticalRoll(BaseUnit actor)
+    public virtual int GetTacticalRoll(BaseUnit actor)
     {
         var primaryValue   = PrimaryScalingT * actor.Get(PrimaryAttributeT);
         var secondaryValue = SecondaryScalingT * actor.Get(SecondaryAttributeT);

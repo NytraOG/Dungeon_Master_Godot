@@ -91,13 +91,13 @@ public abstract partial class BaseArmor : BaseEquipment
         wearer.ArmorLightningGood     += LightningGood;
         wearer.ArmorLightningCritical += LightningCritical;
 
-        if (GrantedSkillScene is null)
+        if (GrantedSkill is null)
             return;
 
-        GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
-        wearer.Skills.Add(GrantedSkill);
+        var newInstance = (BaseSkill)GrantedSkill.Duplicate();
+        wearer.Skills.Add(newInstance);
 
-        if (GrantedSkill is BaseDefenseSkill defenseSkill)
+        if (newInstance is BaseDefenseSkill defenseSkill)
             defenseSkill.ApplyPassiveEffects(wearer);
     }
 
@@ -133,7 +133,9 @@ public abstract partial class BaseArmor : BaseEquipment
         if (GrantedSkill is BaseDefenseSkill defenseSkill)
             defenseSkill.UndoPassiveEffects(wearer);
 
-        wearer.Skills.Remove(GrantedSkill);
+        var skillToRemove = wearer.Skills.FirstOrDefault(s => s.Name == GrantedSkill.Name);
+        wearer.Skills.Remove(skillToRemove);
+
         GrantedSkill.QueueFree();
 
         base.UnequipFrom(wearer);
@@ -145,8 +147,10 @@ public abstract partial class BaseArmor : BaseEquipment
 
         emil.AppendLine($"Slash \t[{GetVorzeichen(SlashNormal)}{SlashNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(SlashGood)}{SlashGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(SlashCritical)}{SlashCritical}[/color]]\t" +
                         $"Fire\t\t\t\t[{GetVorzeichen(FireNormal)}{FireNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(FireGood)}{FireGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(FireCritical)}{FireCritical}[/color]]");
+
         emil.AppendLine($"Pierce [{GetVorzeichen(PierceNormal)}{PierceNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(PierceGood)}{PierceGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(PierceCritical)}{PierceCritical}[/color]]\t" +
                         $"Ice\t\t\t\t[{GetVorzeichen(IceNormal)}{IceNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(IceGood)}{IceGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(IceCritical)}{IceCritical}[/color]]");
+
         emil.AppendLine($"Crush \t[{GetVorzeichen(CrushNormal)}{CrushNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(CrushGood)}{CrushGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(CrushCritical)}{CrushCritical}[/color]]\t" +
                         $"Lightning\t[{GetVorzeichen(LightningNormal)}{LightningNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(LightningGood)}{LightningGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(LightningCritical)}{LightningCritical}[/color]]");
 
@@ -157,8 +161,8 @@ public abstract partial class BaseArmor : BaseEquipment
     {
         var emil = new StringBuilder();
 
-        if (GrantedSkillScene is not null)
-            emil.AppendLine($"Grants [color=darkgreen][{string.Join(" ", GrantedSkillScene.ResourcePath.Split('/')[^1].Split('.')[0].Split('_'))}][/color]");
+        if (GrantedSkill is not null)
+            emil.AppendLine($"Grants [color=darkgreen][{string.Join(" ", GrantedSkill.Name.ToString().AddSpacesToString())}][/color]");
 
         return emil.ToString();
     }

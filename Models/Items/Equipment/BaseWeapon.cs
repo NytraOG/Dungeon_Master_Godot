@@ -34,18 +34,19 @@ public abstract partial class BaseWeapon : BaseEquipment
     {
         base.EquipOn(wearer);
 
-        if (GrantedSkillScene is null)
+        if (GrantedSkill is null)
             return;
 
-        GrantedSkill = GrantedSkillScene.Instantiate<BaseSkill>();
-        wearer.Skills.Add(GrantedSkill);
+        var copy = GrantedSkill.Duplicate();
+
+        wearer.Skills.Add(copy);
     }
 
     public override void UnequipFrom(BaseUnit wearer)
     {
         base.UnequipFrom(wearer);
 
-        if (GrantedSkillScene is null)
+        if (GrantedSkill is null)
             return;
 
         if (GrantedSkill is not null)

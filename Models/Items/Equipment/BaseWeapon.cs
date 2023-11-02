@@ -51,22 +51,11 @@ public abstract partial class BaseWeapon : BaseEquipment
     {
         base.EquipOn(wearer);
 
-        if (GrantedSkill is null)
-            return;
-
-        var copy = (BaseSkill)GrantedSkill.Duplicate();
-
-        wearer.Skills.Add(copy);
     }
 
     public override void UnequipFrom(BaseUnit wearer)
     {
         base.UnequipFrom(wearer);
 
-        if (GrantedSkill is null)
-            return;
-
-        if (GrantedSkill is not null)
-            wearer.Skills.Remove(GrantedSkill);
     }
 }

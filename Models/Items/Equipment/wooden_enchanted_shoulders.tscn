@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bvkhphtaectaq" path="res://Models/Skills/Defense/natural_armor.tscn" id="2_0t8nr"]
 [ext_resource type="Texture2D" uid="uid://c3vlkwxwxij7p" path="res://Graphics/Items/Armor/WoodenEnchantedShoulds.png" id="2_gp77h"]
 
-[node name="WoodenShoulders" type="Node3D" node_paths=PackedStringArray("GrantedSkill")]
+[node name="WoodenShoulders" type="Node3D"]
 script = ExtResource("1_w2kwy")
 SlashNormal = 2
 SlashGood = 1
@@ -14,7 +14,7 @@ CrushNormal = 2
 CrushGood = 1
 FireGood = -1
 FireCritical = -3
-GrantedSkill = NodePath("NaturalArmor")
+GrantedSkillScene = ExtResource("2_0t8nr")
 ConstitutionBonus = 3
 DexterityBonus = -1
 IntuitionBonus = 2
@@ -22,5 +22,3 @@ HealthBonusFlat = 5
 HealthBonusMultiplier = 1.1
 Rarity = 2
 Icon = ExtResource("2_gp77h")
-
-[node name="NaturalArmor" parent="." instance=ExtResource("2_0t8nr")]

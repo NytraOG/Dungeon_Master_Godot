@@ -12,9 +12,9 @@ public abstract partial class BaseEquipment : BaseItem
     [Export]
     public BaseWeaponSkill RequiredSkill { get; set; }
 
-    public PackedScene GrantedSkillSceneCache { get; set; }
-
     [Export]
+    public PackedScene GrantedSkillScene { get; set; }
+
     public BaseSkill GrantedSkill { get; set; }
 
     [Export]
@@ -55,11 +55,6 @@ public abstract partial class BaseEquipment : BaseItem
 
     public abstract EquipSlot EquipSlot { get; }
 
-    public override void _Ready()
-    {
-        //if(GrantedSkill is not null) hier weiter
-    }
-
     public virtual void EquipOn(BaseUnit wearer)
     {
         wearer.Strength     += StrengthBonus;
@@ -77,6 +72,12 @@ public abstract partial class BaseEquipment : BaseItem
 
         wearer.MaximumHitpoints += HealthBonusFlat;
         wearer.CurrentHitpoints += HealthBonusFlat;
+
+        if (GrantedSkillScene is null)
+            return;
+
+        GrantedSkill = (BaseSkill)GrantedSkillScene.Instantiate();
+        wearer.Skills.Add(GrantedSkill);
     }
 
     public virtual void UnequipFrom(BaseUnit wearer)
@@ -96,14 +97,23 @@ public abstract partial class BaseEquipment : BaseItem
         var oldMaxHealth = wearer.MaximumHitpoints;
         var newMaxHealth = wearer.MaximumHitpoints /= HealthBonusMultiplier;
         wearer.CurrentHitpoints += newMaxHealth - oldMaxHealth;
+
+        if (GrantedSkillScene is null)
+            return;
+
+        GrantedSkill ??= (BaseSkill)GrantedSkillScene.Instantiate();
+
+        var skillToRemove = wearer.Skills.First(s => s.Name == GrantedSkill.Name);
+
+        wearer.Skills.Remove(skillToRemove);
     }
 
     public override string GetEffectTooltip()
     {
         var emil = new StringBuilder();
 
-        if (GrantedSkill is not null)
-            emil.AppendLine($"Grants [color=darkgreen][{string.Join(" ", GrantedSkill.Name.ToString().AddSpacesToString())}][/color]");
+        if (GrantedSkillScene is not null)
+            emil.AppendLine($"Grants [color=darkgreen][{string.Join(" ", GrantedSkillScene.ResourcePath.AddSpacesToString())}][/color]");
 
         return emil.ToString();
     }

@@ -5,13 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://dyrg5q88pgaot" path="res://Models/Skills/Melee/swords.tscn" id="3_1bu8m"]
 [ext_resource type="PackedScene" uid="uid://da1e5ocif63af" path="res://Models/Skills/Defense/horrible_parade.tscn" id="4_xhu1f"]
 
-[node name="BrokenSwordHilt" type="Node3D" node_paths=PackedStringArray("RequiredSkill", "GrantedSkill")]
+[node name="BrokenSwordHilt" type="Node3D" node_paths=PackedStringArray("RequiredSkill")]
 script = ExtResource("1_0pppd")
 AddedDamageNormal = 1
 AddedDamageGood = 1
 AddedDamageCritical = 2
 RequiredSkill = NodePath("Swords")
-GrantedSkill = NodePath("HorribleParade")
+GrantedSkillScene = ExtResource("4_xhu1f")
 RequiredSkilllevel = 1
 Icon = ExtResource("2_j78jv")
 Description = "A plain, old sword; broken."
@@ -20,7 +20,3 @@ RequiredAttribute = 1
 RequiredLevelOfAttribute = 1
 
 [node name="Swords" parent="." instance=ExtResource("3_1bu8m")]
-
-[node name="HorribleParade" parent="." node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses") instance=ExtResource("4_xhu1f")]
-DifficultyBasicClasses = []
-DifficultyDemandingClasses = []

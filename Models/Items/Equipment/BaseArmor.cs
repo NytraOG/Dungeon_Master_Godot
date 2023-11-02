@@ -63,6 +63,7 @@ public abstract partial class BaseArmor : BaseEquipment
     [Export]
     public int LightningCritical { get; set; }
 
+
     public override void EquipOn(BaseUnit wearer)
     {
         base.EquipOn(wearer);
@@ -155,66 +156,5 @@ public abstract partial class BaseArmor : BaseEquipment
                         $"Lightning\t[{GetVorzeichen(LightningNormal)}{LightningNormal}/[color={CombatLog.GoodDamageColor}]{GetVorzeichen(LightningGood)}{LightningGood}[/color]/[color={CombatLog.CriticalDamageColor}]{GetVorzeichen(LightningCritical)}{LightningCritical}[/color]]");
 
         return emil.ToString();
-    }
-
-    public override string GetEffectTooltip()
-    {
-        var emil = new StringBuilder();
-
-        if (GrantedSkill is not null)
-            emil.AppendLine($"Grants [color=darkgreen][{string.Join(" ", GrantedSkill.Name.ToString().AddSpacesToString())}][/color]");
-
-        return emil.ToString();
-    }
-
-    public override string GetBoniTooltip()
-    {
-        var emil = new StringBuilder();
-
-        if (StrengthBonus != 0)
-            emil.AppendLine($"Strength\t\t[color={GetDisplayColor(nameof(StrengthBonus))}]{GetVorzeichen(StrengthBonus)}{StrengthBonus}[/color]");
-
-        if (ConstitutionBonus != 0)
-            emil.AppendLine($"Constitution\t[color={GetDisplayColor(nameof(ConstitutionBonus))}]{GetVorzeichen(ConstitutionBonus)}{ConstitutionBonus}[/color]");
-
-        if (DexterityBonus != 0)
-            emil.AppendLine($"Dexterity\t\t[color={GetDisplayColor(nameof(DexterityBonus))}]{GetVorzeichen(DexterityBonus)}{DexterityBonus}[/color]");
-
-        if (WisdomBonus != 0)
-            emil.AppendLine($"Wisdom\t\t[color={GetDisplayColor(nameof(WisdomBonus))}]{GetVorzeichen(WisdomBonus)}{WisdomBonus}[/color]");
-
-        if (QuicknessBonus != 0)
-            emil.AppendLine($"Quickness\t\t[color={GetDisplayColor(nameof(QuicknessBonus))}]{GetVorzeichen(QuicknessBonus)}{QuicknessBonus}[/color]");
-
-        if (IntuitionBonus != 0)
-            emil.AppendLine($"Intuition\t\t[color={GetDisplayColor(nameof(IntuitionBonus))}]{GetVorzeichen(IntuitionBonus)}{IntuitionBonus}[/color]");
-
-        if (LogicBonus != 0)
-            emil.AppendLine($"Logic\t\t[color={GetDisplayColor(nameof(LogicBonus))}]{GetVorzeichen(LogicBonus)}{LogicBonus}[/color]");
-
-        if (WillpowerBonus != 0)
-            emil.AppendLine($"Willpower\t\t[color={GetDisplayColor(nameof(WillpowerBonus))}]{GetVorzeichen(WillpowerBonus)}{WillpowerBonus}[/color]");
-
-        if (CharismaBonus != 0)
-            emil.AppendLine($"Charisma\t\t[color={GetDisplayColor(nameof(CharismaBonus))}]{GetVorzeichen(CharismaBonus)}{CharismaBonus}[/color]");
-
-        return emil.ToString();
-    }
-
-    private string GetVorzeichen(int value) => value >= 0 ? "+" : string.Empty;
-
-    private string GetDisplayColor(string propertyName)
-    {
-        var propertyInfo = GetType().GetProperties().FirstOrDefault(pi => pi.Name == propertyName);
-
-        if (propertyInfo is null)
-            return $"Property {propertyName} not found!";
-
-        var value = (int?)propertyInfo.GetValue(this);
-
-        if (value is null)
-            return string.Empty;
-
-        return value > 0 ? "darkgreen" : "red";
     }
 }

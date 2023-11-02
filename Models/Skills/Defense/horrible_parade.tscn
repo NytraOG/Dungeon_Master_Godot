@@ -4,6 +4,7 @@
 
 [node name="HorribleParade" type="Node3D" node_paths=PackedStringArray("DifficultyBasicClasses", "DifficultyDemandingClasses")]
 script = ExtResource("1_8bbl4")
+Type = 1
 DifficultyBasicClasses = []
 DifficultyDemandingClasses = []
-Type = 1
+MultiplierT = 0.85

@@ -12,29 +12,29 @@ namespace DungeonMaster.Models.Skills;
 
 public abstract partial class BaseSkill : Node3D
 {
-    [Export]                           public int             AcquisitionLevelHeroBasic      = 1;
-    [Export]                           public int             AcquisitionLevelHeroDemanding  = 1;
-    [Export]                           public int             AcquisitionLevelOutOfHeroClass = 1;
-    [ExportGroup("Details")] [Export]  public SkillCategory   Category;
-    [Export]                           public string          DescriptionBase;
-    [Export]                           public BaseHeroclass[] DifficultyBasicClasses;
-    [Export]                           public BaseHeroclass[] DifficultyDemandingClasses;
-    [Export]                           public Texture2D       Icon;
-    [ExportGroup("Leveling")] [Export] public int             Level = 1;
-    [Export]                           public int             ManacostFlat;
-    [Export]                           public double          ManacostLevelScaling;
-    [Export]                           public double          MultiplierT = 1;
+    [ExportGroup("Details")] [Export]  public SkillCategory    Category;
+    [Export]                           public SkillSubcategory Subcategory;
+    [Export]                           public SkillType        Type;
+    [Export]                           public int              ManacostFlat;
+    [Export]                           public double           ManacostLevelScaling;
+    [Export]                           public string           DescriptionBase;
+    [Export]                           public BaseHeroclass[]  DifficultyBasicClasses;
+    [Export]                           public BaseHeroclass[]  DifficultyDemandingClasses;
+    [Export]                           public Texture2D        Icon;
+    [ExportGroup("Leveling")] [Export] public int              Level                          = 1;
+    [Export]                           public int              XpBaseBasic                    = 16;
+    [Export]                           public int              XpBaseDemanding                = 45;
+    [Export]                           public int              XpBaseOutOfClass               = 62;
+    [Export]                           public int              AcquisitionLevelHeroBasic      = 1;
+    [Export]                           public int              AcquisitionLevelHeroDemanding  = 1;
+    [Export]                           public int              AcquisitionLevelOutOfHeroClass = 1;
     [ExportGroup("Tactical Roll")] [Export]
     public Attribute PrimaryAttributeT;
-    [Export] public double           PrimaryScalingT = 2f;
-    [Export] public Attribute        SecondaryAttributeT;
-    [Export] public double           SecondaryScalingT  = 1f;
-    [Export] public double           SkillLevelScalingT = 2f;
-    [Export] public SkillSubcategory Subcategory;
-    [Export] public SkillType        Type;
-    [Export] public int              XpBaseBasic      = 16;
-    [Export] public int              XpBaseDemanding  = 45;
-    [Export] public int              XpBaseOutOfClass = 62;
+    [Export] public double    PrimaryScalingT = 2f;
+    [Export] public Attribute SecondaryAttributeT;
+    [Export] public double    SecondaryScalingT  = 1f;
+    [Export] public double    SkillLevelScalingT = 2f;
+    [Export] public double    MultiplierT        = 1;
 
     //public GameObject       Weapon;
     public int Manacost => (int)(ManacostFlat + Level * ManacostLevelScaling);

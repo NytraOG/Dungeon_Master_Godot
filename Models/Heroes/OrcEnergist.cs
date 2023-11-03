@@ -1,6 +1,5 @@
 using System;
 using DungeonMaster.Enums;
-using DungeonMaster.Models.Items;
 using DungeonMaster.Models.Items.Consumables;
 using DungeonMaster.Models.Items.Equipment;
 using DungeonMaster.Models.Items.Equipment.Weapons;

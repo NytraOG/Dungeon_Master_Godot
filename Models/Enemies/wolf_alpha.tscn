@@ -1,23 +1,40 @@
-[gd_scene load_steps=8 format=3 uid="uid://xwjet8625grl"]
+[gd_scene load_steps=12 format=3 uid="uid://xwjet8625grl"]
 
 [ext_resource type="Script" path="res://Models/Enemies/WolfAlpha.cs" id="1_7ej0k"]
 [ext_resource type="PackedScene" uid="uid://52cwpwctrwwf" path="res://Models/Enemies/MonsterTypes/wolf.tscn" id="2_pdxce"]
 [ext_resource type="PackedScene" uid="uid://mvrv2ywku1r8" path="res://Models/Enemies/Keywords/alpha.tscn" id="3_53erl"]
 [ext_resource type="PackedScene" uid="uid://rww43rl6cqmf" path="res://Models/Enemies/Keywords/evasive.tscn" id="4_6rbae"]
 [ext_resource type="Texture2D" uid="uid://dhxy08q3wiv0g" path="res://Graphics/art/WolfApha.png" id="5_rqqh5"]
+[ext_resource type="Shader" path="res://Models/Heroes/orc_energist.gdshader" id="6_s523a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qfsbw"]
 radius = 0.292067
 height = 0.584133
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_250vi"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xrabp"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oaia5"]
+shader = ExtResource("6_s523a")
+shader_parameter/max_line_width = 10.0
+shader_parameter/min_line_width = 5.0
+shader_parameter/freq = 1.0
+shader_parameter/block_size = 20.0
+shader_parameter/starting_colour = Vector4(1, 0.2, 0, 0.8)
+shader_parameter/ending_colour = Vector4(1, 1, 1, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4r6o"]
+atlas = ExtResource("5_rqqh5")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_esyer"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_rqqh5")
+"texture": SubResource("AtlasTexture_d4r6o")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -43,11 +60,21 @@ Quickness = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.244315, 0)
 shape = SubResource("CapsuleShape3D_qfsbw")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+[node name="Sprite3D" type="Sprite3D" parent="."]
 flip_h = true
 billboard = 1
-sprite_frames = SubResource("SpriteFrames_250vi")
-animation = &"idle"
+texture = SubResource("ViewportTexture_xrabp")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_oaia5")
+sprite_frames = SubResource("SpriteFrames_esyer")
+offset = Vector2(64, 32)
 
 [connection signal="input_event" from="CharacterBody3D" to="." method="_on_creature_input_event"]
+[connection signal="mouse_entered" from="CharacterBody3D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CharacterBody3D" to="." method="_on_mouse_exited"]

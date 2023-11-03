@@ -160,10 +160,11 @@ transparent_bg = true
 size = Vector2i(128, 128)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_ud1en")
 sprite_frames = SubResource("SpriteFrames_pw034")
 animation = &"idle"
-frame_progress = 0.22838
+frame_progress = 0.290867
 offset = Vector2(64, 64)
 
 [connection signal="input_event" from="CharacterBody3D" to="." method="_on_hero_input_event"]

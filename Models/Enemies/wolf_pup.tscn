@@ -1,14 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://kv2s7ldy7v3e"]
+[gd_scene load_steps=11 format=3 uid="uid://kv2s7ldy7v3e"]
 
 [ext_resource type="Script" path="res://Models/Enemies/WolfPup.cs" id="1_0ebop"]
 [ext_resource type="PackedScene" uid="uid://52cwpwctrwwf" path="res://Models/Enemies/MonsterTypes/wolf.tscn" id="2_86f42"]
 [ext_resource type="PackedScene" uid="uid://cjns0t46biiiw" path="res://Models/Enemies/Keywords/pup.tscn" id="3_up2jg"]
 [ext_resource type="PackedScene" uid="uid://bbo0dc38hpn04" path="res://Models/Enemies/Keywords/precise.tscn" id="4_pbc8d"]
 [ext_resource type="Texture2D" uid="uid://hgqfsoltq7t3" path="res://Graphics/art/WolfPup.png" id="5_xpjdq"]
+[ext_resource type="Shader" path="res://Models/Heroes/orc_energist.gdshader" id="6_0vhf4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ccr4q"]
 radius = 0.314505
 height = 0.62901
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_seisp"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gv8kx"]
+shader = ExtResource("6_0vhf4")
+shader_parameter/max_line_width = 10.0
+shader_parameter/min_line_width = 5.0
+shader_parameter/freq = 1.0
+shader_parameter/block_size = 20.0
+shader_parameter/starting_colour = Vector4(1, 0.2, 0, 0.8)
+shader_parameter/ending_colour = Vector4(1, 1, 1, 0)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lu1lv"]
 animations = [{
@@ -43,11 +56,22 @@ Quickness = 6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.227857, 0)
 shape = SubResource("CapsuleShape3D_ccr4q")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+[node name="Sprite3D" type="Sprite3D" parent="."]
 flip_h = true
 billboard = 1
+texture = SubResource("ViewportTexture_seisp")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_gv8kx")
 sprite_frames = SubResource("SpriteFrames_lu1lv")
 animation = &"idle"
+offset = Vector2(64, 32)
 
 [connection signal="input_event" from="CharacterBody3D" to="." method="_on_creature_input_event"]
+[connection signal="mouse_entered" from="CharacterBody3D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CharacterBody3D" to="." method="_on_mouse_exited"]

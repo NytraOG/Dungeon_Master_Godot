@@ -17,11 +17,14 @@ public abstract partial class BaseCreature : BaseUnit
 
     public delegate void SomeSignalWithIntArgument(BaseCreature creature);
 
-    public          List<Positions> FavouritePositions = new() { Positions.None };
-    private         bool            isInitialized;
-    [Export] public Keyword[]       Keywords;
-    [Export] public double          LevelModifier;
-    [Export] public BaseMonstertype Monstertype;
+    public             List<Positions> FavouritePositions = new() { Positions.None };
+    private            bool            isInitialized;
+    [Export] public    Keyword[]       Keywords;
+    [Export] public    double          LevelModifier;
+    [Export] public    BaseMonstertype Monstertype;
+    public             ShaderMaterial  Shader                    { get; set; }
+    protected override Vector4         SpriteOutlineColorHover   => new(1, 0.2f, 0, 0.8f);  //Red
+    protected override Vector4         SpriteOutlineColorClicked => new(1, 1, 0, 0.8f);     //Orange
 
     public override void _Process(double delta)
     {
@@ -32,8 +35,17 @@ public abstract partial class BaseCreature : BaseUnit
         isInitialized = true;
     }
 
+    public void _on_mouse_exited() => Shader.SetShaderParameter("starting_colour", SpriteOutlineColorInvisible);
+
+    public void _on_mouse_entered() => Shader.SetShaderParameter("starting_colour", SpriteOutlineColorHover);
+
     public override void Initialize()
     {
+        var animatedSPrite = GetNode<AnimatedSprite2D>($"%{nameof(AnimatedSprite2D)}");
+        Shader = (ShaderMaterial)animatedSPrite.Material.Duplicate();
+        Shader.SetShaderParameter("starting_colour", SpriteOutlineColorInvisible);
+        animatedSPrite.Material = Shader;
+
         FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
         Displayname        = $"{Monstertype.Displayname} {Keywords[0]?.Displayname}";
         Name               = Displayname;
@@ -163,7 +175,10 @@ public abstract partial class BaseCreature : BaseUnit
 
     private void _on_creature_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
     {
-        if (@event is InputEventMouseButton { Pressed: true })
-            OnSomeSignal?.Invoke(this);
+        if (@event is not InputEventMouseButton { Pressed: true })
+            return;
+
+        Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
+        OnSomeSignal?.Invoke(this);
     }
 }

@@ -19,23 +19,26 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
 {
     public delegate void RoundFinishedEventHandler();
 
-    public  Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
-    public  List<Buff>                         Buffs        = new();
-    private int                                charisma     = 4;
-    private int                                constitution = 4;
-    private double                             currentHitpoints;
-    private double                             currentMana;
-    public  List<Debuff>                       Debuffs   = new();
-    private int                                dexterity = 4;
-    private int                                intuition = 4;
-    private int                                level     = 1;
-    private int                                logic     = 4;
-    private double                             maximumHitpoints;
-    private int                                quickness = 4;
-    public  List<BaseSkill>                    Skills    = new();
-    private int                                strength  = 4;
-    private int                                willpower = 4;
-    private int                                wisdom    = 4;
+    public             Dictionary<BaseSupportSkill, bool> ActiveSkills = new();
+    public             List<Buff>                         Buffs        = new();
+    private            int                                charisma     = 4;
+    private            int                                constitution = 4;
+    private            double                             currentHitpoints;
+    private            double                             currentMana;
+    public             List<Debuff>                       Debuffs   = new();
+    private            int                                dexterity = 4;
+    private            int                                intuition = 4;
+    private            int                                level     = 1;
+    private            int                                logic     = 4;
+    private            double                             maximumHitpoints;
+    private            int                                quickness                   = 4;
+    public             List<BaseSkill>                    Skills                      = new();
+    protected          Vector4                            SpriteOutlineColorInvisible = new(0, 0, 0, 0);
+    private            int                                strength                    = 4;
+    private            int                                willpower                   = 4;
+    private            int                                wisdom                      = 4;
+    protected abstract Vector4                            SpriteOutlineColorHover { get; }
+    protected abstract Vector4                            SpriteOutlineColorClicked { get; }
 
     //Stats
     [Export]
@@ -412,7 +415,7 @@ public abstract partial class BaseUnit : Node3D, INotifyPropertyChanged
             var floatingCombatTextInstance = FloatingCombatText.Instantiate<FloatingCombatText>();
 
             floatingCombatTextInstance.Display      = floatingCombatTextInstance.GetNode<Label>("Label");
-            floatingCombatTextInstance.Display.Text = receivedDamage.ToString();
+            floatingCombatTextInstance.Display.Text = receivedDamage <= 0 ? "Miss" : receivedDamage.ToString();
             floatingCombatTextInstance.Damage       = receivedDamage;
             floatingCombatTextInstance.Position     = cameraUnposition + new Vector2(0, -50);
             floatingCombatTextInstance.Show();

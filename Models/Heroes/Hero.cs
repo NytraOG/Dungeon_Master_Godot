@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Linq;
 using DungeonMaster.Enums;
-using DungeonMaster.Models.Enemies;
 using DungeonMaster.Models.Heroes.Classes;
 using DungeonMaster.Models.Heroes.Races;
 using DungeonMaster.Models.Skills;
@@ -15,21 +14,27 @@ public partial class Hero : BaseUnit
 {
     public delegate void SelectedEvent(Hero sender);
 
-    private         AnimatedSprite3D animatedSprite;
-    public          bool             CanStillAct = true;
-    [Export] public BaseHeroclass    Class;
-    [Export] public EquipmentSystem  Equipment;
-    [Export] public BaseSkill        InherentSkill;
-    [Export] public InventorySystem  Inventory;
-    [Export] public int              InventorySize;
-    private         bool             isInitialized;
-    private         Main             main;
-    [Export] public BaseRace         Race;
-    private         bool             shadowIsGrowing;
-    private         int              shadowValue = 300;
+    private            AnimatedSprite2D animatedSprite;
+    public             bool             CanStillAct = true;
+    [Export] public    BaseHeroclass    Class;
+    [Export] public    EquipmentSystem  Equipment;
+    [Export] public    BaseSkill        InherentSkill;
+    [Export] public    InventorySystem  Inventory;
+    [Export] public    int              InventorySize;
+    private            bool             isInitialized;
+    private            Main             main;
+    [Export] public    BaseRace         Race;
+    private            bool             shadowIsGrowing;
+    private            int              shadowValue = 300;
+    public             ShaderMaterial   Shader                    { get; set; }
+    protected override Vector4          SpriteOutlineColorHover   => new(0, 1, 1, 0.8f);    //Türkis
+    protected override Vector4          SpriteOutlineColorClicked => new(0, 1, 0, 0.8f);    //Green
 
     public override void _Ready()
     {
+        Shader = (ShaderMaterial)GetNode<AnimatedSprite2D>($"%{nameof(AnimatedSprite2D)}").Material;
+        Shader.SetShaderParameter("starting_colour", SpriteOutlineColorHover);
+
         FloatingCombatText = ResourceLoader.Load<PackedScene>("res://UI/floating_combat_text.tscn");
         main               = (Main)GetTree().CurrentScene;
 
@@ -42,7 +47,7 @@ public partial class Hero : BaseUnit
         Inventory.Initialize(main.InventorySize);
         Equipment.Initialize();
 
-        animatedSprite           = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
+        animatedSprite           = GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
         animatedSprite.Animation = "idle";
         animatedSprite.Play();
 

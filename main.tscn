@@ -140,6 +140,7 @@ script = ExtResource("7_ju2u4")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+texture_hover = null
 
 [node name="SkillButton2" parent="SkillBar/SkillContainer" instance=ExtResource("8_rufrx")]
 layout_mode = 2
@@ -242,7 +243,6 @@ offset_right = -10.0
 offset_bottom = 489.0
 
 [node name="Inventory" parent="InventoryDisplay" instance=ExtResource("13_t30m4")]
-visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -317,7 +317,6 @@ alignment = 1
 script = ExtResource("16_34bl1")
 
 [node name="EquipmentDisplay" parent="." instance=ExtResource("15_d2ps7")]
-visible = false
 
 [node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
 visible = false

@@ -14,7 +14,7 @@ public partial class GatherThePack : BaseSummonSkill
         for (var i = 0; i < UnitsToSpawn.Length; i++)
         {
             var instance = UnitsToSpawn[i].Instantiate<BaseUnit>();
-            instance.SetPosition(new Vector3(0, 0, (float)(i + 1) / 2), new Vector3(-2, 0, 0));
+            instance.SetPosition(new Vector3(actor.Position.X, 0, actor.Position.Z + (float)(i + 1) / 3), new Vector3(-2, 0, 0));
             mainScene.AddChild(instance);
 
             if (actor.Owner is not Main main)

@@ -718,7 +718,7 @@ public partial class Main : Node,
     public void _on_skill_button_timed_out(BaseSkillButton sender)
     {
         sender.Disabled  = false;
-        sender.Time.Text = string.Empty;
+      //  sender.Time.Text = string.Empty;
         sender.SetProcess(false);
     }
 

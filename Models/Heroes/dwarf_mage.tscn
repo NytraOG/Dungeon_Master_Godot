@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://bfppalap8os7e"]
+[gd_scene load_steps=24 format=3 uid="uid://bfppalap8os7e"]
 
 [ext_resource type="Script" path="res://Models/Heroes/DwarfMage.cs" id="1_121ho"]
 [ext_resource type="Texture2D" uid="uid://bewm0g2qlhqgo" path="res://Graphics/Fire vizard/Dead.png" id="2_i3ffw"]
 [ext_resource type="Texture2D" uid="uid://bllrvochpgexx" path="res://Graphics/Fire vizard/Idle.png" id="2_vim43"]
 [ext_resource type="PackedScene" uid="uid://bjxfjxhjaxqpl" path="res://Models/Heroes/Classes/mage.tscn" id="3_t0oae"]
 [ext_resource type="PackedScene" uid="uid://c1cgq6b2i8mb6" path="res://Models/Heroes/Races/dwarf.tscn" id="4_xjkip"]
+[ext_resource type="Shader" path="res://Models/Heroes/orc_energist.gdshader" id="6_l628y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38bx8"]
 atlas = ExtResource("2_i3ffw")
@@ -114,6 +115,18 @@ animations = [{
 radius = 0.130527
 height = 0.692061
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_v5fjl"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ud1en"]
+shader = ExtResource("6_l628y")
+shader_parameter/max_line_width = 10.0
+shader_parameter/min_line_width = 5.0
+shader_parameter/freq = 1.0
+shader_parameter/block_size = 20.0
+shader_parameter/starting_colour = Vector4(0, 1, 1, 0.8)
+shader_parameter/ending_colour = Vector4(1, 1, 1, 0)
+
 [node name="DwarfMage" type="Node3D" node_paths=PackedStringArray("Class", "Race")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 script = ExtResource("1_121ho")
@@ -121,6 +134,8 @@ Class = NodePath("Mage")
 Race = NodePath("Dwarf")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0340464, 0.096257, 0)
+visible = false
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_pw034")
 animation = &"die"
@@ -134,5 +149,21 @@ shape = SubResource("CapsuleShape3D_2b7vn")
 [node name="Mage" parent="." instance=ExtResource("3_t0oae")]
 
 [node name="Dwarf" parent="." instance=ExtResource("4_xjkip")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0459203, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_v5fjl")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite3D/SubViewport"]
+material = SubResource("ShaderMaterial_ud1en")
+sprite_frames = SubResource("SpriteFrames_pw034")
+animation = &"idle"
+frame_progress = 0.22838
+offset = Vector2(64, 64)
 
 [connection signal="input_event" from="CharacterBody3D" to="." method="_on_hero_input_event"]

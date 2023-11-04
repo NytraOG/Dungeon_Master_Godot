@@ -21,10 +21,11 @@ public abstract partial class BaseCreature : BaseUnit
     private            bool            isInitialized;
     [Export] public    Keyword[]       Keywords;
     [Export] public    double          LevelModifier;
+    private            Main            main;
     [Export] public    BaseMonstertype Monstertype;
     public             ShaderMaterial  Shader                    { get; set; }
-    protected override Vector4         SpriteOutlineColorHover   => new(1, 0.2f, 0, 0.8f);  //Red
-    protected override Vector4         SpriteOutlineColorClicked => new(1, 1, 0, 0.8f);     //Orange
+    protected override Vector4         SpriteOutlineColorHover   => new(1, 0.2f, 0, 0.8f); //Red
+    protected override Vector4         SpriteOutlineColorClicked => new(1, 1, 0, 0.8f);    //Orange
 
     public override void _Process(double delta)
     {
@@ -35,12 +36,35 @@ public abstract partial class BaseCreature : BaseUnit
         isInitialized = true;
     }
 
-    public void _on_mouse_exited() => Shader.SetShaderParameter("starting_colour", SpriteOutlineColorInvisible);
+    public void _on_mouse_exited()
+    {
+        if (main.SelectedTargets.Any(t => t.Name == Name) || main.SkillSelection.Any(ss => ss.Targets.Any(t => t.Name == Name)))
+        {
+            Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
+            return;
+        }
+        // if(main?.SelectedSkill is not null)
+        Shader.SetShaderParameter("starting_colour", SpriteOutlineColorInvisible);
+        // else
+        // {
+        //     Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
+        // }
+    }
 
-    public void _on_mouse_entered() => Shader.SetShaderParameter("starting_colour", SpriteOutlineColorHover);
+    public void _on_mouse_entered()
+    {
+        if (main.SelectedTargets.Any(t => t.Name == Name) || main.SkillSelection.Any(ss => ss.Targets.Any(t => t.Name == Name)))
+        {
+            Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
+            return;
+        }
+
+        Shader.SetShaderParameter("starting_colour", SpriteOutlineColorHover);
+    }
 
     public override void Initialize()
     {
+        main = (Main)GetTree().CurrentScene;
         var animatedSPrite = GetNode<AnimatedSprite2D>($"%{nameof(AnimatedSprite2D)}");
         Shader = (ShaderMaterial)animatedSPrite.Material.Duplicate();
         Shader.SetShaderParameter("starting_colour", SpriteOutlineColorInvisible);
@@ -178,7 +202,9 @@ public abstract partial class BaseCreature : BaseUnit
         if (@event is not InputEventMouseButton { Pressed: true })
             return;
 
-        Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
+        if (main?.SelectedSkill is not null)
+            Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
+
         OnSomeSignal?.Invoke(this);
     }
 }

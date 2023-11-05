@@ -766,7 +766,8 @@ public partial class Main : Node,
         }
 
         SelectedTargets.Clear();
-
+        SelectedHero = null;
+        SelectedEnemy = null;
         SelectedSkill = null;
     }
 

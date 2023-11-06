@@ -29,8 +29,6 @@ public abstract partial class BaseCreature : BaseUnit
 
     public override void _Process(double delta)
     {
-        
-
         if (isInitialized)
             return;
 
@@ -40,22 +38,20 @@ public abstract partial class BaseCreature : BaseUnit
 
     public void _on_mouse_exited()
     {
-        if (main.SelectedTargets.Any(t => t.Name == Name) || main.SkillSelection.Any(ss => ss.Actor.Name == main.SelectedHero?.Name && ss.Targets.Any(t => t.Name == Name)))
+        if (main.SelectedTargets.Any(t => t.Name == Name) ||
+            main.SkillSelection.Any(ss => ss.Actor.Name == main.SelectedHero?.Name && ss.Targets.Any(t => t.Name == Name)))
         {
             Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
             return;
         }
-        // if(main?.SelectedSkill is not null)
+
         Shader.SetShaderParameter("starting_colour", SpriteOutlineColorInvisible);
-        // else
-        // {
-        //     Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
-        // }
     }
 
     public void _on_mouse_entered()
     {
-        if (main.SelectedTargets.Any(t => t.Name == Name) || main.SkillSelection.Any(ss => ss.Actor.Name == main.SelectedHero?.Name && ss.Targets.Any(t => t.Name == Name)))
+        if (main.SelectedTargets.Any(t => t.Name == Name) ||
+            main.SkillSelection.Any(ss => ss.Actor.Name == main.SelectedHero?.Name && ss.Targets.Any(t => t.Name == Name)))
         {
             Shader.SetShaderParameter("starting_colour", SpriteOutlineColorClicked);
             return;

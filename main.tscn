@@ -186,8 +186,10 @@ size_flags_vertical = 4
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -61.0
-offset_right = 244.0
+offset_left = 1675.0
+offset_top = -62.0
+offset_right = 1919.0
+offset_bottom = -1.0
 grow_vertical = 0
 alignment = 1
 
@@ -237,25 +239,27 @@ scale = Vector2(0.5, 0.5)
 [node name="InventoryDisplay" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -10.0
-offset_top = 489.0
-offset_right = -10.0
-offset_bottom = 489.0
+offset_left = 829.0
+offset_top = 843.0
+offset_right = 829.0
+offset_bottom = 843.0
 
 [node name="Inventory" parent="InventoryDisplay" instance=ExtResource("13_t30m4")]
 layout_mode = 0
-offset_left = 520.0
-offset_top = -489.0
-offset_right = 1032.0
-offset_bottom = -361.0
+offset_left = 234.0
+offset_top = -690.0
+offset_right = 746.0
+offset_bottom = -562.0
 
 [node name="Party" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
+offset_left = -1615.0
+offset_top = -1.0
+offset_right = -1575.0
+offset_bottom = 39.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -317,6 +321,10 @@ alignment = 1
 script = ExtResource("16_34bl1")
 
 [node name="EquipmentDisplay" parent="." instance=ExtResource("15_d2ps7")]
+offset_left = 553.0
+offset_top = 153.0
+offset_right = 1065.0
+offset_bottom = 665.0
 
 [node name="ItemTooltip" parent="." instance=ExtResource("16_anps1")]
 visible = false
@@ -374,10 +382,8 @@ layout_mode = 2
 text = "Resume"
 
 [node name="CombatLog" parent="." instance=ExtResource("18_h57c0")]
-offset_left = 1419.0
-offset_top = 779.0
-offset_right = 1419.0
-offset_bottom = 779.0
+offset_top = 780.0
+offset_bottom = 780.0
 
 [connection signal="CreatureClicked" from="WolfAlpha" to="." method="_on_creature_creature_clicked"]
 [connection signal="pressed" from="Actions/Undo" to="." method="_on_undo_pressed"]

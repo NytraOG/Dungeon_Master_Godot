@@ -69,7 +69,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.504004, 0, -0.00804985)
 
 [node name="OrcEnergist" parent="." instance=ExtResource("2_tnr5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.261147)
-InventorySize = 30
+InventorySize = 44
 Level = 3
 Strength = 6
 Dexterity = 6
@@ -79,13 +79,13 @@ Quickness = 6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.32182, 0.5, 0.00026834)
 Class = NodePath("../OrcEnergist/Energist")
 InherentSkill = NodePath("../OrcEnergist/Knives")
-InventorySize = 30
+InventorySize = 44
 Race = NodePath("../OrcEnergist/Orc")
 Level = 2
 
 [node name="DwarfMage" parent="." instance=ExtResource("6_1ccm7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.480123, 0.65, 0.68669)
-InventorySize = 30
+InventorySize = 44
 Level = 9
 Wisdom = 7
 Willpower = 7
@@ -244,10 +244,10 @@ offset_bottom = 489.0
 
 [node name="Inventory" parent="InventoryDisplay" instance=ExtResource("13_t30m4")]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = 520.0
+offset_top = -489.0
+offset_right = 1032.0
+offset_bottom = -361.0
 
 [node name="Party" type="Control" parent="."]
 layout_mode = 3

@@ -60,7 +60,7 @@ public partial class Main : Node,
     public EquipmentSystem                   EquipmentSystem     { get; set; }
     public CombatLog                         CombatLog           { get; set; }
     public Vector2                           GlobalPositionMouse { get; set; }
-    public int                               InventorySize       { get; set; } = 35;
+    public int                               InventorySize       { get; set; } = 49;
     public event PropertyChangedEventHandler PropertyChanged;
 
     private async void _on_start_round_pressed() => await HandleBattleround();

@@ -1,0 +1,13 @@
+<Project Sdk="Godot.NET.Sdk/4.1.1">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+    </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Models\Enemies\"/>
+        <Folder Include="Models\Heroes\Classes\"/>
+        <Folder Include="Models\Heroes\Races\"/>
+        <Folder Include="Models\Skills\Statuseffects\Buffs\"/>
+        <Folder Include="Models\Skills\Statuseffects\Debuffs\"/>
+    </ItemGroup>
+</Project>

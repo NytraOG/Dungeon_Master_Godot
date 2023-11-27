@@ -32,6 +32,7 @@ public abstract partial class BaseCreature : BaseUnit
         if (isInitialized)
             return;
 
+        //test
         Initialize();
         isInitialized = true;
     }

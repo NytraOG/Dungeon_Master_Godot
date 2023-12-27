@@ -119,25 +119,25 @@ public partial class Main : Node,
 	{
 		var globalMousePosition = mouseMotion.GlobalPosition;
 
-		var screensize = GetViewport().GetVisibleRect().Size;
+		var screenSize = GetViewport().GetVisibleRect().Size;
 
 		var adjustedPosition = new Vector2
 		{
-			X = Mathf.Clamp(globalMousePosition.X + 50, 0, screensize.X - 4),
-			Y = Mathf.Clamp(globalMousePosition.Y + 10, 0, screensize.Y - 4)
+			X = Mathf.Clamp(globalMousePosition.X + 50, 0, screenSize.X - 4),
+			Y = Mathf.Clamp(globalMousePosition.Y + 10, 0, screenSize.Y - 4)
 		};
 
 		var xOverlap = adjustedPosition.X + ItemTooltip.Size.X;
 
-		if (xOverlap > screensize.X)
-			adjustedPosition.X -= xOverlap - screensize.X;
+		if (xOverlap > screenSize.X)
+			adjustedPosition.X -= xOverlap - screenSize.X;
 
 		var yOverlap = adjustedPosition.Y + ItemTooltip.Size.Y;
 
-		if (yOverlap > screensize.Y)
-			adjustedPosition.Y -= yOverlap - screensize.Y;
+		if (yOverlap > screenSize.Y)
+			adjustedPosition.Y -= yOverlap - screenSize.Y;
 
-		ItemTooltip.SetPosition(adjustedPosition);
+		ItemTooltip.SetPosition(globalMousePosition * new Vector2(0.5f,0.5f));
 	}
 
 	private void MoveMousItem(InputEventMouseMotion mouseMotion) => MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);

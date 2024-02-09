@@ -13,7 +13,7 @@ public enum EquipSlot
     Underpants,
     Pants,
     Socks,
-    Shoes,
+    Boots,
     Ring,
     Mainhand,
     Offhand

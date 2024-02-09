@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn8rdmo36ppwi"]
+
+[ext_resource type="Script" path="res://Models/Items/Equipment/ShabbyBoots.cs" id="1_khu0j"]
+[ext_resource type="Texture2D" uid="uid://d0qv7hrbmn62b" path="res://Graphics/Items/Armor/ShabbyBoots.png" id="2_1yrs1"]
+
+[node name="ShabbyBoots" type="Node3D"]
+script = ExtResource("1_khu0j")
+Icon = ExtResource("2_1yrs1")

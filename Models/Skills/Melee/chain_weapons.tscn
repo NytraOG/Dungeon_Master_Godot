@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm7h62wq7bg4n"]
+
+[ext_resource type="Script" path="res://Models/Skills/Melee/ChainWeapons.cs" id="1_0qo8e"]
+
+[node name="ChainWeapons" type="Node3D" node_paths=PackedStringArray("AppliedDebuffs", "DifficultyBasicClasses", "DifficultyDemandingClasses")]
+script = ExtResource("1_0qo8e")
+AppliedDebuffs = []
+DifficultyBasicClasses = []
+DifficultyDemandingClasses = []

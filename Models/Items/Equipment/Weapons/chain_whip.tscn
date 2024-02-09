@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjlkl27w1gw7i"]
+
+[ext_resource type="Script" path="res://Models/Items/Equipment/Weapons/ChainWhip.cs" id="1_4hdc6"]
+[ext_resource type="PackedScene" uid="uid://dm7h62wq7bg4n" path="res://Models/Skills/Melee/chain_weapons.tscn" id="2_ludwm"]
+[ext_resource type="Texture2D" uid="uid://c2i3os5ycmwid" path="res://Graphics/Items/ChainWhip.png" id="2_n3f1u"]
+[ext_resource type="PackedScene" uid="uid://ktpxt7a78krn" path="res://Models/Skills/Statuseffects/Debuffs/bleed.tscn" id="3_b2lik"]
+
+[node name="ChainWhip" type="Node3D" node_paths=PackedStringArray("RequiredSkill")]
+script = ExtResource("1_4hdc6")
+AddedDamageNormal = 1
+AddedDamageGood = 1
+AddedDamageCritical = 3
+RequiredSkill = NodePath("ChainWeapons")
+RequiredSkilllevel = 1
+Icon = ExtResource("2_n3f1u")
+
+[node name="ChainWeapons" parent="." node_paths=PackedStringArray("AppliedDebuffs") instance=ExtResource("2_ludwm")]
+AppliedDebuffs = [NodePath("../Bleed")]
+
+[node name="Bleed" parent="." instance=ExtResource("3_b2lik")]
+ProbabilityToApply = 1.0
+Duration = 1

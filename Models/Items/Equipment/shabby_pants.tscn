@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bosa6q0yejfqr"]
+[gd_scene load_steps=3 format=3 uid="uid://bosa6q0yejfqr"]
 
 [ext_resource type="Script" path="res://Models/Items/Equipment/ShabbyPants.cs" id="1_6fhby"]
+[ext_resource type="Texture2D" uid="uid://dimgcjj51ue64" path="res://Graphics/Items/Armor/ShabbyPants.png" id="2_0gced"]
 
 [node name="ShabbyPants" type="Node3D"]
 script = ExtResource("1_6fhby")
 SlashNormal = 1
 IceNormal = 1
+Rarity = 1
+Icon = ExtResource("2_0gced")

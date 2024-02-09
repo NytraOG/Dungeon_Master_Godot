@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bosa6q0yejfqr"]
+
+[ext_resource type="Script" path="res://Models/Items/Equipment/ShabbyPants.cs" id="1_6fhby"]
+
+[node name="ShabbyPants" type="Node3D"]
+script = ExtResource("1_6fhby")
+SlashNormal = 1
+IceNormal = 1

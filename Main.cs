@@ -120,12 +120,15 @@ public partial class Main : Node,
         var globalMousePosition = mouseMotion.GlobalPosition;
 
         var screenSize = DisplayServer.ScreenGetSize();
-        //var screenSize = GetViewport().GetVisibleRect().Size;
+        var viewportSize = GetViewport().GetVisibleRect().Size;
 
+        var resolutionFactorX = screenSize.X / viewportSize.X;
+        var resolutionFactorY = screenSize.Y / viewportSize.Y;
+        
         var adjustedPosition = new Vector2
         {
-            X = Mathf.Clamp(globalMousePosition.X, 0, screenSize.X - 4),
-            Y = Mathf.Clamp(globalMousePosition.Y, 0, screenSize.Y - 4)
+            X = Mathf.Clamp(globalMousePosition.X / resolutionFactorX, 0, screenSize.X - 4),
+            Y = Mathf.Clamp(globalMousePosition.Y / resolutionFactorY, 0, screenSize.Y - 4)
         };
 
         LimitOffscreenRendering(adjustedPosition, screenSize);

@@ -127,6 +127,13 @@ public partial class Main : Node,
 			Y = Mathf.Clamp(globalMousePosition.Y, 0, screenSize.Y - 4)
 		};
 
+		LimitOffscreenRendering(adjustedPosition, screenSize);
+
+		ItemTooltip.SetPosition(globalMousePosition);
+	}
+
+	private void LimitOffscreenRendering(Vector2 adjustedPosition, Vector2 screenSize)
+	{
 		var xOverlap = adjustedPosition.X + ItemTooltip.Size.X;
 
 		if (xOverlap > screenSize.X)
@@ -136,8 +143,6 @@ public partial class Main : Node,
 
 		if (yOverlap > screenSize.Y)
 			adjustedPosition.Y -= yOverlap - screenSize.Y;
-
-		ItemTooltip.SetPosition(globalMousePosition * new Vector2(0.5f,0.5f));
 	}
 
 	private void MoveMousItem(InputEventMouseMotion mouseMotion) => MouseItemSlot.Position = mouseMotion.Position + new Vector2(3, 3);
